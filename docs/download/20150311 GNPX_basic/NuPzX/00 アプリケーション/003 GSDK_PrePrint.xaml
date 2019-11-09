@@ -1,7 +1,0 @@
-﻿<Window x:Class="GNPZ_sdk.GNP00_PrePrint"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="GNP00_PrePrint" Height="1120" Width="794">
-    <Grid Name="GNP00_4Prob" Width="600" Height="900">        
-    </Grid>
-</Window>
