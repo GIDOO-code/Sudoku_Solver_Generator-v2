@@ -1,0 +1,172 @@
+﻿@charset "utf-8";
+
+body{
+    margin: 0;
+    padding: 0;
+    color: #000000;
+	background: #ffffff;
+	font-family: Georgia, 'Hiragino Gothic Pro', Meiryo, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family:"Hiragino Kaku Gothic Pro",  Meiryo, sans-serif;
+    font-weight:lighter;
+}
+p{
+	line-height:1.4
+}
+
+a:link, a:visited{
+    color:#00c;
+    text-decoration:none;
+}
+a:hover {
+    color:#0cc;
+}
+
+
+
+section, article, aside, nav, header, footer {
+    display:block;
+    background-color: #fff;
+    margin:1px;
+    font-size: 12pt;
+    color: #000;
+    text-align: left;
+//    border-radius: 8px;
+//    box-shadow: 0px 0px 4px #666;
+//    border: 1px solid #d3d3d3;
+//    padding: 0 20px 10px 20px;
+}
+
+
+#page {
+    margin: 5px 10px 5px 40px;
+    width: 1000px;
+}
+/*
+header{
+	background-color: #fff;
+//	background-color:#aaaaff;
+	margin-top: 10px;
+   	padding: 10px 30px 10px 20px; 
+   	border-top: 5px solid #000099;
+    border-bottom: 5px solid #000099;
+}
+*/
+
+*/
+
+nav ul{
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0 ;
+    border: 2px solid #e0e0e0;
+    font-size: 12px;
+    font-family: "���C���I", Meiryo, sans-serif;
+    line-height: 1.8;
+}
+nav li{
+    display: block;
+    float: left;
+    border-right: 1px solid #e0e0e0;
+}
+nav a{
+    display: block;
+    padding: 5px 25px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #0066CC; 
+}
+nav a:hover{
+    color: #CCCCFF;
+    background-color: #000080;
+}
+nav #current a{
+    background: #ffffff;
+}
+
+
+
+#main{
+    float: left;
+    width: 1000px;
+    background: #ffffff;//#ccccee
+}
+#main article{
+	margin-top: 0px;
+    padding: 0px 20px;
+    clear: left
+}
+#main article h3{
+  	margin: 0;
+}
+#main article .imgL{
+    float: left;
+    width: 240px;
+    height:240px;
+    margin: 0px 10px 0 10px;
+}
+#main article .imgR{
+    float: right;
+    width: 240px;
+    height:240px;
+    margin: 0px 10px 20px;
+}
+#main article .img50P{
+    width: 50%;
+    height: 50%;
+}
+
+#main article .newLine{
+	clear: left;
+	padding-top: 0
+}
+
+
+/*
+#side{
+    float: right;
+    width: 300px;
+    background: #aaaaff;
+}
+
+
+#side aside section{
+    margin: 10px 0;
+    padding: 5px 10px 0 10px;
+    border: 1px solid #b8b8b8 ;
+    background-color: #f0f0f0  ;
+    border-radius: 5px;
+    box-shadow: inset 2px 2px 0 #ffffff, 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#side img{
+    float: left;
+    margin: 0.5em 1em 0 0;
+}
+#side h2{
+  margin-top: 0;
+}
+*/
+
+
+footer{
+    clear: both;
+    border-top: 2px solid #000099;
+}
+#copyright {
+    clear: both;
+    margin: 0;
+    padding: 0px;
+    text-align: center;
+    color: 0;
+    background-color: #f0f0f0;
+    border: 1px solid #b8b8b8 ;
+}
+
+
+
+
+
+

@@ -1,0 +1,298 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku  C# NiceLoop</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+		.ulNone{ list-style-type:none; }
+		.FSize{font-size:small; color:blue }
+	</style>
+</head>
+
+
+<body id="page" onload="prettyPrint()">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+	<h2>Super Link</h2>		   
+	<p>In Sudoku's various solutions, <a href="page25.html">Strong and Weak links</a> between cells are used.
+	There are various kinds of links besides inter-cell links.<br>
+	Grouped Cells link is a link by arrangement of multiple cells of block.<br>
+	EmptyRectangle is an algorithm based on a combination of Grouped cells link and inter-cell link.<br>
+	ALS based algorithms use a relatively simple Link that occurs in ALS.<br>
+	Inter-cell link, Grouped Cells link, ALS link will be called super link.<br>
+	Here, we show the algorithm to use super link in conjunction.<br>
+	It is difficult to understand Superlink's program code by browsing only, it is not shown here.
+	Download GNPX and taste it.<br>
+
+	Since the restriction of A → B is not transmitted, nothing makes sense.
+	<h2>Grouped Cells Link</h2>	
+	<p>Assume that numbers are arranged in blocks 1, 2, and 3 as shown on the left.<br>
+	At this time, if the number in cell A is #1, the number in cell group B is -#1 (not 1).
+	This is a weak link from cell A to cell group B.<br>
+	If the arrangement is as shown in the right figure, constraints are transmitted to A(1)→B(-#1)→C(#1).
+	A(-#1)→B(#1)→C(-# 1) also carries restrictions.
+	In the right figure there are four links A→B and B→C and the opposite direction.<br>
+	</p>
+	<img src="images/img28/img28a.png">	
+	<br><br>
+
+	<p>Define Grouped cells link.
+	In the cell group, constraints are transmitted from the direction(House) in which the cell arrangement is extended,
+	and constraints are transmitted in the direction to extend the cell arrangement.<br>
+	When cell group B of the link is a single cell, the constraint is transmitted to multiple directions (House).</p>
+	
+	<table border="1" style="border-collapse:collapse;">
+        <tr>
+        	<th width="80"></th>
+        	<th width="150" style="font-weight: normal;">Strong/Weak link</th>
+        	<th width="370" style="font-weight: normal;">
+        		Cell group pattern example<br><span style="font-size: x-small;">(There are cases where there are no candidate numbers (#n) for numeric display cells)</span></th>
+        	<th width="180" style="font-weight: normal;">リンク</th>
+        </tr>
+
+        <tr>
+        	<td rowspan="2">Row(Column)</td>
+        	<td style="text-align: center">Strong Link</td>
+        	<td style="text-align: center"><img src="images/img28/img28b.png"></td>
+        	<td style="text-align: center"><br>
+        		A(-#n)→B(#n)<br>B(-#n)→A(#n)<br>
+        			A(#n)→B(-#n)<br>B(#n)→A(-#n)<br>　
+        	</td>
+        </tr>
+        
+        <tr>
+        	<td style="text-align: center">Weak Link</td>
+        	<td style="text-align: center"><img src="images/img28/img28c.png"></td>
+        	<td style="text-align: center"><br>
+        		A(#n)→B(-#n)<br>A(#n)→C(-#n)<br>
+        		B(#n)→C(-#n)<br>B(#n)→A(-#n)<br>
+        		C(#n)→A(-#n)<br>C(#n)→B(-#n)<br>　
+        	</td>
+        </tr>
+        
+        <tr>
+        	<td rowspan="2">Block</td>
+
+        	<td style="text-align: center">Strong Link</td>
+        	<td style="text-align: center"><img src="images/img28/img28d.png"></td>
+        	<td style="text-align: center"><br>
+        		A(-#n)→B(#n)<br>B(-#n)→A(#n)<br>
+        			A(#n)→B(-#n)<br>B(#n)→A(-#n)<br>　
+        	</td>
+        </tr>
+        
+        <tr>
+        	<td style="text-align: center">Weak Link</td>
+        	<td style="text-align: center"><img src="images/img28/img28e.png"></td>
+        	<td style="text-align: center"><br>
+        		A(#n)→B(-#n)<br>A(#n)→C(-#n)<br>
+        		B(#n)→C(-#n)<br>B(#n)→A(-#n)<br>
+        		C(#n)→A(-#n)<br>C(#n)→B(-#n)<br>　
+        	</td>
+        </tr>
+    </table>
+	<br><br>　
+	
+	<h2>ALS Link</h2>	
+	<p>If weak link from outside ALS excludes numbers in ALS(#n in the figure below),
+	ALS will change to LockedSet.
+	As a result, the cell(grouped cells) and number(#m in the figure below) in the ALS may form a link outside the ALS.
+	At this time, a strong link(-#n→#m) is made in ALS.<br>
+	Since ALS link is a link when ALS changes to LockedSet, there is no weak link in ALS.<br>
+	In addition, the ALS link is a link occurring inside one ALS, 
+	and ALS link will not be continuous because the trigger for ALS link is a weak link from the outside.
+	Always Cell-to-Cell links or Grouped Cells links are located in front and behind.<br></p>
+	
+	<img style="text-align: center" src="images/img28/img28f.png"><br><br>
+	
+	<h2>Link concatenation</h2>	
+	<p>Concatenation of super links is strong and weak like the strong link and weak link of the inter-cell link,
+	and the way of transfer of constraints is the same.
+	If both ends of a link are a single cell, it is decided to be a cell/number true or false.
+	But in case of multiple cells, it is true or false of multiple cells and the number is not fixed.
+	But the truth information is transmitted to ahead.<br>
+	In the following figure(fig.1), when the number #1 of the yellow cell is assumed to be true,
+	the authenticity of the cell/number is confirmed by concatenation of the super link.
+	Likewise, fig.2 shows how the true and false of other cells/numbers are determined
+	when assuming that the number #2 in the yellow cell is true.</p>
+	
+	<p><small>Consolidated display legend</small></p>
+	<ul>
+		<li>[... -> ...] is a link</li>
+		<li>=> is a concatenation of links</li>
+		<li>SW in [] represents the Strong/Weak ling.</li>
+		<li>(ALS ...) is ALS link</li>
+		<li><...> is a Grouped Cell link</li>
+		<li>n is the digit, + means true, - means false.</li>
+	</ul>
+	<p><small>fig.1 Assuming r2c2/+1</small></p>
+	<img style="text-align: center" src="images/img28/img28g.png" alt="Superlink" width="240">
+	<p class="FSize">
+r2c6/-3 [W r2c2/+1 -> r2c8/-1] => [S (ALS:r2c68) r2c8/-1 -> r2c6/+8] => [W r2c6/+8 -> r2c6/-3]<br>
+r2c6/+8 [W r2c2/+1 -> r2c8/-1] => [S (ALS:r2c68) r2c8/-1 -> r2c6/+8]<br>
+r2c8/-1 [W r2c2/+1 -> r2c8/-1]<br>
+r2c8/+3 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r2c8/+3]<br>
+r3c2/-1 [W r2c2/+1 -> r3c2/-1]<br>
+r3c2/+8 [W r2c2/+1 -> r3c2/-1] => [S r3c2/-1 -> r3c2/+8]<br>
+r3c4/+3 [W r2c2/+1 -> r3c2/-1] => [S (ALS:r3c24) r3c2/-1 -> r3c4/+3]<br>
+r3c4/-8 [W r2c2/+1 -> r3c2/-1] => [S (ALS:r3c24) r3c2/-1 -> r3c4/+3] => [W r3c4/+3 -> r3c4/-8]<br>
+r3c9/+1 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r3c9/+1]<br>
+r3c9/-3 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r3c9/+1] => [W r3c9/+1 -> r3c9/-3]<br>
+r4c5/+1 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r3c9/+1] => [W r3c9/+1 -> r4c9/-1] => [S r4c9/-1 -> r4c5/+1]<br>
+r4c5/-6 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r3c9/+1] => [W r3c9/+1 -> r4c9/-1] => [S r4c9/-1 -> r4c5/+1] => [W r4c5/+1 -> r4c5/-6]<br>
+r4c9/-1 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r3c9/+1] => [W r3c9/+1 -> r4c9/-1]<br>
+r5c4/-3 [W r2c2/+1 -> r3c2/-1] => [W r3c2/+8 -> r3c4/-8] => [W r3c4/+3 -> r5c4/-3]<br>
+r5c5/-1 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r5c8/+1] => [W r5c8/+1 -> r5c5/-1]<br>
+r5c6/-8 [W r2c2/+1 -> r2c8/-1] => [W r2c8/+3 -> r2c6/-3] => [W r2c6/+8 -> r5c6/-8]<br>
+r5c8/+1 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r5c8/+1]<br>
+r5c8/-4 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r5c8/+1] => [W r5c8/+1 -> r5c8/-4]<br>
+r5c8/-6 [W r2c2/+1 -> r2c8/-1] => [S r2c8/-1 -> r5c8/+1] => [W r5c8/+1 -> r5c8/-6]<br>
+r6c6/-8 [W r2c2/+1 -> r2c8/-1] => [W r2c8/+3 -> r2c6/-3] => [W r2c6/+8 -> r6c6/-8]<br>
+r7c6/-8 [W r2c2/+1 -> r2c8/-1] => [W r2c8/+3 -> r2c6/-3] => [W r2c6/+8 -> r7c6/-8]<br>
+r7c8/-3 [W r2c2/+1 -> r2c8/-1] => [W r2c8/+3 -> r7c8/-3]<br>
+r8c4/-3 [W r2c2/+1 -> r3c2/-1] => [W r3c2/+8 -> r3c4/-8] => [W r3c4/+3 -> r8c4/-3]<br>
+r8c8/-3 [W r2c2/+1 -> r2c8/-1] => [W r2c8/+3 -> r8c8/-3]<br>
+r9c3/-4 [W r2c2/+1 -> r2c8/-1] => [W r2c8/+3 -> r2c6/-3] => [W r2c6/+8 -> r9c6/-8]
+=> [S (ALS:r9c69) r9c6/-8 -> <r9c69>/+4] => [W <r9c69>/+4 -> r9c3/-4]<br>
+r9c5/-3 [W r2c2/+1 -> r2c8/-1] => [W r2c8/+3 -> r2c6/-3] => [W r2c6/+8 -> r9c6/-8]
+=> [S (ALS:r9c69) r9c6/-8 -> <r9c69>/+3] => [W <r9c69>/+3 -> r9c5/-3]<br>
+r9c6/-8 [W r2c2/+1 -> r2c8/-1] => [W r2c8/+3 -> r2c6/-3] => [W r2c6/+8 -> r9c6/-8]</p>
+<p>
+.4...1.286..5....7..7.46...7.3..98..9.......2..12..3.9...95.1..1....2..559.1...7.
+</p>
+
+<p><small>fig.1 Assuming r2c2/+1</small></p>
+<img style="text-align: center" src="images/img28/img28h.png" alt="スーパーリンク" width="240">
+<p class="FSize">
+r1c4/-2 [W r1c1/+2 -> r1c4/-2]<br>
+r1c4/+6 [W r1c1/+2 -> r1c4/-2] => [S r1c4/-2 -> r1c4/+6]<br>
+r1c5/-2 [W r1c1/+2 -> r1c5/-2]<br>
+r1c9/-6 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6]<br>
+r2c1/-2 [W r1c1/+2 -> r2c1/-2]<br>
+r2c3/+1 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S r1c9/-6 -> r2c9/+6]
+=> [S r2c9/-1 -> r2c3/+1]<br>
+r2c3/-3 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S r1c9/-6 -> r2c9/+6] 
+=> [S r2c9/-1 -> r2c3/+1] => [W r2c3/+1 -> r2c3/-3]<br>
+r2c3/-7 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S r1c9/-6 -> r2c9/+6]
+=> [S r2c9/-1 -> r2c3/+1] => [W r2c3/+1 -> r2c3/-7]<br>
+r2c4/-6 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r2c4/-6]<br>
+r2c4/-8 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78) r1c9/-6 -> <r2c78>/+8] 
+=> [W <r2c78>/+8 -> r2c4/-8]<br>
+r2c6/-2 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78) r1c9/-6 -> <r2c78>/+8]
+ => [W <r2c78>/+8 -> r2c4/-8] => [S (ALS:r12c4) r2c4/-8 -> <r12c4>/+2] => [W <r12c4>/+2 -> r2c6/-2]<br>
+r2c9/-1 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S r1c9/-6 -> r2c9/+6] => [W r2c9/+6 -> r2c9/-1]<br>
+r2c9/-3 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S r1c9/-6 -> r2c9/+6] => [W r2c9/+6 -> r2c9/-3]<br>
+r2c9/+6 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S r1c9/-6 -> r2c9/+6]<br>
+r2c9/-7 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S r1c9/-6 -> r2c9/+6] => [W r2c9/+6 -> r2c9/-7]<br>
+r2c9/-8 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S r1c9/-6 -> r2c9/+6] => [W r2c9/+6 -> r2c9/-8]<br>
+r3c3/-1 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c3/-1]<br>
+r3c5/-3 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c3/-1]
+=> [S (ALS:r3c1356) r3c3/-1 -> r3c5/+8] => [W r3c5/+8 -> r3c5/-3]<br>
+r3c5/-4 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c3/-1]
+=> [S (ALS:r3c1356) r3c3/-1 -> r3c5/+8] => [W r3c5/+8 -> r3c5/-4]<br>
+r3c5/-7 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c3/-1] 
+=> [S (ALS:r3c1356) r3c3/-1 -> r3c5/+8] => [W r3c5/+8 -> r3c5/-7]<br>
+r3c5/+8 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c3/-1]
+=> [S (ALS:r3c1356) r3c3/-1 -> r3c5/+8]<br>
+r3c9/+1 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1]<br>
+r3c9/-3 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c9/-3]<br>
+r3c9/-7 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c9/-7]<br>
+r3c9/-8 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c9/-8]<br>
+r4c5/+2 [W r1c1/+2 -> r1c5/-2] => [S r1c5/-2 -> r4c5/+2]<br>
+r4c5/-5 [W r1c1/+2 -> r1c5/-2] => [S r1c5/-2 -> r4c5/+2] => [W r4c5/+2 -> r4c5/-5]<br>
+r4c5/-7 [W r1c1/+2 -> r1c5/-2] => [S r1c5/-2 -> r4c5/+2] => [W r4c5/+2 -> r4c5/-7]<br>
+r4c6/-2 [W r1c1/+2 -> r1c5/-2] => [S r1c5/-2 -> r4c5/+2] => [W r4c5/+2 -> r4c6/-2]<br>
+r7c5/-3 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1789c9) r1c9/-6 -> <r78c9>/+8] => [W <r78c9>/+8 -> r7c7/-8]
+=> [S (ALS:r7c17) r7c7/-8 -> <r7c17>/+3] => [W <r7c17>/+3 -> r7c5/-3]<br>
+r7c5/-8 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c3/-1] 
+=> [S (ALS:r3c1356) r3c3/-1 -> r3c5/+8] => [W r3c5/+8 -> r7c5/-8]<br>
+r7c7/-8 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1789c9) r1c9/-6 -> <r78c9>/+8] => [W <r78c9>/+8 -> r7c7/-8]<br>
+r7c9/-3 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1789c9) r1c9/-6 -> <r78c9>/+8] => [W <r78c9>/+8 -> r7c7/-8] 
+=> [S (ALS:r7c17) r7c7/-8 -> <r7c17>/+3] => [W <r7c17>/+3 -> r7c9/-3]<br>
+r7c9/-7 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1789c9) r1c9/-6 -> <r78c9>/+8] => [W <r78c9>/+8 -> r7c7/-8] 
+=> [S (ALS:r7c17) r7c7/-8 -> <r7c17>/+7] => [W <r7c17>/+7 -> r7c9/-7]<br>
+r8c4/-2 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78) r1c9/-6 -> <r2c78>/+8] => [W <r2c78>/+8 -> r2c4/-8]
+=> [S r2c4/-8 -> r8c4/+8] => [W r8c4/+8 -> r8c4/-2]<br>
+r8c4/+8 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78) r1c9/-6 -> <r2c78>/+8] => [W <r2c78>/+8 -> r2c4/-8]
+=> [S r2c4/-8 -> r8c4/+8]<br>
+r8c6/+2 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78) r1c9/-6 -> <r2c78>/+8] => [W <r2c78>/+8 -> r2c4/-8]
+=> [S r2c4/-8 -> r8c4/+8] => [S r8c4/-2 -> r8c6/+2]<br>
+r8c6/-3 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78) r1c9/-6 -> <r2c78>/+8] => [W <r2c78>/+8 -> r2c4/-8]
+=> [S r2c4/-8 -> r8c4/+8] => [S r8c4/-2 -> r8c6/+2] => [W r8c6/+2 -> r8c6/-3]<br>
+r8c9/-8 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78) r1c9/-6 -> <r2c78>/+8] => [W <r2c78>/+8 -> r2c4/-8] 
+=> [S r2c4/-8 -> r8c4/+8] => [W r8c4/+8 -> r8c9/-8]<br>
+r9c5/-3 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c3/-1]
+=> [S (ALS:r3c1356) r3c3/-1 -> r3c5/+8] => [W r3c5/+8 -> r7c5/-8] => [S (ALS:r14579c5) r7c5/-8 -> r9c5/+4] => [W r9c5/+4 -> r9c5/-3]<br>
+r9c5/+4 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c3/-1] 
+=> [S (ALS:r3c1356) r3c3/-1 -> r3c5/+8] => [W r3c5/+8 -> r7c5/-8] => [S (ALS:r14579c5) r7c5/-8 -> r9c5/+4]<br>
+r9c5/-5 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78 r3c9) r1c9/-6 -> r3c9/+1] => [W r3c9/+1 -> r3c3/-1]
+=> [S (ALS:r3c1356) r3c3/-1 -> r3c5/+8] => [W r3c5/+8 -> r7c5/-8] => [S (ALS:r14579c5) r7c5/-8 -> r9c5/+4] => [W r9c5/+4 -> r9c5/-5]<br>
+r9c6/-4 [W r1c1/+2 -> r1c4/-2] => [W r1c4/+6 -> r1c9/-6] => [S (ALS:r1c9 r2c78) r1c9/-6 -> <r2c78>/+8] => [W <r2c78>/+8 -> r2c4/-8] 
+=> [S (ALS:r1c45 r2c46 r3c6) r2c4/-8 -> <r23c6>/+4] => [W <r23c6>/+4 -> r9c6/-4]</p>
+<p>
+..9..154..5..9.....6.5..92.8..3..1.41..4.6..95.4..8..2.42..9.6.....6..1..187..2..<br><br>
+	</p>
+	<p>
+	Superlink linking is an extremely powerful technique.
+	The method described above is used for ForceChain (Cell, House), KrakenFish, GroupedNiceLoop.<br>
+	In addition, there are the following usage methods.<br>
+	Assuming that a certain cell/number is true,
+	it is sometimes possible for both the true and false to lead to other cell/number in the superlink concatenation.
+	This is a contradiction, the first assumption is incorrect. 
+	This method is also a type of ForceChain solution(Force-Contradiction).
+	Of course, it shows the links that leads true and false.
+	</p>
+	
+<p><small>fig.3 Both +n/-n can lead</small></p>
+	<img style="text-align: center" src="images/img28/img28i.png" alt="スーパーリンク" width="240">
+	<p class="FSize">
+r1c6/#8 is false<br>
+   [W r1c6/+8 -> r5c6/-8] => [S r5c6/-8 -> r5c7/+8] => [W r5c7/+8 -> r2c7/-8] => [S r2c7/-8 -> r2c8/+8] => [W r2c8/+8 -> r8c8/-8]<br>
+   [W r1c6/+8 -> r5c6/-8] => [S r5c6/-8 -> r5c7/+8] => [W r5c7/+8 -> r8c7/-8] => [S r8c7/-8 -> r8c8/+8] 
+</p>
+<p>
+.9..4..6.4..15...2..6..91....4....7.36.....15.8....3....82..4..9...34..1.4..8..3.
+</p>
+	<br><br>
+	</article>
+	
+</section>
+
+<footer>
+	<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+
+</html>

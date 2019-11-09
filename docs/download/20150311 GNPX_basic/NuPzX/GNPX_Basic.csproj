@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{62F52834-2EEA-4E0F-9350-94D38AA4714A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GNPZ_sdk</RootNamespace>
+    <AssemblyName>GNPX_Basic</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>ExtDLL\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="00 アプリケーション\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="00 アプリケーション\002 NuPz_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="00 アプリケーション\003 GSDK_PrePrint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="00 アプリケーション\004 SDK_ProblemPrinter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="00 アプリケーション\005 ToGNPXHP.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ListBoxStyle1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ListBoxStyle2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TextBlockStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="40 WPFColorPickerLib\30 VisualPrint\PreviewWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="40 WPFColorPickerLib\30 VisualPrint\Style.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="40 WPFColorPickerLib\ColorDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="40 WPFColorPickerLib\ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="00 アプリケーション\001 GSudoku.cs" />
+    <Compile Include="00 アプリケーション\002 NuPz_Window.xaml.cs">
+      <DependentUpon>002 NuPz_Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="00 アプリケーション\003 GSDK_PrePrint.xaml.cs">
+      <DependentUpon>003 GSDK_PrePrint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="00 アプリケーション\004 SDK_ProblemPrinter.xaml.cs">
+      <DependentUpon>004 SDK_ProblemPrinter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="00 アプリケーション\005 ToGNPXHP.xaml.cs" />
+    <Compile Include="02 補助クラス\Combination.cs" />
+    <Compile Include="02 補助クラス\Permutation.cs" />
+    <Compile Include="02 補助クラス\Reflection.cs" />
+    <Compile Include="02 補助クラス\jewelyBoxEX.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\203 Analyzer_Cell_GroupedCells.cs" />
+    <Compile Include="10 問題生成\+100 SDK_Problem.cs" />
+    <Compile Include="10 問題生成\+101 SDK_SolveEngin.cs" />
+    <Compile Include="10 問題生成\103 patternGenerator.cs" />
+    <Compile Include="10 問題生成\+102 SDK_Control.cs" />
+    <Compile Include="10 問題生成\104 LatinSqure.cs" />
+    <Compile Include="11 グラフィックス･ヘルプ\110 GNPZ_Graphics.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\204 SubClass_FishMan.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\209 SubClass_ChainMan.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\207 SubClass_GroupedCellsMan.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\208 SubClass_SuperLinkMan.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer11a.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer12.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\201 Analyzer_ControlFunction.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\200 Analyzer_SubClass.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer01.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer02.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer03.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer04.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer05.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer06.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer07.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer08.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer09.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer10.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer11.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer14.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer13.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer15.cs" />
+    <Compile Include="21 SDKアナライザー\GNPZ_Analyzer16.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\206 SubClass_ALSMan.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\205 SubClass_CellLinkMan.cs" />
+    <Compile Include="20 SDKアナライザー補助クラス\202 Analyzer_PAnalizer.cs" />
+    <Compile Include="40 WPFColorPickerLib\30 VisualPrint\Helper.cs" />
+    <Compile Include="40 WPFColorPickerLib\30 VisualPrint\PreviewWindow.xaml.cs">
+      <DependentUpon>PreviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="40 WPFColorPickerLib\30 VisualPrint\VisualDocumentPaginator.cs" />
+    <Compile Include="40 WPFColorPickerLib\30 VisualPrint\VisualPrintDialog.cs" />
+    <Compile Include="40 WPFColorPickerLib\ColorDialog.xaml.cs">
+      <DependentUpon>ColorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="40 WPFColorPickerLib\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="00 アプリケーション\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Styles\DataGridStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\ListBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="00 アプリケーション\GSUDOKU.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="02 補助クラス\03 Resources\numericPadBase2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="02 補助クラス\03 Resources\numericPadBaseS.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="40 WPFColorPickerLib\30 VisualPrint\Resources\printer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="40 WPFColorPickerLib\Images\ColorSwatchCircle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="40 WPFColorPickerLib\Images\ColorSwatchSquare.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="40 WPFColorPickerLib\Images\ColorSwatchSquare2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="02 補助クラス\IconDown.ico" />
+    <Resource Include="02 補助クラス\IconUp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 および x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows インストーラー 4.5
+</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

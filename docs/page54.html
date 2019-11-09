@@ -1,0 +1,301 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku NiceLoop</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+		.ulNone{ list-style-type:none; }
+	</style>
+</head>
+
+<body id="page" onload="prettyPrint()">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+	<h2>NiceLoop</h2>		   
+	<p>NiceLoop is an analysis algorithm that connects <a href="page25.html">strong and weak</a> between cells to create a loop.<br>
+	
+	<h2>Link connection</h2>
+
+	<p>Focusing on the cell, there are the following three patterns (4 including direction) in the combination of links connected to the cell.
+	However, In order for constraints to be conveyed by link concatenation and an analysis algorithm can be constructed, 
+	the following conditions must be satisfied.</p>
+	
+	<h2>Link connection condition</h2>
+	<ul style="font-size:medium">
+		<li>S-S：The digits on the links are different<br></li>
+		<li>W-W：The cell is bivalue, the digits of the link is different.<br></li>
+		<li>S-W,W-S：Link digits are the same<br></li>
+	</ul>
+	<p>In the following figure, the left side shows the link connection that satisfies the link connection condition.
+	As shown in the figure on the right,
+	when constraining to ¬b, b, ¬a, a (¬: non, not) by the inflow link from the left side,
+	constraints are transmitted to the link flowing to the right side and the destination(cell).
+	Although it was supposed to flow in from the left, 
+	even when flowing in from the right side,
+	it can be confirmed that constraints propagate. 
+	That is, a connection that satisfies the link connection condition is bidirectional.</p>
+
+	<p style="text-align:center">
+		<img src="images/img54/img54a.png" alt="Link connection">
+	</p>
+	
+	<br>
+	<p>Beginning with the focused cell, create a connection of links that satisfy the link connection condition.
+	
+	<h4>Propagation of restriction</h4>
+	<ul style="font-size:medium">
+		<li>If the link flowing out from the focused cell is a strong link(#a) and the digit is ¬#a(not a)<br>
+			The restriction propagates, 
+			the downstream cell of the strong link(#b) is determined as #b,
+			the upstream cell of the weak link(#c) as the digit #c.<br><br></li>
+		
+		<li>If the link flowing out from the focused cell is a weak link(#a) and the digit is #a<br>
+			The restriction propagates, 
+			the downstream cell of the strong link(#b) is determined as #b,
+			the upstream cell of the weak link(#c) as the digit #c.<br><br></li>
+
+		<li>When the above two assumptions are not satisfied, the constraint from the focused cell does not propagate.<br><br></li>
+		<br>
+	</ul>
+	<p style="text-align:center">
+		<img src="images/img54/img54bEng.png" alt="NiceLoop">
+	</p>
+	<p>When linking is established, if the condition of outflow from the first focused cell is satisfied,
+	the digit is fixed in the link connected to the link flow. 
+	Using these, an analysis algorithm is assembled.</p>
+
+	<h4>Continus NiceLpLoop</h4>	
+	<p>Continuous loop refers to a state in which link flow are extended and connected to the origin cell,
+	and the link connection condition is satisfied even in the origin cell.
+	In a continuous loop, the origin cell is no longer meaningless, 
+	and all cells on the loop have equivalent properties.</p>
+	
+	<p style="text-align:center">
+		<img src="images/img54/img54cEng.png" alt="NiceLoop">
+	</p>
+	<p>In a continuous loop, the digits in the cell are classified into two types.
+	The above figure is classified into ○ and ● as shown on the left of the next figure.
+	It can be confirmed that this classification does not contradict the relation of the strong/weak link.
+	One of the digit categorized into two types is true and the other is false. 
+	However, it is not decided which one is true.
+	Also, since both ends of a link are always true and false,
+	a weak link will have the same properties as a strong link.
+	At this time, it becomes Locked for the cell/digit which breaks the loop.
+	In particular, the following digits can be excluded:<br>
+	(1) digits outside the loop of house including weak link(△ in the following),<br>
+	(2) digits not related to loops in the cell to which two strong links are connected(▲ in the following)<br>
+	If these (△ and ▲) are true, ○ and ● on the continuous loop become false at the same time.<br></p>
+
+	<p style="text-align:center">
+		<img src="images/img54/img54dEng.png" alt="NiceLoop">
+	</p>
+
+	<h4>Discontinus NiceLpLoop</h4>	
+	<p>Assume that the link chain has been extended and reach the starting cell.
+	If the link connection condition is not satisfied, it is called a discontinuous loop.
+	The starting cell has the following state.<br>
+	Link connection discontinuity condition:<br></p>
+	<ul style="font-size:medium">
+		<li>S-S ： digits are same.</li>
+		<li>W-W ： digits are same.</li>
+		<li>S-W,W-S ： digits are different.</li>
+	</ul>
+	<p> 
+	And, it is necessary to select the digit of the origin cell so that constraints do not propagate.
+	The candidate digit of the starting cell is determined as follows.
+	<ul style="font-size:medium">
+		<li>S-S : The digit a of the link is the same ⇒ The focused cell is confirmed as a</li>
+		<li>W-W : he cell is bivalue and the digit a of the link is the same ⇒ the focused cell is determined as not a</li>
+		<li>S-W,W-S : Link digits are different ⇒ (Weak link digit b) focused Cell is determined as not b</li>	
+	</ul>
+
+	</p>
+	<p style="text-align:center">
+		<img src="images/img54/img54eEng.png" alt="NiceLoop" style="width:750px; height:184px">
+	</p>
+
+	<p>Example of NiceLoop</p>
+	
+	<img class="imgL" src="images/img54/img54f.png" alt="NiceLoop" style="width:700px; height:870px" >
+	<p class="newLine"><br>
+		47....3.99...4728...8.9...7...81..4..167.48...8..6..2.85..7...4.6.4.5..81.3...57.<br>
+		47....5.92...7361...3.9...7...56..9..613.47...5..2..6.52..3...6.3.1.2..51.9...24.<br>
+		......3...385.1.4.5..37..6..76..389...9...7...157..42..9..15..4.8.6.753...2......<br>
+		6.14..5.7.3.7..4..9..35.....6..1.3.415.....688.4.3..1.....94..2..2..3.4.4.6..21.3<br><br></p>
+	
+	
+		<h2>NiceLoopm program</h2>
+		<p>NiceLoop analysis algorithm uses <a href="page 27.html#LinkCellAls">cell link</a>. NiceLoop is analyzed in the following procedure.
+		<ul syle="font-sise:medium">
+			<li>In NiceLoop, first prepare the cell link.
+				Next, set the search conditions(Size, focused cell, focused digit, first link),
+				and prepare a stack for results.<br><br></li>
+			<li>The actual search routine is a recursive function.
+				First, it checks whether size order has been reached, and if reached, it returns immediately.</li>
+			<li>If the order has not been reached, extend 1 link from the current position.
+				The stretching link is that satisfies the link connection condition from the previous link and the current cell.</li>
+			<li>When extending the link, exclude already used cells.
+				UsedCells defined by the previous search function is used to manage used cells.
+				This UsedCells will copy the previous stage and add the current stage before proceeding to the next stage.
+				Having history management variables in the recursive function automates state restoration.</li>
+			<li>When extending the link, if it reaches the focused cell,
+				check whether Niceloop's solution condition is satisfied.<br><br></li>
+			<li>Niceloop's solution check determines whether it is a continuous loop or a discontinuous loop.</li>
+			<li>In the case of continuous loop, examine to exclude weak links to strong links and exclusion of SS cells.</li>
+			<li>In a discontinuous loop, examine the exclusionary digits of discontinuous cells.</li>
+			<li>When there are digits that can be excluded, it becomes a solution of Niceloop.</li>
+		</ul>
+		
+		In the scene where NiceLoop is established, in many cases, numerous NiceLoops will be established at the same time.</p>
+		
+		<pre class="prettyprint linenums lang-C"><small>public partial class NiceLoopGen: AnalyzerBaseV2{
+    private int GStageMemo;
+    private int S=1;
+    public  int NiceLoopMax{ get{ return GNPXApp000.GMthdOption[&quot;NiceLoopMax&quot;].ToInt(); } }
+    public NiceLoopGen( GNPX_AnalyzerMan pAnMan ): base(pAnMan){ }
+    private void Prepare(){
+        if(pAnMan.GStage!=GStageMemo) {
+            GStageMemo=pAnMan.GStage;
+            CeLKMan.Initialize();
+            CeLKMan.PrepareCellLink(1+2);
+        }      
+    }
+    public bool NiceLoop( ){  //Depth-first Search
+        Prepare();
+        CeLKMan.PrepareCellLink(1+2);    //Generate StrongLink,WeakLink
+        for( int szCtrl=4; szCtrl&lt;NiceLoopMax; szCtrl++ ){
+            foreach( var P0 in pBDL.Where(p=&gt;(p.No==0)) ){                   //Origin Cell
+                foreach( var no in P0.FreeB.IEGet_BtoNo() ){                    //Origin Number
+                    foreach( var LKH in CeLKMan.IEGetRcNoType(P0.rc,no,3) ){    //First Link
+                        if( pAnMan.CheckTimeOut() ) return false;
+                        var SolStack=new Stack&lt;UCellLink&gt;();
+                        SolStack.Push(LKH);                 
+                        Bit81 UsedCells=new Bit81(LKH.rc2);   //Bit Representation of Used Cells
+                        _NL_Search(LKH,LKH,SolStack,UsedCells,szCtrl-1);
+                        if(SolCode&gt;0) return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    private bool _NL_Search( UCellLink LK0, UCellLink LKpre, Stack&lt;UCellLink&gt; SolStack, Bit81 UsedCells, int szCtrl ){
+        if( szCtrl&lt;=0 ) return false;
+        foreach( var LKnxt in CeLKMan.IEGet_CeCeSeq(LKpre) ){   //links that satisfy concatenation conditions
+            int rc2Nxt = LKnxt.rc2;
+            if( UsedCells.IsHit(rc2Nxt) ) continue;      //UsedCells does not include Origin Cell
+            { //===== Chain Search =====
+                SolStack.Push(LKnxt);  
+                //___Debug_Print_NLChain(SolStack);
+                if( rc2Nxt==LK0.rc1 && szCtrl==1 ){
+                    if( SolStack.Count&gt;2 ){ //Loop was formed (the next cell matches the Origin Cell)
+                        int SolType=_NL_CheckSolution(LK0,LKnxt,SolStack,UsedCells);//Solved?
+                        if( SolType&gt;0 ){          
+                            .
+                            . (Solution report code)
+                            .
+                            return true;
+                        }
+                    }
+                }
+                else{
+                    Bit81 UsedCellsNxt = UsedCells|(new Bit81(rc2Nxt));   //Create a new bit representation of used cell
+                    _NL_Search(LK0,LKnxt,SolStack,UsedCellsNxt,szCtrl-1); //Next step Search(recursive call
+                    if(SolCode&gt;0 ) return true;
+                }
+                SolStack.Pop();     //Failure(Cancel link extension processing）
+            } //-----------------------------
+        }  
+        return false;
+    }
+    private int _NL_CheckSolution( UCellLink LK0, UCellLink LKnxt, Stack&lt;UCellLink&gt; SolStack, Bit81 UsedCells ){ 
+        bool SolFond=false;
+        int SolType = CeLKMan.Check_CellCellSequence(LKnxt,LK0)? 1: 2; //1:Continuous 2:DisContinuous
+        if(SolType==1){ //===== continuous =====
+            //=== Change WeakLink to StrongLink
+            List&lt;UCellLink&gt; SolLst=SolStack.ToList();
+            Bit81 UsedCellsT = UsedCells|(new Bit81(LK0.rc1));
+            foreach( var L in SolLst ){
+                int noB=1&lt;&lt;L.no;
+                foreach( var P in pBDL.IEGetCellInHouse(L.tfx,noB) ){
+                    if( UsedCellsT.IsHit(P.rc) ) continue;
+                    P.CancelB |= noB;
+                    SolFond=true;
+                }
+            }
+            //=== S-S (There are no other numbers)
+            SolLst.Reverse();
+            SolLst.Add(LK0);                           
+            var LKpre=SolLst[0];
+            foreach( var LK in SolLst.Skip(1) ){
+                if( LKpre.type==1 && LK.type==1 ){ //S-S
+                    UCell P=pBDL[LK.rc1];
+                    int noB = P.FreeB.DifSet((1&lt;&lt;LKpre.no)|(1&lt;&lt;LK.no));
+                    if( noB&gt;0 ){ P.CancelB=noB; SolFond=true; }
+                }
+                LKpre=LK;
+            }
+            if(SolFond) SolCode=2;
+        }
+        else if(SolType==2){ //===== discontinuous =====
+            int dcTyp= LK0.type*10+LKnxt.type;
+            UCell P=LK0.UCe1;
+            switch(dcTyp){
+                case 11: 
+                    P.FixedNo=LK0.no+1; //Cell number determination
+                    P.CancelB=P.FreeB.DifSet(1&lt;&lt;(LK0.no));
+                    SolCode=1; SolFond=true; //(1:Fixed）
+                    break;
+                case 12: P.CancelB=1&lt;&lt;LKnxt.no; SolCode=2; SolFond=true; break;//(2:Exclude from candidates）
+                case 21: P.CancelB=1&lt;&lt;LK0.no; SolCode=2; SolFond=true; break;
+                case 22: 
+                    if( LK0.no==LKnxt.no ){ P.CancelB=1&lt;&lt;LK0.no; SolFond=true; SolCode=2; }
+                    break;
+            }
+        }
+        if(SolFond){ return SolType; }
+        return -1;
+    }
+}</small></pre>
+
+	</article>
+	
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku next Algorithm</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+		.ulNone{ list-style-type:none; }
+		th{	text-align: center;	vertical-align: top; }
+	</style>
+</head>
+
+<body id="page" onload="prettyPrint()">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+	<h4>●今後の開発予定</h4>		   
+	<h4>○次期開発</h4>
+	<p>アルゴリズムがおおよそ見えていて、時間さえあれば作成可能なもの</p>
+    <table border="1" style="border-collapse:collapse;">
+        <tr>
+        	<th width="200">項　目</th>
+        	<th width="600">概　要</th>
+        </tr>
+
+        <tr>
+        	<td>Endo Fins and Cannibalism</td>
+        	<td>
+        		<p>Fish系アルゴリズムの基本形では、
+        		BaseSetとCoverSetを構成するそれぞれのセル群には重なりがないと仮定していた。
+        		これを重なりがある場合に拡張したアルゴリム。【完了】<br>
+        		http://hodoku.sourceforge.net/en/tech_fishg.php</p>
+        	</td>
+        </tr>
+        <tr>
+        	<td>General Logic</td>
+        	<td>
+        		<p>Fish系アルゴリズムは、行・列・ブロックを対象に構成したアルゴリズムだが、
+        		これにセル内の候補数字を加えた包括的アルゴリズム。
+        		多くの基本的なアルゴリズムをカバーするが、
+        		この方法のみで解けるパターンがあるかを調べるつもり。【開発中】<br>
+        		http://sudokuone.com/sweb/general.htm</p>
+        	</td>
+        </tr>
+        <tr>
+        	<td>GroupedCells版NiceLoop</td>
+        	<td>
+        		<p>NiceLoopのセル間リンクを、セル群リンクに拡張したNiceLoop。【完了】</p>
+        	</td>
+        </tr>
+    </table>
+
+
+	<h4>○構想段階</h4>
+	<p>構想段階のアルゴリズム</p>
+    <table border="1" style="border-collapse:collapse;">
+        <tr>
+        	<th width="200">項　目</th>
+        	<th width="600">概　要</th>
+        </tr>
+
+        <tr>
+        	<td>Almost Fish
+        	<td>
+        		<p>LockedSetに対してALSがあるように、FishにもAlmostFishがあるはず。<br>
+        		さらに、他の基本的なアルゴリズムのAlmost版があるだろう。</p>
+        	</td>
+        </tr>
+        <tr>
+        	<td>+2ALS</td>
+        	<td>
+        		<p>ALSはnセルに候補数字が(n+1)個ある。
+        		nセルに候補数字が(n+2)個ある&quot;+2ALS&quot;を用いるアルゴリズムがあるはず。</p>
+        	</td>
+        </tr>
+    </table>
+
+
+	
+	
+	<p><br></p>
+
+
+	
+	
+	</article>
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku X-Wing（Fish)</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+</head>
+
+<body id="page" onload="prettyPrint()">
+
+	<a id="pageTop"></a>
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>	
+		<h2>X-Wing（Fish)</h2>
+		<p>Assume that the digit X is arranged as follows.<br>
+		In column c0, the position of the digit X is one of the rows r01, and also in row c1, it 
+		is either row r01.
+		At this time, the digit X can be excluded from candidate digits in cell r0cx(○).
+		This is due to the fact that the four cells of r01c01 are <strong>Locked</strong> 
+		for the digit X.<br></p>
+		
+		<img class="imgL" src="images/img34/img34a.png" alt="X-Wing">
+		<p><br>X-Wing<br>
+		In the BaseSet(solid line) column, one of the two cells X is true.<br>
+		CoverSet(dashed line) completely includes BaseSet. CoverSet also 
+		contains cells(circles) in addition.<br>
+		If the digit X at the position of a circle is true, 
+		it is not possible to place the digit X at the position of BaseSet.<br>
+		The digit X at the position of the circle is excluded.(BaseSet, CoverSet described below)
+		</p>
+
+		<p class="newLine"><br></p>
+		<img class="imgL" src="images/img34/img34b.png" alt="X-Wing">
+		<p><br>X-Wing example
+		Focusing on the digit 4, the establishment of X-Wing of BaseSet(r57), CoverSet(c26).<br>
+		The digit 4 is excluded from the cell of r47c2.</p>
+		<p class="newLine">4....9.5.23..58.67...4.7.........3253.2....8.5.1...7.....89....9......7..1.72..46</p>
+
+		<p>X-Wing sometimes uses another name of "Fish".
+		 There is a name on Fish of third and higher order as well.
+		 X-Wing occasionally uses a different name "Fish".
+		 Fish has names of three generations or more. 
+		 For a more general explanation, i will use Fish all below.</p>
+		<ul type="none">
+			<li>2nd order: X-Wing</li>
+			<li>3rd order: SwordFish</li>
+			<li>4th order: JellyFish</li>
+			<li>5th order: Squirmbag</li>
+			<li>6th order: Whale</li>
+			<li>7th order: Leviathan</li>
+		</ul>
+		<p>If only to solve a Sudoku, doesn't need Fish of the fifth or higher order.
+		When Fish of 5th order or higher is established, 
+		Fish of 4th order or less is established at complementary position.
+		Complementary Fish actually shown below.<br><br>
+		In Fish of 3rd order or higher order,
+		Fish is established even for a pattern where a part is missing as shown in the figure.
+		This missing part may be a confirmed cell, or there may not be a focused digit just for that cell candidate.</p>
+		<img src="images/img34/img34c.png" alt="SwordFish" width="697" height="217" >
+		
+		<p>Extensions to several methods are known for Fish based algorithms(treat them below).
+		Define "BaseSet", "CoverSet" as preparation.</p>
+		
+		<h2 id="BaseCoverSet"><strong>BseSet/CoverSet(no overlap)</strong></h2>
+		
+		<p>In Fish based solution, use 2 sets of house.
+		Focus on the digit X, select N houses containing up to N digits X (N is the order) and call this <strong>BaseSet</strong>.
+		The <strong>BaseSet</strong> does not overlap.<br>
+
+		And, choose another set of N House to completely include <strong> BaseSet </strong>. 
+		call this <strong>CoverSet</strong>.
+
+		The common part of such <strong>BaseSet, CoverSet</strong> is in Locked.
+		In House of <strong>BaseSet</strong>, although somewhere is not decided, one cell is always the digit X.
+		The same is true for <strong>CoverSet</strong>. Check Locked with SwordFish(3rd order Fish) on the left. 
+		CoverSet completely contains BaseSet, but it may also contain cells other than BaseSet.
+		As a solution, including other cells Z is meaningful.
+		If the cell Z digit X is true, it breaks the BaseSet Locked.
+		In other words, the digit X can be excluded from the candidate digit of cell Z.</p>			
+		<p>To summarize, it will be as follows.<br><br>
+		
+		<h2><strong>Ｎth Fish</strong></h2>
+		Focus on the digit X.
+		If N houses containing N or fewer X are selected(BaseSet) and
+		N other houses(CoverSet) completely contain BaseSet, BaseSet is Locked.
+		Candidate digit X in the position to break Locked can be excluded.
+		It is assumed that there is no overlap between BaseSet and CoverSet.</p>
+
+		<p>he following figure is an example of SwordFish (3D-Fish) and JellyFish (4D-Fish).
+		These are Complementary Fish of the same scene of the same problem. Excluded cells·Candidate digits are the same.</p>
+		<img src="images/img34/img34d.png" alt="SwordFish" height="270" width="270">
+		<img src="images/img34/img34e.png" alt="JellyFIsh" height="270" width="270">
+		<p>Left：SwordFish #7 BaseSet:c139 CoverSet:r169<br>
+		Right：JellyFIsh #7 BaseSet:r2345 CoverSet:c2567<br>
+		...6.8...6...9...529.....483.1...4.64..3.1..2...8.6....1.4.2.7..6.7.9.5.....8....</p>
+		<br>
+	
+		<h2 id="FishPro">Fish program</h2>
+		<p>The program solves the FISH using the general-purpose Fish subprogram(ExtFishSub).
+		ExtFishSub can solve Basic Fish, Finned Fish, (with Fin)Franken/Mutant Fish.<br>
+		</p>
+
+	<pre class="prettyprint linenums lang-C"><small>public partial class FishGen: AnalyzerBaseV2{
+    public FishGen( GNPX_AnalyzerMan AnMan ): base(AnMan){ }
+
+    //Fish
+    public bool XWing(){     return Fish_Basic(2); }
+    public bool SwordFish(){ return Fish_Basic(3); }
+    public bool JellyFish(){ return Fish_Basic(4); }
+    public bool Squirmbag(){ return Fish_Basic(5); }
+    public bool Whale(){     return Fish_Basic(6); }
+    public bool Leviathan(){ return Fish_Basic(7); }
+
+    public bool Fish_Basic( int sz, bool fin=false ){
+        int rowSel=0x1FF, colSel=(0x1FF&lt;&lt;9);
+        for( int no=0; no&lt;9; no++ ){
+            if( ExtFishSub(sz,no,18,rowSel,colSel,FinnedF:fin) ) return true;
+            if( ExtFishSub(sz,no,18,colSel,rowSel,FinnedF:fin) ) return true;
+        }
+        return false;
+    }
+
+    public bool ExtFishSub( int sz, int no, int FMSize, int BaseSel, int CoverSel, bool FinnedF ){       
+        int noB=(1&lt;&lt;no);
+        var FMan=new FishMan(this,FMSize,no,sz);
+        foreach( var Bas in FMan.IEGet_BaseSet(BaseSel) ){            //BaseSet
+            foreach( var Cov in FMan.IEGet_CoverSet(Bas,CoverSel,FinnedF) ){  //CoverSet  
+                Bit81 FinB81 = Cov.FinB81;
+
+                Bit81 ELM =null;
+                if( FinB81.IsZero() ){  //===== without Fin =====
+                    if( !FinnedF && (ELM=Cov.CoverB81-Bas.BaseB81).Count&gt;0 ){                      
+                        foreach( var P in ELM.IEGetUCeNoB(pBDL,noB) ){ P.CancelB=noB; SolCode=2; }
+                        if(SolCode&gt;0){
+                            .
+                            . (Solution report code)
+                            .
+                            return true;
+                        }
+                    }
+                }
+                else if( FinnedF ){     //===== with Fin =====
+                    Bit81 Ecand=Cov.CoverB81-Bas.BaseB81;
+                    ELM=new Bit81();
+                    foreach( var P in Ecand.IEGetUCeNoB(pBDL,noB) ){
+                        if( (FinB81-ConnectedCells[P.rc]).Count==0 ) ELM.BPSet(P.rc);
+                    }
+                    if(ELM.Count&gt;0){                           
+                        .
+                        . (Solution report code)
+                        .
+                        return true;
+                    }
+                }
+                continue;
+            }
+        }
+        return false;
+    }
+}</small></pre>
+	</article>
+	<br><br>
+</section>
+
+<footer>
+	<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+
+</html>

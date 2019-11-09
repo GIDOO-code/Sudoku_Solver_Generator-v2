@@ -1,0 +1,130 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku  LockedCandidate</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	</head>
+
+<body id="page" onload="prettyPrint()">
+
+	<a id="pageTop"></a>
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+		<h2>LockedCandidate</h2>
+		<p>LockedCandidate has two types.</p>
+	</article>
+
+	<article>
+		<h2>Type 1</h2>
+		<img class="imgL" src="images/img31_2/img32a.png" alt="LockedCandidate" >
+		<p>If the digit N is only one row in the block,
+		it is excluded from the same row of the other block.
+		This also applies to the column direction.<br><br>
+		In block b5, the digit #5 is only r6.<br>
+		Therefore, in r6c9 of block b6, the digit #5 is excluded from the candidates.</p>
+		<p class="newLine">.3.1.5.8...........8.....2...9.1.2...5.3.9.4..6.....7.7..6.1..851..7..69..8...7..</p>
+	</article>
+
+	<article>
+		<h2>type 2</h2>
+		<img class="imgL" src="images/img31_2/img32b.png" alt="LockedCandidate" >
+		<p> LockedCandidate type 2 is a solution that limits where the digits of the remaining blocks are located
+		 when there are digits in only two lines of two blocks.<br><br>
+		 Focus on the #7 in the figure on the left. In b1 and b2, #7 exists only in r1 and r2.
+		 At this time, in b3, #7 is in r1. Therefore, in b3, #7 is not in r2 and r3.
+		</p>
+		<p class="newLine">...3.9...3.......564.....89.........89..2..51..6.5.8..5.1...7.8.3.5.4.2.7..1.2..3</p>
+	</article>
+
+	<article>	
+		<h2>LockedCandidate C# program</h2>
+		<p>The essential analysis part is about 10 steps in each of types 1 and 2.</p>
+		<pre class="prettyprint linenums lang-C "><small>public class LockedCandidateGen: AnalyzerBaseV2{
+    public LockedCandidateGen( GNPX_AnalyzerMan pAnMan ): base(pAnMan){ }
+
+    public bool LockedCandidate( ){
+        for( int no=0; no&lt;9; no++ ){
+            int noB=(1&lt;&lt;no);
+            int[] BRCs = new int[9];
+            foreach( var P in pBDL.Where(Q=&gt;(Q.FreeB&noB)&gt;0) ){ BRCs[P.b] |= (1&lt;&lt;P.r)|(1&lt;&lt;(P.c+9)); }
+
+            //==== Type-1 =====
+            for( int b0=0; b0&lt;9; b0++ ){
+                for( int hs=0; hs&lt;10; hs+=9 ){  //0:row 9:collumn
+                    int RCH=BRCs[b0]&(0x1FF&lt;&lt;hs);
+                    if( RCH.BitCount()==1 ){
+                        int hs0=RCH.BitToNum(18);
+                        if( pBDL.IEGetCellInHouse(hs0,noB).Any(Q=&gt;Q.b!=b0) ){ //Type 1 is found
+                           .
+                           . (Solution report code)
+                           .
+                           return true;
+                        }
+                    }
+                }
+            }
+            
+            //==== Type-2 =====
+            for( int b0=0; b0&lt;9; b0++ ){
+                int b1, b2, rcB0, rcB1, rcB2;
+                for( int hs=0; hs&lt;10; hs+=9 ){  //0:row 9:collumn
+                    int hsX=0x1FF&lt;&lt;hs;
+                    if(hs==0){b1=b0/3*3+(b0+1)%3;b2=b0/3*3+(b0+2)%3;}// b1,b2:block(row direction)
+                    else{     b1=(b0+3)%9;       b2=(b0+6)%9;}   // b1,b2:block(collumn direction)
+
+                    if( (rcB0=BRCs[b0]&hsX).BitCount() &lt;=1 )  continue;
+                    if( (rcB1=BRCs[b1]&hsX) &lt;=0 )  continue;
+                    if( (rcB2=BRCs[b2]&hsX) &lt;=0 )  continue;
+
+                    int rcB12 = rcB1|rcB2;
+                    int hs0=(rcB0.DifSet(rcB12)).BitToNum(18);
+                    if( rcB12.BitCount()==2 && hs0&gt;=0 ){ //Type 2 is found
+                       .
+                       . (Solution report code)
+                       .
+                       return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}</small></pre>		
+	</article>
+<br>
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

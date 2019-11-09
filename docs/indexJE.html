@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sudoku algorithm</title>
+<!--
+    <link rel="stylesheet" href="styleStandardEng.css">
+-->
+	<style type="text/css">
+	.auto-style1 {
+		text-align: center;
+	}
+	</style>
+	
+	<script type="text/javascript">
+<!--
+function FP_preloadImgs() {//v1.0
+	var d=document,
+	a=arguments;
+	if(!d.FP_imgs) d.FP_imgs=new Array();
+ 	for(var i=0; i<a.length; i++){ 
+ 		d.FP_imgs[i]=new Image;
+ 		d.FP_imgs[i].src=a[i];
+ 	}
+}
+
+function FP_swapImg(){//v1.0
+	var doc=document,args=arguments,elm,n;
+	doc.$imgSwaps=new Array();
+	for(n=2; n<args.length;n+=2){
+		elm=FP_getObjectByID(args[n]);
+		if(elm){ 
+			doc.$imgSwaps[doc.$imgSwaps.length]=elm;
+			elm.$src=elm.src;
+			elm.src=args[n+1];
+		}
+	}
+}
+
+function FP_getObjectByID(id,o){//v1.0
+	var c,el,els,f,m,n;
+	if(!o)o=document;
+	if(o.getElementById) el=o.getElementById(id);
+	else if(o.layers) c=o.layers;
+	else if(o.all) el=o.all[id];
+	
+	if(el) return el;
+	if(o.id==id || o.name==id) return o;
+	if(o.childNodes) c=o.childNodes; if(c)
+	for(n=0; n<c.length; n++){
+		el=FP_getObjectByID(id,c[n]);
+		if(el) return el;
+	}
+	f=o.forms;
+	if(f) for(n=0; n<f.length; n++){
+		els=f[n].elements;
+		for(m=0; m<els.length; m++){
+			el=FP_getObjectByID(id,els[n]);
+			if(el) return el;
+		}
+	}
+	return null;
+}
+// -->
+</script>
+	
+</head>
+
+<body id="page">
+    <div class="auto-style1">
+    <header>
+       	<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+    </header>
+
+    <section id="main">
+    
+    	<article class="auto-style1">
+            <br><br>
+            <br><br>
+            <a href="csdenpJ/index.html">
+				<img id="img3" alt="Japanese" 
+					fp-style="fp-btn: Embossed Capsule 1; fp-font: ＭＳ Ｐ明朝; fp-font-style: Italic; fp-font-size: 20" 
+					fp-title="Japanese" height="40" style="border: 0" width="200"
+					onmousedown="FP_swapImg(1,0,/*id*/'img3',/*url*/'ButtonJpg/button42.jpg')" 
+					onmouseout ="FP_swapImg(0,0,/*id*/'img3',/*url*/'ButtonJpg/button40.jpg')" 
+					onmouseover="FP_swapImg(1,0,/*id*/'img3',/*url*/'ButtonJpg/button41.jpg')" 
+					onmouseup  ="FP_swapImg(0,0,/*id*/'img3',/*url*/'ButtonJpg/button41.jpg')" 
+					src="images/imgTop/GNPXjp.jpg" ></a>
+				<a href="csdenpJ/index.html">
+				</a><br><br>
+				
+			<a href="csdenpE/index.html">
+				<img id="img4" alt="English" 
+					fp-style="fp-btn: Embossed Capsule 1; fp-font: ＭＳ Ｐ明朝; fp-font-style: Italic; fp-font-size: 20" 
+					fp-title="English" height="40" 
+					onmousedown="FP_swapImg(1,0,/*id*/'img4',/*url*/'ButtonJpg/button4E.jpg')" 
+					onmouseout ="FP_swapImg(0,0,/*id*/'img4',/*url*/'ButtonJpg/button4C.jpg')" 
+					onmouseover="FP_swapImg(1,0,/*id*/'img4',/*url*/'ButtonJpg/button4D.jpg')" 
+					onmouseup  ="FP_swapImg(0,0,/*id*/'img4',/*url*/'ButtonJpg/button4D.jpg')" 
+					src="images/imgTop/GNPXen.jpg" style="border: 0" width="200">
+			</a><br><br><br>
+		</article>
+
+    </section>
+
+
+		
+<!-- FC2カウンター ここから -->
+<p style="float:right">
+<script language="javascript" type="text/javascript" src="http://counter1.fc2.com/counter.php?id=25054403&main=1"></script>
+<noscript><img src="http://counter1.fc2.com/counter_img.php?id=25054403&main=1" /></noscript>
+</p>
+<!-- FC2カウンター ここまで -->
+
+
+    <footer>
+
+        <p id="copyright"> Copyright &copy; 2014-  GNPX. All rights reserved.</p>
+    </footer>
+      
+
+	</div>
+      
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Classification of Sudoku solving algorithm</title>
+
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+		.table1{ margin-left: 50px;	border: 1px solid #000099; background-color: #D3D3D3;
+		}
+	.auto-style6 {
+		border: 1px solid #000099;
+		text-align: center;
+	}
+	.auto-style9 {
+		border: 1px solid #000099;
+	}
+	.auto-style10 {
+		color: #0000FF;
+	}
+	</style>
+</head>
+
+<body id="page" >
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+	<nav class="naviL">
+	    <p>Sudoku Algorithm</p>
+    	<ul id="navigation">
+			<li><a href="?Single">Single</a>
+				<ul>		
+					<li><a href="page31a.html">Last Digit</a></li>
+					<li><a href="page31b.html">Naked Single</a></li>
+					<li><a href="page31c.html">Hidden Single</a></li>
+			    </ul>
+			</li>
+	    	
+	    	<li><a href="page32.html">LockedCandidate</a></li>
+			<li><a href="page33.html">LockedSet</a></li>
+
+	   		<li><a href="?Fish">Fish</a>
+				<ul>	
+					<li><a href="page34.html">X-Wing(Fish)</a></li>
+		        	<li><a href="page35.html">Finned Fish</a></li>
+		        	<li><a href="page36.html">(Finned)Franken/Mutant Fish</a></li>
+		        	<li><a href="page37.html">(Finned)Endo Fish</a></li>
+		        	<li><a href="page37.html#Cannibalism">(Finned)Cannibalism</a></li>
+		        	<li><a href="page38.html">Kraken(Finned)Fish</a></li>
+			    </ul>
+			</li>
+	 	
+	   		<li><a href="?Link">Link</a>
+				<ul>		
+					<li><a href="page40.html">Skyscraper</a></li>
+					<li><a href="page41.html">EmptyRectangle</a></li>
+					<li><a href="page48.html">X-Chain</a></li>
+					<li><a href="page49.html">XY-Chain</a></li>
+					<li><a href="page46.html">(Multi)Coloring</a></li>
+					<li><a href="page42.html">[BV]XY-Wing</a></li>
+					<li><a href="page43.html">[BV]W-Wing</a></li>
+					<li><a href="page47.html">[BV]RemotePair</a></li>
+			    </ul>
+			</li>
+
+	   		<li><a href="?XYZWing">XYZ-Wing</a>
+				<ul>		
+					<li><a href="page44.html">XYZ-Wing</a></li>
+					<li><a href="page44.html#XYZWingALS">XYZ-Wing(ALS)</a></li>
+			    </ul>
+			</li>
+
+			<li><a href="page45.html">SueDeCoq</a></li>
+			
+			<li><a href="?ALS">ALS</a>
+				<ul>		
+		        	<li><a href="page50.html">ALS XZ</a></li>
+		        	<li><a href="page51.html">ALS XY-Wing</a></li>
+		        	<li><a href="page52.html">ALS Chain</a></li>
+					<li><a href="page53.html">ALS DeathBlossom</a></li>
+			    </ul>
+			</li>
+
+			<li><a href="?NiceLoop">Nice Loop</a>
+				<ul>		
+		        	<li><a href="page54.html">Nice Loop</a></li>
+		        	<li><a href="page55.html">Grouped Nice Loop</a></li>
+			    </ul>
+			</li> 
+
+			<li><a href="?ForceChain">ForceChain</a>
+				<ul>		
+		        	<li><a href="page56.html">ForceChain_Cell</a></li>
+		        	<li><a href="page56.html#FC_House">ForceChain_House</a></li>
+		        	<li><a href="page56.html#FC_Null">ForceChain_Contradiction</a></li>
+			    </ul>
+			</li>
+			
+			<li><a href="page60.html">General Logic</a></li>	
+  	
+		</ul>
+			 	
+	    <p>Base Class</p>
+	    	<ul>
+	        <li><a href="page21.html">Cell(UCell)</a></li>
+	        <li><a href="page22.html">Problem(UProblem)</a></li>
+	        <li><a href="page23.html">Bit81</a></li>
+	        <li><a href="page24.html">FishUFish FishMan)</a></li>
+	        <li><a href="page25.html">Link(UCellLink�ACellLinkMan)</a></li>
+			<li><a href="page26.html">ALS(UALS,ALSMan�j</a></li>
+			<li><a href="page27.html">Link22(Cell-ALS)</a></li>
+			<li><a href="page28.html">SuperLink</a></li>
+	    </ul>
+		
+		<p>Element Tech</p>
+	    <ul>
+	        <li><a href="page11.html">Permutation</a></li>
+	        <li><a href="page12.html">Combination</a></li>
+	        <li><a href="page14.html">Latin Squre</a></li>
+	        <li><a href="page4.html">Conversion/standardization of Sudoku problem</a></li>
+	    </ul>
+
+	    <p>Links</p>
+	    <ul>
+	        <li><a href="http://hodoku.sourceforge.net/en/index.php">HODOKU</a></li>
+	        <li><a href="http://forum.enjoysudoku.com/">Sudoku Player&acute;s Forum</a></li>
+	    </ul>
+
+	</nav> 
+
+	</aside>
+</section>
+    <section id="main"> 
+   		<article>
+			<h2 class="auto-style10"><strong>Algorithm</strong></h2>
+			<p>Each solving algorithm is warped from the left tab</p>
+			<br><br>
+			
+			<h2 class="auto-style10"><strong>Classification of Sudoku solving algorithm</strong></h2>
+					
+			<table border="2" style="border-collapse:collapse; border: 1px solid #000099; width: 695px;" >
+				<tr>
+					<td class="auto-style6" >Classification</td>
+					<td class="auto-style6" style="width: 231px" >Algorithm</td>
+					<td class="auto-style6" style="width: 231px" >Remarks, aliases, etc.</td>
+				</tr>
+				<tr>
+					<td class="auto-style9" style="width: 242px" >&nbsp;Single</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;Last Digit<br>&nbsp;Naked Single<br>&nbsp;Hidden Single</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="auto-style9" style="width: 242px" >&nbsp;LockedCandidate</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="auto-style9" style="width: 242px" >&nbsp;LockedSet</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;2D?4D</td>
+				</tr>
+				<tr>
+					<td class="auto-style9" style="width: 242px">&nbsp;Fish</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;Fish(2D-7D)<br>&nbsp;Finned Fish<br>&nbsp;Franken/Mutant Fish<br>
+					&nbsp;Finned F/M Fish<br>&nbsp;(Finned)Endo Fish<br>&nbsp;(Finned)Canibalism<br>
+					&nbsp;Kraken(Finned)Fish</td>
+					<td class="auto-style9" style="width: 231px">Alias<br>&nbsp;2D: X-Wing<br>&nbsp;3D: SwordFish<br
+					>&nbsp;4D: JellyFish<br>&nbsp;5D: Squirmbag<br>&nbsp;6D: Whale<br>&nbsp;7D: Leviathan</td>
+				</tr>
+				<tr>
+					<td class="auto-style9" style="width: 242px">&nbsp;Link<br>&nbsp;(Link-Chain)</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;SkyScraper<br>&nbsp;EmptyRectangle<br>&nbsp;X-Chain<br>&nbsp;XY-Chain<br>&nbsp;(Multi)Coloring<br>
+					&nbsp;XY-Wing<br>&nbsp;W-Wing<br>&nbsp;RemotePair</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="auto-style9" style="width: 242px">&nbsp;SueDeCoq</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="auto-style9" style="width: 242px">&nbsp;ALS<br>&nbsp;(ALS-Chain)</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;ALS XZ<br>&nbsp;ALS 
+					XY-Wing<br>&nbsp;ALS Chain<br>&nbsp;ALS Death Blossom<br>&nbsp;ALS 
+					Death BlossomEx</td>
+					<td class="auto-style9" style="width: 231px"><br><br><br><br>&nbsp;XYZWing Extension</td>
+
+				</tr>
+				<tr>
+					<td class="auto-style9" style="width: 242px">&nbsp;NiceLoop</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;NiceLoop<br>&nbsp;Grouped NiceLoop</td>
+					<td class="auto-style9" style="width: 231px">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="auto-style9" style="width: 242px; height: 33px;">&nbsp;ForceChain</td>
+					<td class="auto-style9" style="width: 231px; height: 33px;">
+					&nbsp;ForceChain_Cell<br>&nbsp;ForceChain_House<br>
+					&nbsp;ForceChain_Contradiction</td>
+					<td class="auto-style9" style="width: 231px; height: 33px;"></td>
+				</tr>
+			</table><br>
+			
+			<ul>
+				<li>The first three "Single, LockedCandidate, LockedSet" are basic methods, 
+					and are completed with these.<br><br></li>
+					
+				<li>Fish is a way to become a species that develops into various methods.
+					Fish contains important concepts for constructing Sudoku algorithm.
+					For example, "BaseSet and CoverSet", "Overlap", "Rank" etc.<br><br></li>
+				
+				<li>The next most important are Link and ALS, which are cell group relationships.
+					These algorithms will not be used alone, but if you combine two or more of them,
+					it becomes an analysis algorithm (the method shown in the "Type" column of the table).
+					For example, an algorithm combining Fish with Link is relatively easy to make.<br><br></li>
+					
+				<li>NiceLoop is also an algorithm that becomes an extension type.
+					Basic NiceLoop is an algorithm that uses weak links between cells.
+					it has evolved into a GroupedNiceloop that incorporates AIC, ALS links.
+					AIC, ALS, and combining those links with Fish are also conceivable.<br><br></li>
+				
+				<li>ForceChain is an algorithm that uses super link (cell-to-cell link, cell group link, ALS link).
+					<br><br></li>
+				
+				<li>Finally it is about SueDeCoq. This is a method independent of other methods.<br>
+					In program creation, i used "ALS+2 (n+2 digits in n cells)". </li>
+			</ul>
+					
+			<h2 id="GeneralLogic" class="auto-style10"><strong><a href="page60.html">GeneralLogic</a></strong></h2>
+			<p>All Sudoku solving algorithms shown in the table above can be expressed as "GeneralLogic".
+			This is a method to exclude logically inconvenient (unlikely) candidates 
+			from the coverage of BaseSet and CoverSet.
+			It is relatively easy to reinterpret the results solved by the algorithm of the conventional method 
+			with BaseSet and CoverSet.<br><br></p>
+			</article>
+    </section>
+    
+    <footer>
+        <p id="copyright"> Copyright &copy; 2014-  GNPX. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

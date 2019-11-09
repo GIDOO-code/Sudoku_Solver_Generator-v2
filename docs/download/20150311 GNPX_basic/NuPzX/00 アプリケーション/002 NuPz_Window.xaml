@@ -1,0 +1,902 @@
+﻿<Window x:Class="GNPZ_sdk.NuPz_Win"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended" 
+        xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        mc:Ignorable="d"
+        
+        Title="NuPz_Window" 
+        Loaded="Window_Loaded" Background="#FF181846" ShowInTaskbar="False" WindowStyle="None" 
+        ShowActivated="True" ResizeMode="NoResize" Unloaded="Window_Unloaded" BorderBrush="Black" 
+        MouseDown="Window_MouseDown" Width="954" Height="523" >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/DataGridStyle.xaml"></ResourceDictionary>
+                <!--
+                <ResourceDictionary Source="/Styles/ListBoxStyle1.xaml"></ResourceDictionary>
+-->
+                <ResourceDictionary Source="/Styles/TabControlStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Styles/TextBlockStyle.xaml"></ResourceDictionary>
+
+                <ResourceDictionary>
+                    <Style TargetType="{x:Type ComboBox}">
+                        <Style.Triggers>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="true">
+                                <Setter Property="Background" Value="Navy"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid VerticalAlignment="Stretch" Margin="3,0,0,0" PreviewKeyDown="Grid_PreviewKeyDown">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                <GradientStop Color="#FF302A3E" />
+                <GradientStop Color="#FF5E5E80" Offset="1" />
+                <GradientStop Color="#BE232136" Offset="0.43"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button Content="終 了" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="29" HorizontalAlignment="Left" Margin="841,480,0,0" x:Name="appExit" VerticalAlignment="Top" Width="56" Click="appExit_Click" Style="{Binding}">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.8" />
+                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                    <GradientStop Color="#EA575757" Offset="0.55" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label Content="LbShortMes" Height="28" HorizontalAlignment="Left" Margin="185,34,0,0" x:Name="LbShortMes" VerticalAlignment="Top" Foreground="Red" RenderTransformOrigin="0.5,0.5" Visibility="Hidden" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="2.545" Y="0.509"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+
+        <Label Content="難易度" FontFamily="MS Gothic" FontSize="14" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="270,91,0,0" x:Name="label1" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="2.11" Y="1.537"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <TextBox x:Name="txtProbName" Text="........." Background="#FF0A0A24" Width="269" Margin="86,70,0,0" 
+                 FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="19" 
+                 HorizontalAlignment="Left"   VerticalAlignment="Top" VerticalContentAlignment="Center" 
+                 RenderTransformOrigin="0.5,0.5" KeyUp="txtProbName_KeyUp" >
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="2.127" Y="-0.077"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBox Background="#FF0A0A24" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="19" HorizontalAlignment="Left" Margin="43,69,0,0" x:Name="txtProbNo" Text="999" TextAlignment="Center" VerticalAlignment="Top" Width="37" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center" >
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="2.137" Y="-1.607"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Label Content="問題" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="9,68,0,0" x:Name="label2" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="2.134" Y="-2.068"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Image x:Name="PB_GBoard" Width="338" Height="338" Margin="18,118,0,0" Stretch="Fill" VerticalAlignment="Top"
+               DataContext="{Binding}" MouseLeftButtonDown="PB_GBoard_MouseLeftButtonDown"
+               MouseLeftButtonUp="PB_GBoard_MouseLeftButtonUp" HorizontalAlignment="Left" 
+               RenderTransformOrigin="0.5,0.5" Source="/GNPX_Basic;component/40 WPFColorPickerLib/Images/ColorSwatchCircle.png" />
+        <Label x:Name="lblStepCounter" Content=" セル数 問:.. 解:.. 残:.." FontFamily="MS Gothic" FontSize="12" 
+               Foreground="WhiteSmoke" HorizontalAlignment="Left" Margin="17,94,0,0" VerticalAlignment="Top" 
+               RenderTransformOrigin="0.5,0.5" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="1.842" Y="-1.149"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Image Height="36" HorizontalAlignment="Left" Margin="17,117,0,0" x:Name="GnumericPad" Stretch="Fill" 
+               VerticalAlignment="Top" Width="36" Visibility="Visible" MouseMove="GnumericPad_MouseMove" 
+               MouseUp="GnumericPad_MouseUp" RenderTransformOrigin="0.5,0.5" />
+        <TabControl x:Name="tabCtrlMode" Background="Black" 
+    		Height="445" HorizontalAlignment="Left" Margin="376,28,0,0"
+    		VerticalAlignment="Top" Width="557" SelectionChanged="tabCtrlMode_SelectionChanged">
+            <TabItem x:Name="tabAFileIO" Header="ファイル" Style="{DynamicResource ResourceKey=styleTabItemTop}" Width="75" FontSize="12" FontFamily="MS Mincho" >
+                <Grid Width="551" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="94*"/>
+                        <ColumnDefinition Width="57*"/>
+                        <ColumnDefinition Width="360*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF3A3948" Offset="0" />
+                            <GradientStop Color="#FF65646F" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Button Content="ファイル保存" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="42,156,0,0" x:Name="btnFileOutputQ" VerticalAlignment="Top" Width="100" Click="btnFileOutputQ_Click" FontSize="12" Grid.ColumnSpan="2">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFB0B0CA" Offset="0" />
+                                <GradientStop Color="#FF0D0D1A" Offset="1" />
+                                <GradientStop Color="#FF434399" Offset="0.508" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <TextBox Height="39" HorizontalAlignment="Left" Margin="54,61,0,0" x:Name="txtFileName" Text="問題ファイル" VerticalAlignment="Top" Width="299" TextWrapping="WrapWithOverflow" Grid.ColumnSpan="3" FontSize="12" />
+                    <Button Content="お気に入り保存" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="131,156,0,0" x:Name="btnFavfileOutputQ" VerticalAlignment="Top" Width="100" Click="btnFavfileOutputQ_Click" FontSize="12" Grid.Column="2">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFCACACA" Offset="0" />
+                                <GradientStop Color="#FF6F6F85" Offset="1" />
+                                <GradientStop Color="#FF4C31A0" Offset="0.508" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Rectangle Height="3" HorizontalAlignment="Left" Margin="31,136,0,0" x:Name="grid1" VerticalAlignment="Top" Width="386" Fill="#FF0000C5" Grid.ColumnSpan="3" />
+                    <Label Content="全問題を保存" Foreground="White" Margin="48,183,0,0" x:Name="label14" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="94" FontSize="12" Grid.ColumnSpan="2" />
+                    <Label Content="表示問題を保存" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="142,183,0,0" x:Name="label15" VerticalAlignment="Top" FontSize="12" Grid.Column="2" />
+                    <CheckBox Content="フォーマット：81数字・一列" Foreground="White" Height="16" Margin="66,222,102,0" x:Name="cbxFile81Nocsv" IsChecked="True" VerticalAlignment="Top" FontSize="12" Grid.ColumnSpan="3" VerticalContentAlignment="Center" />
+                    <CheckBox Content="難易度順にソートして出力" Foreground="White" Height="16" Margin="66,238,0,0" x:Name="cbxSolutionSort" VerticalAlignment="Top" HorizontalAlignment="Left" Width="176" FontSize="12" Grid.ColumnSpan="3" VerticalContentAlignment="Center" />
+                    <CheckBox Content="解を出力" Foreground="White" Margin="66,250,0,0" x:Name="cbxProbSolSetOutput" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="89" Checked="cbxProbSolSetOutput_Checked" Unchecked="cbxProbSolSetOutput_Checked" FontSize="12" Grid.ColumnSpan="3" VerticalContentAlignment="Center" />
+                    <CheckBox Content="ファイルが存在するとき追記" Foreground="White" Height="20" Margin="66,204,0,0" x:Name="cbxAppend" VerticalAlignment="Top" IsChecked="True" HorizontalAlignment="Left" Width="184" FontSize="12" Grid.ColumnSpan="3" VerticalContentAlignment="Center" />
+                    <CheckBox Content="初期状態に戻して入力" Foreground="White" Height="20" IsChecked="True" Margin="66,99,102,0" x:Name="cbxProbInitialSet" VerticalAlignment="Top" FontSize="12" Grid.ColumnSpan="3" VerticalContentAlignment="Center" />
+                    <Button x:Name="btnFileInputQ" Content="ファイル入力"  Width="100" Height="25" VerticalAlignment="Top" Margin="42,31,0,0"
+    					Foreground="White" HorizontalAlignment="Left" FontSize="12" Grid.ColumnSpan="2" Click="btnFileInputQ_Click" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFA3A3A3" Offset="0" />
+                                <GradientStop Color="Black" Offset="1" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <CheckBox Content="解法リスト出力" Foreground="Gray" Height="17" HorizontalAlignment="Left" Margin="82,271,0,0" x:Name="cbxProbSolSetOutput2" VerticalAlignment="Top" Width="122" IsEnabled="False" FontSize="12" Grid.ColumnSpan="3" VerticalContentAlignment="Center" />
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="tabAAnalyze" Header="解析" Style="{DynamicResource ResourceKey=styleTabItemTop}" Width="45" FontFamily="MS Mincho" FontSize="12">
+                <Grid HorizontalAlignment="Left" Width="550">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="446*"/>
+                        <ColumnDefinition Width="67*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF3A3948" Offset="0" />
+                            <GradientStop Color="#FF65646F" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TabControl Height="396" HorizontalAlignment="Left" Margin="10,6,0,0" x:Name="tabSolver" VerticalAlignment="Top" Width="530"
+                                Background="#FFEFEFEF" BorderBrush="{x:Null}" SelectionChanged="tabSolver_SelectionChanged" Grid.ColumnSpan="2">
+                        <TabItem x:Name="TC_SDKAnalyzer" Header="解析"  Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" Width="40" HorizontalAlignment="Left" FontFamily="MS Mincho" FontSize="12">
+                            <Grid x:Name="AutoSolNoDisp" Width="523" Margin="0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="42*"/>
+                                    <ColumnDefinition Width="193*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF3A3948" Offset="0" />
+                                        <GradientStop Color="#FF65646F" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Label Content="手  法" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="33,135,0,0" x:Name="label16" VerticalAlignment="Top" Grid.Column="1" />
+                                <Label Content="適用回数" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="112,135,0,0" x:Name="label17" VerticalAlignment="Top" Grid.Column="2" />
+                                <ScrollViewer HorizontalAlignment="Left" Width="350" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,22,0,232" >
+                                    <TextBox Background="#FF0A0A24" Margin="0" x:Name="lblAnalyzerResult" Foreground="#FFF2F2F2" FontFamily="MS Mincho" FontSize="12" HorizontalContentAlignment="Stretch" TextOptions.TextFormattingMode="Display" TextWrapping="WrapWithOverflow" Width="332" HorizontalAlignment="Left" />
+                                </ScrollViewer>
+                                <ScrollViewer  VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.ColumnSpan="2" Margin="1,156,162,5" RenderTransformOrigin="0.5,0.5" Width="350">
+                                    <ScrollViewer.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleY="-1"/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </ScrollViewer.RenderTransform>
+                                    <DataGrid AutoGenerateColumns="False" 
+                                	x:Name="DGViewMethodCounter" 
+                                	Background="#FF0A0A24" 
+                                	FontFamily="MS Mincho" 
+                                	Foreground="White" 
+                                	ItemsSource="{Binding}" 
+                                	MinWidth="10" MinHeight="14" 
+                                	FontStretch="Normal"
+                                	IsSynchronizedWithCurrentItem="True" 
+                                	MinRowHeight="14" RowHeight="14" 
+                                	CanUserSortColumns="False" 
+                                	HeadersVisibility="None" 
+                                	MinColumnWidth="12" 
+                                	RowBackground="#FF0A0A24" VerticalGridLinesBrush="#FFAFB7EB" 
+                                	HorizontalGridLinesBrush="#FFAFB7EB" CanUserResizeColumns="True" CanUserReorderColumns="False" BorderBrush="#FF4F4F72" FrozenColumnCount="2" IsReadOnly="True" SelectionMode="Single" FontSize="12" HorizontalAlignment="Left" Width="332" Grid.IsSharedSizeScope="True" Grid.ColumnSpan="3" Height="204" RenderTransformOrigin="0.5,0.5">
+                                        <DataGrid.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleY="-1"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </DataGrid.RenderTransform>
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn FontFamily="MS Gothic" Foreground="White" Binding="{Binding methodName}" Width="5*" />
+                                            <DataGridTextColumn FontFamily="MS Gothic" Foreground="White" Binding="{Binding count}" Width="1*"/>
+                                        </DataGrid.Columns>
+                                        <DataGrid.RowStyle>
+                                            <Style TargetType="{x:Type DataGridRow}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter Property="Background" Value="#FF0A0A24" />
+                                                        <Setter Property="Foreground" Value="White" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsFocused" Value="True">
+                                                        <Setter Property="Background" Value="#FF0A0A24" />
+                                                        <Setter Property="Foreground" Value="White" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGrid.RowStyle>
+                                    </DataGrid>
+                                </ScrollViewer>
+
+                                <Button x:Name="btnSDKAnalyzer" Content="解　析" FontSize="12" Foreground="White" 
+    								Margin="278,24,0,0" VerticalAlignment="Top" Width="90" Height="24" HorizontalAlignment="Left"
+    								Click="btnSDKAnalyzer_Click" Grid.Column="2">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                            <GradientStop Color="Black" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button Content="解析リセット" FontSize="12" Foreground="White" Height="24" HorizontalAlignment="Left" Margin="278,57,0,0" x:Name="btnAnalyzerReset" VerticalAlignment="Top" Width="90" Click="btnAnalyzerReset_Click" Grid.Column="2">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF7EA17E" Offset="0" />
+                                            <GradientStop Color="#FF103810" Offset="1" />
+                                            <GradientStop Color="#FF184818" Offset="0.626" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnSDKAnalyzerAuto" Content="自動解析" FontSize="12" Foreground="White" Height="24" 
+                                        HorizontalAlignment="Left" Margin="278,103,0,0" VerticalAlignment="Top" 
+                                        Width="90" Click="btnSDKAnalyzerAuto_Click" Grid.Column="2">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                            <GradientStop Color="Black" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button Content="全リセット" FontSize="12" Foreground="White" Height="24" HorizontalAlignment="Left" 
+                                        Margin="278,136,0,0" x:Name="btnAnalyzerResetAll" VerticalAlignment="Top" Width="90" 
+                                        Click="btnAnalyzerResetAll_Click" Grid.Column="2">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF7EA17E" Offset="0" />
+                                            <GradientStop Color="#FF103810" Offset="1" />
+                                            <GradientStop Color="#FF184818" Offset="0.626" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Label Content="解析中" FontSize="12" FontWeight="Normal" Foreground="#FFFF4043" HorizontalAlignment="Left" Margin="69,0,0,0" x:Name="Lbl_onAnalyzer" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" />
+                                <Label Content="0 sec" FontSize="12" Foreground="#FFEFF0F8" HorizontalAlignment="Right" Margin="0,0,198,345" x:Name="Lbl_onAnalyzerTS" VerticalAlignment="Bottom" FontWeight="Normal" FontFamily="MS Gothic" RenderTransformOrigin="1.45,0.636" HorizontalContentAlignment="Right" Grid.Column="2" Height="21" />
+                                <Label Content="ステップ 0" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="284,6,0,0" x:Name="btnAnalyzerCC" VerticalAlignment="Top" RenderTransformOrigin="0,0.391" Grid.Column="2" Width="84" />
+                                <Grid Margin="0,204,7,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="148" Grid.Column="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="59*"/>
+                                        <ColumnDefinition Width="89*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Background="White" Content="空き数字を表示" FontSize="11" Foreground="White" Margin="11,-20,0,0" x:Name="chbAnalyze00" IsChecked="True" HorizontalAlignment="Left" Checked="chbAnalyze00_Checked" Unchecked="chbAnalyze00_Checked" VerticalAlignment="Top" FontFamily="MS Gothic" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" />
+                                    <CheckBox Background="White" Content="複数セルを確定" FontSize="11" Foreground="White" Margin="11,0,0,-15" x:Name="MltSolOn" IsChecked="True" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" />
+                                    <CheckBox Background="White" Content="難易度設定" FontSize="11" Foreground="White" Margin="11,21,0,-36" x:Name="cbxFileDifficultyLevel" IsThreeState="False" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True" FontFamily="MS Gothic" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" />
+
+                                </Grid>
+                                <Button x:Name="btnSDKAnalyzerPls" Content="+" FontSize="12" Foreground="White" 
+                                	Margin="383,28,0,0" VerticalAlignment="Top" Width="21" Height="17" HorizontalAlignment="Left" Grid.Column="2">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                            <GradientStop Color="Black" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="TC_SDK_MltiAnalyzer" Header="複数解解析"  Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" FontFamily="MS Mincho" FontSize="12">
+                            <Grid x:Name="AutoSolNoDisp2" Width="523" Margin="0,1,0,0">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF3A3948" Offset="0" />
+                                        <GradientStop Color="#FF65646F" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Grid Margin="10,18,0,0" Width="369" HorizontalAlignment="Left" VerticalAlignment="Top" Height="115">
+                                    <ScrollViewer HorizontalAlignment="Left" Width="370" Margin="0,0,-127,0">
+                                        <TextBox Background="#FF0A0A24" Margin="0" x:Name="lblAnalyzerResultM" Foreground="#FFF2F2F2" FontFamily="MS Mincho" FontSize="12" HorizontalContentAlignment="Stretch" TextOptions.TextFormattingMode="Display" TextWrapping="WrapWithOverflow" Width="369" ScrollViewer.CanContentScroll="True" />
+                                    </ScrollViewer>
+                                </Grid>
+                                <Grid Width="240" HorizontalAlignment="Left" Margin="10,154,0,10" Grid.ColumnSpan="3"/>
+                                <Button x:Name="btnMltAnlzSearch" Content="複数解探索" FontSize="12" Foreground="White" 
+                        			Margin="402,27,0,0" VerticalAlignment="Top" Width="90" Height="24" HorizontalAlignment="Left"
+                        			Click="btnMltAnlzSearch_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                            <GradientStop Color="Black" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Label Content="解析中" FontSize="12" FontWeight="Normal" Foreground="#FFFF4043" HorizontalAlignment="Left" Margin="26,-1,0,0" x:Name="Lbl_onAnalyzerM" VerticalAlignment="Top" Height="22" />
+                                <Label Content="0 sec" FontSize="12" Foreground="#FFEFF0F8" HorizontalAlignment="Right" Margin="0,-1,167,343" x:Name="Lbl_onAnalyzerTSM" VerticalAlignment="Bottom" FontWeight="Normal" FontFamily="MS Gothic" RenderTransformOrigin="1.45,0.636" HorizontalContentAlignment="Right" Grid.Column="2" Panel.ZIndex="1" Height="21" Width="40" />
+                                <Label Content="ステップ 0" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="409,6,0,0" x:Name="btnAnalyzerCCM" VerticalAlignment="Top" RenderTransformOrigin="0,0.391" Width="85" />
+                                <Grid Margin="0,204,7,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="148" Grid.Column="2" Height="0"/>
+                                <Label Content="解　法" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="174,136,0,0" x:Name="label3_Copy1" VerticalAlignment="Top" Width="46" />
+                                <Label Content="難 度" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="43,136,0,0" x:Name="label3_Copy2" VerticalAlignment="Top" Width="40" />
+                                <GroupBox ForceCursor="True" Foreground="#FFFFFFFF" IsEnabled="True" Margin="384,96,2,149" x:Name="groupBox3_Copy" OpacityMask="#FFDBC5C5" Header="複数解探索条件" FontSize="12" BorderThickness="1">
+                                    <Grid Margin="28,0,0,0">
+                                        <Label Content="最大レベル" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" x:Name="label25_Copy" VerticalAlignment="Top" Margin="-22,7,0,0" />
+                                        <extToolkit:DecimalUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Maximum="100" Minimum="1" x:Name="MltAnsOpt0" TextAlignment="Center" Value="10" VerticalAlignment="Top" Width="52" Height="19" Margin="44,9,0,0" />
+                                        <Label Content="探索数上限" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left"  x:Name="label25_Copy1" VerticalAlignment="Top" Margin="-22,34,0,0" />
+                                        <extToolkit:DecimalUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left"  Maximum="1000" Minimum="1" x:Name="MltAnsOpt1" TextAlignment="Center" Value="50" VerticalAlignment="Top" Width="52" Height="19" Margin="44,36,0,0"/>
+                                        <Label Content="探索時間上限" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left"  x:Name="label25_Copy2" VerticalAlignment="Top" Margin="-33,58,0,0" />
+                                        <extToolkit:DecimalUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left"  Maximum="120" Minimum="1" x:Name="MltAnsOpt2" TextAlignment="Center" Value="20" VerticalAlignment="Top" Width="52" Height="19" Margin="45,60,-1,0" />
+                                        <Label Content="sec" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" x:Name="label25_Copy3" VerticalAlignment="Top" Margin="55,72,0,0" />
+                                    </Grid>
+                                </GroupBox>
+                                <Button x:Name="btnMTop" Content="|&lt;" FontSize="12" Foreground="White" 
+                                	Margin="403,56,0,0" VerticalAlignment="Top" Width="40" Height="24" HorizontalAlignment="Left" Click="btnAnalyzerResetAll_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF363E9C" Offset="0.472" />
+                                            <GradientStop Color="#FF434559" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnMPre" Content="&lt;" FontSize="12" Foreground="White" 
+                                	Margin="452,56,0,0" VerticalAlignment="Top" Width="40" Height="24" HorizontalAlignment="Left" Click="btnMPre_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF363E9C" Offset="0.472" />
+                                            <GradientStop Color="#FF434559" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnMNxt" Content="&gt;" FontSize="12" Foreground="White" 
+                                	Margin="364,56,0,0" VerticalAlignment="Top" Width="27" Height="24" HorizontalAlignment="Left" Grid.Column="2" Click="btnMNxt_Click" Visibility="Hidden">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF363E9C" Offset="0.472" />
+                                            <GradientStop Color="#FF434559" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <ListBox x:Name="possibleTecs" 
+                                	HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                                	Background="#FF0A0A24" Foreground="White" 
+                                	FontSize="12" Height="202" 
+                                	ItemsSource="{Binding}" 
+                                	SelectionChanged="possibleTecs_SelectionChanged" Margin="10,154,144,0" >
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="{Binding ID}" HorizontalAlignment="Center"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding difL}" HorizontalAlignment="Center"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding tech}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Label Content="sq." FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="13,136,0,0" x:Name="label3_Copy" VerticalAlignment="Top" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="tabSelMethodSel" Header="手法" Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" Width="35" FontFamily="MS Mincho" FontSize="12">
+                            <Grid Width="522" Margin="0,-4,0,4">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF6F6E6E" Offset="1" />
+                                        <GradientStop Color="#FF414141" Offset="0.033" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Label Content="解析・問題作成時に用いる手法・順序" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,3,248,0" x:Name="label21" VerticalAlignment="Top" Width="226" />
+                                <Button Content="▲" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="258,102,0,0" x:Name="GMethod01U" VerticalAlignment="Top" Width="25" Click="GMethod01U_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="Black" Offset="0.8" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA575757" Offset="0.55" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button Content="▼" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="258,139,0,0" x:Name="GMethod01D" VerticalAlignment="Top" Width="25" Click="GMethod01D_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="Black" Offset="0.8" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA575757" Offset="0.55" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button Content="初期状態に戻す" FontSize="12" Foreground="White" Height="27" HorizontalAlignment="Left" Margin="277,201,0,0" x:Name="GMethod02" VerticalAlignment="Top" Width="112" Click="GMethod02_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                            <GradientStop Color="#FF939393" Offset="0" />
+                                            <GradientStop Color="#FF1D1C1C" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <ListBox x:Name="GMethod00A" 
+    								Width="241" Height="331" HorizontalAlignment="Left" Margin="12,25,0,0" 
+    								VerticalAlignment="Top" 
+    								ItemsSource="{Binding testCBL}" Background="{x:Null}" Foreground="#FF707070" FontFamily="MS Mincho" FontSize="12">
+                                    <ListBox.ItemTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <CheckBox Content="{Binding Name}" 
+                                                      IsChecked="{Binding IsChecked}" 
+                                                      VerticalContentAlignment="Center"
+                                                      Background="White" Foreground="White" />
+                                        </HierarchicalDataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Label Content="NiceLoopは深さ優先探索" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="275,252,0,0" x:Name="label21_Copy" VerticalAlignment="Top" />
+                                <Label Content="NiceLoop2は幅優先探索" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="275,268,0,0" x:Name="label21_Copy1" VerticalAlignment="Top" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="tabItem3" Header="高度手法" Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" Margin="0,0,-3,0" FontFamily="MS Mincho" FontSize="12">
+                            <Grid Margin="0,-1,0,1" Width="523">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="54*"/>
+                                    <ColumnDefinition Width="107*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF212020" Offset="0" />
+                                        <GradientStop Color="#FF969393" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Label Content="NiceLoop MaxSize" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="22" HorizontalAlignment="Left" Margin="62,52,0,0" x:Name="label22" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                                <Label Content="Grouped NiceLoop Type" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="62,79,0,0" x:Name="label23" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                                <CheckBox Content="GroupedCells" Foreground="White" Margin="28,101,0,0" x:Name="method_NLGCells" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Column="1" IsChecked="True" />
+                                <CheckBox Content="ALS" Foreground="White" Margin="131,101,0,0" x:Name="method_NLALS" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Column="1" IsChecked="True" />
+                                <CheckBox Content="Cell (常にOn)" Foreground="White" Margin="82,101,0,0" x:Name="method_NLCell" IsChecked="True" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.ColumnSpan="2" />
+                                <Label Content="ALS MaxSize" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" Margin="60,29,0,0" x:Name="label25" VerticalAlignment="Top" />
+                                <extToolkit:DecimalUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="17,30,0,0" Maximum="8" Minimum="1" x:Name="ALSSizeMax" TextAlignment="Center" Value="5" VerticalAlignment="Top" ValueChanged="ALSSizeMax_ValueChanged" Width="49" Height="19" Grid.Column="1" />
+                                <extToolkit:DecimalUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="17,54,0,0" Maximum="30" Minimum="2" x:Name="NiceLoopMax" TextAlignment="Center" Value="10" VerticalAlignment="Top" Width="49" ValueChanged="NiceLoopMax_ValueChanged" Grid.Column="1" />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabAProblem" Header="問題作成" Style="{DynamicResource ResourceKey=styleTabItemTop}" Width="75" FontFamily="MS Mincho" FontSize="12">
+                <Grid Width="551" HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="511" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF3A3948" Offset="0" />
+                            <GradientStop Color="#FF65646F" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TabControl Height="295" HorizontalAlignment="Left" Margin="12,10,0,0" x:Name="tabAutoManual" VerticalAlignment="Top" Width="214">
+                        <TabItem x:Name="tabItem5" Header="手動" Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" Width="40">
+                            <Grid Background="#FF3D3D52" Height="Auto" Width="208">
+                                <Button Content="数字を変更" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="32,148,0,0" x:Name="btnNumChange" VerticalAlignment="Top" Width="77" Click="btnNumChange_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF808089" Offset="1" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <TextBlock Background="#FF37378F" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="14" HorizontalAlignment="Center" Margin="98,152,76,86" x:Name="txNumChange" Text="1" TextAlignment="Center" VerticalAlignment="Center" Width="14" Visibility="Hidden" />
+                                <Button Content="確定" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="114,148,0,0" x:Name="btnNumChangeFix" VerticalAlignment="Top" Width="40" Click="btnNumChangeFix_Click" IsCancel="False" Visibility="Hidden">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF808089" Offset="1" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Label Content="変更する数字を順にクリック" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="24,172,0,0" x:Name="label26" VerticalAlignment="Top" />
+                                <GroupBox Height="120" HorizontalAlignment="Left" Margin="23,9,0,0" x:Name="grpManual" VerticalAlignment="Top" Width="Auto" FontFamily="MS Gothic">
+                                    <Grid>
+                                        <Label Content="問題の作成／編集" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" x:Name="label24" VerticalAlignment="Top" />
+                                        <Button x:Name="btnBoardClear" Content="クリア"  Height="22" Width="57" Margin="15,56,0,0" 
+                                                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                                FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnBoardClear_Click">
+                                            <Button.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FF8D9797" Offset="0.996" />
+                                                    <GradientStop Color="#FFAABDAC" />
+                                                    <GradientStop Color="#EA2F6E34" Offset="0.55" />
+                                                </LinearGradientBrush>
+                                            </Button.Background>
+                                        </Button>
+                                        <Button x:Name="btnNewProblem" Content="新　規" Height="22" Width="57" Margin="15,29,0,0" 
+                                                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                                FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnNewProblem_Click">
+                                            <Button.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFCBC9D4" Offset="0.008" />
+                                                    <GradientStop Color="#EAACB1CB" Offset="1" />
+                                                    <GradientStop Color="#F4273DA2" Offset="0.502"/>
+                                                </LinearGradientBrush>
+                                            </Button.Background>
+                                        </Button>
+                                        <Button x:Name="btnDeleteProblem" Content="削　除" Height="22" Width="57" Margin="81,56,0,0" 
+                                                HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" 
+                                                FontFamily="MS Gothic" FontSize="12" Click="btnDeleteProblem_Click">
+                                            <Button.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FF8B7979" Offset="1" />
+                                                    <GradientStop Color="#FFDCD7D6" />
+                                                    <GradientStop Color="#EA5F1D1D" Offset="0.55" />
+                                                </LinearGradientBrush>
+                                            </Button.Background>
+                                        </Button>
+                                        <CheckBox x:Name="chbAssist01" Content="空き数字を表示" Width="113" 
+                                                  FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+                                                  HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                                  Checked="chbAssist01_Checked" Unchecked="chbAssist01_Checked" VerticalContentAlignment="Center" Margin="19,82,0,0" Height="32" Panel.ZIndex="2" />
+                                        <CheckBox x:Name="chbAssist03A" Content="パターンを表示" Width="100" Margin="36,101,12,6" 
+                                                  Visibility="Hidden" FontFamily="MS Gothic" Foreground="White" />
+                                        <Button x:Name="btnCopyProblem" Content="コピー" Height="22" Width="57" Margin="81,29,0,0" 
+                                        	HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                        	FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnCopyProblem_Click">
+                                            <Button.Background>
+                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                    <GradientStop Color="#FFCBC9D4" Offset="0.008" />
+                                                    <GradientStop Color="#EAACB1CB" Offset="1" />
+                                                    <GradientStop Color="#F4273DA2" Offset="0.502"/>
+                                                </LinearGradientBrush>
+                                            </Button.Background>
+                                        </Button>
+                                    </Grid>
+                                </GroupBox>
+                                <Button x:Name="btnTransRt" Content="右回転" Height="22" Width="60" Margin="10,212,0,0" 
+                                        HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                        FontFamily="MS Gothic" FontSize="12" Foreground="White"  Click="btnTrans_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF808089" Offset="1" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button Content="左右反転" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="73,212,0,0" x:Name="btnTransRL" VerticalAlignment="Top" Width="60" Click="btnTrans_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF808089" Offset="1" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button Content="上下反転" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="135,212,0,0" x:Name="btnTransUD" VerticalAlignment="Top" Width="60" Click="btnTrans_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF808089" Offset="1" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem x:Name="tabItem4M" Header="自動" Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" Width="40" FontSize="12">
+                            <Grid Width="208">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF3E3838" Offset="0" />
+                                        <GradientStop Color="#FF0B0A0D" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Label Content="問題レベル" FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="13,35,0,0" x:Name="label31" VerticalAlignment="Top" />
+                                <extToolkit:DecimalUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="21" HorizontalAlignment="Left" Maximum="20" Minimum="1" x:Name="gamGen01" TextAlignment="Center" Value="1" VerticalAlignment="Top" Width="40" Margin="84,35,0,0" ValueChanged="gamGen01_ValueChanged" />
+                                <extToolkit:DecimalUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="21" HorizontalAlignment="Left" Margin="147,35,0,0" Maximum="20" Minimum="1" x:Name="gamGen02" TextAlignment="Center" Value="3" VerticalAlignment="Top" Width="40" Text="3" ValueChanged="gamGen02_ValueChanged" />
+                                <Label Content="～" FontFamily="MS Gothic" FontSize="12" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="124,35,0,0" x:Name="label32" VerticalAlignment="Top" />
+                                <Button Content="問題作成" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="35,60,0,0" x:Name="btnP13MltStart" Width="85" Click="btnP13Start_Click" Height="25" VerticalAlignment="Top">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="Black" Offset="0.8" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA575757" Offset="0.55" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Label Content="試行回数" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="28,137,0,0" x:Name="Mlttrial" VerticalAlignment="Top" DataContext="{Binding SDtrial}"/>
+                                <Label Content=" (累積)" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="37,153,0,0" x:Name="MlttrialT" VerticalAlignment="Top" />
+                                <Label Content="基本パターン" FontFamily="MS Mincho" FontSize="12" FontWeight="Normal" Foreground="White" HorizontalAlignment="Left" Margin="28,168,0,0" x:Name="LSPattern" VerticalAlignment="Top" DataContext="{Binding SDtrial}"/>
+                                <Label Content="経過時間" FontFamily="MS Mincho" FontSize="12" FontWeight="Normal" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="28,184,0,0" x:Name="Lbl_onAnalyzerTS3" VerticalAlignment="Top" />
+                                <Label Content="問題数" FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" HorizontalAlignment="Left" Margin="37,9,0,0" x:Name="label34" VerticalAlignment="Top" />
+                                <TextBox Background="#FF37378F" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="18" HorizontalAlignment="Center" Margin="88,11,85,236" x:Name="gamGen05" Text="10" TextAlignment="Center" VerticalAlignment="Center" Width="34" DataContext="{Binding}" VerticalContentAlignment="Center" />
+                                <Label Content="＿＿＿" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="131,8,0,0" x:Name="gamGen05A" VerticalAlignment="Top" />
+                                <CheckBox Content="ファイル出力" FontFamily="MS Mincho" Foreground="White" HorizontalAlignment="Left" Margin="30,88,0,0" x:Name="ChbFilePut_GenPrb" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+                                <CheckBox Content="成功時に基本パターン変更" FontFamily="MS Mincho" Foreground="White" HorizontalAlignment="Left" Margin="30,103,0,0" x:Name="ChbNextLSpattern" VerticalAlignment="Top" VerticalContentAlignment="Center" IsChecked="True" />
+                                <CheckBox BorderBrush="#FF5C62A0" Content="問題数字を乱数化" Foreground="White" IsChecked="True" x:Name="cbxDspNumRandmize" VerticalAlignment="Top" Margin="30,119,0,0" HorizontalAlignment="Left" FontFamily="MS Mincho" VerticalContentAlignment="Center" />
+                            </Grid>
+                        </TabItem>
+
+                    </TabControl>
+                    <Label Content="自動作成時の手法は解析/手法で設定" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="6,318,0,0" x:Name="label27" VerticalAlignment="Top" Height="21" Width="220" />
+                    <Grid Margin="280,27,10,10">
+                        <Label Background="{x:Null}" Content="パターン　" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="10,3,0,0" x:Name="label36" VerticalAlignment="Top" Width="64" Height="22" />
+                        <RadioButton x:Name="patSel01" GroupName="PatSel" Content="線対称（垂直）" Height="18" HorizontalAlignment="Left" Margin="0,24,0,0" VerticalAlignment="Top" Foreground="White" Width="100" VerticalContentAlignment="Center" FontFamily="MS Gothic" />
+                        <RadioButton x:Name="patSel02" GroupName="PatSel" Content="線対称（水平）" Height="18" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" Foreground="White" Width="100" VerticalContentAlignment="Center" FontFamily="MS Gothic" />
+                        <RadioButton x:Name="patSel05" GroupName="PatSel" Content="線対称（右下）" Height="18" HorizontalAlignment="Left" Margin="0,60,0,0" VerticalAlignment="Top" Foreground="White" Width="100" VerticalContentAlignment="Center" FontFamily="MS Gothic" />
+                        <RadioButton x:Name="patSel06" GroupName="PatSel" Content="線対象（右上）" Height="18" HorizontalAlignment="Left" Margin="0,78,0,0" VerticalAlignment="Top" Foreground="White" Width="100" VerticalContentAlignment="Center" FontFamily="MS Gothic" />
+                        <RadioButton x:Name="patSel03" GroupName="PatSel" Content="点対象（90度）" Height="18" HorizontalAlignment="Left" Margin="104,24,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True" Width="100" VerticalContentAlignment="Center" FontFamily="MS Gothic" />
+                        <RadioButton x:Name="patSel04" GroupName="PatSel" Content="点対象（180度）" Height="18" HorizontalAlignment="Left" Margin="104,42,0,0" VerticalAlignment="Top" Foreground="White" Width="106" VerticalContentAlignment="Center" FontFamily="MS Gothic" />
+                        <RadioButton x:Name="patSel00" GroupName="PatSel" Content="対称性なし" Height="18" HorizontalAlignment="Left" Margin="104,78,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="False" Width="76" VerticalContentAlignment="Center" FontFamily="MS Gothic" />
+                        <Label Content="基準セル数" FontFamily="MS Gothic" Foreground="White" Height="28" Margin="10,112,0,0" x:Name="label37" VerticalAlignment="Top" HorizontalAlignment="Left" Width="74" />
+                    </Grid>
+
+                    <Button Content="パターン取込み" FontFamily="MS Gothic" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="295,0,0,10" x:Name="btnPatternImport" VerticalAlignment="Bottom" Width="84" Click="btnPatternImport_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0.8" />
+                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                <GradientStop Color="#EA575757" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+                    <Canvas x:Name="PB_pattern" 
+    					Width="176" Height="176"  Margin="295,195,0,0" OpacityMask="#FF73ACE1" 
+    					HorizontalAlignment="Left" VerticalAlignment="Top"
+    					MouseDown="PB_pattern_MouseDown" Background="#FF406F40" />
+
+                    <extToolkit:DecimalUpDown Background="#FF202040" Foreground="White" Height="20" HorizontalAlignment="Left" Margin="358,0,0,239" Maximum="50" Minimum="1" x:Name="CellNumMax" TextAlignment="Center" Value="25" VerticalAlignment="Bottom" Width="47" FontFamily="MS Gothic" FontSize="12" />
+                    <Label Content="...." FontFamily="MS Gothic" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="298,172,0,0" x:Name="labelPattern" VerticalAlignment="Top" />
+                    <Button Content="クリア" FontFamily="MS Gothic" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="418,154,0,0" x:Name="btnPatClear" VerticalAlignment="Top" Width="57" Click="btnPatClear_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0.8" />
+                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                <GradientStop Color="#EA835959" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Button Content="ﾊﾟﾀｰﾝ生成" FontFamily="MS Gothic" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="417,132,0,0" x:Name="btnPatternAutoGen" VerticalAlignment="Top" Width="67" Click="btnPatternAutoGen_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0.8" />
+                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                <GradientStop Color="#EA575757" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Label Content="＿＿＿" FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="15,338,0,0" x:Name="ResMemory" VerticalAlignment="Top" Height="22" />
+                    <Grid Height="54" HorizontalAlignment="Left" Margin="11,259,0,0" x:Name="grid2" VerticalAlignment="Top" Width="200">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="49*"/>
+                            <ColumnDefinition Width="126*"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox Content="ランダムにパターン生成" FontFamily="MS Gothic" Foreground="White" Margin="6,6,0,0" x:Name="checkBox1" Visibility="Hidden" Width="166" HorizontalAlignment="Left" Height="17" VerticalAlignment="Top" IsChecked="True" Grid.ColumnSpan="2" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+       <!--
+            <TabItem x:Name="tabAPrint" Header="印刷" Style="{DynamicResource ResourceKey=styleTabItemTop}" Width="45" FontFamily="MS Mincho" FontSize="12" IsEnabled="False">
+                <Grid Width="554" Margin="0,-1,0,1">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF3A3948" Offset="0" />
+                            <GradientStop Color="#FF65646F" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <extToolkit:CheckListBox Background="#FF313141" Height="65" HorizontalAlignment="Left" Margin="10,21,0,0" x:Name="checkListBox3" VerticalAlignment="Top" Width="270" />
+                    <Label BorderBrush="#FF5C62A0" Content="　問題レベル　" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="10,10,0,0" x:Name="label38" VerticalAlignment="Top" />
+                    <RadioButton Content="範囲指定"  GroupName="Group1" FontSize="12" Foreground="White" Height="16" HorizontalAlignment="Left" Margin="39,56,0,0" x:Name="prnt02" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+                    <RadioButton Content="全て"  GroupName="Group1" FontSize="12" Foreground="White" Height="16" HorizontalAlignment="Left" Margin="39,39,0,0" x:Name="prnt01" VerticalAlignment="Top" IsThreeState="False" IsChecked="True" VerticalContentAlignment="Center" />
+                    <extToolkit:DecimalUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="20" HorizontalAlignment="Left" Margin="124,0,0,338" Maximum="20" Minimum="1" x:Name="prnt02A" TextAlignment="Center" Value="1" VerticalAlignment="Bottom" Width="50" BorderBrush="#FFD1BDBD" Panel.ZIndex="1" />
+                    <extToolkit:DecimalUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="194,0,0,336" Maximum="20" Minimum="1" x:Name="prnt02B" TextAlignment="Center" Value="3" VerticalAlignment="Bottom" Width="50" Panel.ZIndex="1" />
+                    <Label Content="～" FontFamily="MS Gothic" FontSize="12" FontWeight="Bold" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="172,56,0,0" x:Name="label39" VerticalAlignment="Top" />
+                    <extToolkit:CheckListBox Background="#FF313141" Height="65" HorizontalAlignment="Left" Margin="10,98,0,0" x:Name="checkListBox4" VerticalAlignment="Top" Width="270" />
+                    <Label BorderBrush="#FF5C62A0" Content="　問題範囲　" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="10,87,0,0" x:Name="label40" VerticalAlignment="Top" />
+                    <RadioButton Content="範囲指定" GroupName="Group2" FontSize="12" Foreground="White" Height="16" HorizontalAlignment="Left" Margin="39,133,0,0" x:Name="prnt04" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+                    <RadioButton Content="全て" GroupName="Group2" FontSize="12" Foreground="White" Height="16" HorizontalAlignment="Left" Margin="39,116,0,0" x:Name="prnt03" VerticalAlignment="Top" IsChecked="True" VerticalContentAlignment="Center" />
+                    <extToolkit:DecimalUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="20" HorizontalAlignment="Left" Margin="124,0,0,262" Maximum="20" Minimum="1" x:Name="prnt04A" TextAlignment="Center" Value="1" VerticalAlignment="Bottom" Width="50" Panel.ZIndex="1" />
+                    <extToolkit:DecimalUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="20" HorizontalAlignment="Left" Margin="192,0,0,262" Maximum="9999" Minimum="1" x:Name="prnt04B" TextAlignment="Center" Value="4" VerticalAlignment="Bottom" Width="50" Panel.ZIndex="1" />
+                    <Label Content="～" FontFamily="MS Gothic" FontSize="12" FontWeight="Bold" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="172,132,0,0" x:Name="label41" VerticalAlignment="Top" />
+                    <extToolkit:CheckListBox Background="#FF313141" Height="65" HorizontalAlignment="Left" Margin="10,175,0,0" x:Name="checkListBox5" VerticalAlignment="Top" Width="270" />
+                    <Label BorderBrush="#FF5C62A0" Content="印刷オプション" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="19,164,0,182" x:Name="label42" />
+                    <CheckBox Content="難易度順にソート" FontSize="12" Foreground="White" Height="16" HorizontalAlignment="Left" Margin="39,193,0,0" x:Name="prnt05" VerticalAlignment="Top" IsChecked="True" VerticalContentAlignment="Center" />
+                    <Button Content="印刷設定" FontSize="12" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="76,300,0,0" x:Name="btnPageSetup" VerticalAlignment="Top" Width="100" IsEnabled="False">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                <GradientStop Color="#FF0C101B" Offset="0.472" />
+                                <GradientStop Color="Black" Offset="1" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Button Content="印刷プレビュー" FontSize="12" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="76,334,0,0" x:Name="btnPrintPreview" VerticalAlignment="Top" Width="100" IsEnabled="False">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF7EA17E" Offset="0" />
+                                <GradientStop Color="#FF103810" Offset="1" />
+                                <GradientStop Color="#FF393162" Offset="0.626" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Button Content="印　刷" FontSize="12" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="312,116,0,0" x:Name="btnPrint" VerticalAlignment="Top" Width="100" Click="btnPrint_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                <GradientStop Color="Black" Offset="1" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </Grid>
+            </TabItem>
+       -->
+            <TabItem x:Name="tabAOption" Header="オプション" Style="{DynamicResource ResourceKey=styleTabItemTop}" FontFamily="MS Mincho" FontSize="12" >
+                <Grid Width="551" Margin="0,-4,0,-2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF3A3948" Offset="0" />
+                            <GradientStop Color="#FF65646F" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Label BorderBrush="#FF5C62A0" Content="乱数シード" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="37,20,0,0" x:Name="lblDevPW" VerticalAlignment="Top" Width="72"/>
+                    <TextBox Background="#FF000019" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="18" HorizontalAlignment="Center" Margin="108,22,357,328" x:Name="randumSeed" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="50" TextChanged="randumSeed_TextChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <Label BorderBrush="#FF5C62A0" Content="(&gt;0のとき シード指定)" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Right" Margin="0,20,202,0" x:Name="label44" VerticalAlignment="Top" Width="145" />
+                    <Label BorderBrush="#FF5C62A0" Content="問題生成方法" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="25,47,0,0" x:Name="lblDevPW_Copy" VerticalAlignment="Top" />
+                    <TextBox Background="#FF000019" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="18" HorizontalAlignment="Center" Margin="108,49,357,0" x:Name="GenLStyp" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="50" TextChanged="randumSeed_TextChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <Label BorderBrush="#FF5C62A0" Content="(0：標準 1:高速)" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Right" Margin="0,48,202,0" x:Name="label44_Copy" VerticalAlignment="Top" Width="145" />
+
+                    <Button Content="BitMap Copy" FontFamily="MS Gothic" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="58,178,0,0" x:Name="PutBitMap" VerticalAlignment="Top" Width="94" Style="{Binding}" Click="PutBitMap_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="1" />
+                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                <GradientStop Color="#EA0E3417" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="SaveBitMap" Content="BitMap Save" FontFamily="MS Gothic" Foreground="White"
+                            Height="25" HorizontalAlignment="Left" Margin="58,149,0,0"
+                            VerticalAlignment="Top" Width="94" Style="{Binding}" Click="SaveBitMap_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="1" />
+                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                <GradientStop Color="#EA0E3417" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <CheckBox Background="White" Content="解析情報表示" FontSize="11" Foreground="White" x:Name="chbOpsAssist" IsChecked="True" HorizontalAlignment="Left" Checked="chbOpsAssist_Checked" VerticalAlignment="Center" FontFamily="MS Gothic" VerticalContentAlignment="Center" Margin="157,154,0,252" Unchecked="chbOpsAssist_Checked" />
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabACpyRightOption" Header="ホームページ・他" Style="{DynamicResource ResourceKey=styleTabItemTop}" 
+                     FontFamily="MS Mincho" FontSize="12" >
+                <Grid Width="515" Margin="0,-10,0,10">
+                    <Button Content="ホームページ" FontSize="12" Foreground="White" Height="28" HorizontalAlignment="Left" 
+                            Margin="22,24,0,0" x:Name="btnHomePage" VerticalAlignment="Top" Width="100" Click="btnHomePage_Click" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                <GradientStop Color="Black" Offset="1" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <TextBlock x:Name="txt著作権免責" HorizontalAlignment="Left" Margin="10,67,0,0" TextWrapping="Wrap" 
+                               Text="TextBlock" VerticalAlignment="Top" Height="327" Width="505" Foreground="#FFF7FCFD" 
+                               Background="#FF080808" FontFamily="MS Gothic" FontSize="12"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <TextBox Background="#FF0A0A24" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="19" HorizontalAlignment="Left" Margin="318,94,0,0" x:Name="nUDDifficultyLevel" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="37" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="2.113" Y="2.076"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <RepeatButton  x:Name="btnProbPre" Height="23" HorizontalAlignment="Left" Margin="281,39,0,0"
+    		VerticalAlignment="Top" Width="37" Content="前" Foreground="White" Click="btnProbPre_Click" BorderBrush="#FF2E9BDE" IsEnabled="False" RenderTransformOrigin="0.5,0.5">
+            <RepeatButton.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="2.506" Y="1.585"/>
+                </TransformGroup>
+            </RepeatButton.RenderTransform>
+            <RepeatButton.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.8" />
+                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                    <GradientStop Color="#EA575757" Offset="0.55" />
+                </LinearGradientBrush>
+            </RepeatButton.Background>
+        </RepeatButton>
+        <RepeatButton x:Name="btnProbNxt" Height="23" HorizontalAlignment="Left" Margin="319,39,0,0" 
+    		VerticalAlignment="Top" Width="37" Content="次" Foreground="White" Click="btnProbNxt_Click" BorderBrush="#FF2E9BDE" IsEnabled="False" RenderTransformOrigin="0.5,0.5">
+            <RepeatButton.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="2.502" Y="2.078"/>
+                </TransformGroup>
+            </RepeatButton.RenderTransform>
+            <RepeatButton.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.8" />
+                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                    <GradientStop Color="#EA575757" Offset="0.55" />
+                </LinearGradientBrush>
+            </RepeatButton.Background>
+        </RepeatButton>
+        <Label Content="GNPX 2014" FontFamily="MS Mincho" FontSize="36" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="17,14,0,0" x:Name="GNPXGNPX" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="41" Width="234" FontWeight="Bold" >
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.743"/>
+                    <TranslateTransform X="2.134" Y="-2.068"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+
+    </Grid>
+</Window>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>Sudoku Algorithm Permutation</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+	.auto-style2 {
+		font-size: small;
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
+	}
+	</style>
+</head>
+
+<body id="page" onload="prettyPrint()">
+	<a id="pageTop"></a> 
+    <header>
+    	<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+    <script type="text/javascript"> writeNaviHeader(); </script>
+    
+<!-- ========================================================================== -->    
+    <section id="menuList">
+    	<aside>
+    		<ul>
+	            <li><a href="page11.html">Permutation</a></li>
+	            <li><a href="page12.html">Combination</a></li>
+            
+	            <li><a href="page13.html">surface/cell/candidate number house</a></li>
+	            <li><a href="page14.html">Latin square</a></li>
+	        </ul>
+	    </aside> 
+	</section>
+<!-- -------------------------------------------------------------------------- -->
+    <section id="main">     
+  
+    	<article>	
+    	    <a id="combination"></a>
+            <h2>Combination</h2>   
+            <img src="images/imgTop/download_image.png" width="48">
+            <a href="../download/CombinationTest.lzh" download="CombinationTest.lzh">CombinationTest.lzh</a>
+            
+            <p> <span class="auto-style2">Permutations are ordered in the generated digit group. 
+			Combination is an unordered number group. Like permutations, The combination class has a skip function.</span></p>
+	<pre class="prettyprint linenums lang-C ">
+public class Combination{
+    private int N;
+    private int R;
+    public int[] Cmb=null;
+    private bool First=false;
+    public Combination( int N, int R ){
+        this.N=N;
+        this.R=R;
+        if( R&gt;0 && R&lt;=N ){
+            Cmb=new int[R];
+            Cmb[0]=0;
+            for( int m=1; m&lt;R; m++ ) Cmb[m]=Cmb[m-1]+1;
+            First=true;
+        }
+    }
+
+    public bool Successor(){
+        if( First ){ First=false; }
+        else{
+            int m=R-1;
+            while( m&gt;=0 && Cmb[m]==(N-R+m) ) m--;
+            if( m&lt;0 ){ Cmb=null; return false; }
+            Cmb[m]++;
+            for( int k=m+1; k&lt;R; k++ ) Cmb[k]=Cmb[k-1]+1;
+        }
+        return true;
+    }
+    public bool Successor( int px ){
+        if( First ){ First=false; return (Cmb!=null); }
+
+        int k;//actual change position
+        if( Cmb[0]==N-R ) return false;
+        if( px&lt;R-1 ){
+            for( k=px; k&gt;=0; k-- ){ if( Cmb[k]&lt;=N-R ) break; }
+            if( k&lt;0 )  return false;
+        }
+        else{
+            for( k=R-1; k>0 && Cmb[k]==N-R+k; --k );
+        }
+
+        ++Cmb[k]; 
+        for( int j=k; j&lt;R-1; ++j )  Cmb[j+1]=Cmb[j]+1; // Fill the number after the change position
+        return true;
+    }
+
+    public override string ToString(){
+        string st="";
+        Array.ForEach( Cmb, p=>{ st+=(" "+p);} );
+        return st;
+    }
+}
+</pre>
+      		<p>Combination is used as follows.<br>
+      		The change position can be changed dynamically.The position designation is from 0 to size-1.
+      		 In other cases or omitting specification, the skip function does not work. 
+      		</p>
+            
+			<pre class="prettyprint linenums lang-C ">
+var cmb = new Combination (6,3);
+int px=4;
+while(cmb.Successor(px) ){
+   (Evaluation processing) 
+   (Set change position px of next permutation generation) 
+}</pre><br>
+    
+            <h2>Sample（test program)</h2>
+	<pre class="prettyprint linenums lang-C ">
+static void Main( string[ ] args ){
+    for( int px=0; px&lt;5; px++ ){
+        Combination cmb = new Combination(6,4);
+        Console.WriteLine("\n ===== Combination(6,4) px={0}",px );
+        while( cmb.Successor(px) )  Console.WriteLine(cmb);
+        Console.ReadKey();
+    }
+}</pre>  
+	<h2>Execution result</h2>
+	<p> <span class="auto-style2">
+	(left: permutation generation result right: work data inside function)</span></p>
+	<pre class="LG">
+===== Combination(6,4) px=0
+ 0 1 2 3
+ 1 2 3 4
+ 2 3 4 5
+
+ ===== Combination(6,4) px=1
+ 0 1 2 3
+ 0 2 3 4
+ 0 3 4 5
+ 1 2 3 4
+ 1 3 4 5
+ 2 3 4 5
+
+ ===== Combination(6,4) px=2
+ 0 1 2 3
+ 0 1 3 4
+ 0 2 3 4
+ 0 3 4 5
+ 1 2 3 4
+ 1 3 4 5
+ 2 3 4 5
+ 
+===== Combination(6,4) px=3
+ 0 1 2 3
+ 0 1 2 4
+ 0 1 2 5
+ 0 1 3 4
+ 0 1 3 5
+ 0 1 4 5
+ 0 2 3 4
+ 0 2 3 5
+ 0 2 4 5
+ 0 3 4 5
+ 1 2 3 4
+ 1 2 3 5
+ 1 2 4 5
+ 1 3 4 5
+ 2 3 4 5
+
+ ===== Combination(6,4) px=4
+ 0 1 2 3
+ 0 1 2 4
+ 0 1 2 5
+ 0 1 3 4
+ 0 1 3 5
+ 0 1 4 5
+ 0 2 3 4
+ 0 2 3 5
+ 0 2 4 5
+ 0 3 4 5
+ 1 2 3 4
+ 1 2 3 5
+ 1 2 4 5
+ 1 3 4 5
+ 2 3 4 5 </pre>
+        </article>         
+    </section>
+
+    <footer>
+        <p id="copyright"> Copyright &copy; 2014-  GNPX. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

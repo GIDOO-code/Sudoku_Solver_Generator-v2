@@ -1,0 +1,322 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku  C# ALS</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+	.auto-style1 {
+		font-weight: normal;
+	}
+	</style>
+</head>
+<body id="page" onload="prettyPrint()">
+
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- ======================================================================== -->		
+<section id="main">
+	<article>
+		<h2 style="font-weight: bold"><strong>ALS</strong></h2>
+		<p>In Sudoku's advanced solution, ALS (Almost Locked Set) is used.</p>
+		<h2>ALS</h2>
+		<p>LockedSet is a state where there are n candidate numbers in n cells belonging to the same house.
+		 Cells and numbers are not determined one-on-one, but they are in the Locked state as a whole.
+		 ALS is "Locked" state with n+1 candidate numbers in n cells belonging to the same house.
+		 ALS becomes LockedSet if the number is fixed outside ALS and the number is removed from ALS.
+		 This alone does not hold as a solution, but it can make various analysis algorithms in combination with something.
+		The smallest ALS is 1 cell 2 candidate fnumbers.</p>
+		
+		<p style="text-align:center">
+			<img src="images/imgALS/imgALSaEng.png" width="512" height="180">
+		</p><br>
+		
+		<h2>RCC</h2>
+		<p>The analysis algorithms involving two ALSs take advantage of the Restricted Common Candidate(RCC).
+		<br><br>
+		In the following figure there are two ALSs (blue and green dashed boxes) and when they satisfy the condition<br>
+		 "there are numbers common to the two ALSs without overlap and they are in the same house",<br>
+		 that The numbers are called RCC (Restricted Common Candidate).
+		 (Orange dotted frame is different from ALS house)<br></p>
+		<p>
+		As RCC belongs to the same house, RCC is in only one ALS and the other ALS does not contain RCC numerals,
+		however, not decided which ALS it is.<br>
+		When some condition is added and RCC becomes true in one ALS,　In the other ALS it is false.
+		In false ALS, n candidate number are in n cells and ALS becomes Locked Set.		
+
+		<p style="text-align:center">
+			<img src="images/imgALS/imgALSb.png" >
+		</p>
+
+		<p><br>
+		The following figure shows a case where there are two RCCs between two ALSs (doubly linked).
+		RCC is only for one ALS. In the case of doublylinked, the two RCCs are not offset to one ALS.
+		There is one for each of the two ALSs. 
+		However,　it do not decide which RCC is in which ALS.
+		<p style="text-align:center">
+			<img src="images/imgALS/imgALSc.png" >
+		</p>
+		
+		<p><br>
+		ALS-RCC-ALS is called a link of ALS connected by RCC,
+		 and it can connect ALS-RCC-ALS successively and make a series of ALS.</p>
+
+		<p style="text-align:center">
+			<img src="images/imgALS/imgALSd.png" >
+		</p>
+	
+		<h2>ALS Class(UALS)</h2>
+		<p>i prepared ALS class(UALS) which handles ALS with analysis algorithm.<br>
+		The elements are a collection(UCellLst) of ALS configuration cells, 
+		a cell number(Size), a house number(tfx,0-27), element numbers(FreeB)
+		ALS level (Level,=|FreeB|-|cells|), bit representation of ALS row/column/block(rcbDir).
+		Bit representation of rows/columns/blocks((rcbDir) is defined by properties.<br>
+		Besides this, I have some work variables to use when generating ALS chain.<br>
+		The constructor defines elements of ALS and generates a bit representation of ALS row/column/block
+		and a bit representation of the ALS configuration cell.<br>
+		CompareTo and function for display are prepared as functions.</p>
+		
+		<pre class="prettyprint linenums lang-C"><small>public class UALS: IComparable{
+    static public Bit81[]    pHouseCells{ get{ return AnalyzerBaseV2.HouseCells; } }
+    static public Bit81[]    pConnectedCells{ get{ return AnalyzerBaseV2.ConnectedCells; } }
+
+    public int               ID;
+    public readonly int      Size;  //CellsSize 
+    public readonly int      tfx;   //House number
+    public readonly int      FreeB; //ALS element digits
+    public readonly int      Level; //FreeDigit-CellsSize
+    public readonly List&lt;UCell&gt; UCellLst = new List&lt;UCell&gt;();    //ALS Cells
+    
+    public bool     singly;  //true:ALS configuration is the only(First registration of the same configuration)
+    public int      rcbDir;                                      //bit representation of ALS
+    public int      rcbRow{ get{ return (rcbDir&0x1FF); } }      //row representation
+    public int      rcbCol{ get{ return ((rcbDir&gt;&gt;9)&0x1FF); } } //column representation
+    public int      rcbBlk{ get{ return ((rcbDir&gt;&gt;18)&0x1FF); } }//block representation
+    public Bit81    B81;                                         //ALS representation
+        
+    //working variable//(used in ALSChain)
+    public bool            LimitF=false;       
+    public List&lt;UALSPair&gt;  ConnLst;
+    public List&lt;int&gt;       LockedNoDir;
+        
+    public Bit81    rcbFilter;
+
+    public UALS( int ID, int Size, int tfx, int FreeB, List&lt;UCell&gt; UCellLst ){
+        this.ID        = ID;
+        this.Size      = Size;
+        this.tfx       = tfx;
+        this.singly    = true;
+        this.FreeB     = FreeB;
+        this.Level     = FreeB.BitCount()-Size;
+        this.B81       = new Bit81();
+        this.rcbFilter = new Bit81();
+        this.UCellLst  = UCellLst;
+        this.LockedNoDir = null;
+
+        UCellLst.ForEach( P =&gt;{
+            rcbDir |= ( (1&lt;&lt;(P.b+18)) | (1&lt;&lt;(P.c+9)) | (1&lt;&lt;(P.r)) );     
+            rcbFilter |= pConnectedCells[P.rc];
+            B81.BPSet(P.rc);
+        } );
+    }
+
+    public override int GetHashCode(){ return (B81.GetHashCode() ^ FreeB*18401 ); }
+    public int CompareTo( object obj ){
+        UALS UB = obj as UALS;
+        if( this.Level!=UB.Level ) return (this.Level-UB.Level);
+        if( this.Size!=UB.Size )   return (this.Size-UB.Size);
+        if( this.tfx!=UB.tfx )     return (this.tfx-UB.tfx);
+        return (this.ID-UB.ID);
+    }
+
+    public UGrCells SelectNoCells( int no ){
+        int noB=1&lt;&lt;no;
+        List&lt;UCell&gt; UCsS = UCellLst.FindAll(Q=&gt;(Q.FreeB&noB)&gt;0);
+        UGrCells GCs = new UGrCells(tfx,no);
+        GCs.Add(UCsS);
+        return GCs;
+    }
+    
+    public bool IsPureALS(){
+        if( Size&lt;=2 ) return true;
+        for( int sz=2; sz&lt;Size-1; sz++ ){
+            var cmb=new Combination(Size,sz);
+            while(cmb.Successor()){
+                int fb=0;
+                for( int k=0; k&lt;sz; k++ )  fb |= UCellLst[cmb.Cmb[k]].FreeB;
+                if( fb.BitCount()==sz ) return false;
+            }
+        }
+        return true;
+    }
+
+    public override string ToString(){
+        string po = &quot;&lt;&gt; UALS &quot;+ID+&quot; &lt;&gt;  tfx:&quot;+tfx +&quot; Size:&quot;+Size +&quot; Level:&quot;+Level;
+        po += &quot; NoB:&quot; + FreeB.ToBitString(9) + &quot;\r&quot;
+        po +=       &quot;         B81 &quot;+B81+&quot;\r&quot;
+        for( int k=0; k&lt;UCellLst.Count; k++){
+            po += &quot;------&quot;;
+            int rcW = UCellLst[k].rc;
+            po += &quot; rc:&quot; + ((rcW/9+1)*10+(rcW%9+1)).ToString();
+            po += &quot; FreeB:&quot; + UCellLst[k].FreeB.ToBitString(9);
+            po += &quot; rcb:B&quot; + (rcbBlk).ToBitString(9);
+            po += &quot; c&quot; + rcbCol.ToBitString(9);
+            po += &quot; r&quot; + rcbRow.ToBitString(9);
+            po += &quot; rcbFilter:&quot; + rcbFilter.ToString();
+            po += &quot;\r&quot;
+        }
+        return po;
+    }
+
+    public string ToStringRCN(){
+        string st=&quot;&quot;
+        UCellLst.ForEach( p =&gt;{  st += &quot; r&quot;+(p.r+1) + &quot;c&quot;+((p.c)+1); } );
+        st = st.ToString_SameHouseComp()+&quot; {#&quot;+FreeB.ToBitStringN(9)+&quot;}&quot;;
+        return st;
+    }
+    public string ToStringRC(){
+        string st=&quot;&quot;
+        UCellLst.ForEach( p =&gt;{  st += &quot; r&quot;+(p.r+1) + &quot;c&quot;+((p.c)+1); } );
+        st = st.ToString_SameHouseComp();
+        return st;
+    }
+}</small></pre>
+
+		<h2>ALS Manegiment Class(ALSMan)</h2>
+		<p>In the analysis algorithm, we use class (ALSMan) that manages ALS management and ALS operation functions.
+		The elements of ALSMan are only two external references and ALS collections.
+		The function ALS_Search scans the board for ALS collection.
+		Use nPls of the argument to find the ALS level 1 to nPls .<br><br>
+		In the latest GNPX, i use &quot;;ALSLinkMan&quot; which extends &quot;;ALSMan&quot;.</p>
+		
+		<pre class="prettyprint linenums lang-C"><small>public class ALSMan{
+    private GNPZ_Analyzer pSA;
+    private List&lt;UCell&gt;   pBDL;
+    public List&lt;UALS&gt;     ALSLst;
+
+    public ALSMan( GNPZ_Analyzer pSA ){
+        this.pSA = pSA;
+        UALS.pSA = pSA;
+    }
+    public int ALS_Search( int nPls ){
+        if( ALSLst!=null ) return ALSLst.Count();
+        this.pBDL = pSA.pBDL;
+        UALS.pBDL = pSA.pBDL;
+        int ALSSizeMax = GNumPzl.ALSSizeMax;
+
+        int mx=0;
+        ALSLst = new List&lt;UALS&gt;();
+        for( int nn=1; nn&lt;=nPls; nn++ ){
+            for( int tf=0; tf&lt;27; tf++ ){
+                List&lt;UCell&gt; P=pBDL.IEGet(tf,0x1FF).ToList();
+                if( P.Count&lt;1 ) continue;
+                int szMax = Math.Min(P.Count,8-nn);
+                szMax = Math.Min(szMax,ALSSizeMax);       //Limit ALS size maximum value
+                for( int sz=1; sz&lt;=szMax; sz++ ){
+                    Combination cmb = new Combination(P.Count,sz);
+                    while( cmb.Successor() ){                        
+                        int FreeB=0;
+                        Array.ForEach(cmb.Cmb, q=&gt; FreeB|=P[q].FreeB );
+                        if( FreeB.BitCount()!=(sz+nn) ) continue;
+                        List&lt;UCell&gt; Q=new List&lt;UCell&gt;();
+                        Array.ForEach(cmb.Cmb, q=&gt; Q.Add(P[q]) );
+
+                //Check for the existence of ALS with the same configuration(T:First F:second or later)
+                        UALS UA=new UALS(mx,sz,tf,FreeB,Q);
+                        int hs= UA.GetHashCode();
+                        if( singlyMan.Count&gt;0 && singlyMan.Contains(hs) ) UA.singler=false;
+                        singlyMan.Add(hs);
+                        mx++;
+                        ALSLst.Add(UA);
+                    }
+                }
+            }
+        }
+
+        ALSLst.Sort();
+        int ID=0;
+        ALSLst.ForEach(P=&gt; P.ID=ID++ );
+        //ALSLst.ForEach(P=&gt;Console.WriteLine(P));
+        return ALSLst.Count();  
+    }
+            
+    public int  GetALSRCC( UALS UA, UALS UB ){          
+        if( (UA.FreeB&UB.FreeB)==0 )       return 0;     //No common number
+        if( !(UA.B81&UB.B81).IsZero() )    return 0;     //Overlap
+        if( (UA.rcbFilter&UB.B81).IsZero() ) return 0;   //No contact 
+
+        int RCC=0, Dir=UA.rcbDir&UB.rcbDir;
+        //rcbDir |= ( (1&lt;&lt;(P.b+18)) | (1&lt;&lt;(P.c+9)) | (1&lt;&lt;(P.r)) );
+        foreach( int tfx in Dir.IEGet_BtoNo(27) ){
+            Bit81 ComH = pSA.HouseCells[tfx];
+            int FrAi=0, FrAo=0, FrBi=0, FrBo=0;
+            UA.UCellLst.ForEach(P=&gt;{
+                if( ComH.IsHit(P.rc) ) FrAi |= P.FreeB;
+                else                   FrAo |= P.FreeB;
+            } );
+            UB.UCellLst.ForEach(P=&gt;{
+                if( ComH.IsHit(P.rc) ) FrBi |= P.FreeB;
+                else                   FrBo |= P.FreeB;
+            } );
+            RCC |= (FrAi.DifSet(FrAo)) & (FrBi.DifSet(FrBo));    //RCC
+        }
+        return RCC;
+    }
+
+    public void Create_ALS2ALS_Link( bool doubly ){
+        var cmb = new Combination( ALSLst.Count, 2 );
+        while (cmb.Successor()) {
+            UALS UA = ALSLst[cmb.Cmb[0]];
+            UALS UB = ALSLst[cmb.Cmb[1]];
+
+            int RCC = GetALSRCC( UA, UB );
+            if( RCC==0 ) continue;
+            if( !doubly && RCC.BitCount()!=1 ) continue;
+
+            if( UA.ConnLst==null )  UA.ConnLst=new List&lt;LinkAlsAls&gt;();
+            if( UB.ConnLst==null )  UB.ConnLst=new List&lt;LinkAlsAls&gt;();
+            foreach( var no in RCC.IEGet_BtoNo() ){ //
+                LinkAlsAls LKX=new LinkAlsAls(UA,UB,RCC,no);
+                if( !UA.ConnLst.Contains(LKX) ) UA.ConnLst.Add(LKX);
+                LKX=new LinkAlsAls(UB,UA,RCC,no);
+                if( !UB.ConnLst.Contains(LKX) ) UB.ConnLst.Add(LKX);
+            }
+        }
+    }
+}
+</small></pre>
+	</article>
+</section>
+	
+<footer>
+	<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+
+</html>

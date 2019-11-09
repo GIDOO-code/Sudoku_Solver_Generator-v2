@@ -1,0 +1,155 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku Franken/Mutant Fish</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+
+	</style>
+</head>
+
+
+<body id="page" onload="prettyPrint()">
+
+	<a id="Finned_FM_Fish"></a>
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+		<h2>(Finned) Franken/Mutant Fish</h2>
+		<p>Fish is an algorithm based on Locked of two house groups of rows and columns (or columns and rows).
+		 Cell numbers that can be excluded by Locked are explained with the concept of BaseSet and CoverSet.
+		 The definition of Nth order fish is shown again.<br><br>
+		
+		<strong>Nth fish<br>
+		Focus on the digit X. Select N houses with N or fewer X(BaseSet),
+		and if N different House(CoverSet) completely contain BaseSet, BaseSet is in Locked.
+		Candidate digit X in the position to break Locked can be excluded.
+		</strong><br><br>
+
+		Fish's BaseSet/CoverSet is a row/column (or column/row),
+		but BaseSet and CoverSet have no conditions of "row", "Column".
+		The combination of row and column also satisfies the condition.
+		BaseSet and CoverSet also satisfy the condition "row and block", "column and block".
+		Even if "row/column/block" is mixed, the condition is satisfied.<br>
+		However, there is no overlap between the House groups making up BaseSet and
+		CoverSet also has no overlap(overlapping cases will be shown later).<br>
+		These Fish with mixed rows and blocks or columns and blocks is named <strong>Franken Fish</strong>.
+		Also, the type with mixed rows/columns/blocks is named <strong>Mutant Fish</strong>.
+		Franken/Mutant Fish also has a type with fin.
+		There is also Franken/Mutant Fish with fins.
+		Define cells/candidate numbers included in BaseSet and not included in CoverSet as Fin.
+		It is assumed that there is a cell/candidate number included in CoverSet and not included in BaseSet and this is true. 
+		At the same time, if Fin can be excluded, Finned Franken/Mutant Fish is established.</p>
+
+		<p>The above is summarized and the analysis algorithm is organized.</p>
+		<ol style="font-size: medium;">
+			<li>Focus on the digit X<br><br></li>
+			
+			<li>Select BaseSet<br>
+				Select N from 27 House of Row/Column/Block, and make it BaseSet.
+				And there is no overlap between N houses. Let <strong>B
+				</strong>be the cell group included in BaseSet.<br><br></li>
+			
+			<li>Select N different from BaseSet from 27 House of Row, Column,
+				and Block, and make it CoverSet. And there is no overlap between N houses.
+				Let the cell group included in CoverSet be <strong>C</strong>.<br><br></li>
+				
+			<li>without Fin<br>
+				When CoverSet completely includes BaseSet.
+				Complete inclusion is expressed as <strong>B-C = empty set</strong>.<br><br></li>
+
+			<li>Finned<br>
+				With Fin is represented as a set <strong> Fin = B-C = 
+			not empty set</strong>.
+				If E = C-B = not empty set, and the element cell e of E contains the whole Fin(Fin may be plural cells) in the influence zone,
+				the digit X can be excluded from e.<br></li>
+		</ol>
+
+		<p>(Finned) Franken/Mutant Fish example<br>
+		[left fig.] #8 BaseSet:r1 c38　CoverSet:r9 b13<br>
+		[right fig.] #4 BaseSet:r48 c1 CoverSet:r6 
+		c4 b7 Fin:r4c9 r8c8</p>
+		<img class="imgL" src="images/img36/img36a.png" alt="Franken/Mutant Fish">
+		<img class="imgL" src="images/img36/img36b.png" alt="Franken/Mutant Fish">
+		<p class="newLine">..4672....5...34...1.5...2798..4..15.31...27.76..2..4354...9.3...92...6....4567..<br>
+						   .4...1.286..5....7..7.46...7.3..98..9.......2..12..3.9...95.1..1....2..559.1...7.</p>
+						   
+		<p>The following figure is an example of higher order Finned Franken/Mutant Fish.
+		There are more simple solutions to these.<br>
+		Left figure:  Finned Franken/Mutant Squirmbag #7 BaseSet:r345 c13 CoverSet: c8 B1457 FinSet:r3c7<br>
+		Right figure: Finned Mutant Leviathan #7 BaseSet:r4568 c1 b23 CoverSet:r7 c23569 b6 FinSet:r123c1 
+		r2c78</p>
+		<img class="imgL" src="images/img36/img36c.png" alt="Finned Franken/Mutant Fish">
+		<img class="imgL" src="images/img36/img36d.png" alt="Finned Mutant Fish">
+		<p class="newLine">.38.6...96....93..2..43...1..61..9355.3.8.1...4........8.65..13...8..5.63.59..827<br>
+						   ..9..154..5..9.....6.5..92.8..3..1.41..4.6..95.4..8..2.42..9.6.....6..1..187..2..</p>
+
+		<h2>(Finned) Franken/Mutant Fisｈ</h2>
+		<p>The analysis program of Franken/Mutant Fish can be done by directly using the above algorithm as a code.<br>
+		<a href="page34.html#FishPro">ExtFishSub</a> is in the X-Wing(Fish) page.</p>
+
+	<pre class="prettyprint linenums lang-C"><small>public partial class FishGen: AnalyzerBaseV2{
+//Frankenn/MutantFish
+    private int rcbSel=0x7FFFFFF;
+    public bool FrankenMutantFish( ){       
+        for( int sz=2; sz&lt;=4; sz++ ){   //Based on symmetry up to size 4
+                for( int no=0; no&lt;9; no++ ){
+                if( ExtFishSub(sz,no,27,rcbSel,rcbSel,false) ) return true;
+                if( AnMan.CheckTimeOut() ) return false;
+            }
+        }
+        return false;
+    }
+//FinnedFrankenn/MutantFish
+    public bool FinnedFrankenMutantFish( ){
+        for( int sz=2; sz&lt;=7; sz++ ){   //Up to size 7 with Fin(5:Squirmbag 6:Whale 7:Leviathan)
+            for( int no=0; no&lt;9; no++ ){
+                if( ExtFishSub(sz,no,27,rcbSel,rcbSel,true) ) return true;
+                if( AnMan.CheckTimeOut() ) return false;
+            }
+        }
+        return false;
+    }
+}</small></pre>
+
+
+	</article>
+	<br><br>
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

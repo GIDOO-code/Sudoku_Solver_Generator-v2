@@ -1,0 +1,190 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku ALS DeathBlossom</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+		.ulNone{ list-style-type:none; }
+	</style>
+</head>
+<body id="page" onload="prettyPrint()">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+	<h2>ALS Death Blossom(Enhanced)</h2>
+	<p>DeathBlossom is an analysis algorithm based on the arrangement of <a href="page26.html">ALS</a> with a mysterious name.<br>   
+	i explain ALS DeathBlossom's evolutionary algorithm. In the explanation, <a href="page44.html">XYZ-Wing</a>,
+	<a href="page53.html">ALS DeathBlossom(basic)</a> are assumed.<br></p>
+	
+	<ol style="font-size:medium">
+	<li>XYZ-Wing consists of an axis cell and multiple BivalueCells.
+		There are weak links in excluded candidate cells and axis cells.
+		Bivalue Cell is a 1-cell ALS, which can be replaced with general ALS and extended to XYZ-WingALS algorithm.
+		It is assumed that ALS group replacing Bivalue Cell has no overlap.<br><br></li>
+	
+	<li>ALS DeathBlossom(basic) is composed of one axis cell and ALS group.
+		There is no weak link between the excluded candidate cell and the axis cell.
+		In ALS DeathBlossom (basic form), the ALS group may or may not overlap.<br><br></li>
+	
+	<li>The composition of XYZ - Wing and ALS DeathBlossom is very similar. The logic here is almost the same.
+		However, "ALS group overlap" and "exclusion candidate and weak link between axis cells" are different.
+		Therefore, defining the Enhanced type of DeathBlossom combining these. <br>
+		If there is a weak link between the exclusion candidate and the axis cell,
+		ALS will be one less than the number of digits in the axis cell.
+		There is also a DeathBlossom whose axis cell is Bivaluse and a combination with one ALS.<br><br></li>
+	</ol>
+	
+	<p style="text-align:center">
+		<img src="images/img53a/img53aaEng.png" alt="Death Blossom">
+	</p>
+	
+	<p>Example of ALS DeathBlossom(Enhanced)</p>
+	
+	<img class="imgL" src="images/img53a/img53ab.png" style="width: 701px; height: 915px" >
+	<p class="newLine"><br>
+	...8...4....21...7...7.5981315..9..8.8....4....41.83.5..1.82.646.8...1...236.18..<br>
+	..2956.485.6....9.4...7.5...538...1.2.......6.1...582...1.8...2.9....1.582.4316..<br>
+	285..91.47.3..1...16..24.7........8...2.4.6.7597..84..4...92..3..84....29...8.74.<br>
+	594..26.31.8..6...26..39.8........2...6.5.4.7321..48..4...27..8..38....28...9.76.<br><br></p>	
+	<p>Bivalue cell and one ALS DeathBlossom<br>
+		<img src="images/img53a/img53ac.png" alt="Death Blossom"><br>
+		285..91.47.3..1...16..24.7........8...2.4.6.7597..84..4...92..3..84....29...8.74.
+	</p>
+
+	<h2>ALS DeathBlossom program</h2>
+		<pre class="prettyprint linenums lang-C"><small>public partial class ALSTechGen: AnalyzerBaseV2{
+    public bool ALS_DeathBlossom(){
+        ALSMan.ALS_Search(1);
+        if( ALSMan.ALSLst==null || ALSMan.ALSLst.Count&lt;=2 ) return false;
+        ALSMan.Create_Cell2ALS_Link();
+
+        for( int sz=2; sz&lt;=4; sz++ ){
+            if( _ALS_DeathBlossomSubEx(sz,false) ) return true;
+        }
+        return false;
+    }
+    public bool ALS_DeathBlossomExt(){
+        ALSMan.ALS_Search(1);
+        if( ALSMan.ALSLst==null || ALSMan.ALSLst.Count&lt;=2 ) return false;
+        ALSMan.Create_Cell2ALS_Link();
+
+        for( int sz=2; sz&lt;=4; sz++ ){//Size 4 and over ALS DeathBlossom was not found ?
+            if( _ALS_DeathBlossomSubEx(sz,true) ) return true;    
+        }
+        return false;
+    }
+    
+    private bool _ALS_DeathBlossomSubEx( int sz, bool stmLink=false ){
+        int szM= (stmLink? sz-1: sz);
+        foreach( var SC in pBDL.Where(p=&gt;p.FreeBC==sz) ){ //Stem Cell
+            if(AnMan.CheckTimeOut()) return false;
+            List&lt;LinkCellAls&gt; LinkCeAlsLst=ALSMan.LinkCeAlsLst[SC.rc];
+            if( LinkCeAlsLst==null || LinkCeAlsLst.Count&lt;sz ) continue;
+
+            int nxt=0, PFreeB=SC.FreeB;
+            var cmb=new Combination(LinkCeAlsLst.Count,szM);
+            while(cmb.Successor(nxt)){
+                int FreeB=SC.FreeB, AFreeB=0x1FF;
+                for( int k=0; k&lt;szM; k++ ){
+                    nxt=k;
+                    var LK=LinkCeAlsLst[cmb.Cmb[k]];      //Link[cell-ALS]
+                    if( (FreeB&(1&lt;&lt;LK.nRCC))==0 ) goto LNxtCmb;
+                    FreeB = FreeB.BitReset(LK.nRCC);
+                    AFreeB &= LK.ALS.FreeB;
+                    if( AFreeB==0 ) goto LNxtCmb;
+                }
+
+                if(stmLink){
+                    if( FreeB.BitCount()!=1 || (FreeB&AFreeB)==0 )  continue;
+                    int no=FreeB.BitToNum();
+                    int noB=FreeB;
+
+                    Bit81 Ez=new Bit81();
+                    for( int k=0; k&lt;szM; k++ ){
+                        var ALS=LinkCeAlsLst[cmb.Cmb[k]].ALS;
+                        var UClst=ALS.UCellLst;
+                        foreach( var P in UClst.Where(p=&gt;(p.FreeB&noB)&gt;0) )  Ez.BPSet(P.rc);
+                    }
+
+                    foreach( var P in ConnectedCells[SC.rc].IEGet_rc().Select(rc=&gt;pBDL[rc]) ){
+                        if( (P.FreeB&noB)==0 ) continue;
+                        if( (Ez-ConnectedCells[P.rc]).IsZero() ){ P.CancelB=noB; SolCode=2; }
+                    }
+                    if(SolCode&lt;1) continue;
+                    
+                    var LKCAsol=new List&lt;LinkCellAls&gt;();
+                    Array.ForEach(cmb.Cmb,nx=&gt; LKCAsol.Add(LinkCeAlsLst[nx]) );
+                    _DeathBlossom_SolResult(LKCAsol,SC,no,stmLink);
+                    if( !AnMan.SnapSaveGP(true) )  return true;
+
+                }
+                else if( FreeB==0 && AFreeB&gt;0 ){
+                    AFreeB = AFreeB.DifSet(SC.FreeB);
+                    foreach( var no in AFreeB.IEGet_BtoNo() ){
+                        int noB=(1&lt;&lt;no);
+                        Bit81 Ez=new Bit81();
+                        for( int k=0; k&lt;sz; k++ ){
+                            var ALS=LinkCeAlsLst[cmb.Cmb[k]].ALS;
+                            var UClst=ALS.UCellLst;
+                            foreach( var P in UClst.Where(p=&gt;(p.FreeB&noB)&gt;0) )  Ez.BPSet(P.rc);
+                        }
+
+                        foreach( var P in pBDL.Where(p=&gt;(p.FreeB&noB)&gt;0) ){
+                            if( (Ez-ConnectedCells[P.rc]).IsZero() ){ P.CancelB=noB; SolCode=2; }
+                        }
+                        if(SolCode&lt;1) continue;
+                            .
+                            . (Solution report code)
+                            .
+                        return true;
+                    }
+                }
+            
+            LNxtCmb:
+                continue;
+            }
+        }
+        return false;
+    }
+}</small></pre>
+
+	</article>
+	
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku C# Cell class(UCell)</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+</head>
+
+<body id="page" onload="prettyPrint()">
+	
+	<a id="pageTop"></a>
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+		<a id="UCell_all"></a>
+		<h2>UCell(All code)</h2>
+		<pre class="prettyprint linenums lang-C title：'簡略版'"><small>public class UCell{ //Basic Cell Class
+    public object obj;
+
+    public readonly int  rc;
+    public readonly int  r;
+    public readonly int  c;
+    public readonly int  b;
+    public int bx{ get{ return ((r%3)*3+(c%3)); } }
+
+    public int      ErrorState; //0:-  1:Fixed   8:Violation  9:No solution
+    public int      No;         //&gt;0:Problem  =0:Open  &lt;0:Solution
+    public int      FreeB;
+    public int      FreeBC{ get{ return FreeB.BitCount(); } }
+
+    public int      FixedNo;  
+    public int      CancelB;
+
+    public List&lt;EColor&gt; ECrLst;     
+    public Color CellBgCr;     
+    
+    public bool Selected;
+    public int  Fixed=0;
+    public int  nx;
+
+    public UCell( ){}
+    public UCell( int rc, int No=0, int FreeB=0 ){
+        this.rc = rc;
+        this.r  = rc/9;
+        this.c  = rc%9;
+        this.b  = rc/27*3+(rc%9)/3;
+        this.No = No;
+        this.FreeB = FreeB;
+
+        this.ECrLst=null;
+    }
+
+    public void Reset_StepInfo(){
+        ErrorState =0;
+        CancelB  =0;
+        FixedNo  =0;
+        Selected =false;
+        Fixed    =0;   
+
+        this.ECrLst=null;
+        CellBgCr = Colors.Black;       
+    }
+
+    public UCell Copy( ){
+        UCell UCcpy=(UCell)this.MemberwiseClone();
+        if( this.ECrLst!=null ){
+            UCcpy.ECrLst=new List&lt;EColor&gt;();
+            ECrLst.ForEach(p=&gt;UCcpy.ECrLst.Add(p));
+        }
+        return UCcpy;
+    }
+
+    public void _True( int no ){
+        FreeB &= ((1&lt;&lt;no)^0x1FF);
+        No = no;
+    }
+    public void _False( int no ){
+        FreeB &= ((1&lt;&lt;no)^0x1FF);
+        No = no;
+    }
+
+    public void SetCellBgColor( Color CellBgCr ){ 
+        if( ECrLst==null )  ECrLst=new List&lt;EColor&gt;();
+        ECrLst.Add( new EColor(CellBgCr) );
+    }
+
+    public void SetNoBColor( int noB, Color cr ){
+        if( ECrLst==null )  ECrLst=new List&lt;EColor&gt;();
+        ECrLst.Add( new EColor(noB,cr) );
+    }
+    public void SetNoBColorRev( int noB, Color cr ){
+        if( ECrLst==null )  ECrLst=new List&lt;EColor&gt;();
+        ECrLst.Add( new EColor(noB,cr,cr) );
+    }
+    public void SetNoBBgColor( int noB, Color cr, Color crBg ){
+        if( ECrLst==null )  ECrLst=new List&lt;EColor&gt;();
+        ECrLst.Add( new EColor(noB,cr) );
+        ECrLst.Add( new EColor(crBg) );
+    }
+    public void SetNoBBgColorRev( int noB, Color cr, Color crBg ){
+        if( ECrLst==null )  ECrLst=new List&lt;EColor&gt;();
+        ECrLst.Add( new EColor(noB,cr,cr) );
+        ECrLst.Add( new EColor(crBg) );
+    }
+    public override string ToString(){
+        string po = " UCell rc:"+rc+"["+((r+1)*10+(c+1)) +"]  no:"+No;
+        po +=" FreeB:" + FreeB.ToBitString(9);
+        po +=" CancelB:" + CancelB.ToBitString(9);
+        return po;
+    }
+    public void ResetAnalysisResult(){
+        CancelB  =0;
+        FixedNo  =0;
+        Selected =false;
+        Fixed    =0; 
+        this.ECrLst=null;
+    }
+}
+    </small></pre>
+	</article>
+</section>
+
+<footer>
+	<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+
+</html>

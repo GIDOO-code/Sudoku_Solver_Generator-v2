@@ -1,0 +1,220 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku SueDeCoq</title>
+
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+		.ulNone{ list-style-type:none; }
+	}
+	</style>
+</head>
+
+<body id="page" onload="prettyPrint()">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article><br>
+	<h2>SueDeCoq</h2>
+		<p>SueDeCoq is an analysis algorithm derived from the handle name "SueDeCoq" which first proposed this method.
+		In order to understand SueDeCoq algorithm, some leap is necessary. Explain step by step using examples.
+		<br>Many of the explanations here are based on the following HP.<br>
+			http://hodoku.sourceforge.net/en/tech_misc.php#sdc<br><br>
+			
+		The following example is a basic SueDeCoq. In the left figure,<br>
+
+		(1)Focus on r2c46 in block 2. There are four candidate numbers #1789 in these two cells,
+		and candidate number # 78 is in r1c5 of the same block.
+		Considering these three cells together,
+		#19(78) is entered into the two cells of r2c46 (r2c46 is only one of #78 and not both).<br><br>
+				
+		(2)Considering the second line, since r2c9 has candidate number #19,
+		#(19)78 will be included in 2 cells of r2C46 (r2c46 is only one of #19 and not both ).<br><br>
+		
+		When (1) and (2) are combined, #(19)(78) will be included in r2c46,
+		and r2c46 is Locked of 2 numbers in 2 cells.
+		However, one of the two number pairs is not decided.<br><br>
+				
+		In this state, #1 of r2c3 on the second is false 
+		because it breaks the Locked of the cell R2C46 in relation to r2c9 (the number entering r2c46 is insufficient).
+		Likewise, #8 of r1c4 in block 2 breaks Locked of the cells r2c46 in relation to r1c5, 
+		so it can not be inserted (r1c4=#8 is false).<br><br>
+		
+		In the figure on the right, Focus on r3c123 in block 1.
+		There are five candidate #12456 in these three cells.
+		Considering the same as the left figure, r3c123 is Locked at #6(15)(24) (3 numbers for 3 cells).
+		Therefore #24 of r3c67 breaks this Locked state(not enough numbers to enter r3c123),
+		so it can be excluded from candidate numbers.<br><br></p>
+	
+		<img class="imgL" src="images/img45/img45a.png" alt="SueDeCoq" style="width: 271px; height: 270px">
+		<img class="imgL" src="images/img45/img45b.png" alt="SueDeCoq" style="width: 271px; height: 270px">
+		<small>
+		<p class="newLine">.2...3..4.4....25.6...243.8256..8....8..9..2....2..4868.463...2.63....4.9..7...6.<br>
+					       87........9.81.65....79...8.....67316..5.1..97124.....3...57....57.48.1........74<br></p></small>
+		<p>With reference to the concrete example above, Locked of SueDeCoq is defined.
+		The following figure shows the configuration of the cell group appearing here.<br>
+		
+		(1)There is a cell group(ISPB) in the block and a cell group(ISPR) in the row (or column).<br>
+		(2)The two cell groups are divided into a common part(IS) and other parts(PB and PR).<br>	
+		(3)The candidate digits of the disassembled cell group are IS_FreeB, PB_FreeB, PR_FreeB.<br>		
+		(4)PB_FreeBn, PR_FreeBn are candidate numbers of non-common parts (PB and PR).<br>
+		　(PB_FreeBn = PB_FreeB\IS_FreeB, PR_FreeBn = PR_FreeB\IS_FreeB   \：Difference set)<br>	
+		(5)N is the number of candidate numbers in only the other part. (N=|PB_FreeBn|+|PR_FreeBn|)<br>
+		</p>
+
+		<p style="text-align:center">
+			<img src="images/img45/img45cEng.png" alt="SueDeCoq" >
+		</p>
+		
+		<br><p>Using these definitions, the analysis algorithm of SueDeCoq is<br><br>
+		[1]In order for SueDeCoq to be established, Locked must be established first.<br>
+		<ol>
+			<li>The number of cells of the common part IS is 2 or 3.</li>
+			<li>The other parts (PB, PR) are not empty.</li>
+			<li>There is no common candidate for common part and other parts (PB and PR).</li>
+			<li>|IS| = |IS_FreeB| - (|PB|+|PR|-N）　(|A| is the number of elements of set A）</li>
+		</ol>The last expression indicates that 
+		the number of cells(left side) and candidate number(right side) of the common part are the same, 
+		that is, it is Locked.<br>
+		The preceding example is for N = 0. Candidate numbers in PR and PB are common to IS, 
+		and the number of candidate in IS is equal to the number of cells.<br>
+		When N = 1, one candidate number not included in IS is added to PR (or PB),
+		but at the same time, the number of PR (PB) cells is incremented by one.
+		The number of unique candidates adjusts the number of cells.<br>
+		Likewise, if N increases, the number of cells correspondingly increases, which is the condition of Locked.<br><br>
+		
+		[2]When Locked is established, find the cell/candidate number that breaks Locked.		</p><br>
+		
+		<p>In the first example, it is as follows.<br>
+		・There are 4 candidate numbers for the cells(=2) in the common part.<br>
+		・In the cell outside the block, there are two same candidate numbers as the common part,
+		and one candidate of the common part is restricted.<br>
+		・Similarly, the cells in the block limit one of the candidate numbers of the common part.<br>
+		・Other parts There are no unique candidate numbers for rows and blocks(N=0).<br>
+		Therefore, the condition(&quot;2=4-1-1 + 0&quot;) is established and is Locked.<br>
+		</p>		
+	
+		<p>Here is an example of SueDeCoq with many cells.</p>
+		<img class="imgL" src="images/img45/img45d.png" alt="SueDeCoq" style="width: 271px; height: 271px" >
+		<img class="imgL" src="images/img45/img45e.png" alt="SueDeCoq" style="width: 271px; height: 271px" >
+		<p class="newLine"><br> </p>
+		<img class="imgL" src="images/img45/img45f.png" alt="SueDeCoq" style="width: 271px; height: 271px" >
+		<img class="imgL" src="images/img45/img45g.png" alt="SueDeCoq" style="width: 271px; height: 271px" >
+
+		<small>
+		<p class="newLine">4....59.32..9..1....8..25...27....3.8.93.62.5.4....71...14..6....4..1..29.25....1<br>
+  						   3..5..9...5.2..1.3...3195...8..3.2.45.......19.2.4..8...5423...6.4..1.3...3..8..7<br>
+						   .......12..4..67.8.3718..5.645..1...7.......5...9..647.7..3926.5.34..8..42.......<br>
+						   342...5.........72.9.....1.1396..785684..9123275183..6.27....5.9532.8.4...19..2..<br></p></small>
+		<br>
+		
+		<h2>SueDeCoq program</h2>
+		<p>It is the code of the arugorithm as described above.<br>
+		A group of cells with the number of candidates larger than the number of cells by N(≧1) is 
+		created using the ALS management class.</p>
+		<pre class="prettyprint linenums lang-C"><small>public partial class AALSTechGen: AnalyzerBaseV2{
+    private int GStageMemo;
+    private ALSLinkMan fALS;
+
+    public AALSTechGen( GNPX_AnalyzerMan pAnMan ): base(pAnMan){
+		fALS = new ALSLinkMan(pAnMan);
+    }
+
+    public bool SueDeCoq( ){
+		if(pAnMan.GStage!=GStageMemo){
+			GStageMemo=pAnMan.GStage;
+			fALS.Initialize();
+            fALS.PrepareALSLinkMan(+2); //Generate ALS(+1 & +2)
+		}
+		
+        if( fALS.ALSLst.Count&lt;=3 ) return false;
+
+        foreach( var ISPB in fALS.ALSLst.Where(p=&gt; p.tfx&gt;=18 && p.Size&gt;=3) ){     //Selecte Block-type ALS
+            if( ISPB.rcbRow.BitCount()&lt;=1 || ISPB.rcbCol.BitCount()&lt;=1 ) continue;//Block squares have multiple rows and columns
+
+            foreach( var ISPR in fALS.ALSLst.Where(p=&gt; p.tfx&lt;18 && p.Size&gt;=3) ){　//Selecte Row-type/Column-type ALS
+                if( (ISPR.rcbBlk&ISPB.rcbBlk)==0 ) continue; //Intersect with ISPB
+                if( ISPR.rcbBlk.BitCount()&lt;2 )     continue; //ISPR has multiple blocks
+
+                //Are the cell configurations of the intersections the same?
+                if( (ISPB.B81&HouseCells[ISPR.tfx]) != (ISPR.B81&HouseCells[ISPB.tfx]) ) continue;
+
+                Bit81 IS = ISPB.B81&ISPR.B81;                //Intersection
+                if( IS.Count&lt;2 ) continue; 　                //At least 2 cells at the intersection
+                if( (ISPR.B81-IS).Count==0 ) continue;       //There is a part other than the intersecting part in ISPR                    
+
+                Bit81 PB = ISPB.B81-IS;                      //ISPB's outside IS
+                Bit81 PR = ISPR.B81-IS;                      //ISPR's outside IS
+                int IS_FreeB = IS.AggregateFreeB(pBDL);      //Intersection number
+                int PB_FreeB = PB.AggregateFreeB(pBDL);      //ISPB's number outside the IS
+                int PR_FreeB = PR.AggregateFreeB(pBDL);      //ISPR's number outside the IS
+                if( (IS_FreeB&PB_FreeB&PR_FreeB)&gt;0 ) continue;
+
+                //A.DifSet(B)=A-B=A&(B^0x1FF)
+                int PB_FreeBn = PB_FreeB.DifSet(IS_FreeB);   //Numbers not at the intersection of PB
+                int PR_FreeBn = PR_FreeB.DifSet(IS_FreeB);   //Numbers not in the intersection of PR
+
+                int sdqNC = PB_FreeBn.BitCount()+PR_FreeBn.BitCount();  //Number of confirmed numbers outside the intersection
+                if( (IS_FreeB.BitCount()-IS.Count) != (PB.Count+PR.Count-sdqNC) ) continue;
+
+                int elmB = PB_FreeB | IS_FreeB.DifSet(PR_FreeB); //Exclusion Number in PB 
+                int elmR = PR_FreeB | IS_FreeB.DifSet(PB_FreeB); //Exclusion Number in PR                
+                if( elmB==0 && elmR==0 ) continue;
+
+                foreach( var P in _GetRestCells(ISPB,elmB) ){ P.CancelB|=P.FreeB&elmB; SolCode=2; }
+                foreach( var P in _GetRestCells(ISPR,elmR) ){ P.CancelB|=P.FreeB&elmR; SolCode=2; }
+
+                if(SolCode&gt;0){//--- SueDeCoq fond -----
+		            .
+		            . (Solution report code)
+		            .
+					return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public IEnumerable&lt;UCell&gt; _GetRestCells( UALS ISP, int selB ){
+        return pBDL.IEGetCellInHouse(ISP.tfx,selB).Where(P=&gt;!ISP.B81.IsHit(P.rc));
+    }
+}</small></pre>
+
+	</article>
+	
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

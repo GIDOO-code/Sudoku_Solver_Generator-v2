@@ -1,0 +1,248 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku LockedSet</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	<script src="js/GNPX_Lib.js" type="text/javascript"> </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+</head>
+
+<body id="page" onload="prettyPrint()">
+
+	<a id="pageTop"></a>
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+		<h2>Locked</h2>
+		<p>For Sudoku's advanced analysis algorithms, the concept <strong>"Locked"</strong> is important.
+		Locked is a limitation on the cell(s) candidate diigits, the diigit of candidate digits, and the arrangement of cells,
+		Candidate diigits are limited, or candidate diigits are excluded.<br>
+		 
+		There are several types of Locked, and there are as many analysis algorithms as there are<br>
+		
+		<h2>Naked LockedSet</h2>	
+		<p>
+		LockedSet is the simplest <strong>Locked</strong> analysis algorithm.<br>
+		Focusing on n cells in a house, when these candidate diigits are #n, candidate diigits of this cell group are locked.
+		Exclude candidate #n from other cells in the same House. Let's call this the N-th order LockedSet.
+		When the diigit of cells/candidate is 5 or more, the remaining cell group of the same House is LockedSet.
+		It is not necessary if you want to find the numeric array on the whole board.
+		However, to pursue Sudoku's way of solving, is not it fun to find a big LockedSet?
+		Later, i will show them.<br>
+		The following figure is an image of "LockedSet" of "2 cell 2 diigit".
+		When Locked to ab, cd, ef, these candidate can be excluded from candidate diigits of gray cells.
+		When a human searches for LockedSet,
+		the LockedSet between blocks (center in the figure below) is more difficult than it is in the same block,
+		but in the case of a program it is almost unchanged.</p>	
+		<img src="images/img33/img33a.gif" alt="Naked LockedSet" width="640">
+		<br>
+		<p>
+		The following figure shows an image of a cell group in which LockedSets of 3 cells 3 diigits(left) and
+		4 cells 4 diigits (right) are established.
+		It means that the outer frame belongs to the same house (row, column, block).
+		The figure above is a case where each cell contains the candidate diigit in the same way.
+		Some candidate diigits may be missing as shown in the bottom row.</p>
+		
+		<img src="images/img33/img33b.gif" alt="Naked LockedSet" ><br>
+
+		<h2>Hidden LockedSet</h2>	
+		<p>
+		Naked LockedSet is a case where candidate diigits clearly appear in the cell.
+		Hidden LockedSet is when there are other candidate digits in the cell and the group of diigits making up LockedSet is hidden.<br>
+		In the following figure, the top three rows are extracted.
+		Focusing on candidate diigit #26 is only in r1c13,
+		and a Hidden LockedSet is established.<br>
+		The definition of Hidden LockedSet is as follows.<br>
+		For a house, when n candidate diigits are in only n cells, the diigit in this cell is locked. 
+		Therefore, non-target candidate diigits in the same cell group are excluded.<br>
+		</p>
+		<img src="images/img33/img33c.jpg" alt="Hidden LockedSet" >
+		
+		<p>The following figure is an example of LockedSet.<br>
+		The left figure is 2-LockedSet(Naked), r6c45(block b5) are candidate diigits #38.<br>
+		The right figure is 2-LockedSet(Hidden).
+		Focusing on c8, the diigit #16 enters only 2 cells of r19c8. 
+		Therefore, in this two cells the remaining diigit #349 can be excluded from the candidate.</p>
+	
+		<img src="images/img33/img33d.jpg" alt="Hidden LockedSet" height="270" width="270">
+		<img src="images/img33/img33e.jpg" alt="Hidden LockedSet" height="270" width="270">
+		<p class="newLine">2.891..54....4..7.41.5..6.2...7...61....2....69...1...5.2..7.16.4..6....16..594.3<br>
+						   ...857.....736.2...6...48..142..86..57......26.35..47..216.3........1.......2....</p>
+			   
+		<p>The following left figure is an example of 3-LockedSet(Hidden).
+		For r4c23 and r5c2 of block b4, 3-LockedSet of 3 cells and 3 diigits is established for candidate diigit #249.
+		The figure on the right is an example of 4-LockedSet (Naked).
+		Focusing on r3789c9, 4-Locked Set of 4 cells 4 diigits is established for the diigit #3459.
+		Also, 4 columns 4 diigits 4-LockedSet(Hidden) is established for r1456c9#1678. 
+		It is a LockedSet paired with a yellow cell group. <br></P>
+		
+		<img src="images/img33/img33f.jpg" alt="Hidden LockedSet" height="270" width="270">
+		<img src="images/img33/img33g.jpg" alt="Hidden LockedSet" height="270" width="270">
+		<p class="newLine">4......6..1..62..9.624.........8..5.1.8..7.4.......9..9...3.2..58....63..36.5...7<br>
+						   .8.........4..71.2.6718.39..2..3.9....38.52....5.1..3..18.4.67.4.96..8.........1.</p>
+	</article>
+
+	<article>
+		<br>
+		<p>Please think a moment here before proceeding.<br>
+		The first example of this page (2789 ... from the top left) shows LockedPair(2-LockedSet) of r6c45#38,
+		There are other LockedSets. Please try looking.<br></p>
+		<div onclick="OnCliｃｋ('sub1')">
+			<p><string>Please think firmly. There is only one fun here.</string></p>
+			<p>
+			<img src="images/img33/down.png" height="10" > click</p>
+		</div>
+
+		<div class="sub" id="sub1">
+			<p>There are 25 LockedSets in this scene of this problem. 
+			We also find complementary LockedSets. 
+			<ol>
+				<li>Locked Pair[2D] r6c45 #38</li>
+				<li>Locked Pair[2D] r38c3 #39</li>
+				<li>Locked Pair[2D] r45c7 #58</li>
+				<li>Locked Pair[2D] r89c8 #28</li>
+				<li>Locked Pair[2D] r4c1 r5c2 #38</li>
+				<li>Locked Pair[2D] (hidden) r8c79 #57</li>
+				<li>Locked Pair[2D] (hidden) r46c3 #45</li>
+				<li>Locked Pair[2D] (hidden) r45c6 #45</li>
+				<li>Locked Pair[2D] (hidden) r68c7 #27</li>
+				<li>Locked Pair[2D] (hidden) r56c8 #34</li>
+				<li>Locked Triple[3D] r238c6 #238</li>
+				<li>Locked Triple[3D] r389c8 #289</li>
+				<li>Locked Triple[3D] r4c7 r5c79 #589</li>
+				<li>Locked Triple[3D] r45c7 r6c9 #578</li>
+				<li>Locked Triple[3D] (hidden) r356c8 #349</li>
+				<li>Locked Triple[3D] (hidden) r5c89 r6c8 #349</li>
+				<li>Locked Triple[3D] (hidden) r5c8 r6c78 #234</li>
+				<li>Locked Quartet[4D] r8c1368 #2389</li>
+				<li>Locked Quartet[4D] r4c7 r5c79 r6c9 #5789</li>
+				<li>Locked Quartet[4D] r4c7 r5c7 r6c79 #2578</li>
+				<li>Locked Quartet[4D] (hidden) r6c3789 #2457</li>
+				<li>Locked Quartet[4D] (hidden) r5c89 r6c78 #2349</li>
+				<li>Locked Quartet[4D] (hidden) r5c8 r6c789 #2347</li>
+				<li>Locked Set[5D] r4c7 r5c79 r6c79 #25789</li>
+				<li>Locked Set[5D] (hidden) r5c89 r6c789 #23479</li>
+			</ol>
+			<p>In addition, there is Fish to explain on another page.<br>
+			<ol>
+				<li>SwordFish #3 BaseSet:R348 CoverSet:C136</li>
+				<li>JellyFish #3 BaseSet:R2348CoverSet:C1346</li>
+			</ol>
+			<p>
+			Thus, there are several steps to solve Sudoku.
+			The method is different, but the cell/diigit to be confirmed or excluded may be the same.</p>
+			
+			<img src="images/img33/LockedSets.png" alt="LockedSet" height="810" width="810">
+			<p>Fish(左：SwordFish 右：JellyFish）</p>
+			<img src="images/img33/img33SwordFish.png" alt="SwordFish" height="156" width="156">
+			<img src="images/img33/img33JellyFish.png" alt="JellyFish"height="156" width="156">
+		</div>
+	</article>
+	
+	<article>
+	<br><br>
+	<h2>LockedSet program</h2>
+	<p>The determination of naked is "diigit of cells = diigit of candidate digits".<br>
+	Hidden lockedset is calculated using complementary relationship.
+	</p>
+
+		<pre class="prettyprint linenums lang-C"><small>public class LockedSetGen: AnalyzerBaseV2{
+    public LockedSetGen( GNPX_AnalyzerMan AnMan ): base(AnMan){ }
+
+    public override void Initialize(){ /*Console.WriteLine(&quot;LockedSetGen&quot;);*/ }
+
+    public bool LockedSet2(){ return LockedSetSub(2,false); }
+    public bool LockedSet3(){ return LockedSetSub(3,false); }
+    public bool LockedSet4(){ return LockedSetSub(4,false); }
+    public bool LockedSet5(){ return LockedSetSub(5,false); }
+    public bool LockedSet6(){ return LockedSetSub(6,false); }
+    public bool LockedSet7(){ return LockedSetSub(7,false); }
+    
+    public bool LockedSet2Hidden(){ return LockedSetSub(2,true); } 
+    public bool LockedSet3Hidden(){ return LockedSetSub(3,true); }
+    public bool LockedSet4Hidden(){ return LockedSetSub(4,true); }
+    public bool LockedSet5Hidden(){ return LockedSetSub(5,true); } 
+    public bool LockedSet6Hidden(){ return LockedSetSub(6,true); }
+    public bool LockedSet7Hidden(){ return LockedSetSub(7,true); }
+
+    public bool LockedSetSub( int sz, bool HiddenFlag ){
+        string resST=&quot;&quot;;
+        for( int tfx=0; tfx&lt;27; tfx++ ){
+            List&lt;UCell&gt;　BDLstF = pBDL.IEGetCellInHouse(tfx,0x1FF).ToList();
+            int ncF = BDLstF.Count;
+            if( ncF&lt;=sz ) continue;
+            
+            Combination cmbG = new Combination(ncF,sz);
+            while( cmbG.Successor() ){
+                BDLstF.ForEach(p=&gt;p.Selected=false);
+                Array.ForEach(cmbG.Cmb, p=&gt; BDLstF[p].Selected=true );
+
+                int noBSel=0, noBNon=0;
+                BDLstF.ForEach(p=&gt;{
+                    if( p.Selected ) noBSel |= p.FreeB;
+                    else             noBNon |= p.FreeB;
+                } );                  
+                if( (noBSel&noBNon)==0 ) continue;
+
+                //===== Naked Locked Set =====
+                if( !HiddenFlag ){
+		            .
+		            . (Solution report code)
+		            .
+					return true;
+                }
+
+                //===== Hidden Locked Set =====
+                if( HiddenFlag ){
+                    if( noBNon.BitCount()==(ncF-sz) ){
+		            .
+		            . (Solution report code)
+		            .
+					return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}</small></pre>
+
+
+	</article>
+	<br><br>
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

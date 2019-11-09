@@ -1,0 +1,157 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku XY Chain</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+		.ulNone{ list-style-type:none; }
+	</style>
+</head>
+
+<body id="page" onload="prettyPrint()">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article><br>
+	<h2>XY Chain</h2>		   
+		<p>XY-Chain is an analysis algorithm using Locked which occurs in the concatenation of bivalues.
+		The following figure shows the image of XY-Chain.
+		Begin with bivalue's cell with a focused number a and concatenate bivalue cells.
+		In the image diagram, they are connected with different numbers, but the same number may appear.
+		It is assumed that a cell at the tip of a chain has the same number a as the starting cell.
+		Candidate number a can be excluded in the cell related to the starting cell / leading cell.</P>
+		<p style="text-align:center">
+			<img src="images/img49/img49aEng.png" alt="XY-Chain">
+		</p>
+		
+		<p>XY-Chain example. Two series are overlapped in the right figure.</p>
+		
+		<img class="imgL" src="images/img49/img49b.png" alt="XY-Chain" style="width: 271px; height: 271px" >
+		<img class="imgL" src="images/img49/img49c.png" alt="XY-Chain" style="width: 271px; height: 271px" >
+		<small>
+		<p class="newLine">.5....3...71.43...2..61...9..5....7.7.34..19.1...9.8..3.2.64.5........185.927.4..<br>
+						   ...71...9.14.9.....9....3.72...4.5.186.1.72......8.7....6471..5.......689.25..17.<br></p></small>
+		
+		
+		<h2>XY-Chain program</h2>
+		<p>The XY-Chain analysis program consists of bivalue link series generation and establishment check.</p>
+		<h4>bivalue link series generator</h4>
+		
+		<pre class="prettyprint linenums lang-C"><small>public partial class CellLinkGen: AnalyzerBaseV2{
+    private IEnumerable&lt;Bit81[]&gt; _GetXYChain( List&lt;int&gt; LKRec ){
+        List&lt;UCell&gt; TBDbv = pBDL.FindAll(p=&gt;(p.FreeBC==2));  //BV:bivalue
+        foreach( var PS in TBDbv ){
+            int rcS=PS.rc;
+            foreach( var no in PS.FreeB.IEGet_BtoNo() ){
+                int noB=(1&lt;&lt;no);  
+                Bit81[] CRL=new Bit81[2];
+                CRL[0]=new Bit81(); //Position of the target number to be concatenated
+                CRL[1]=new Bit81(); //Position of other numbers to be connected
+                CRL[0].ID=rcS; CRL[1].ID=no;
+
+                Bit81 CnctdCs = ConnectedCells[rcS]; //Associated cell group of starting cell
+                Queue&lt;int&gt; rcQue=new Queue&lt;int&gt;();
+                int no0 = pBDL[rcS].FreeB.BitReset(no).BitToNum();//The other number of the starting cell
+                rcQue.Enqueue( (no0&lt;&lt;8)|rcS );
+
+                LKRec.Clear();
+                while(rcQue.Count&gt;0){
+                    int rcX=rcQue.Dequeue();
+                    int no1=rcX&gt;&gt;8; 
+                    int rc1=rcX&0xFF;
+                    foreach( var LK in CeLKMan.IEGetRcNoType(rc1,no1,1) ){ //Concatenated with StrongLink
+                        int rc2= LK.rc2; 
+                        if( pBDL[rc2].FreeBC!=2 ) continue;                //bivalue
+                        if( CRL[0].IsHit(rc2) || CRL[1].IsHit(rc2) ) continue;
+                
+                        //Exclude cells associated with the starting cell and having the same number
+                        if( CnctdCs.IsHit(rc2) && (pBDL[rc2].FreeB&noB)&gt;0 ) continue; 
+
+                        int no2 = (pBDL[rc2].FreeB.BitReset(no1)).BitToNum();//other number
+                        int nx=(no2==no)? 0: 1;
+                        CRL[nx].BPSet(rc2); 
+                        rcQue.Enqueue( (no2&lt;&lt;8)|rc2 ); //Put the next [Number&Cell] in Queue
+                        LKRec.Add((rc1&lt;&lt;8|rc2));　//Record Link
+                    }
+                }
+                if( CRL[0].Count&gt;0 || CRL[1].Count&gt;0 ) yield return CRL;
+            }
+        }
+        yield break;
+    }</small></pre>
+    
+    
+		<h4>XY Chain</h4>
+		<pre class="prettyprint linenums lang-C"><small>public partial class CellLinkGen: AnalyzerBaseV2{
+    public bool XYChain(){
+		Prepare();
+		CeLKMan.PrepareCellLink(1);    //Generate strongLink
+
+        List&lt;int&gt; LKRec=new List&lt;int&gt;();
+        foreach( var CRL in _GetXYChain(LKRec) ){
+            int rcS=CRL[0].ID;
+            int no=CRL[1].ID, noB=(1&lt;&lt;no);
+
+            Bit81 ELM = ConnectedCells[rcS] - (CRL[0]|CRL[1]);
+            if( ELM.IsZero() ) continue;
+
+            Bit81 ELM2=new Bit81();
+            bool XYChainF=false;
+            foreach( var E in ELM.IEGetUCeNoB(pBDL,noB) ){
+                if( CRL[0].IsHit(ConnectedCells[E.rc]) ){
+                    E.CancelB=noB; XYChainF=true;
+                    ELM2 |= CRL[0]&ConnectedCells[E.rc];
+                    break;
+                }
+            }
+            if( !XYChainF )  continue;
+
+            //===== XY-Chain fond =====
+            .
+            . (Solution report code)
+            .
+            return true;
+        }
+        return false;
+    }
+</small></pre>
+
+	</article>
+	
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

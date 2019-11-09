@@ -1,0 +1,130 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Ltin Square</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<link href="styleStandardEng.css" rel="stylesheet">
+
+	<style type="text/css">
+		.auto-style1 {
+			background-color: #FFFF00;
+		}
+		.auto-style2 {
+			font-size: small;
+		}
+		.auto-style3 {
+			color: #456299;
+		}
+	.auto-style4 {
+	font-family: "ＭＳ ゴシック";
+}
+	</style>
+</head>
+
+<body id="page">
+	<a id="pageTop"></a> 
+    <header>
+        	<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+    </header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+
+<!-- ========================================================================== -->        
+    <section id="menuList">
+    	<aside>
+    		<ul>
+	            <li><a href="page11.html">Permutation</a></li>
+	            <li><a href="page12.html">Combination</a></li>        
+	            <li><a href="page13.html">surface/cell/candidate number house</a></li>
+	            <li><a href="page14.html">Latin square</a></li>
+	        </ul>
+	    </aside> 
+	</section>
+<!-- -------------------------------------------------------------------------- -->
+    <section id="main">   
+    	<article>	
+    		<a id="latin Square"></a> 
+            <h2>LatinSquare</h2>
+            
+            <img src="images/imgTop/download_image.png" width="48">
+            <a href="page17.html">LatinSquareExer.zip download</a>
+
+    <p> Latin squares is a Matrix with numbers 1 to n arranged vertically and horizontally without overlapping.<br>	
+	    Sudoku's solution is that it divides the 9×9 Latin square into 3×3 blocks and places numbers 1 to 9 on the block without overlapping.
+		There is 5.525×10<sup>27</sup> for the 9×9 Latin square(5524751496156892842531225600). 
+		The 9×9 Latin square with block constraint(Sudoku's solution) is 6.671×10<sup>21</sup> and
+		about 1/1,000,000 (6670903752021072936960).<br><br>
+		
+		reference: Frazer Jarvis, June 20, 2005,Enumerating possible Sudoku grids,<br>
+		　　　http://www.afjarvis.staff.shef.ac.uk/Sudoku/Sudoku.pdf<br><br>
+		
+		Here, counting is not an objective, so you should remember only a lot of things 
+		(it is difficult if you do not devise some processing on the whole number)<br>
+
+		i make a simple application to generate Latin square. Try running <a href="page17.html">LatinSquareExer</a>.</p>
+			
+		<h3>step 1</h3>
+		<p>i want to eliminate essentially the same Latin Square, so fix the number in block 1 (upper left block).
+		If we convert {a<sub>k </sub> => k} to the whole square when the number of block 1 is {a<sub>k</sub> | k=1-9},
+        the left square It can convert it.
+
+		<img src="images/latin/latin1.gif">
+
+		<h3>step 2</h3>
+		<p>Consider the numbers entering blocks B2 and B3.
+		First is the case where {4,5,6} is in the first line of block B2.{} Means that the order is arbitrary.
+		If the first row of Latin square block B2 is "4,5,6", even if column C4, C5, C6 is arbitrarily exchanged,
+		it is Latin squares. At this time, the first line of block B3 is determined as {7,8,9}.
+		Further, the third line of the block B2 becomes {1,2,3}, and the second line {7,8,9} of the block B2.
+		After all, if the first line of block B2 is {4,5,6}, all of blocks B2 and B3 are determined.
+		The same is true when the first line of block B2 is {7, 8, 9}.
+		Likewise, the case where the first line of block B2 is {7,8,9} is determined.
+		Let this pattern be "456,789" type.<br>
+		Since {abc} is arranged in six ways (3!) (abc,acb,bac,bca,cab,cba), 
+		there are 2×(3!)<Sup>6</sup>=93,312 types.<br><br>
+		<img src="images/latin/latin2.gif" width="600"></p>
+			
+		<h3>step 3</h3>
+		<p>Next is the case where the first line of block B2 is {4,5,7}. The first line of B3 is {6,8,9}.
+		When {a,b,c}={1,2,3}, the second line of block B2 is {8,9,a}, and the third line of B2 is {6,b,c}.
+		And the second line of block B3 is {7,b,c}, and the third line of B3 is {4,5,a}.
+		There are 3 ways of selecting abc with combination 
+		<sub><span class="auto-style4">3</span></sub>C<sub><span class="auto-style4">1</span></sub>.<br>
+		Let this pattern be "456,689" type.<br>
+		There are 9 patterns in the first line of the block B2.<br>
+		({4,5,7},{4,5,8},{4,5,9},{4,6,7},{4,6,8},{4,6,9},{5,6,7},{5,6,8},{5,6,9})<br>
+		"457, 689" type there are 2×9×3×(3!)<Sup>6</sup> = 2,519,424 types.
+		</p>
+		<img src="images/latin/latin3.gif" width="600"><br><br>
+			
+		<h3>step 4</h3>
+		<p>
+		For blocks B4 and B7, we can also determine patterns as in steps 2 and 3.</p>
+		
+		<p>
+		If you have reached this point (or warped),
+		you may want to move the Latin square generation application LatinSquareExer).
+		If you select blocks B2, B3, B4, B7, you will see the number of Latin Square with block constraints
+		for this pattern under the B 5689 button. B5689 When you click the button, 
+		it displays in the order of individual Latin squares.
+		The number of Latin squares with block constraints that can be solved by Sudoku is 6.671×10<sup>21</sup>/(9!).
+		Try and experience how many Numeral arrays are available for Sudoku's solution.<br><br>
+		
+		And if you have a Sudoku analysis program you can create a
+		 "SuDoKu Problem Creation Program" by connecting with this routine.
+		</p>
+			<img src="images/latin/latin4.jpg" width="600">
+        </article>    
+    </section>
+
+    <footer>
+        <p id="copyright"> Copyright &copy; 2014-  GNPX. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

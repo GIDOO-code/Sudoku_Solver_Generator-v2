@@ -1,0 +1,192 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku W-Wing</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	
+</head>
+<body id="page" onload="prettyPrint()">
+	<a id="pageTop"></a> 
+    <header>
+        	<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+    </header>
+	  
+    <script type="text/javascript"> writeNaviHeader(); </script>
+ 
+<!-- ========================================================================== -->        
+	<section id="menuList">
+		<aside>
+			<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+		</aside>
+	</section>
+<!-- -------------------------------------------------------------------------- -->
+    <section id="main">      
+    	<article>	
+            <h2>Conversion/standardization of Sudoku problem</h2>
+            <p>
+                The Sudoku problem can change appearance.
+                Even replacing digits or rearranging them in any order is a matter of Sudoku(ex. 634581279 → 123456789 )<br><br>
+			<img src="images/img4/img4b.png" width="440"><br>
+			<p>
+                Also, exchange of column 1 and column 2, exchange of column circulation exchange(1→2→3→1), (columns 123) and (columns 456) exchange,
+                exchange of row 1 and row 2, exchange of row circulation exchange(1→2→3→1), (row 123) and (row 456) exchange,
+                exchange of rows and columns (transposition), 
+                Even if these transformations are made, it is established as a problem of Sudoku.
+                However, transformation beyond Sudoku's constraints can not be done like exchange of 1 and 4 columns.<br>
+                Rotation can be represented by a combination of row and column exchange and up/down/left/right exchange, so we will not think about it here.
+                <br><br>
+			<img src="images/img4/img4a.png" width="720"><br><br>
+
+			<br>	
+                Naturally, even if such a transformation is carried out, and even if the digit conversion described below is carried out,
+                the essence as a problem of Sudoku will not change.<br>
+                The difficulty level and analysis algorithms that can be applied at each stage are exactly the same.
+                How to solve Sudoku may be applicable to multiple algorithms in one scene.
+                Which algorithm to apply depends on the human preference to solve, implementation of the program, 
+                so there will be some (many) differences in how to solve. i will not care about such things.<br><br>
+
+                The problem of Sudoku is a combination of a digit position pattern and a Latin square.
+                Combination of the standard form of each pattern and Latin square, it becomes the standard form of Sudoku problem.
+                Of course, combining a pattern and a Latin squad can not solve the problem, 
+                or there are multiple solutions, so that it is not a matter of Sudoku.<br>
+                In GNPX problem creation, Latin square is generated, a problem is created together with the position pattern,
+                and it is examined whether it can be solved by the analysis algorithm.<br><br>
+
+                In the following i will define the transformation of Sudoku problem properly and
+                establish the standardization method of Sudoku problem.<br><br></p>
+						
+            <h2>Conversion of Sudoku problem（Asymmetric transformation)</h2>
+            <p>
+                The problem of Sudoku is true even if exchange of rows, exchange of rows, 
+                transposition of rows and columns, and conversion of combinations thereof are carried out.
+                However, transformation beyond Sudoku's rule is impossible, for example exchange of column 1 and column 4.<br>
+                Conversion within Sudoku's rule can be classified and organized as follows.
+            <ol>
+            <li>Convert row block<br>
+                Let row 123 be row block 1. Likewise, row 456 is row block 2 and row 789 is row block 3.
+                Row blocks can be exchanged arbitrarily. This exchange is 3!=6 ways.<br><br></li>
+			<li>Conversion within row block n (n=1,2,3)<br>
+                Row abc in row block n can be exchanged arbitrarily. This exchange is 3!=6 ways.<br><br></li>
+			<li>Convert column block<br>
+                Let column 123 be column block 1. Likewise, column 456 is column block 2 and column 789 is column block 3.
+                column blocks can be exchanged arbitrarily. This exchange is 3!=6 ways.<br><br></li>
+			<li>Conversion within column block n (n=1,2,3)<br>
+                column abc in column block n can be exchanged arbitrarily. This exchange is 3!=6 ways.<br><br></li>
+			<li>Transpose of rows and columns<br></li>
+            </ol>
+                These conversions are total (3!)<sup><span class="auto-style 3">8 </span></sup> × 2 = 3,359,232 styles.<br><br>       
+			</p>
+			
+            <h2>Conversion of Sudoku problem（Symmetric transformation)</h2>
+            <p>When the problem is point symmetric, the following conversion is made.
+
+            <ol>
+            <li>Mirror exchange of row blocks 1 and 3<br>
+                Exchange rows 123 and 987.<br><br></li>
+			<li>Mirror transformation of row block 3 in conjunction with transformation of row block 1<br>
+                In conjunction with any transformation of row 123, it converts row 789 in a mirror image. 
+                For example exchange row 79 in conjunction with the exchange of row 13.
+                There are 3!=6 ways of this conversion.<br><br></li>
+			<li>Exchange of row 46<br><br></li>
+            <li>Mirror exchange of column blocks 1 and 3<br>
+                Exchange columns 123 and 987.<br><br></li>
+			<li>Mirror transformation of row block 3 in conjunction with transformation of row block 1<br>
+                In conjunction with any transformation of column 123, it converts column 789 in a mirror image.
+                For example exchange column 79 in conjunction with the exchange of column 13.
+				There are 3!=6 ways of this conversion.<br><br></li>
+			<li>Exchange of column 46<br><br></li>
+			<li>Transpose of rows and columns<br></li>
+            </ol>
+                Point symmetric transformation is (2×3!×2)<sup><span class = "auto-style 3">2</span> </sup> × 2 = 1,152 ways.
+                These conversions are preserved for symmetry if the original problem is a point symmetric pattern.
+                Also, asymmetric patterns are preserved for asymmetry.<br><br>
+
+			<h2>Standardization of problem patterns</h2>
+            <p>The problem pattern is represented by a 27-digit binary number,
+                with the numeric representation of the cells in row 123 corresponding to 0/1.
+
+                Sudoku problem pattern is represented by this triplet number. i will call this "number of Sudoku patterns".
+                In the case of the next problem, the number of Sudoku patterns is (75846740, 44861866, 22107401).
+                It is the same even if it expresses it as an 81-bit integer. <br> <br>
+
+            <img src="images/img4/img4c.png" width="200"><br>
+            100100001 010101010 001010100 = 289*512*512 + 170*512 + 84 = 75846740<br>
+			010101011 001000100 110101010 = 171*512*512 +   8*512 + 426 = 44861866<br>
+			001010100 010101010 100001001 =  84*512*512 + 170*512 + 265 = 22107401<br><br>
+
+                The number of Sudoku patterns varies depending on the previous conversion of Sudoku problem.
+                Therefore, the number of Sudoku patterns by this conversion has the minimum value.
+                The minimum value of the number of Sudoku patterns is one of the index values of the Sudoku problem and
+                it is called "pattern index value".
+                Although there is one pattern index value for arbitrary Sudoku problem,
+                there may be more than one conversion method (combination of row conversion, column conversion, and matrix transpose).
+                In the case of this problem, problem patterns can be standardized with four kinds of conversion columns 
+                (the figure in the next section).<br>
+                In addition, in the expression of the problem pattern conversion method,
+                in order to avoid ambiguity, if transposition transformation is involved, transpose first.<br><br>
+			</p>
+
+			<h2>Standardization of Sudoku solution</h2>
+            <p>Sudoku solution (Latin square with block constraints), about the Sudoku problem that "standardized problem pattern"
+                ① Standardize problem patterns.
+                ② Standardize the numerical array of block 1.
+                ③ Order of Latin square creation
+                In the following figure, the left is the original problem, 
+                the center is a problem after normalization of the pattern,
+                and the right is the problem of exchanging the numeral array of Block 1 to 123456789.
+                After that, Latin square is generated in the order of 
+                <a href="page14.html"> block constrained Latin square formation method </a>.
+            <ol>
+            	<li>Ordering of block 2</li>
+            	<li>Ordering of block 3</li>
+            	<li>Ordering of block 4</li>
+            	<li>Ordering of block 7</li>
+            	<li>Generate the patterns of block 5,6,8,9, and verify the problem after pattern standardization</li>
+            </ol>
+            <p class="auto-style4">In this way, the generation of Latin squares with block constraints can be coded,
+                so use this code as an index.
+                The problem with the conversion that minimizes the pattern index and Latin square index is taken as the standard form.
+                The problem of Sudoku can be changed by row/column/transpose transformation, transformation of exposed number,
+                but it is unique so that identity of problem created by transformation can be identified.<br><br>
+            <img src="images/img4/img4d.png" width="800"><br>
+			</p>
+			</p>
+
+        </article> 
+    </section>
+    
+<!-- -------------------------------------------------------------------------- -->	
+<!--
+    <section id="side">
+        <aside>
+            <section>
+                <h2>#####</h2>
+                <img src="images/square.png" width="45" height="45">
+            </section>
+
+        </aside>
+    </section>
+-->
+<!-- ========================================================================== -->
+    <footer>
+        <p id="copyright"> Copyright &copy; 2014-  GNPX. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

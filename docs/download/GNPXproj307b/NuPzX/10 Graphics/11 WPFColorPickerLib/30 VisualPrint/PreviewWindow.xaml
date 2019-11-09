@@ -1,0 +1,41 @@
+﻿<Window x:Class="VisualPrint.PreviewWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Pirnt Preview" Closed="OnClosed"  Loaded="Window_Loaded" Icon="/VisualPrint;component/Resources/printer.ico" Width="800" Height="1122">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Menu Grid.Row="0" Height="30" HorizontalAlignment="right" Name="PrintMenu" VerticalAlignment="Top" Background="Transparent">
+                    <MenuItem Icon="{StaticResource Printer}" Click="OnPrintClick" HorizontalContentAlignment="Right" Margin="0,0,5,0" HorizontalAlignment="Right" Width="30" Height="30" />
+            </Menu>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC5C5DB" Offset="0" />
+                    <GradientStop Color="#FF7C7CB7" Offset="1" />
+                    <GradientStop Color="#FF5D5396" Offset="0.599" />
+                </LinearGradientBrush>
+            </Grid.Background>
+        </Grid>
+        <DockPanel Grid.Row="1" Name="DocumentPanel">    
+            <FlowDocumentReader Grid.Row="1" Name="Viewer" Foreground="White">
+                <FlowDocumentReader.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFCFCDF2" Offset="0" />
+                        <GradientStop Color="#FF2F2D5F" Offset="0.45" />
+                        <GradientStop Color="#FF8F8FB4" Offset="1" />
+                    </LinearGradientBrush>
+                </FlowDocumentReader.Background>
+            </FlowDocumentReader>
+        </DockPanel>
+    </Grid>
+</Window>

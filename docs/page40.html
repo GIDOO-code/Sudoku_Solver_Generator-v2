@@ -1,0 +1,153 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku Skyscraper</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+</head>
+
+<body id="page" onload="prettyPrint()">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+		<h2>Skyscraper</h2>
+		<p>For the description of Skyscraper, use <a href="page25.html">cell-to-cell link</a> and 
+		<a href="page25.html#ConnectedCells">ConnectedCells</a>.<br><br>
+		Skyscraper is a pattern type solution like LockedSet, Fish and consists of two strong links.
+		For two strong links of digit X, only one of the four end cells belongs to the same House (left figure).
+		At this time, X is excluded from the cell related to the remaining end cell(Δ cell in the right figure).<br>
+
+		<p style="text-align:center">
+			<img src="images/img40/img40c.png" alt="Skyscraper" width="469" height="217">
+		</p>
+
+		<p>The analysis algorithm of Skyscraper is also the procedure of this figure.
+		<ol style="font-size:medium">
+			<li>Set digit X</li>
+			<li>Selection of two strong links</li>
+			<li>Check that only one pair of link end points belong to the same House</li>
+			<li>Search excluded candidate cells</li>
+		</ol>
+		</p>
+		
+		<p>Skyscraper is a relatively easy analysis method and it will be easy to find even if when humans play.
+		Skyscraper is a relatively easy analysis method and it will be easy to find even when humans play.
+		There may be several skyscrapers found on the same scene.
+		The following figure is three skyscraper of each same scene.</p>
+		<img src="images/img40/img40d.png" alt="Skyscraper" width="240" height="240">
+		<img src="images/img40/img40e.png" alt="Skyscraper" width="240" height="240">
+		<img src="images/img40/img40f.png" alt="Skyscraper" width="240" height="240">
+		<img src="images/img40/img40g.png" alt="Skyscraper" width="240" height="240">
+		<img src="images/img40/img40h.png" alt="Skyscraper" width="240" height="240">
+		<img src="images/img40/img40i.png" alt="Skyscraper" width="240" height="240">
+
+		
+		<p class="newLine"><small>
+			.5.....9.3...2...5..2...68.....65....8.7..4.9...9.1.5...6.5..322.5..49...7..9.5.6(Upper）<br>
+			56...........23.4.9.....18.6....14...592.486...16....3.36.....9.7.36...........34(Lower)）
+		</small></p>
+
+		<h2>Skyscraper C# program</h2>
+		<p>Supplement for two link selections.
+			Selection of two pairs of links is <a href="page11.html">Permutation</a>.
+			The link is generated and treated to have a direction.
+			If without direction, the comparison of both ends of the link becomes complicated.
+			The method adopted here is simpler to process.<br><br></p>
+
+	<pre class="prettyprint linenums lang-C"><small>public partial class NXGCellLinkGen: AnalyzerBaseV2{
+	private int GStageMemo;
+	private List&lt;UCell&gt; BVCellLst;
+
+    public NXGCellLinkGen( GNPX_AnalyzerMan pAnMan ): base(pAnMan){ }
+	private void Prepare(){
+		if(pAnMan.GStage!=GStageMemo) {
+			GStageMemo=pAnMan.GStage;
+			CeLKMan.Initialize();
+			BVCellLst=null;
+		}      
+	}
+
+    public bool Skyscraper(){ //Using Strong
+		Prepare();
+		CeLKMan.PrepareCellLink(1);    //Generate strongLink
+
+        for( int no=0; no&lt;9; no++ ){
+            int noB=(1&lt;&lt;no);               
+            var SSLst = CeLKMan.IEGetNoType(no,1).ToList(); 
+            if( SSLst.Count&lt;=2 ) continue;
+
+            var prm=new Permutation(SSLst.Count,2);
+            int nxtX=99;
+            while( prm.Successor(nxtX) ){                
+                UCellLink UCLa=SSLst[prm.Pnum[0]], UCLb=SSLst[prm.Pnum[1]];
+                nxtX=0;
+                if( UCLa.ID&lt;UCLb.ID ) continue; //
+                nxtX=1;
+                if( (UCLa.B81|UCLb.B81).Count!=4 )  continue;       
+                //All cells are different
+
+                Bit81 ConA1=ConnectedCells[UCLa.rc1], ConA2=ConnectedCells[UCLa.rc2]; 
+                if( !ConA1.IsHit(UCLb.rc1) || ConA1.IsHit(UCLb.rc2) ) continue;
+                if(  ConA2.IsHit(UCLb.rc1) || ConA2.IsHit(UCLb.rc2) ) continue;
+                //(UCLa.rc1)(UCLb.rc1):belongs to the same house only
+
+                Bit81 candHit = ConA2 & ConnectedCells[UCLb.rc2];
+                candHit = candHit - (ConA1 | ConnectedCells[UCLb.rc1]);
+
+                bool SSfond=false;
+                foreach( UCell P in candHit.IEGetUCeNoB(pBDL,noB) ){     
+                    P.CancelB = P.FreeB;
+                    SSfond=true;
+                }
+
+                if(SSfond){
+		            .
+		            . (Solution report code)
+		            .
+					return true;
+                }
+            }
+        }
+        return false;
+    }
+}</small></pre>
+
+	</article>
+	<br><br>
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

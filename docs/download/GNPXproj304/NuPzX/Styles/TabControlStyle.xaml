@@ -1,0 +1,281 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+<!-- http://codesdirectory.blogspot.jp/2013/01/wpf-tabcontrol-style.html 
+    WPF TabControl Style How to style a WPF TabControl?                     -->
+
+    <LinearGradientBrush x:Key="gradientBrushTabControlHeader" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Color="#002E8A" Offset="0" />
+        <GradientStop Color="#0071B7" Offset="0.5" />
+        <GradientStop Color="#002E8A" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="gradientBrushSegmentedTabItem" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="#4C8BC0" Offset="0" />
+        <GradientStop Color="#015CA3" Offset="0.49" />
+        <GradientStop Color="#024795" Offset="0.50" />
+        <GradientStop Color="#2C5198" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="gradientBrushSegmentedActiveTabItem" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="#000098" Offset="0" />
+        <GradientStop Color="#000075" Offset="0.33" />
+        <GradientStop Color="#000075" Offset="0.66" />
+        <GradientStop Color="#000082" Offset="1" />
+    </LinearGradientBrush>
+    
+    <LinearGradientBrush x:Key="gradientBrushTabItemHeaderNrm" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Color="#FF202040"/>
+        <GradientStop Color="#FF404040" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="gradientBrushTabItemHeaderSel" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Color="#FF5050C0"/>
+        <GradientStop Color="#FF8080C0" Offset="1"/>
+    </LinearGradientBrush>
+
+    <Style x:Key="styleTabItemTop" TargetType="{x:Type TabItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="#FF171111"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="FontFamily" Value="MS Gothic"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Border x:Name="rightBorder"
+                        Background="{StaticResource ResourceKey=gradientBrushTabItemHeaderNrm}"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="#032AA0"
+                        CornerRadius="5,0,0,0">
+                        <Border x:Name="leftBorder"
+                            BorderThickness="1,1,1,0"
+                            BorderBrush="#2172B1"
+                            CornerRadius="5,0,0,0">
+                            <ContentPresenter x:Name="ContentSite"
+                                            ContentSource="Header"
+                                            Grid.Row="1"
+                                            HorizontalAlignment="Center"
+                                            Margin="5,4,5,5"
+                                            RecognizesAccessKey="True"
+                                            VerticalAlignment="Center"
+                                            TextBlock.FontSize="12"
+                                            TextBlock.Foreground="#FFFFFF">
+                                <ContentPresenter.Effect>
+                                    <DropShadowEffect BlurRadius="0.0"
+                                                  Color="#032A6B"
+                                                  Direction="90"
+                                                  Opacity="1"
+                                                  ShadowDepth="1" />
+                                </ContentPresenter.Effect>
+                            </ContentPresenter>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="rightBorder"
+                                Property="Background"
+                                Value="{StaticResource ResourceKey=gradientBrushTabItemHeaderSel}" />
+                            <Setter TargetName="leftBorder"
+                                Property="BorderThickness"
+                                Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="styleTabItemTopSmall" TargetType="{x:Type TabItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="#FF171111"/>
+        <Setter Property="FontSize" Value="8"/>
+        <Setter Property="FontFamily" Value="MS Gothic"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Border x:Name="rightBorder"
+                        Background="{StaticResource ResourceKey=gradientBrushTabItemHeaderNrm}"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="#032A6B"
+                        CornerRadius="7,0,0,0">
+                        <Border x:Name="leftBorder"
+                            BorderThickness="1,1,1,0"
+                            BorderBrush="#2172B1"
+                            CornerRadius="7,0,0,0">
+                            <ContentPresenter x:Name="ContentSite"
+                                            ContentSource="Header"
+                                            Grid.Row="1"
+                                            HorizontalAlignment="Stretch"
+                                            Margin="5,4,5,5"
+                                            RecognizesAccessKey="True"
+                                            VerticalAlignment="Center"
+                                            TextBlock.FontSize="12"
+                                            TextBlock.Foreground="#FFFFFF">
+                                <ContentPresenter.Effect>
+                                    <DropShadowEffect BlurRadius="0.0"
+                                                  Color="#032A6B"
+                                                  Direction="90"
+                                                  Opacity="1"
+                                                  ShadowDepth="1" />
+                                </ContentPresenter.Effect>
+                            </ContentPresenter>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="rightBorder"
+                                Property="Background"
+                                Value="{StaticResource ResourceKey=gradientBrushTabItemHeaderSel}" />
+                            <Setter TargetName="leftBorder"
+                                Property="BorderThickness"
+                                Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="styleTabItemLeft" TargetType="{x:Type TabItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Border x:Name="rightBorder"
+                        Background="{StaticResource ResourceKey=gradientBrushSegmentedTabItem}"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="#032A6B"
+                        CornerRadius="4,0,0,4">
+                        <Border x:Name="leftBorder"
+                            BorderThickness="1,0,0,0"
+                            BorderBrush="#2172B1"
+                            CornerRadius="4,0,0,4">
+                            <ContentPresenter x:Name="ContentSite"
+                                            ContentSource="Header"
+                                            Grid.Row="1"
+                                            HorizontalAlignment="Stretch"
+                                            Margin="20,4,20,5"
+                                            RecognizesAccessKey="True"
+                                            VerticalAlignment="Center"
+                                            TextBlock.FontSize="14"
+                                            TextBlock.Foreground="#FFFFFF">
+                                <ContentPresenter.Effect>
+                                    <DropShadowEffect BlurRadius="0.0"
+                                                  Color="#032A6B"
+                                                  Direction="90"
+                                                  Opacity="1"
+                                                  ShadowDepth="1" />
+                                </ContentPresenter.Effect>
+                            </ContentPresenter>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                           <Setter TargetName="rightBorder"
+                                Property="Background"
+                                Value="{StaticResource ResourceKey=gradientBrushSegmentedActiveTabItem}" />
+                            <Setter TargetName="leftBorder"
+                                Property="BorderThickness"
+                                Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="styleTabItemRight" TargetType="{x:Type TabItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Border x:Name="rightBorder"
+                        Background="{StaticResource ResourceKey=gradientBrushSegmentedTabItem}"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="#032A6B"
+                        CornerRadius="0,4,4,0">
+                        <Border x:Name="leftBorder"
+                            BorderThickness="1,0,0,0"
+                            BorderBrush="#2172B1"
+                            CornerRadius="0,4,4,0">
+                            <ContentPresenter x:Name="ContentSite"
+                                            ContentSource="Header"
+                                            Grid.Row="1"
+                                            HorizontalAlignment="Stretch"
+                                            Margin="20,4,20,5"
+                                            RecognizesAccessKey="True"
+                                            VerticalAlignment="Center"
+                                            TextBlock.FontSize="14"
+                                            TextBlock.Foreground="#FFFFFF">
+                                <ContentPresenter.Effect>
+                                    <DropShadowEffect BlurRadius="0.0"
+                                                    Color="#032A6B"
+                                                    Direction="90"
+                                                    Opacity="1"
+                                                    ShadowDepth="1" />
+                                </ContentPresenter.Effect>
+                            </ContentPresenter>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="rightBorder"
+                                Property="Background"
+                                Value="{StaticResource ResourceKey=gradientBrushSegmentedActiveTabItem}" />
+                            <Setter TargetName="leftBorder"
+                                Property="BorderThickness"
+                                Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="styleTabItemDefault" TargetType="{x:Type TabItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Border x:Name="rightBorder"
+                        Background="{StaticResource ResourceKey=gradientBrushSegmentedTabItem}"
+                        BorderThickness="0,0,1,0"
+                        BorderBrush="#032A6B">
+                        <Border x:Name="leftBorder"
+                            BorderThickness="1,0,0,0"
+                            BorderBrush="#2172B1">
+                            <ContentPresenter x:Name="ContentSite"
+                                            ContentSource="Header"
+                                            Grid.Row="1"
+                                            HorizontalAlignment="Stretch"
+                                            Margin="20,4,20,5"
+                                            RecognizesAccessKey="True"
+                                            VerticalAlignment="Center"
+                                            TextBlock.FontSize="14"
+                                            TextBlock.Foreground="#FFFFFF">
+                                <ContentPresenter.Effect>
+                                    <DropShadowEffect BlurRadius="0.0"
+                                                    Color="#032A6B"
+                                                    Direction="90"
+                                                    Opacity="1"
+                                                    ShadowDepth="1" />
+                                </ContentPresenter.Effect>
+                            </ContentPresenter>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="rightBorder"
+                                Property="Background"
+                                Value="{StaticResource ResourceKey=gradientBrushSegmentedActiveTabItem}" />
+                            <Setter TargetName="leftBorder"
+                                Property="BorderThickness"
+                                Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>Sudoku Algorithm Combination</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+	.auto-style2 {
+		font-size: small;
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
+	}
+	</style>
+</head>
+
+<body id="page" onload="prettyPrint()">
+	<a id="pageTop"></a> 
+    <header>
+        	<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+    </header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+
+    <section id="menuList">
+    	<aside>
+    		<ul>
+	            <li><a href="page11.html">Permutation</a></li>
+	            <li><a href="page12.html">Combination</a></li>       
+	            <li><a href="page13.html">surface/cell/candidate number house<br></a></li>
+	            <li><a href="page14.html">Latin square</a></li>
+	        </ul>
+	    </aside> 
+	</section>
+	
+    <section id="main"> 
+    	<article>	
+    		<a id="permutation"></a>   
+			<h2>Permutation</h2>
+			<img src="images/imgTop/download_image.png" width="48">
+			<a href="../download/PermutationTest.lzh" download="PermutationTest.lzh">PermutationTest.lzh</a>
+	    	   
+            <p>  
+            	<span class="auto-style2">Programs that solve logic puzzles including Sudoku, use permutations and combinations. For permutations / combinations, you may find libraries on the net, but one important function is necessary.<br>
+            	For example, suppose you generate (6P5) with a permutation that chooses 6 to 5（”1,2,3,4,5”）.
+            	In case of evaluating an event using this, if it is found as an error in the second event, the third and subsequent evaluations are meaningless and will be canceled.
+            	That is, the next permutation(”1,2,3,4,6”),and next(”1,2,3,5,4”),… meaningless.
+            	It is reasonable to proceed to permutation ("1, 3, 2, 4, 5").<br>
+            	In this way, when generating permutations one after another, it is necessary to specify the position of the permutation and skip.</span><br>
+            </p>
+            
+	<pre class="prettyprint linenums lang-C ">
+public class Permutation{
+    private int   N=0;
+    private int   R=0;
+    private int[] Pwrk=null;
+    public  int[] Pnum=null;
+    private bool  First;
+ 
+    public Permutation( int N, int R=-1 ){
+        this.N=N;
+        this.R=R;
+        if( R&lt;=0 || R>N ) this.R=N;
+        if( N>0 ){
+            Pwrk = Enumerable.Range(0,N).ToArray();
+            Pnum = Enumerable.Range(0,this.R).ToArray();
+        }
+        First=true;//(The first permutation has already been created in the constructor)
+    }
+
+    public bool Successor( int rx=-1 ){
+        if( First || Pwrk==null ){ First=false; return (Pwrk!=null); }
+        int r = (rx>=0)? rx: R-1;
+        if( r>N-1 ) r=N-1;
+        
+        do{
+            if( r&lt;0 )  break;
+            int A=Pwrk[r];
+    
+          L_1: 
+            if( A>=N-1 ){ r--; continue; }
+            A++;
+            for( int k=0; k&lt;r; k++ ){ if( Pwrk[k]==A ) goto L_1; }        
+            Pwrk[r]=A;　　　//The next update position (r) and the number (A)
+            if( r&lt;N-1 ){           
+                int[] wx = Enumerable.Range(0,N).ToArray();
+                for( int k=0; k&lt;=r; k++ )   wx[Pwrk[k]]=-1;//Exclude used digits
+                int n=0;
+                for( int k=r+1; k&lt;N; k++ ){　// Fill the number after the change position
+                    for( ; n&lt;N; n++ ){
+                        if( wx[n]&lt;0 ) continue;
+                        Pwrk[k]=wx[n++];
+                        break;
+                    }
+                }
+            }
+            for( int k=0; k&lt;R; ++k ) Pnum[k]=Pwrk[k];//(Copy to external reference array)
+            return true;
+        }while(true);
+        return false;
+    }
+
+    public override string ToString(){
+        string st="";  Array.ForEach( Pnum, p=> st+=(" "+p) );
+        st += "  ";    Array.ForEach( Pwrk, p=> st+=(" "+p) );
+        return st;
+    }
+}
+</pre>
+            
+      		<p> <span class="auto-style2">
+      			Use Permutation as follows.<br>
+            	Each call to Successor generates the next permutation, the 
+				return value is true while it is being generated, and false when 
+				it reaches the end. Specify the position of next permutation 
+				generation and skip unnecessary generation.The change position 
+				can be changed dynamically.The position designation is from 0 to 
+				size-1. In other cases or omitting specification, the skip 
+				function does not work.</span>
+            </p>
+            
+			<pre class="prettyprint linenums lang-C ">
+var perm = new Permutation(6,5);
+int px=4;
+while(perm.Successor(px) ){
+   (Evaluation processing) 
+   (Set change position px of next permutation generation) 
+}</pre>
+
+            <h2>Sample（test program)</h2>
+			<pre class="prettyprint linenums lang-C ">
+class Program{
+    static void Main( string[ ] args ) {
+	Console.WriteLine( "* Permutation(4) *\n  Successor()" );
+	Permutation perm = new Permutation(4);
+	while(perm.Successor())  Console.WriteLine( perm );
+	
+	Console.WriteLine( "\n* Permutation(4,2) *\n  Successor()" );
+	perm = new Permutation(4,2);
+	while(perm.Successor())  Console.WriteLine( perm );
+	
+	Console.WriteLine( "\n* Permutation(4,3) *\n  Successor(1)" );
+	perm = new Permutation(4,3);
+	while(perm.Successor(1))　Console.WriteLine( perm );
+	
+	Console.Write( "\nEnd with key input：" );
+	Console.ReadKey();
+    }
+}</pre>
+	<h2>Execution result</h2>
+	<p> <span class="auto-style2">
+	(left: permutation generation result right: work data inside function)</span></p>
+	<pre class="LG">
+* Permutation(4) *
+ 0 1 2 3   0 1 2 3
+ 0 1 3 2   0 1 3 2
+ 0 2 1 3   0 2 1 3
+ 0 2 3 1   0 2 3 1
+ 0 3 1 2   0 3 1 2
+ 0 3 2 1   0 3 2 1
+ 1 0 2 3   1 0 2 3
+ 1 0 3 2   1 0 3 2
+ 1 2 0 3   1 2 0 3
+ 1 2 3 0   1 2 3 0
+ 1 3 0 2   1 3 0 2
+ 1 3 2 0   1 3 2 0
+ 2 0 1 3   2 0 1 3
+ 2 0 3 1   2 0 3 1
+ 2 1 0 3   2 1 0 3
+ 2 1 3 0   2 1 3 0
+ 2 3 0 1   2 3 0 1
+ 2 3 1 0   2 3 1 0
+ 3 0 1 2   3 0 1 2
+ 3 0 2 1   3 0 2 1
+ 3 1 0 2   3 1 0 2
+ 3 1 2 0   3 1 2 0
+ 3 2 0 1   3 2 0 1
+ 3 2 1 0   3 2 1 0
+
+* Permutation(4,2) *
+ 0 1   0 1 2 3
+ 0 2   0 2 1 3
+ 0 3   0 3 1 2
+ 1 0   1 0 2 3
+ 1 2   1 2 0 3
+ 1 3   1 3 0 2
+ 2 0   2 0 1 3
+ 2 1   2 1 0 3
+ 2 3   2 3 0 1
+ 3 0   3 0 1 2
+ 3 1   3 1 0 2
+ 3 2   3 2 0 1
+
+* Permutation(4,3) *
+ 0 1 2   0 1 2 3
+ 0 2 1   0 2 1 3
+ 0 3 1   0 3 1 2
+ 1 0 2   1 0 2 3
+ 1 2 0   1 2 0 3
+ 1 3 0   1 3 0 2
+ 2 0 1   2 0 1 3
+ 2 1 0   2 1 0 3
+ 2 3 0   2 3 0 1
+ 3 0 1   3 0 1 2
+ 3 1 0   3 1 0 2
+ 3 2 0   3 2 0 1
+</pre>  
+ 		</article>    
+    </section>
+
+    <footer>
+        <p id="copyright"> Copyright &copy; 2014-  GNPX. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

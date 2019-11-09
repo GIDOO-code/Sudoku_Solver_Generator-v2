@@ -1,0 +1,122 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku C# Algorithm</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+</head>
+
+<body id="page" onload="prettyPrint()">
+
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- ======================================================================== -->		
+<section id="main">
+	<article>
+		<h2 id="LinkCellAls">Cell-ALS link class(UCellLink)</h2>
+		<p>The base class of the link connecting the cell and ALS.</p>
+		<pre class="prettyprint linenums lang-C"><small>public class LinkCellAls: IComparable{
+    public readonly UCell UC;
+    public readonly UALS  ALS;
+    public readonly int   nRCC=-1; //no:0...8 (doubly の場合は個別にリンクを作る)
+    public LinkCellAls( UCell UC, UALS ALS, int nRCC ){
+        this.UC=UC; this.ALS=ALS; this.nRCC=nRCC;
+    }
+    public  override bool Equals( object obj ){
+        var A = obj as LinkCellAls;
+        return (this.ALS.ID==A.ALS.ID);
+    }
+    public int CompareTo( object obj ){
+        LinkCellAls A = obj as LinkCellAls;
+        return (this.ALS.ID-A.ALS.ID);
+    }
+}</small></pre>
+
+		<h2>Management class of cell-ALS link(LinkCellAls)</h2>
+		<p>This class is a generation function of a link connecting a cell and ALS.
+		Links are generated for each analysis stage.
+		Multiple algorithms may be used on the same board, and if it is already generated, use it.<br>
+		Generation is performed in the following procedure.
+		<ol>
+			<li>Select ALS to focus on.</li>
+			<li>ALS element numerals are taken as focused numbers.</li>
+			<li>Aggregate the position of the focused number in the ALS by row/column/block(rcbDir)。</li>
+			<li>When the row/column/block is only one direction, look for the number of interest in the cell in that direction.<br>
+				Register in the array(LinkCeAlsLst) with the corresponding cell position as an index.</li>
+		</ol>	
+		</p>
+
+		<pre class="prettyprint linenums lang-C"><small>public partial class CellLinkMan{
+    public List<LinkCellAls>[]   LinkCeAlsLst;
+    
+    public void Create_Cell2ALS_Link( ALSMan ALSman ){
+        if( LinkCeAlsLst!=null ) return ;
+        LinkCeAlsLst = new List&lt;LinkCellAls&gt;[81];
+        if( ALSman.ALSLst==null || ALSman.ALSLst.Count&lt;2 )  return;
+
+        List&lt;UCell&gt;  qBDL=pSA.pGP.BDL;
+        foreach( var PA in ALSman.ALSLst.Where(P=&gt;P.singly) ){
+            foreach( var no in PA.FreeB.IEGet_BtoNo() ){
+                if( !PA.singly )  continue;
+                int noB=(1&lt;&lt;no);
+                int rcbDir=0;
+                foreach( var P in PA.UCellLst.Where(q=&gt;(q.FreeB&noB)&gt;0) ){
+                    rcbDir |= ( (1&lt;&lt;(P.b+18)) | (1&lt;&lt;(P.c+9)) | (1&lt;&lt;(P.r)) );
+                }
+
+                for( int tx=0; tx&lt;27; tx+=9 ){
+                    int d = rcbDir&(0x1FF&lt;&lt;tx);
+                    if( d.BitCount()!=1 ) continue;
+                    int tfx=d.BitToNum(27);
+
+                    foreach( var P in qBDL.IEGet(tfx,noB) ){
+                        if( PA.B81.IsHit(P.rc) ) continue;
+
+                        var Q = new LinkCellAls(P,PA,no);
+                        if( LinkCeAlsLst[P.rc]==null ){
+                            LinkCeAlsLst[P.rc]=new List&lt;LinkCellAls&gt;();
+                        }
+                        else if( LinkCeAlsLst[P.rc].Contains(Q) ) continue;
+                        LinkCeAlsLst[P.rc].Add(Q);
+                    }
+                }
+            }
+        }
+        for( int rc=0; rc&lt;81; rc++ ) if( LinkCeAlsLst[rc]!=null ) LinkCeAlsLst[rc].Sort();
+    }
+}</small></pre>
+
+	</article>
+</section>
+<footer>
+	<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+
+</html>

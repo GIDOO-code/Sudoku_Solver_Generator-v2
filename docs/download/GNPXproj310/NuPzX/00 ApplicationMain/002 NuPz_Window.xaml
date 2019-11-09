@@ -1,0 +1,1515 @@
+﻿<Window x:Name="GNPXwin" x:Class="GNPZ_sdk.NuPz_Win"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit/extended" 
+        xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+
+        xmlns:properties="clr-namespace:GNPZ_sdk.Properties"
+        xmlns:app="clr-namespace:GNPZ_sdk"
+     
+        xmlns:GIDOO_space="clr-namespace:GIDOO_space"     
+        
+        mc:Ignorable="d"
+        
+        Title="NuPz_Window" 
+        Loaded="Window_Loaded" Background="#FF181846" ShowInTaskbar="False" WindowStyle="None" 
+        ShowActivated="True" ResizeMode="NoResize" Unloaded="Window_Unloaded" BorderBrush="Black" 
+        MouseDown="Window_MouseDown" Width="954" Height="513" LocationChanged="GNPXwin_LocationChanged" >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/DataGridStyle.xaml"></ResourceDictionary>
+                <!--            <ResourceDictionary Source="/Styles/ComboBoxStyle.xaml"></ResourceDictionary>   -->
+                <ResourceDictionary Source="/Styles/ListBoxStyle1.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Styles/TabControlStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Styles/TextBlockStyle.xaml"></ResourceDictionary>
+
+                <ResourceDictionary>
+                    <Style TargetType="{x:Type ComboBox}">
+                        <Style.Triggers>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="true">
+                                <Setter Property="Background" Value="Navy"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid VerticalAlignment="Stretch" PreviewKeyDown="Grid_PreviewKeyDown">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                <GradientStop Color="#FF302A3E" />
+                <GradientStop Color="#FF5E5E80" Offset="1" />
+                <GradientStop Color="#BE232136" Offset="0.43"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label x:Name="GNPXGNPX" Content="GNPX 2014" FontFamily="MS Mincho" FontSize="36" Foreground="#FFFEFFFF" HorizontalAlignment="Left" 
+               Margin="18,10,0,0" VerticalAlignment="Top" Height="41" FontWeight="Bold" MouseDoubleClick="GNPXGNPX_MouseDoubleClick" />
+        <Button Content="Exit" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="29" HorizontalAlignment="Left" Margin="841,474,0,0" x:Name="appExit" VerticalAlignment="Top" Width="56" Click="appExit_Click" Style="{Binding}">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.8" />
+                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                    <GradientStop Color="#EA575757" Offset="0.55" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label Content="LbShortMes" HorizontalAlignment="Center" x:Name="LbShortMes" VerticalAlignment="Top" Foreground="Red" Visibility="Visible" Panel.ZIndex="6" Margin="578,58,0,0" FontFamily="MS Gothic" Background="{x:Null}" />
+        <RepeatButton  x:Name="btnProbPre"
+                       Content="{Binding Resources.btnProbPre, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                       Height="23" HorizontalAlignment="Left" Margin="281,30,0,0"
+    		VerticalAlignment="Top" Width="37" Foreground="White" Click="btnProbPre_Click" BorderBrush="#FF2E9BDE" IsEnabled="False" >
+            <RepeatButton.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.8" />
+                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                    <GradientStop Color="#EA575757" Offset="0.55" />
+                </LinearGradientBrush>
+            </RepeatButton.Background>
+        </RepeatButton>
+        <RepeatButton x:Name="btnProbNxt"
+                      Content="{Binding Resources.btnProbNxt, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                      Height="23" HorizontalAlignment="Left" Margin="319,30,0,0" 
+    		VerticalAlignment="Top" Width="37" Foreground="White" Click="btnProbNxt_Click" BorderBrush="#FF2E9BDE" IsEnabled="False" >
+            <RepeatButton.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.8" />
+                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                    <GradientStop Color="#EA575757" Offset="0.55" />
+                </LinearGradientBrush>
+            </RepeatButton.Background>
+        </RepeatButton>
+        <Label x:Name="lblPuzzle" 
+               Content="{Binding Resources.lblPuzzle, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+               FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" Margin="0,58,892,0" 
+               VerticalAlignment="Top"  />
+        <TextBox x:Name="txtProbNo" Background="#FF0A0A24" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="19" HorizontalAlignment="Left" Margin="61,60,0,0" Text="999" TextAlignment="Center" VerticalAlignment="Top" Width="50" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+        <TextBox x:Name="txtProbName" Text="........." Background="#FF0A0A24" Width="239" Margin="116,60,0,0" 
+                 FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="19" 
+                 HorizontalAlignment="Left"   VerticalAlignment="Top" VerticalContentAlignment="Center" 
+                 TextChanged="txtProbName_TextChanged" ToolTip="Problem name, optionally rewritable" />
+
+        <!-- DataContext="{Binding}" -->
+        <Image x:Name="PB_GBoard" Width="338" Height="338" Margin="18,108,0,0" Stretch="Fill" VerticalAlignment="Top"
+                 HorizontalAlignment="Left" 
+               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/ColorSwatchCircle.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" />
+        <!--
+                MouseLeftButtonDown="PB_GBoard_MouseLeftButtonDown"
+               MouseLeftButtonUp="PB_GBoard_MouseLeftButtonUp"
+        -->
+
+        <Image Height="36" HorizontalAlignment="Left" Margin="17,107,0,0" x:Name="GnumericPad" Stretch="Fill" 
+               VerticalAlignment="Top" Width="36" Visibility="Visible" MouseMove="GnumericPad_MouseMove" 
+               MouseLeave="GnumericPad_MouseLeave" MouseLeftButtonUp="GnumericPad_MouseLeftButtonUp" />
+        <Label x:Name="lblCellsPuzzle"
+            Content="{Binding Resources.lblCellsPuzzle, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+            FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Right" Margin="0,87,890,0"  VerticalAlignment="Top" Height="23" Background="{x:Null}" Width="50" HorizontalContentAlignment="Right" FontSize="10" />
+        <TextBlock x:Name="txbPuzzle" HorizontalAlignment="Left" Margin="62,92,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="22" Foreground="#FFC7C5F3" FontFamily="MS Gothic" FontSize="12" TextAlignment="Center" Background="#FF17171B"/>
+        <Label x:Name="lblCellsSolved"
+            Content="{Binding Resources.lblCellsSolved, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+            FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Right" Margin="0,87,818,0"  VerticalAlignment="Top" Height="23" Background="{x:Null}" Width="50" HorizontalContentAlignment="Right" FontSize="10" />
+        <TextBlock x:Name="txbSolved" HorizontalAlignment="Left" Margin="134,92,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="22" Foreground="#FFC7C5F3" FontFamily="MS Gothic" FontSize="12" TextAlignment="Center" Background="#FF17171B"/>
+        <Label x:Name="lvlCellsUnsolved"
+            Content="{Binding Resources.lvlCellsUnsolved, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+            FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Right" Margin="0,87,747,0"  VerticalAlignment="Top" Height="23" Background="{x:Null}" Width="50" HorizontalContentAlignment="Right" FontSize="10" />
+        <TextBlock x:Name="txbUnsolved" HorizontalAlignment="Left" Margin="204,92,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="22" Foreground="#FFC7C5F3" FontFamily="MS Gothic" FontSize="12" TextAlignment="Center" Background="#FF17171B"/>
+        <Label x:Name="label1" Margin="0,84,634,0"  VerticalAlignment="Top" Height="23"
+               Content="{Binding Resources.lblDifficulty, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+               FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Right"  Background="{x:Null}" />
+        <TextBox Background="#FF0A0A24" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="19" HorizontalAlignment="Left" Margin="318,85,0,0" x:Name="nUDDifficultyLevel" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="37" VerticalContentAlignment="Center" />
+        <TabControl x:Name="tabCtrlMode" Background="Black" 
+    		Height="445" HorizontalAlignment="Left" Margin="371,23,0,0"
+    		VerticalAlignment="Top" Width="573" SelectionChanged="tabCtrlMode_SelectionChanged">
+            <TabItem x:Name="tabAFile"              
+                     Header="{Binding Resources.tabAFile, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                     Style="{DynamicResource ResourceKey=styleTabItemTop}" 
+                     FontSize="11" FontFamily="Microsoft NeoGothic" Height="22" VerticalAlignment="Top" Width="60" >
+                <Grid x:Name="grdFileIO" Margin="0,0,0,0" Width="568" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF3A3948" Offset="0" />
+                            <GradientStop Color="#FF65646F" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Button x:Name="btnOpenPuzzleFile"
+                            Content="{Binding Resources.btnOpenPuzzleFile, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                            Width="100" Height="25" VerticalAlignment="Top" Margin="42,31,0,0"
+                		Foreground="White" HorizontalAlignment="Left" FontSize="12" Click="btnOpenPuzzleFile_Click" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFA3A3A3" Offset="0" />
+                                <GradientStop Color="Black" Offset="1" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <TextBox Height="39" HorizontalAlignment="Left" Margin="52,61,0,0" x:Name="txtFileName" Text="Puzzle File" VerticalAlignment="Top" Width="299" TextWrapping="WrapWithOverflow" FontSize="12" Background="#FFCACEE2" Foreground="#FF0B0E2B" />
+                    <CheckBox x:Name="chbInitialState" 
+                              Content="{Binding Resources.chbInitialState, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                              Foreground="White" Height="23" IsChecked="True" Margin="57,99,341,0" VerticalAlignment="Top" FontSize="12" VerticalContentAlignment="Center" />
+                    <Button x:Name="btnSavePuzzle" Click="btnSavePuzzle_Click"
+                            Content="{Binding Resources.btnSavePuzzle, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                            Foreground="White" Height="25" HorizontalAlignment="Left" Margin="42,156,0,0" VerticalAlignment="Top" Width="100"  FontSize="12">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFB0B0CA" Offset="0" />
+                                <GradientStop Color="#FF0D0D1A" Offset="1" />
+                                <GradientStop Color="#FF434399" Offset="0.508" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Label Content="{Binding Resources.lblSaveAll, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                           Foreground="White" Margin="44,179,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="94" FontSize="12" />
+                    <CheckBox x:Name="chbAdditionalSave" 
+                              Content="{Binding Resources.chbAdditionalSave, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                             
+                              Foreground="White" Height="20" Margin="54,200,0,0"  VerticalAlignment="Top" IsChecked="True" HorizontalAlignment="Left" Width="201" FontSize="12" VerticalContentAlignment="Center" />
+                    <CheckBox x:Name="chbFile81Nocsv"
+                              Content="{Binding Resources.chbFormatLine, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                             
+                              Foreground="White" Margin="54,214,0,0" IsChecked="True" VerticalAlignment="Top" FontSize="12" VerticalContentAlignment="Center" Height="23" Width="185" HorizontalAlignment="Left" />
+                    <CheckBox x:Name="chbSolutionSort"
+                              Content="{Binding Resources.chbSortByDiffOrder, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                             
+                              Foreground="White" Height="16" Margin="54,232,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="176" FontSize="12" VerticalContentAlignment="Center" />
+                    <CheckBox x:Name="cbxProbSolSetOutput" 
+                              Content="{Binding Resources.chbSaveWithAnswer, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                  
+                              Foreground="White" Margin="54,243,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153" Checked="cbxProbSolSetOutput_Checked" Unchecked="cbxProbSolSetOutput_Checked" FontSize="12" VerticalContentAlignment="Center" />
+                    <CheckBox x:Name="chbAddAlgorithmList"
+                              Content="{Binding Resources.chbAddAlgorithmList, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                              Foreground="Gray" Height="17" HorizontalAlignment="Left" Margin="66,263,0,0" VerticalAlignment="Top" Width="150" IsEnabled="False" FontSize="12" VerticalContentAlignment="Center" />
+                    <Button x:Name="btnSaveToFavorites" Click="btnSaveToFavorites_Click" 
+                            Content="{Binding Resources.btnSaveToFavorites, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"           
+                            Foreground="White" Height="25" HorizontalAlignment="Left" Margin="264,156,0,0"  VerticalAlignment="Top" Width="119" FontSize="12">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFCACACA" Offset="0" />
+                                <GradientStop Color="#FF6F6F85" Offset="1" />
+                                <GradientStop Color="#FF4C31A0" Offset="0.508" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Label Content="{Binding Resources.lblSaveCurrentPuzzle, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"           
+                           Foreground="White" Height="28" HorizontalAlignment="Left" Margin="266,179,0,0" VerticalAlignment="Top" FontSize="12" Width="138" />
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="tabASolve" 
+                     Header="{Binding Resources.tabASolve, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                     Style="{DynamicResource ResourceKey=styleTabItemTop}" FontFamily="MS Mincho" FontSize="12">
+                <Grid HorizontalAlignment="Left" Width="570">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF3A3948" Offset="0" />
+                            <GradientStop Color="#FF65646F" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TabControl Height="396" HorizontalAlignment="Left" Margin="10,6,0,0" x:Name="tabSolver" VerticalAlignment="Top" Width="530"
+                                Background="Black" SelectionChanged="tabSolver_SelectionChanged" Grid.ColumnSpan="2">
+                        <TabItem x:Name="TC_SDKAnalyzer" 
+                                 Header="{Binding Resources.tabBSolve, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                 Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" FontFamily="MS Mincho" FontSize="12">
+                            <Grid x:Name="AutoSolNoDisp" Width="526" Margin="0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="513*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF3A3948" Offset="0" />
+                                        <GradientStop Color="#FF65646F" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Label x:Name="lblStep"
+                                       Content="{Binding Resources.lblStep, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                       FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,13,62,0" VerticalAlignment="Top" Grid.Column="1" Width="59" HorizontalContentAlignment="Right" />
+                                <TextBlock x:Name="txbStepCC" HorizontalAlignment="Right" TextWrapping="Wrap" Text="0" Width="22" Foreground="White" FontFamily="MS Gothic" FontSize="14" TextAlignment="Center" RenderTransformOrigin="0.727,0.917" Margin="0,18,46,336" Grid.Column="1"/>
+                                <Label x:Name="LblMethod"
+                                       Content="{Binding Resources.LblMethod, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                       FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="99,134,0,0"  VerticalAlignment="Top" Grid.Column="1" Width="46" />
+                                <Label x:Name="lblCurrentnDifficultyLevel" Content="difficulty:999" Grid.Column="1" HorizontalAlignment="Left" Margin="274,18,0,0" VerticalAlignment="Top" Foreground="White" Panel.ZIndex="1" FontFamily="MS Gothic"/>
+                                <ScrollViewer HorizontalAlignment="Left" Width="366" VerticalScrollBarVisibility="Auto" Grid.Column="1" Margin="0,22,0,232" >
+                                    <TextBox Background="#FF0A0A24" Margin="0" x:Name="lblAnalyzerResult" Foreground="#FFF2F2F2" FontFamily="MS Mincho" FontSize="12" HorizontalContentAlignment="Stretch" TextOptions.TextFormattingMode="Display" TextWrapping="WrapWithOverflow" Width="366" HorizontalAlignment="Left" />
+                                </ScrollViewer>
+                                <ScrollViewer  VerticalScrollBarVisibility="Auto" Grid.Column="1" Margin="1,156,148,5" />
+
+                                <DataGrid AutoGenerateColumns="False" 
+                                	x:Name="DGViewMethodCounter" 
+                                	Background="#FF0A0A24" 
+                                	FontFamily="MS Mincho" 
+                                	Foreground="White" 
+                                	ItemsSource="{Binding}" 
+                                	MinWidth="10" MinHeight="14" 
+                                	FontStretch="Normal"
+                                	IsSynchronizedWithCurrentItem="True" 
+                                	MinRowHeight="14" RowHeight="14" 
+                                	CanUserSortColumns="False" 
+                                	HeadersVisibility="None" 
+                                	MinColumnWidth="12" 
+                                	RowBackground="#FF0A0A24" VerticalGridLinesBrush="#FFAFB7EB" 
+                                	HorizontalGridLinesBrush="#FFAFB7EB" CanUserResizeColumns="True" CanUserReorderColumns="False" BorderBrush="#FF4F4F72" FrozenColumnCount="2" IsReadOnly="True" SelectionMode="Single" FontSize="12" HorizontalAlignment="Left" Width="364" Grid.IsSharedSizeScope="True" Height="204" Grid.Column="1" Margin="1,154,0,8" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn FontFamily="MS Gothic" Foreground="White" Binding="{Binding methodName}" Width="5*" />
+                                        <DataGridTextColumn FontFamily="MS Gothic" Foreground="White" Binding="{Binding count}" Width="1*"/>
+                                    </DataGrid.Columns>
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="{x:Type DataGridRow}">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="#FF0A0A24" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                </Trigger>
+                                                <Trigger Property="IsFocused" Value="True">
+                                                    <Setter Property="Background" Value="#FF0A0A24" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.RowStyle>
+                                </DataGrid>
+                                <Button x:Name="btnSolve" 
+                                        Content="{Binding Resources.btnSolve, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                        FontSize="12" Foreground="White" 
+    								    Margin="389,37,0,0" VerticalAlignment="Top" Width="90" Height="24" HorizontalAlignment="Left"
+    								    Click="btnSolve_Click" Grid.Column="1">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                            <GradientStop Color="Black" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnUndo"
+                                        Content="{Binding Resources.btnUndo, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                        FontSize="12" Foreground="White" Height="24" HorizontalAlignment="Left" Margin="389,66,0,0" VerticalAlignment="Top" Width="90" Click="btnMPre_Click" Grid.Column="1">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF7EA17E" Offset="0" />
+                                            <GradientStop Color="#FF103810" Offset="1" />
+                                            <GradientStop Color="#FF184818" Offset="0.626" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnSolveUp" 
+                                        Content="{Binding Resources.btnSolveUp, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                        FontSize="12" Foreground="White" Height="24" 
+                                        HorizontalAlignment="Left" Margin="389,110,0,0" VerticalAlignment="Top" 
+                                        Width="90" Click="btnSDKAnalyzerAuto_Click" Grid.Column="1">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                            <GradientStop Color="Black" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnInitialState"
+                                        Content="{Binding Resources.btnInitialState, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                        
+                                        FontSize="12" Foreground="White" Height="24" HorizontalAlignment="Left" 
+                                        Margin="389,139,0,0"  VerticalAlignment="Top" Width="90" 
+                                        Click="btnAnalyzerResetAll_Click" Grid.Column="1">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF7EA17E" Offset="0" />
+                                            <GradientStop Color="#FF103810" Offset="1" />
+                                            <GradientStop Color="#FF184818" Offset="0.626" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Label x:Name="lblUnderAnalysis"
+                                    Content="{Binding Resources.lblUnderAnalysis, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                    FontSize="12" FontWeight="Normal" Foreground="#FFFF4043" HorizontalAlignment="Left" Margin="8,2,0,0" VerticalAlignment="Top" Grid.Column="1" Height="22" />
+                                <Label Content="0 sec" FontSize="12" Foreground="#FFEFF0F8" HorizontalAlignment="Right" Margin="0,0,175,342" x:Name="Lbl_onAnalyzerTS" VerticalAlignment="Bottom" FontWeight="Normal" FontFamily="MS Gothic" HorizontalContentAlignment="Right" Grid.Column="1" />
+                                <Grid Margin="0,204,7,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="148" Grid.Column="1" Height="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="59*"/>
+                                        <ColumnDefinition Width="56*"/>
+                                        <ColumnDefinition Width="33*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox x:Name="chbDisplayCandidate"
+                                              Content="{Binding Resources.chbDisplayCandidate, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                              Foreground="White" Margin="20,-15,0,0" Background="White"  IsChecked="True" HorizontalAlignment="Left" Checked="chbAnalyze00_Checked" Unchecked="chbAnalyze00_Checked" VerticalAlignment="Center" FontFamily="MS Gothic" Grid.ColumnSpan="3" VerticalContentAlignment="Center" />
+                                    <CheckBox x:Name="chbConfirmMultipleCells"
+                                              Content="{Binding Resources.chbConfirmMultipleCells, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                              Background="White" Foreground="White" Margin="20,25,0,-40" IsChecked="True" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Bottom" Grid.ColumnSpan="3" Visibility="Hidden" />
+                                    <CheckBox x:Name="chbDifficultySetting"
+                                              Content="{Binding Resources.chbDifficultySetting, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                              Background="White" Foreground="White" Margin="20,5,-2,-20"  IsThreeState="False" HorizontalAlignment="Left" IsChecked="True" FontFamily="MS Gothic" Grid.ColumnSpan="3" RenderTransformOrigin="0.549,-0.667" VerticalContentAlignment="Center" IsEnabled="False" />
+                                </Grid>
+                                <Label x:Name="lblAppliedCount"
+                                       Content="{Binding Resources.lblAppliedCount, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                       FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,134,151,0" VerticalAlignment="Top" Grid.Column="1" Background="#00000000" OpacityMask="White" />
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="tabBMultiSolve" 
+                                 Header="{Binding Resources.tabBMultiSolve, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                 Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" FontFamily="MS Mincho" >
+                            <Grid x:Name="AutoSolNoDisp2" Width="523" Margin="0,1,0,0">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF3A3948" Offset="0" />
+                                        <GradientStop Color="#FF65646F" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Grid Margin="10,18,0,0" Width="369" HorizontalAlignment="Left" VerticalAlignment="Top" Height="115">
+                                    <ScrollViewer HorizontalAlignment="Left" Width="350" VerticalScrollBarVisibility="Auto" Margin="-3,0,0,0">
+                                        <TextBox Background="#FF0A0A24" Margin="0" x:Name="lblAnalyzerResultM" Foreground="#FFF2F2F2" FontFamily="MS Mincho" FontSize="12" HorizontalContentAlignment="Stretch" TextOptions.TextFormattingMode="Display" TextWrapping="WrapWithOverflow" ScrollViewer.CanContentScroll="True" Width="350" />
+                                    </ScrollViewer>
+                                </Grid>
+                                <Grid Width="240" HorizontalAlignment="Left" Margin="10,154,0,10" Grid.ColumnSpan="3"/>
+                                <Button x:Name="btnMultiSolve" 
+                                        Content="{Binding Resources.btnMultiSolve, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                        FontSize="12" Foreground="White" 
+                        			Margin="396,27,0,0" VerticalAlignment="Top" Width="109" Height="24" HorizontalAlignment="Left"
+                        			Click="btnMultiSolve_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                            <GradientStop Color="Black" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Label x:Name="Lbl_onAnalyzerM" Content="解析中" FontSize="12" FontWeight="Normal" Foreground="#FFFF4043" HorizontalAlignment="Left" Margin="26,-1,0,0" VerticalAlignment="Top" Height="22" />
+                                <Label Content="0 sec" FontSize="12" Foreground="#FFEFF0F8" HorizontalAlignment="Right" Margin="0,-1,167,343" x:Name="Lbl_onAnalyzerTSM" VerticalAlignment="Bottom" FontWeight="Normal" FontFamily="MS Gothic" HorizontalContentAlignment="Right" Grid.Column="2" Panel.ZIndex="1" Height="21" />
+                                <Label x:Name="lblStepM"
+                                       Content="{Binding Resources.lblStepM, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                       FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="409,6,0,0" VerticalAlignment="Top" Width="57" HorizontalContentAlignment="Right" FontFamily="MS Gothic" />
+                                <TextBlock x:Name="txbStepMCC" HorizontalAlignment="Right" TextWrapping="Wrap" Text="0" Width="22" Foreground="White" FontFamily="MS Gothic" FontSize="14" TextAlignment="Center" RenderTransformOrigin="0.727,0.917" Margin="0,11,35,342"/>
+                                <Grid Margin="0,204,7,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="148" Grid.Column="2" Height="0"/>
+                                <GroupBox x:Name="gbxMSearchCondition"
+                                          Header="{Binding Resources.gbxMSearchCondition, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                          ForceCursor="True" Foreground="#FFFFFFFF" IsEnabled="True" Margin="368,96,2,35" OpacityMask="#FFDBC5C5" FontSize="12" BorderThickness="1" FontFamily="MS Gothic">
+                                    <Grid Margin="0,0,-2,0">
+                                        <Label x:Name="LblMaximum" 
+                                            Content="{Binding Resources.LblMaximum, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                            FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="-32,-1,79,0" BorderThickness="0" Width="80" Height="22" HorizontalContentAlignment="Right" />
+                                        <Label x:Name="LblMaxLevel" 
+                                               Content="{Binding Resources.LblMaxLevel, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                               FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,21,53,0" BorderThickness="0" Width="85" Height="22" HorizontalContentAlignment="Right" />
+                                        <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Right" MaxValue="20" MinValue="1" x:Name="MltAnsOpt0" Value="12" VerticalAlignment="Top" Width="50" Height="19" Margin="0,20,6,0" />
+                                        <Label x:Name="lblMaxAlgorithm"  
+                                               Content="{Binding Resources.lblMaxAlgorithm, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                               FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,41,53,0" BorderThickness="0" Width="85" Height="22" HorizontalContentAlignment="Right" />
+                                        <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Right"  MaxValue="1000" MinValue="1" x:Name="MltAnsOpt1" Value="50" VerticalAlignment="Top" Width="50" Height="19" Margin="0,41,6,0" />
+                                        <Label x:Name="lblMaxAllAlgorithm"  
+                                               Content="{Binding Resources.lblMaxAllAlgorithm, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"         
+                                               FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,62,53,0" BorderThickness="0" Width="85" Height="22" HorizontalContentAlignment="Right" />
+                                        <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Right"  MaxValue="1000" MinValue="1" x:Name="MltAnsOpt2" Value="100" VerticalAlignment="Top" Width="50" Height="19" Margin="0,62,6,0" Increment="50" />
+                                        <Label x:Name="lblMaxTime"
+                                               Content="{Binding Resources.lblMaxTime, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                               FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,82,53,0" BorderThickness="0" Width="85" Height="22" HorizontalContentAlignment="Right" />
+                                        <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Right"  MaxValue="120" MinValue="1" x:Name="MltAnsOpt3" Value="20" VerticalAlignment="Top" Width="50" Height="19" Margin="0,83,6,0" />
+                                        <Label Content="sec" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" x:Name="lblSec" VerticalAlignment="Top" Margin="86,97,0,0" />
+                                        <!--
+                                        <Label FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="3,121,0,0" x:Name="lblForceChainGroup_Copy3" VerticalAlignment="Top" Content="Force Chain" Visibility="Hidden" />
+                                        <RadioButton x:Name="ForceL0_copy" GroupName="ForceAlg" Content="L0" Height="18" HorizontalAlignment="Left" Margin="20,141,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_copy_Checked" Unchecked="GdNiceLoop_CGA_Checked" Visibility="Hidden" />
+                                        <RadioButton x:Name="ForceL1_copy" GroupName="ForceAlg" Content="L1" Height="18" HorizontalAlignment="Left" Margin="59,141,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_copy_Checked" Visibility="Hidden" />
+                                        <RadioButton x:Name="ForceL2_copy" GroupName="ForceAlg" Content="L2" Height="18" HorizontalAlignment="Left" Margin="97,141,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_copy_Checked" Visibility="Hidden" />
+-->
+                                    </Grid>
+                                </GroupBox>
+                                <Button x:Name="btnMTop" Content="|&lt;" FontSize="12" Foreground="White" Margin="397,56,0,0" Width="32" Height="24" 
+                                	VerticalAlignment="Top" HorizontalAlignment="Left" Click="btnAnalyzerResetAll_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF363E9C" Offset="0.472" />
+                                            <GradientStop Color="#FF434559" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnMPre" Content="&lt;" FontSize="12" Foreground="White" 
+                                	Margin="435,56,0,0" VerticalAlignment="Top" Width="32" Height="24" HorizontalAlignment="Left" Click="btnMPre_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                            <GradientStop Color="#FF363E9C" Offset="0.472" />
+                                            <GradientStop Color="#FF434559" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+
+                                <ListBox x:Name="LstBxMltAns" Margin="8,154,167,0"
+                                     Background="#FF090925" Foreground="White" 
+                                     FontSize="12" Height="202" ToolTip="click or Up/Down Key"
+                                     MouseWheel="LstBxMltAns_MouseWheel"
+                                     SelectionChanged="LstBxMltAns_SelectionChanged" 
+                                     ItemsSource="{Binding UPP, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type app:NuPz_Win}}}" FontFamily="MS Gothic" >
+
+                                    <ListBox.ItemTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Grid.Column="0" Text="{Binding IDmp1}" HorizontalAlignment="Center"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding DifLevel}" HorizontalAlignment="Center"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding Sol_Result}" HorizontalAlignment="Center"/>
+                                            </Grid>
+                                        </HierarchicalDataTemplate>
+
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Label Content="sq." FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="13,136,0,0" x:Name="label3_Copy" VerticalAlignment="Top" />
+                                <Label x:Name="lblAlgorithmM"
+                                       Content="{Binding Resources.lblAlgorithmM, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                       FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="174,135,0,0" VerticalAlignment="Top" Width="87" FontFamily="MS Gothic" Background="#00000000" />
+                                <Label x:Name="lblDifficultyM"
+                                       Content="{Binding Resources.lblDifficultyM, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                       FontSize="12" Foreground="White" Height="24" HorizontalAlignment="Left" Margin="45,137,0,0" VerticalAlignment="Top" Width="83" FontFamily="MS Gothic" Background="#00000000" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="tabBMethod" 
+                                 Header="{Binding Resources.tabBMethod, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                 Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" FontFamily="MS Mincho" FontSize="12">
+                            <Grid Width="522">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="19*"/>
+                                    <ColumnDefinition Width="39*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF6F6E6E" Offset="1" />
+                                        <GradientStop Color="#FF414141" Offset="0.033" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Label x:Name="lblMethodAndOrder"
+                                       Content="{Binding Resources.lblMethodAndOrder, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                       FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,3,251,0" VerticalAlignment="Top" Width="226" Grid.ColumnSpan="2" />
+                                <Button Content="▲" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="153,100,0,0" x:Name="GMethod01U" VerticalAlignment="Top" Width="25" Click="GMethod01U_Click" Grid.Column="1">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="Black" Offset="0.8" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA575757" Offset="0.55" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button Content="▼" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="153,130,0,0" x:Name="GMethod01D" VerticalAlignment="Top" Width="25" Click="GMethod01D_Click" Grid.Column="1">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="Black" Offset="0.8" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA575757" Offset="0.55" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnDefaultSettings"
+                                        Content="{Binding Resources.btnDefaultSettings, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                        FontSize="12" Foreground="White" Height="27" 
+                                        HorizontalAlignment="Left" Margin="153,257,0,0"  
+                                        VerticalAlignment="Top" Width="120" Click="btnDefaultSettings_Click" Grid.Column="1">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                            <GradientStop Color="#FF939393" Offset="0" />
+                                            <GradientStop Color="#FF1D1C1C" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <ListBox x:Name="GMethod00A" 
+    								     Width="287" Height="331" HorizontalAlignment="Left" Margin="12,25,0,0" 
+    								     VerticalAlignment="Top" 
+    								     ItemsSource="{Binding testCBL}" Background="{x:Null}" Foreground="#FF707070" FontFamily="MS Mincho"      FontSize="12" Grid.ColumnSpan="2" >
+
+                                    <ListBox.ItemTemplate>
+                                        <HierarchicalDataTemplate>
+                                            <CheckBox Content="{Binding Name}" 
+                                                      IsChecked="{Binding IsChecked}" 
+                                                      IsEnabled="{Binding IsEnabled}" 
+                                                      VerticalContentAlignment="Center"
+                                                      Background="White" Foreground="White" />
+                                        </HierarchicalDataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Label Content="GeneralLogic : 有効" FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,76,34,0" x:Name="GeneralLogicMsg" VerticalAlignment="Top" Grid.Column="1" Visibility="Hidden" />
+                                <Button x:Name="btnMethodCheck" FontSize="12" 
+                                        Content="{Binding Resources.btnMethodCheck, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                        Foreground="White" Height="21" HorizontalAlignment="Left" Margin="153,195,0,0" VerticalAlignment="Top" Width="70" Click="btnMethodCheck_Click" Grid.Column="1">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                            <GradientStop Color="#FF1D1F29" Offset="0" />
+                                            <GradientStop Color="#FF010955" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnMethodClear" FontSize="12"
+                                        Content="{Binding Resources.btnMethodClear, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                        Foreground="White" Height="21" HorizontalAlignment="Left" Margin="153,221,0,0" VerticalAlignment="Top" Width="70" Grid.Column="1" Click="btnMethodCheck_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                            <GradientStop Color="#FF291F1D" Offset="0" />
+                                            <GradientStop Color="#FF550501" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Label Content="GeneralLogic : 有効" FontSize="14" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,35,64,0" x:Name="LblGeneralLogic" VerticalAlignment="Top" Grid.Column="1" />
+                                <Label Content="ForceChain_Cell/House : 有効" FontSize="14" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,53,64,0" x:Name="LblForceChain_CellHouse" VerticalAlignment="Top" Grid.Column="1" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem x:Name="tabBMethodOption" 
+                                 Header="{Binding Resources.tabBMethodOption, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                 Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" FontFamily="MS Mincho" FontSize="12" >
+                            <Grid Margin="0,0,0,-3" Width="523">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="23*"/>
+                                    <ColumnDefinition Width="48*"/>
+                                    <ColumnDefinition Width="452*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20*"/>
+                                    <RowDefinition Height="60*"/>
+                                    <RowDefinition Height="60*"/>
+                                    <RowDefinition Height="60*"/>
+                                    <RowDefinition Height="90*"/>
+                                    <RowDefinition Height="60*"/>
+                                    <RowDefinition Height="61*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF212020" Offset="0" />
+                                        <GradientStop Color="#FF969393" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Label Content="ALS" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" x:Name="lblALSGroup" VerticalAlignment="Top" Margin="0" Grid.Row="1" Grid.Column="1" />
+                                <Label x:Name="lblALSSizeMax" 
+                                       Content="{Binding Resources.lblALSSizeMax, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Right" Margin="0,16,410,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" MaxValue="8" MinValue="1" x:Name="ALSSizeMax" Value="5" VerticalAlignment="Top" Width="49" Height="19" Margin="47,18,0,0" Grid.Row="1" Grid.Column="2" NumUDValueChanged="ALSSizeMax_NumUDValueChanged" />
+                                <Label Content="NiceLoop" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="22" HorizontalAlignment="Left" Margin="0" x:Name="lblNLGroup" VerticalAlignment="Top" RenderTransformOrigin="1.613,0.682" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" />
+                                <Label x:Name="lblNLMaxSize" 
+                                       Content="{Binding Resources.lblNLMaxSize, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                       FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Right" Margin="0,19,410,0" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="70" Grid.ColumnSpan="2" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="47,18,0,0" MaxValue="30" MinValue="2" x:Name="NiceLoopMax" Value="10" VerticalAlignment="Top" Width="49" Grid.Row="2" Grid.Column="2" NumUDValueChanged="NiceLoopMax_NumUDValueChanged" />
+                                <Label Content="Grouped NiceLoop" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="0" x:Name="lblGNLGroup" VerticalAlignment="Top" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1" />
+                                <Label x:Name="lblGNLType"
+                                       Content="{Binding Resources.lblForceChainType, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
+                                       FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" Margin="0,17,444,0" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" />
+                                <CheckBox Content="Cell " Foreground="White" Margin="13,20,0,0" x:Name="method_NLCell" IsChecked="True" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="3" Grid.Column="2" Checked="GdNiceLoop_CGA_Checked" Unchecked="GdNiceLoop_CGA_Checked" />
+                                <CheckBox Content="GroupedCells" Foreground="White" Margin="76,20,0,0" x:Name="method_NLGCells" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" IsChecked="True" Grid.Row="3" Grid.Column="2" Unchecked="GdNiceLoop_CGA_Checked" Checked="GdNiceLoop_CGA_Checked" FontFamily="MS Gothic" />
+                                <CheckBox Content="ALS" Foreground="White" Margin="189,20,0,0" x:Name="method_NLALS" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" IsChecked="True" Grid.Row="3" Grid.Column="2" Unchecked="GdNiceLoop_CGA_Checked" Checked="GdNiceLoop_CGA_Checked" />
+                                <Label FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="0,52,0,0" x:Name="lblForceChainGroup" VerticalAlignment="Top" Content="Force Chain" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+                                <Label x:Name="lblForceChainType"
+                                       Content="{Binding Resources.lblForceChainType, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" Margin="0,31,447,0" VerticalAlignment="Top" Grid.Row="4" Height="29" Width="62" HorizontalContentAlignment="Right" Grid.ColumnSpan="3" />
+                                <RadioButton x:Name="ForceL0" GroupName="ForceAlg" Content="L0" Height="18" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_Checked" Grid.Row="4" Grid.Column="2" Unchecked="GdNiceLoop_CGA_Checked" />
+                                <RadioButton x:Name="ForceL1" GroupName="ForceAlg" Content="L1" Height="18" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_Checked" Grid.Row="4" Grid.Column="2" />
+                                <RadioButton x:Name="ForceL2" GroupName="ForceAlg" Content="L2" Height="18" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_Checked" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" />
+                                <Label x:Name="Force0_Single" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,30,0,0" VerticalAlignment="Top" Content="Single solution" Grid.Row="4" Grid.Column="2" />
+                                <Label x:Name="Foece1_SolutionDigit" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,46,0,0" VerticalAlignment="Top" Content="All solutions for digit n or for cell" Grid.Row="4" Grid.Column="2" />
+                                <Label x:Name="Force2_ComplateSol" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,61,0,0" VerticalAlignment="Top" Content="Complete solution on board" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" />
+                                <CheckBox Content="ForceChain Cell/House" Foreground="White" Margin="13,18,0,0" x:Name="ForceChainCellHouse" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="1" Checked="ForceChainCellHouse_Checked" Unchecked="ForceChainCellHouse_Checked" Grid.ColumnSpan="2" IsChecked="True" />
+                                <Label Content="GeneralLogic" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="0" x:Name="lblGeneralLogicGroup" VerticalAlignment="Top" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="1" />
+                                <CheckBox Content="GeneralLogic" Foreground="White" Margin="13,22,0,0" x:Name="GeneralLogicOnChbx" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="5" Grid.Column="1" Checked="GeneralLogicOnChbx_Checked" Unchecked="GeneralLogicOnChbx_Checked" Grid.ColumnSpan="2" />
+                                <Label x:Name="lblGenLogMaxSize" 
+                                       Content="{Binding Resources.lblGenLogMaxSize, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" Margin="20,39,0,0" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="47,39,0,0" MaxValue="10" MinValue="2" x:Name="GenLogMaxSize" Value="3" VerticalAlignment="Top" Width="49" Height="19" Grid.Row="5" Grid.Column="2" NumUDValueChanged="GenLogMaxSize_NumUDValueChanged" />
+                                <Label x:Name="lblGenLogMaxRank"
+                                       Content="{Binding Resources.lblGenLogMaxRank, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Gothic"  FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" Margin="114,39,0,0" VerticalAlignment="Top" Width="70" Grid.Row="5" Grid.Column="2" Grid.RowSpan="2" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="184,39,0,0" MaxValue="10" MinValue="0" x:Name="GenLogMaxRank"  Value="1" VerticalAlignment="Top" Width="49" Height="19" Grid.Row="5" Grid.Column="2" NumUDValueChanged="GenLogMaxRank_NumUDValueChanged" />
+                                <Label x:Name="label44001_Copy2" BorderBrush="#FF5C62A0" 
+            Content="In development" 
+            FontFamily="MS Mincho" FontSize="12" Foreground="#FFEC1818" HorizontalAlignment="Left" Margin="44,7,0,0" VerticalAlignment="Top" Background="{x:Null}" Grid.Column="2" Grid.Row="5" />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="tabACreate" 
+                     Header="{Binding Resources.tabACreate, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                     Style="{DynamicResource ResourceKey=styleTabItemTop}" FontFamily="MS Mincho" FontSize="12" Margin="0">
+                <Grid Width="565" HorizontalAlignment="Right">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF3A3948" Offset="0" />
+                            <GradientStop Color="#FF65646F" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TabControl Height="395" HorizontalAlignment="Left" Margin="12,7,0,0" x:Name="tabAutoManual" VerticalAlignment="Top" Width="511">
+                        <TabItem x:Name="tabManual"
+                                 Header="{Binding Resources.tabManual, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                 Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" HorizontalAlignment="Right">
+                            <Grid Background="#FF3D3D52" Height="Auto" Width="507">
+                                <CheckBox x:Name="chbShowNoUsedDigits" 
+                                          Content="{Binding Resources.chbShowNoUsedDigits, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                	      FontFamily="MS Mincho" FontSize="12" Foreground="White"	HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                	      Checked="chbAssist01_Checked" Unchecked="chbAssist01_Checked" VerticalContentAlignment="Center" Margin="46,117,0,233" Panel.ZIndex="2" />
+                                <Label x:Name="lblCreateEdit"
+                                       Content="{Binding Resources.lblCreateEdit, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="24" HorizontalAlignment="Left" Margin="25,25,0,0" VerticalAlignment="Top" />
+                                <Button x:Name="btnBoardClear" Content="Clear"  Height="22" Width="57" Margin="46,81,0,0" 
+                                	HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                	FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnBoardClear_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF8D9797" Offset="0.996" />
+                                            <GradientStop Color="#FFAABDAC" />
+                                            <GradientStop Color="#EA2F6E34" Offset="0.55" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnNewProblem" Content="New" Height="22" Width="57" Margin="46,54,0,0" 
+                                	HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                	FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnNewProblem_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFCBC9D4" Offset="0.008" />
+                                            <GradientStop Color="#EAACB1CB" Offset="1" />
+                                            <GradientStop Color="#F4273DA2" Offset="0.502"/>
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnDeleteProblem" Content="Delete" Height="22" Width="57" Margin="112,81,0,0" 
+                                	HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" 
+                                	FontFamily="MS Gothic" FontSize="12" Click="btnDeleteProblem_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF8B7979" Offset="1" />
+                                            <GradientStop Color="#FFDCD7D6" />
+                                            <GradientStop Color="#EA5F1D1D" Offset="0.55" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Button x:Name="btnCopyProblem" Content="Copy" Height="22" Width="57" Margin="112,54,0,0" 
+                                	HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                	FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnCopyProblem_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFCBC9D4" Offset="0.008" />
+                                            <GradientStop Color="#EAACB1CB" Offset="1" />
+                                            <GradientStop Color="#F4273DA2" Offset="0.502"/>
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Label Width="291" Height="24" Margin="46,146,0,0"
+                                       Content="Imagine a number and click on the target cell."
+                                       FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+                                       HorizontalAlignment="Left"  VerticalAlignment="Top"  />
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem x:Name="tabAuto" 
+                                 Header="{Binding Resources.tabAuto, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                 Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" Width="40" FontSize="12">
+                            <Grid Width="503" HorizontalAlignment="Right">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                        <GradientStop Color="#FF3E3838" Offset="0" />
+                                        <GradientStop Color="#FF1E1C38" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Label x:Name="lblNoOfProblems" 
+                                       Content="{Binding Resources.lblNoOfProblems, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                
+                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" HorizontalAlignment="Right" Margin="0,28,395,0" VerticalAlignment="Top" />
+                                <Label x:Name="lblNoOfProblems1" 
+                                       Content="____" 
+                                       FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Right" Margin="0,28,371,0" VerticalAlignment="Top" />
+                                <Label 
+                                    Content="/" 
+                                    FontFamily="MS Gothic" FontWeight="Normal" Foreground="White" HorizontalAlignment="Left" Margin="139,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.75,1.227" />
+                                <TextBox x:Name="gamGen05"
+                                       Background="#FF37378F" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="18" HorizontalAlignment="Left" Margin="153,30,0,317" Text="10" TextAlignment="Center" VerticalAlignment="Center" Width="52" DataContext="{Binding}" VerticalContentAlignment="Center" />
+                                <Label x:Name="lblProblemLevel"
+                                       Content="{Binding Resources.lblProblemLevel, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" Height="28" HorizontalAlignment="Right" Margin="0,55,395,0" VerticalAlignment="Top" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="21" HorizontalAlignment="Left" MaxValue="20" MinValue="1" x:Name="gamGen01"  Value="1" VerticalAlignment="Top" Width="40" Margin="111,54,0,0" NumUDValueChanged="gamGen01_NumUDValueChanged" />
+                                <Label Content="～" FontFamily="MS Gothic" FontSize="12" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="151,54,0,0" x:Name="label32" VerticalAlignment="Top" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="21" HorizontalAlignment="Left" Margin="174,54,0,0" MaxValue="20" MinValue="1" x:Name="gamGen02" Value="3" VerticalAlignment="Top" Width="40" NumUDValueChanged="gamGen02_NumUDValueChanged" />
+                                <Button x:Name="btnCreateProblemMlt"
+                                    Content="{Binding Resources.btnCreateProblemMlt, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                    FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="58,79,0,0" Width="115" Click="btnP13Start_Click" Height="25" VerticalAlignment="Top">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="Black" Offset="0.8" />
+                                            <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                            <GradientStop Color="#EA575757" Offset="0.55" />
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+
+                                <CheckBox x:Name="chbChangeBasicPattenOnSuccess"
+                                          Content="{Binding Resources.chbChangeBasicPattenOnSuccess, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                          FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Left" Margin="27,123,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsChecked="True" Width="178" Height="17" />
+                                <CheckBox x:Name="chbRandomizingNumbers"     
+                                          Content="{Binding Resources.chbRandomizingNumbers, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                          BorderBrush="#FF5C62A0" Foreground="White" IsChecked="True" VerticalAlignment="Top" Margin="27,140,0,0" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Center" Width="164" />
+                                <Label x:Name="lblNoOfTrials"
+                                       Content="{Binding Resources.lblNoOfTrials, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" Margin="38,162,0,0" VerticalAlignment="Top" DataContext="{Binding SDtrial}" HorizontalAlignment="Left" Width="64"/>
+                                <TextBlock x:Name="txbNoOfTrials" HorizontalAlignment="Left" Margin="102,168,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic"/>
+                                <Label x:Name="lblNoOfTrialsCum" 
+                                       Content="{Binding Resources.lblNoOfTrialsCum, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Right" Margin="0,177,402,0" VerticalAlignment="Top" />
+                                <TextBlock x:Name="txbNoOfTrialsCum" HorizontalAlignment="Left" Margin="102,182,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.486,1.2" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic"/>
+                                <Label x:Name="lblBasicPattern"
+                                       Content="{Binding Resources.lblBasicPattern, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Mincho" FontSize="12" FontWeight="Normal" Foreground="White" HorizontalAlignment="Right" Margin="0,198,402,0" VerticalAlignment="Top" DataContext="{Binding SDtrial}"/>
+                                <TextBlock x:Name="txbBasicPattern" HorizontalAlignment="Left" Margin="102,203,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic"/>
+                                <Label x:Name="lblEpapsedTimeTS3"
+                                       Content="{Binding Resources.lblEpapsedTimeTS3, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Mincho" FontSize="12" FontWeight="Normal" Foreground="White" Height="28" HorizontalAlignment="Right" Margin="0,214,402,0" VerticalAlignment="Top" />
+                                <TextBlock x:Name="txbEpapsedTimeTS3" HorizontalAlignment="Left" Margin="102,219,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.486,1.2" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic"/>
+                                <!--
+                                <CheckBox x:Name="chbFileOutputOnSuccess"
+                                          Content="{Binding Resources.chbFileOutputOnSuccess, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                          FontFamily="MS Mincho" Foreground="White" HorizontalAlignment="Left" Margin="27,128,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="204" d:IsHidden="True" />
+           -->
+                                <Label x:Name="lblMethodSetting" 
+                                       Content="{Binding Resources.lblMethodSetting, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="11,290,0,0" VerticalAlignment="Top" Height="21" Width="220" />
+                                <Label x:Name="lblResourceMemory"
+                                       Content="＿＿＿" 
+                                       FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="25,290,0,0" VerticalAlignment="Top" Height="22" />
+                                <Grid Margin="246,5,0,0" Width="250" HorizontalAlignment="Left">
+                                    <Label x:Name="lblPattern" Background="{x:Null}" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="7,8,0,0" VerticalAlignment="Top" Width="64" Height="22" 
+                                           Content="{Binding Resources.lblPattern, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" />
+                                    <RadioButton x:Name="patSel01" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,11,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic" 
+                                                 Content="{Binding Resources.patSel01, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
+                                    <RadioButton x:Name="patSel02" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,26,0,0" VerticalAlignment="Top" Foreground="White" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                                 Content="{Binding Resources.patSel02, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
+                                    <RadioButton x:Name="patSel03" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,41,0,0" VerticalAlignment="Top" Foreground="White" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                                 Content="{Binding Resources.patSel03, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
+                                    <RadioButton x:Name="patSel04" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,56,0,0" VerticalAlignment="Top" Foreground="White" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                                 Content="{Binding Resources.patSel04, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
+                                    <RadioButton x:Name="patSel05" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,71,0,0" VerticalAlignment="Top" Foreground="White" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                                 Content="{Binding Resources.patSel05, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
+                                    <RadioButton x:Name="patSel06" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,86,0,0" VerticalAlignment="Top" Foreground="White" Width="147" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                                 Content="{Binding Resources.patSel06, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
+                                    <RadioButton x:Name="patSel00" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,101,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="False" Width="147" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                                 Content="{Binding Resources.patSel00, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
+                                    <Label x:Name="lblMinimum"
+                                           Content="{Binding Resources.lblMinimum, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                           FontFamily="MS Gothic" Foreground="White" Margin="0,121,170,0"  VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                    <GIDOO_space:NumericUpDown Background="#FF202040" Foreground="White" Height="21" HorizontalAlignment="Left" Margin="80,122,0,0" MaxValue="50" MinValue="1" x:Name="CellNumMax" Value="25" VerticalAlignment="Top" Width="47" FontFamily="MS Gothic" FontSize="12" />
+                                    <Label Content="...." FontFamily="MS Gothic" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="132,121,0,0" x:Name="labelPattern" VerticalAlignment="Top" Width="109" />
+                                    <Button x:Name="btnPatternAutoGen"
+                                            Content="{Binding Resources.btnPatternAutoGen, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                            FontFamily="MS Gothic" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="192,181,0,0" VerticalAlignment="Top" Click="btnPatternAutoGen_Click" Width="55" ToolTip="Automatic pattern setting">
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="Black" Offset="0.8" />
+                                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                                <GradientStop Color="#EA575757" Offset="0.55" />
+                                            </LinearGradientBrush>
+                                        </Button.Background>
+                                    </Button>
+                                    <Button x:Name="btnPatternClear"
+                                            Content="{Binding Resources.btnPatternClear, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                            FontFamily="MS Gothic" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="192,221,0,0" VerticalAlignment="Top" Width="55" Click="btnPatternClear_Click">
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="Black" Offset="0.8" />
+                                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                                <GradientStop Color="#EA835959" Offset="0.55" />
+                                            </LinearGradientBrush>
+                                        </Button.Background>
+                                    </Button>
+                                    <Canvas x:Name="PB_pattern" 
+                                		Width="176" Height="176"  Margin="8,145,0,0" OpacityMask="#FF73ACE1" 
+                                		HorizontalAlignment="Left" VerticalAlignment="Top"
+                                		MouseDown="PB_pattern_MouseDown" Background="#FF406F40" ToolTip="Click to set pattern" />
+                                    <Button x:Name="btnPatternCapture"
+                                            Content="{Binding Resources.btnPatternCapture, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                            FontFamily="MS Gothic" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="7,326,0,0" VerticalAlignment="Top" Width="100" Click="btnPatternCapture_Click">
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="Black" Offset="0.8" />
+                                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                                <GradientStop Color="#EA575757" Offset="0.55" />
+                                            </LinearGradientBrush>
+                                        </Button.Background>
+                                    </Button>
+                                    <CheckBox x:Name="chbCreateProblemEx2"     
+                                    Content="basic pattern"
+                                    BorderBrush="#FF5C62A0" Foreground="White" VerticalAlignment="Top" Margin="117,329,0,0" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Center" Checked="chbCreateProblemEx2_Checked" Unchecked="chbCreateProblemEx2_Unchecked" RenderTransformOrigin="12.827,-12" />
+                                    <Image x:Name="PB_BasePatDig" 
+                                        Width="176" Height="176"  Margin="8,145,0,0" OpacityMask="#FF73ACE1" 
+                                        HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="2"
+                                        MouseDown="PB_pattern_MouseDown" />
+                                </Grid>
+                                <Rectangle Fill="#FFB4BACB" HorizontalAlignment="Left" Height="321" Margin="239,21,0,0" Stroke="#FFB4BACB" VerticalAlignment="Top" Width="2"/>
+                                <Grid x:Name="gridExhaustiveSearch" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="190" Margin="32,238,0,0">
+                                    <Label x:Name="lblAllSearchOption" 
+                                           Content="{Binding Resources.lblAllSearchOption, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                           BorderBrush="#FF5C62A0"  FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Height="23" />
+                                    <Label Content="LatinSquare Row" FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" />
+                                    <GIDOO_space:NumericUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="22" HorizontalAlignment="Left" MaxValue="9" MinValue="1" x:Name="UP_ESRow" Value="6" VerticalAlignment="Top" Width="40" Margin="110,21,0,0" />
+                                    <Button x:Name="btnESnxtSucc" Height="20" HorizontalAlignment="Left" Margin="150,22,0,0" 
+                                	    VerticalAlignment="Top" Width="25" Content="▶" Foreground="White" Click="btnESnxtSucc_Click" BorderBrush="#FF2E9BDE" >
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="Black" Offset="0.8" />
+                                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                                <GradientStop Color="#EA575757" Offset="0.55" />
+                                            </LinearGradientBrush>
+                                        </Button.Background>
+                                    </Button>
+                                    <Label Content="In development" FontFamily="MS Mincho" Foreground="#FFE62626" HorizontalAlignment="Left" Margin="95,1,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="10.667" />
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+
+                        <!--
+                        <TabItem x:Name="WebCam" Header="Camera" Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" Width="Auto" HorizontalAlignment="Right" FontSize="10.667" >
+                            <Grid Background="#FF3D3D52" Height="Auto" Width="522">
+                                <Button x:Name="btnOperation" HorizontalAlignment="Left" Margin="425,290,0,0" VerticalAlignment="Top" Width="62" Height="22" Content="op. tip" Foreground="#FFFDFDFD" FontSize="12" Click="btnOperation_Click">
+                                    <Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF878787" Offset="1"/>
+                                            <GradientStop Color="#FF878787"/>
+                                            <GradientStop Color="#FF343C6E" Offset="0.504"/>
+                                        </LinearGradientBrush>
+                                    </Button.Background>
+                                </Button>
+                                <Grid x:Name="msgbxFirstMessage" HorizontalAlignment="Left" Height="172" Margin="10,94,0,0" VerticalAlignment="Top" Width="488" Background="#FFC8CED1" Panel.ZIndex="3" Unloaded="notDisplayFfomNextTime_Checked">
+                                    <CheckBox x:Name="notDisplayFfomNextTime" Content="No display from next time." HorizontalAlignment="Left" Margin="10,123,0,5" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Foreground="#FF2B3CA4" FontSize="12" FontWeight="Bold" Checked="notDisplayFfomNextTime_Checked"/>
+                                    <Label Content="First, select a web camera.&#xD;&#xA;You can not change the camera after selection.&#xD;&#xA;Click &quot;input&quot; and shoot Sudoku on the screen.&#xD;&#xA;&#xD;&#xA;Current recognition accuracy is not sufficient.&#xD;&#xA;For errors, you can directly change the number in the left frame.&#xD;&#xA;&#xD;&#xA;Digits recognition is based on image processing and&#xD;&#xA;machine learning techniques." HorizontalAlignment="Left" Margin="2,4,0,0" VerticalAlignment="Top" Width="486" Height="136" Foreground="#FF2B3CA4" FontSize="14" FontWeight="Bold"/>
+                                    <Button x:Name="btnFMessageClose1" HorizontalAlignment="Left" Margin="407,0,0,5" VerticalAlignment="Bottom" Width="62" Height="22" Content="Close" Foreground="#FFFDFDFD" FontSize="12" Click="btnOperation_Click">
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF878787" Offset="1"/>
+                                                <GradientStop Color="#FF878787"/>
+                                                <GradientStop Color="#FF343C6E" Offset="0.504"/>
+                                            </LinearGradientBrush>
+                                        </Button.Background>
+                                    </Button>
+                                    <Label Content="(In development)" FontFamily="MS Mincho" FontSize="14" Foreground="#FFE62626" Height="23" HorizontalAlignment="Left" Margin="215,116,0,0" VerticalAlignment="Top" Background="{x:Null}" Width="137" />
+                                </Grid>
+                                <Label Content="Camera" HorizontalAlignment="Left" Margin="48,3,0,0"
+                                    VerticalAlignment="Top" FontSize="12" Foreground="White"
+        />
+                                <RadioButton x:Name="rdbCam1" Content="1" HorizontalAlignment="Left" Margin="103,6,0,0" VerticalAlignment="Top" Foreground="White" VerticalContentAlignment="Bottom" Checked="rdbCam123_Checked"/>
+                                <RadioButton x:Name="rdbCam2" Content="2" HorizontalAlignment="Left" Margin="143,6,0,0" VerticalAlignment="Top" Foreground="White" VerticalContentAlignment="Bottom"  Checked="rdbCam123_Checked"/>
+                                <RadioButton x:Name="rdbCam3" Content="3" HorizontalAlignment="Left" Margin="183,6,0,0" VerticalAlignment="Top" Foreground="White" VerticalContentAlignment="Bottom"  Checked="rdbCam123_Checked"/>
+                                <ComboBox x:Name="captureType" HorizontalAlignment="Left"  
+                                    VerticalAlignment="Top" Width="168" Height="20" SelectedIndex="1"
+                                    FontFamily="MS Gothic" FontWeight="Bold" FontSize="12"
+                                    Margin="23,25,0,0" SelectionChanged="captureType_SelectionChanged"/>
+                                <Border x:Name="bdbtnRecog" BorderThickness="1" HorizontalAlignment="Left" Height="24" Margin="195,23,0,0" VerticalAlignment="Top" Width="54" BorderBrush="Black">
+                                    <Button x:Name="btnRecog"
+                                    FontFamily="MS Gothic" FontSize="10" Foreground="White" 
+                                    Click="btnRecog_Click" 
+                                    ToolTip="Automatic pattern seting" Content="Input">
+                                        <Button.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#FF232663" Offset="1" />
+                                                <GradientStop Color="#FF767676" />
+                                                <GradientStop Color="#EA4D5163" Offset="0.488" />
+                                            </LinearGradientBrush>
+                                        </Button.Background>
+                                    </Button>
+                                </Border>
+                                <Label x:Name="cameraMessageBox" Content="...." HorizontalAlignment="Left" VerticalAlignment="Top"
+                                    Background="{x:Null}" Foreground="#FFF32020" Margin="250,24,0,0"/>
+                                <Label Content="Inversion" HorizontalAlignment="Left" Margin="30,45,0,0"
+                                    VerticalAlignment="Top" Width="64" FontSize="12" Foreground="White"
+        />
+                                <CheckBox x:Name="chbXaxis"
+                                    FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Left"
+                                    Margin="103,48,0,0" VerticalAlignment="Top" 
+                                    VerticalContentAlignment="Center" Height="17" 
+                                    Content="X" FontSize="12" />
+                                <CheckBox x:Name="chbYaxis"
+                                    BorderBrush="#FF5C62A0" Foreground="White"
+                                    VerticalAlignment="Top" Margin="143,49,0,0" HorizontalAlignment="Left"
+                                    FontFamily="MS Gothic" VerticalContentAlignment="Center" Content="Y" 
+                                    FontSize="12" />
+                                <Border BorderBrush="#FF3C8AAE" BorderThickness="1" HorizontalAlignment="Left" Height="242"
+                                    VerticalAlignment="Top" Width="322" Margin="40,70,0,0">
+                                    <Image x:Name="Img1" Margin="1" Stretch="UniformToFill" />
+                                </Border>
+                                <Label x:Name="lblPara_fName" Content="fName" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                    Background="{x:Null}" Foreground="White" Margin="40,341,0,0" FontSize="12"/>
+                            </Grid>
+                        </TabItem>
+-->
+
+                    </TabControl>
+
+
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabAOption" 
+                     Header="{Binding Resources.tabAOption, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                     Style="{DynamicResource ResourceKey=styleTabItemTop}" FontFamily="MS Mincho" FontSize="12" >
+                <Grid Width="568">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#FF3A3948" Offset="0" />
+                            <GradientStop Color="#FF65646F" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Label x:Name="lblLangage" BorderBrush="#FF5C62A0" Content="Language" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Right" Margin="0,38,426,0" VerticalAlignment="Top" />
+                    <Button Content="Japanese" FontFamily="MS Gothic" FontSize="12"  Click="MultiLangage_JP_Click"
+            Foreground="White" Height="22" HorizontalAlignment="Left" Margin="125,38,0,0" 
+            x:Name="MultiLangage_JP" VerticalAlignment="Top" Width="56" Style="{Binding}">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0.8" />
+                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                <GradientStop Color="#EA575757" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Button Content="English" FontFamily="MS Gothic" FontSize="12"  Click="btnMultiLangage_Click"
+                Foreground="White" Height="22" HorizontalAlignment="Left" Margin="185,38,0,0" 
+                x:Name="MultiLangage" VerticalAlignment="Top" Width="56" Style="{Binding}" RenderTransformOrigin="-1.08,0.534">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0.8" />
+                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                <GradientStop Color="#EA575757" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <ComboBox x:Name="cmbLanguageLst" HorizontalAlignment="Left" Margin="261,36,0,0" VerticalAlignment="Top" Width="68" Height="22"
+                              FontFamily="MS Gothic" FontSize="14" SelectionChanged="cmbLanguageLst_SelectionChanged" Opacity="0.1" />
+                    <Label x:Name="lblRandomNumberSeed" 
+                           Content="{Binding Resources.lblRandomNumberSeed, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                           BorderBrush="#FF5C62A0" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Right" Margin="0,84,401,0" VerticalAlignment="Top" Width="133" HorizontalContentAlignment="Right" />
+                    <TextBox x:Name="randomSeed" Background="#FF000019" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="18" HorizontalAlignment="Center" Margin="168,84,350,0" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="50" TextChanged="randomSeed_TextChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                    <Label x:Name="lblSeedSetting" 
+                           Content="{Binding Resources.lblSeedSetting, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                           BorderBrush="#FF5C62A0"  FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="214,82,0,0" VerticalAlignment="Top" Width="145" />
+                    <Label x:Name="lblPuzzleCreationType" 
+                           Content="{Binding Resources.lblPuzzleCreationType, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                           BorderBrush="#FF5C62A0"  FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Right" Margin="0,106,402,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" />
+                    <TextBox Background="#FF000019" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="18" HorizontalAlignment="Center" Margin="168,110,350,0" x:Name="GenLStyp" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="50" TextChanged="randomSeed_TextChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="False" />
+                    <Label x:Name="lblPuzzleCreationType2" 
+                           Content="(0：標準)"
+                           BorderBrush="#FF5C62A0" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="214,108,0,0" VerticalAlignment="Top" />
+                    <CheckBox x:Name="GenLS_turbo" 
+                        Content="{Binding Resources.GenLS_turbo, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                        Background="White" Foreground="White" 
+                        IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MS Mincho" VerticalContentAlignment="Center" Margin="163,128,0,263" Height="20" />
+
+                    <Label BorderBrush="#FF5C62A0" 
+                           Content="In development" 
+                           FontFamily="MS Mincho" FontSize="12" Foreground="#FFEC1818" HorizontalAlignment="Left" Margin="283,106,0,0" VerticalAlignment="Top" Background="{x:Null}" />
+                    <Label BorderBrush="#FF5C62A0" 
+                        Content="In development" 
+                        FontFamily="MS Mincho" FontSize="12" Foreground="#FFEC1818" HorizontalAlignment="Left" Margin="334,36,0,0" VerticalAlignment="Top" Background="{x:Null}" />
+                    <Button x:Name="btnSaveBitMap" 
+                            Content="{Binding Resources.btnSaveBitmap, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                            FontFamily="MS Gothic" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="84,274,0,0" Style="{Binding}" VerticalAlignment="Top" Width="122" Click="btnSaveBitMap_Click" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="1" />
+                                <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                <GradientStop Color="#EA0E3417" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+
+                    <Button x:Name="btnCopyBitMap"
+                            Content="{Binding Resources.btnCopyBitmap, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                            FontFamily="MS Gothic" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="84,304,0,0" Style="{Binding}" VerticalAlignment="Top" Width="122" Click="btnCopyBitMap_Click" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="1" />
+                                <GradientStop Color="#EA0E3417" Offset="0.5" />
+                                <GradientStop Color="#FF7F7E85" Offset="0.0" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <CheckBox x:Name="chbSetAnswer" 
+                              Content="{Binding Resources.chbSetAnswer, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                              Background="White" Foreground="White" 
+                              IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MS Mincho" VerticalContentAlignment="Center" Margin="216,275,0,116" 
+                              Checked="chbSetAnswer_Checked" Unchecked="chbSetAnswer_Checked" Height="20" />
+                    <Label x:Name="lblProcessorCount" BorderBrush="#FF5C62A0" Content="ProcessorCount:" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="84,178,0,0" VerticalAlignment="Top" />
+                    <!--
+                    <Button Content="Copy" FontFamily="MS Gothic" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="58,268,0,0" x:Name="rcbCopy" VerticalAlignment="Top" Width="51" Style="{Binding}" Click="rcbCopy_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF061B40" Offset="1" />
+                                <GradientStop Color="#FF7F7E85" />
+                                <GradientStop Color="#EA18325F" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Label BorderBrush="#FF5C62A0" Content="rcb変換" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="25,242,0,0" x:Name="lblRandomNumberSeed_Copy1" VerticalAlignment="Top" MouseDown="lblRandomNumberSeed_MouseDown" />
+                    <Button Content="Shift" FontFamily="MS Gothic" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="126,268,0,0" x:Name="rcbShift" VerticalAlignment="Top" Width="51" Style="{Binding}" Click="rcbShift_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF061B40" Offset="1" />
+                                <GradientStop Color="#FF7F7E85" />
+                                <GradientStop Color="#EA18325F" Offset="0.55" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Label BorderBrush="#FF5C62A0" Content="r c b" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="126,293,0,0" x:Name="LrcbShift" VerticalAlignment="Top" MouseDown="lblRandomNumberSeed_MouseDown" />
+  -->
+
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabATransform" 
+                     Header="{Binding Resources.tabATransform, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                     Style="{DynamicResource ResourceKey=styleTabItemTop}" 
+                     FontFamily="MS Mincho" FontSize="12" >
+                <Grid Margin="0,-5,0,5" Width="569" >
+                    <Button x:Name="btnTransEst"
+                            Content="{Binding Resources.btnTransEst, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                            FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+                            Height="33" HorizontalAlignment="Left" Margin="220,83,0,0"  
+                            VerticalAlignment="Top" Width="81" Click="btnTransEst_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF8F5B8C" Offset="1" />
+                                <GradientStop Color="#FF8F5B8C" Offset="0.004" />
+                                <GradientStop Color="#EA3E0B3B" Offset="0.525" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Grid HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" Width="201" Background="#FF0E3613" Margin="14,53,0,0">
+                        <Label x:Name="lblChangeNumber" 
+                               Content="{Binding Resources.lblChangeNumber, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                               FontFamily="MS Mincho" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="10,-10,0,0" VerticalAlignment="Top" />
+                        <Button x:Name="btnNumChange"
+                                Content="{Binding Resources.btnNumChange, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+            			 	           Height="22" HorizontalAlignment="Left" Margin="18,14,0,0"  
+            				           VerticalAlignment="Top" Width="46" Click="btnNumChange_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <TextBlock Background="#FF37378F" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="14" HorizontalAlignment="Center" Margin="76,19,111,30" x:Name="txNumChange" Text="1" TextAlignment="Center" VerticalAlignment="Center" Width="14" Visibility="Hidden" />
+                        <Label x:Name="lblClickOnNumber"
+                               Content="{Binding Resources.lblClickOnNumber, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                               FontFamily="MS Mincho" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="6,38,0,0" VerticalAlignment="Top" />
+                        <Button x:Name="btnNumChangeDone" 
+                                Content="done" 
+                                FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="15" 
+                                HorizontalAlignment="Left" Margin="97,19,0,0" VerticalAlignment="Top" Width="40" 
+                                Click="btnNumChangeDone_Click" IsCancel="False">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnNumChangeRandom" 
+                            Content="random" 
+                            FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" 
+                            HorizontalAlignment="Left" Margin="155,15,0,0" VerticalAlignment="Top" Width="40" 
+                            Click="btnNumChangeRandom_Click" IsCancel="False">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA541F17" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <!--                        
+                        <Button Content="ID code" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="277,289,-146,-248" x:Name="btnGetPrbID" VerticalAlignment="Top" Width="70" IsCancel="False" Click="btnGetPrbID_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+-->
+
+                    </Grid>
+
+                    <!--
+                    <Grid HorizontalAlignment="Left" Height="72" VerticalAlignment="Top" Width="201" Background="#FF081636" Margin="262,217,0,0">
+                        <Label Content="対称変換(対称性維持）" FontFamily="MS Mincho" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="10,-10,0,0" VerticalAlignment="Top" />
+
+                        <Button x:Name="btnTransRt" Content="右回転" Width="60" Margin="7,18,0,0" 
+                    		HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    		FontFamily="MS Mincho" FontSize="12" Foreground="White"  Click="btnTrans_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="左右反転" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="70,18,0,0" x:Name="btnTransRL" VerticalAlignment="Top" Width="60" Click="btnTrans_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="上下反転" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="132,18,0,0" x:Name="btnTransUD" VerticalAlignment="Top" Width="60" Click="btnTrans_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVR123" Content="R123" Width="33" Margin="7,46,0,0" 
+                    		HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    		FontFamily="MS Mincho" FontSize="12" Foreground="White" Click="btnPatCVRC_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF8484AA" Offset="1" />
+                                    <GradientStop Color="#FFBFBEC3" />
+                                    <GradientStop Color="#EA4F3095" Offset="0.487" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="R4-6" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="43,46,0,0" x:Name="btnPatCVR46" VerticalAlignment="Top" Width="33" Click="btnPatCVRC_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF8484AA" Offset="1" />
+                                    <GradientStop Color="#FFBFBEC3" />
+                                    <GradientStop Color="#EA4F3095" Offset="0.487" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVC123" Content="C123" Width="33" Margin="85,46,0,0" 
+                    		HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    		FontFamily="MS Mincho" FontSize="12" Foreground="White" Click="btnPatCVRC_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF707070" Offset="1" />
+                                    <GradientStop Color="#FFC2C1CB" />
+                                    <GradientStop Color="#EA1A4B17" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="C4-6" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="121,46,0,0" x:Name="btnPatCVC46" VerticalAlignment="Top" Width="33" Click="btnPatCVRC_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF707070" Offset="1" />
+                                    <GradientStop Color="#FFC2C1CB" />
+                                    <GradientStop Color="#EA1A4B17" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="R-C" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="162,46,0,0" x:Name="btnPatCVRC" VerticalAlignment="Top" Width="33" Click="btnPatCVRC_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA302A3E" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+-->
+                    <Grid HorizontalAlignment="Left" Height="158" VerticalAlignment="Top" Width="201" Background="#FF0E2134" Margin="14,239,0,0">
+                        <Label x:Name="lblTransAsymetric"
+                               Content="{Binding Resources.lblTransAsymetric, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                               FontFamily="MS Mincho" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="10,-10,0,0" VerticalAlignment="Top" Width="177" />
+                        <Button x:Name="btnPatCVRg" Content="R" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="16,83,0,0" VerticalAlignment="Top" Width="16" Click="btnPatCVRCg_Click" Height="41">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" Offset="0.004" />
+                                    <GradientStop Color="#EA4F3095" Offset="0.487" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVR123g" Content="R123" Width="33" Margin="39,73,0,0" 
+            				HorizontalAlignment="Left" VerticalAlignment="Top" 
+            				FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" Offset="0.004" />
+                                    <GradientStop Color="#EA4F3095" Offset="0.487" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVR456g" Content="R456" Width="33" Margin="39,100,0,0" 
+            				HorizontalAlignment="Left" VerticalAlignment="Top" 
+            				FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" Offset="0.004" />
+                                    <GradientStop Color="#EA4F3095" Offset="0.487" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVR789g" Content="R789" Width="33" Margin="39,127,0,0" 
+            				HorizontalAlignment="Left" VerticalAlignment="Top" 
+            				FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" Offset="0.004" />
+                                    <GradientStop Color="#EA4F3095" Offset="0.487" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVCg" Content="C" FontFamily="MS Gothic" FontSize="12"
+            				Foreground="White" HorizontalAlignment="Left" Margin="102,18,0,0" 
+            				VerticalAlignment="Top" Width="60" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA1A4B17" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVC123g" Content="C123" Width="33" Margin="78,42,0,0" 
+                                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA1A4B17" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVC456g" Content="C456" Width="33" Margin="116,43,0,0"
+                                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA1A4B17" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVC789g" Content="C789" Width="33" Margin="154,43,0,0" 
+            				HorizontalAlignment="Left" VerticalAlignment="Top" 
+            				FontFamily="MS Gothic" FontSize="12" Foreground="White" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA1A4B17" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="R-C" FontFamily="MS Gothic" FontSize="12" Foreground="White" 
+            				HorizontalAlignment="Left" Margin="117,98,0,0" x:Name="btnPatCVRCg" 
+            				VerticalAlignment="Top" Width="27" Click="btnPatCVRCg_Click" Height="14" RenderTransformOrigin="0.5,0.5" >
+                            <Button.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-34.713"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Button.RenderTransform>
+                            <Button.BorderBrush>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF8F8686" Offset="0"/>
+                                    <GradientStop Color="#FF999595" Offset="1"/>
+                                    <GradientStop Color="#FF4D2525" Offset="0.492"/>
+                                </LinearGradientBrush>
+                            </Button.BorderBrush>
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA6C4022" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Label Content="0" FontFamily="MS Mincho" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="18,121,0,0" x:Name="LblRg" VerticalAlignment="Top" />
+                        <Label Content="0" FontFamily="MS Mincho" FontSize="10" Foreground="White" HorizontalAlignment="Left" Margin="70,76,0,0" x:Name="LblR123g" VerticalAlignment="Top" />
+                        <Label Content="0" FontFamily="MS Mincho" FontSize="10" Foreground="White" HorizontalAlignment="Left" Margin="70,102,0,0" x:Name="LblR456g" VerticalAlignment="Top" />
+                        <Label Content="0" FontFamily="MS Mincho" FontSize="10" Foreground="White" HorizontalAlignment="Left" Margin="70,129,0,0" x:Name="LblR789g" VerticalAlignment="Top" />
+                        <Label Content="0" FontFamily="MS Mincho" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="161,20,0,0" x:Name="LblCg" VerticalAlignment="Top" />
+                        <Label Content="0" FontFamily="MS Mincho" FontSize="10" Foreground="White" HorizontalAlignment="Left" Margin="97,55,0,0" x:Name="LblC123g" VerticalAlignment="Top" />
+                        <Label Content="0" FontFamily="MS Mincho" FontSize="10" Foreground="White" HorizontalAlignment="Left" Margin="135,55,0,0" x:Name="LblC456g" VerticalAlignment="Top" />
+                        <Label Content="0" FontFamily="MS Mincho" FontSize="10" Foreground="White" HorizontalAlignment="Left" Margin="173,56,0,0" x:Name="LblC789g" VerticalAlignment="Top" />
+                        <Label Content="0" FontFamily="MS Mincho" FontSize="10" Foreground="White" HorizontalAlignment="Left" Margin="134,103,0,0" x:Name="LblRC7g" VerticalAlignment="Top" />
+
+
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Height="72" VerticalAlignment="Top" Width="201" Background="#FF1C305D" Margin="14,149,0,0">
+                        <CheckBox x:Name="chbShowSolution"
+                                  Content="{Binding Resources.chbShowSolution, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                  FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+                                  HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="3,-28,0,86" 
+                                  Checked="chbShowSolution_Checked" Unchecked="chbShowSolution_Checked" />
+                        <Label x:Name="lblTransSymetric" 
+                               Content="{Binding Resources.lblTransSymetric, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                               FontFamily="MS Mincho" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="10,-10,0,0" VerticalAlignment="Top" />
+
+                        <Button x:Name="btnTransRtg" Content="Clockwise" Width="60" Margin="7,18,0,0" 
+                                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                FontFamily="MS Mincho" FontSize="12" Foreground="White"  Click="btnPatCVRCg_Click" IsEnabled="False">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnTransLRg" 
+                                Content="{Binding Resources.btnTransLRg, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="133,19,0,0"
+                                VerticalAlignment="Top" Width="66" Click="btnPatCVRCg_Click" Height="15">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnTransUDg"
+                                Content="{Binding Resources.btnTransUDg, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                FontFamily="MS Mincho" FontSize="12" Foreground="White" Margin="70,18,71,0" 
+                                VerticalAlignment="Top" Click="btnPatCVRCg_Click" Height="16">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA2A1754" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVR123987g" Content="R123" Width="33" Margin="7,46,0,0" 
+            				HorizontalAlignment="Left" VerticalAlignment="Top" 
+            				FontFamily="MS Mincho" FontSize="12" Foreground="White" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA4F3095" Offset="0.487" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="R4-6" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="43,46,0,0" x:Name="btnPatCVR46g" VerticalAlignment="Top" Width="33" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA4F3095" Offset="0.487" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="btnPatCVC123987g" Content="C123" Width="33" Margin="85,46,0,0" 
+            				HorizontalAlignment="Left" VerticalAlignment="Top" 
+            				FontFamily="MS Mincho" FontSize="12" Foreground="White" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA1A4B17" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="C4-6" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="121,46,0,0" x:Name="btnPatCVC46g" VerticalAlignment="Top" Width="33" Click="btnPatCVRCg_Click">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF999999" Offset="1" />
+                                    <GradientStop Color="#FF999999" />
+                                    <GradientStop Color="#EA1A4B17" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                        <Button Content="R-C" FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="162,46,0,0" x:Name="btnPatCVRCg2" VerticalAlignment="Top" Width="33" Click="btnPatCVRCg_Click">
+                            <Button.BorderBrush>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF8F8686" Offset="0"/>
+                                    <GradientStop Color="#FF999595" Offset="1"/>
+                                    <GradientStop Color="#FF4D2525" Offset="0.492"/>
+                                </LinearGradientBrush>
+                            </Button.BorderBrush>
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF808089" Offset="1" />
+                                    <GradientStop Color="#FF7F7E85" Offset="0.05" />
+                                    <GradientStop Color="#EA5F3F33" Offset="0.525" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+                    </Grid>
+                    <ScrollViewer HorizontalAlignment="Left" Width="253" VerticalScrollBarVisibility="Auto" Margin="306,53,0,14" >
+                        <TextBox Background="#FF0A0A24" Margin="0" x:Name="tbxTransReport" Foreground="#FFF2F2F2" FontFamily="MS Mincho" FontSize="12" TextOptions.TextFormattingMode="Display" TextWrapping="WrapWithOverflow" />
+                    </ScrollViewer>
+                    <Button x:Name="btnTransRes"
+                            Content="{Binding Resources.btnTransRes, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                            FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+                            Height="33" HorizontalAlignment="Left" Margin="220,149,0,0" VerticalAlignment="Top" Width="81" Click="btnTransRes_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF5964B0" Offset="1" />
+                                <GradientStop Color="#FF5964B0" />
+                                <GradientStop Color="#EA0C165B" Offset="0.525" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="btnNomalize"
+                            Content="{Binding Resources.btnNomalize, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                            FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="33" HorizontalAlignment="Left" Margin="306,10,0,0"
+                            VerticalAlignment="Top" Width="128" Click="btnNomalize_Click">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF57B969" Offset="0.981" />
+                                <GradientStop Color="#FF57B969" />
+                                <GradientStop Color="#EA1D5F29" Offset="0.525" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <CheckBox x:Name="chbNrmlNum" 
+                                  Content="{Binding Resources.chbNrmlNum, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                  FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+                                  HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="439,29,0,368" 
+                                  Checked="chbShowSolution_Checked" Unchecked="chbShowSolution_Checked" Width="99" />
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabAHomepage" 
+                     Header="{Binding Resources.tabAHomepage, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                     Style="{DynamicResource ResourceKey=styleTabItemTop}" 
+                     FontFamily="Microsoft NeoGothic" FontSize="11" Background="White" >
+                <Grid Width="515" Margin="0,-1,0,10">
+                    <Button x:Name="btnHomePage"
+                            Content="{Binding Resources.btnHomePage, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                            FontSize="12" Height="28" HorizontalAlignment="Left" 
+                            Margin="22,24,0,0" VerticalAlignment="Top" Width="100" Click="btnHomePage_Click" Foreground="White" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                <GradientStop Color="Black" Offset="1" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <TextBlock x:Name="txtCopyrightDisclaimer" HorizontalAlignment="Left" Margin="10,67,0,0" TextWrapping="Wrap" 
+                               Text="TextBlock" VerticalAlignment="Top" Height="327" Width="505" Foreground="#FFF7FCFD" 
+                               Background="#FF080808" FontFamily="MS Gothic" FontSize="12"/>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</Window>

@@ -1,0 +1,154 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku ALS DeathBlossom</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+		.ulNone{ list-style-type:none; }
+	</style>
+</head>
+
+<body id="page" onload="prettyPrint()">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+	<h2>ALS DeathBlossom(basic)</h2>	
+	<p><a href="page53a.html">　⇒ALS Death Blossom(Enhanced)</a></p>		   
+	<p>DeathBlossom is an analysis algorithm based on the arrangement of <a href="page26.html">ALS</a> with a mysterious name.<br>
+	Show image of DeathBlossom<br>
+	A cell(axis cell) has n candidate digits(x, y,...),
+	and each digit is connected with n ALSs and a strong link(RCC between cells and ALS).
+	Also assume that n ALSs have a common digit z different from RCC.<br>
+	At this time, if z is outside the ALS and this covers all z in ALS, z outside ALS can be excluded.<br>
+	If the digit z outside the ALS is true,
+	then all the ALSs become LockedSet and the candidate digits of the axis cells disappear.<br>
+	ALS has no overlap (left figure) and overlap allowance (right figure).</p>
+	
+	<p style="text-align:center">
+		<img src="images/img53/img53aEng.png" alt="DeathBlossom">
+	</p>
+	
+	<p>○ALS DeathBlossomの例です。</p>
+	
+	<img class="imgL" src="images/img53/img53b.png" alt="DeathBlossom" style="width: 701px; height: 915px" >
+	<p class="newLine"><br>
+	...8...4....21...7...7.5981315..9..8.8....4....41.83.5..1.82.646.8...1...236.18..<br>
+	285..91.47.3..1...16..24.7........8...2.4.6.7597..84..4...92..3..84....29...8.74.<br>
+	..2956.485.6....9.4...7.5...538...1.2.......6.1...582...1.8...2.9....1.582.4316..<br>
+	417..35.62.5..7...93..56.7........6...3.9.7.1691..58..3...71..9..98....77...3.21.<br><br></p>
+	
+	
+		<h2>ALS DeathBlossom program</h2>
+		<p>DeathBlossom analysis algorithm uses a <a href="page27.html#LinkCellAls">cell-ALS link</a>.<br>
+		DeathBlossom Analysis is performed in the following procedure.</p>
+		<ol style="font-size:medium">
+			<li>Generate ALS and cell link.</li>
+			<li>Set size (sz=2~)</li>
+			<li>Select cells with sz element and use them as axis cells.</li>
+			<li>Select sz ALSs to connect with axis cells.</li>
+			<li>Check that the RCC of the selected ALS group covers the elements of the axis cell as a whole,
+			and that all of the ALS groups have a common digit.</li>
+			<li>Choose the digit of focused z from common digits in the ALS group.</li>
+			<li>Find z that is outside the ALS group and covers all the focused digits in the ALS group.
+			z outside the ALS group can be excluded.</li>
+		</ol>
+		<p>Size 4 and over ALS DeathBlossom was not found.</p>
+		
+		<pre class="prettyprint linenums lang-C"><small>public partial class ALSTechGen: AnalyzerBaseV2{
+    public bool ALS_DeathBlossom(){
+        ALSMan.ALS_Search(1);
+        if( ALSMan.ALSLst==null || ALSMan.ALSLst.Count&lt;=2 ) return false;
+        ALSMan.Create_Cell2ALS_Link();
+
+        for( int sz=2; sz&lt;=4; sz++ ){//Size 4 and over ALS DeathBlossom was not found ?
+            if( _ALS_DeathBlossomSub(sz) ) return true;
+        }
+        return false;
+    }
+
+    private bool _ALS_DeathBlossomSub( int sz ){
+        foreach( var SC in pBDL.Where(p=&gt;p.FreeBC==sz) ){ //Stem Cell
+            if(AnMan.CheckTimeOut()) return false;
+            List&lt;LinkCellAls&gt; LinkCeAlsLst=ALSMan.LinkCeAlsLst[SC.rc];
+            if( LinkCeAlsLst==null || LinkCeAlsLst.Count&lt;sz ) continue;
+
+            int nxt=0, PFreeB=SC.FreeB;
+            var cmb=new Combination(LinkCeAlsLst.Count,sz);
+            while(cmb.Successor(nxt)){
+                int FreeB=SC.FreeB, AFreeB=0x1FF;
+                for( int k=0; k&lt;sz; k++ ){
+                    nxt=k;
+                    var LK=LinkCeAlsLst[cmb.Cmb[k]];      //Link[cell-ALS]
+                    if( (FreeB&(1&lt;&lt;LK.nRCC))==0 ) goto LNxtCmb;
+                    FreeB = FreeB.BitReset(LK.nRCC);
+                    AFreeB &= LK.ALS.FreeB;
+                }
+                if( FreeB!=0 || AFreeB==0 ) continue;
+
+                AFreeB = AFreeB.DifSet(SC.FreeB);
+                foreach( var no in AFreeB.IEGet_BtoNo() ){
+                    int noB=(1&lt;&lt;no);
+                    Bit81 Ez=new Bit81();
+                    for( int k=0; k&lt;sz; k++ ){
+                        var ALS=LinkCeAlsLst[cmb.Cmb[k]].ALS;
+                        var UClst=ALS.UCellLst;
+                        foreach( var P in UClst.Where(p=&gt;(p.FreeB&noB)&gt;0) )  Ez.BPSet(P.rc);
+                    }
+
+                    foreach( var P in pBDL.Where(p=&gt;(p.FreeB&noB)&gt;0) ){
+                        if( (Ez-ConnectedCells[P.rc]).IsZero() ){ P.CancelB=noB; SolCode=2; }
+                    }
+                    if(SolCode&lt;1) continue;
+                        .
+                        . (Solution report code)
+                        .
+                    return true;
+                }
+            LNxtCmb:
+                continue;
+            }
+        }
+        return false;
+    }
+}</small></pre>
+
+	</article>
+	
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+-LastDigit
+-NakedSingle
+-HiddenSingle
+-LockedCandidate
+-LockedSet(2cells)
+-LockedSet(2cells)Hidden
+-LockedSet(3cells)
+-LockedSet(3cells)Hidden
+-LockedSet(4cells)
+-LockedSet(4cells)Hidden
+-X-Wing
+-SwordFish
+-JellyFish
+-Squirmbag
+-Whale
+-Leviathan
+-SueDeCoq
+-SueDeCoqEx
+-Skyscraper
+-Empty Rectangle
+-XY-Wing
+-W-Wing
+-XYZ-Wing
+-WXYZ-Wing
+-VWXYZ-Wing
+-UVWXYZ-Wing
+-Finned X-Wing
+-Finned SwordFish
+-Finned JellyFish
+-Finned Squirmbag
+-Finned Whale
+-Finned Leviathan
+-Coloring Trap
+-Coloring Wrap
+-MultiColoring Type-1
+-MultiColoring Type-2
+-Remote Pair
+-X-Chain
+-XY-Chain
+-Nice Loop
+-ALS XZ
+-ALS XY-Wing
+-ALS XY-Chain
+-ALS Death Blossom
+-Franken/Mutant Fish
+-Finned Franken/Mutant Fish
+-ALS Grouped Nice Chain
+-Grouped Nice Loop
+-Kraken Fish
+*NiceLoopLimits 5 15
+*NiceLoopMethod  Cell

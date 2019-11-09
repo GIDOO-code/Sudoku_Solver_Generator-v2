@@ -1,0 +1,595 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku General Logic</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript"></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript"> </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript"> </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	<style type="text/css">
+		.ulNone{ list-style-type:none; }
+		th{	text-align: center;	vertical-align: top; }
+
+	.auto-style4 { text-align: center; }
+	.auto-style5 { vertical-align: super; }
+	.auto-style6 { font-size: x-small; }
+	.auto-style7 { text-align: left; }
+	.auto-style8 { color: #0000FF; }
+</style>
+	
+	
+</head>
+<body id="page" onload="prettyPrint()">
+	<div class="auto-style4">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article><br>
+		<h2>General Logic</h2>		   
+        <p>
+            <span class="auto-style8"><strong>General Logic</strong></span> is a method common to most Sudoku solving algorithms.
+            <span class="auto-style8"><strong>General Logic</strong></span> is a generalization of BaseSet/CoverSet.
+            You need to understand the <a href="page34.html"> Fish </a> algorithm.
+            The first step of the Fish extension is <a href="page36.html"> (Finned) Franken/Mutant Fish</a>.<br>
+            This section is based on <strong>
+                <a href="http://www.sudokuone.com/sweb/general.htm">A General Logic for Sudoku(www.sudokuone.com/sweb/general.htm).
+            </strong> </a>
+        </p>
+	
+		<h2>Weak link</h2>	
+		<p>GeneralLogic's basics are <a href="page25.html"> weak links</a>.<br>
+        Sudoku has constraints on rows, columns and blocks. 
+        Franken/Mutant Fish is a solution algorithm composed of rows, columns, and blocks.&nbsp;
+        Furthermore, from the Sudoku rule that any digit from 1 to 9 enters for 9×9 cells, each cell is also weak link.
+        In total, Sudoku has 324 constraints. <br>
+        <strong>general Logic </strong> is a solution algorithm composed of weak links in rows, columns, blocks, and cells. 
+        (Strong links are included in weak links.)</p>
+		
+		<p style="text-align:center">
+			<img src="images/img60/weakLinkEng.png" alt="General Logic" style="float:center" height="200" width="400">
+		</p>	
+
+		<h2>BaseSet, CoverSet, Rank</h2>
+        <p>
+            <strong>BaseSet</strong> : Select n weak links so that they do not overlap.
+            This n weak links are called <strong>BaseSet(n-BaseSet)</strong>.
+            There is one truth for each weak link, and there are n truths for <strong>BaseSet </strong> as a whole.<br><br>
+
+            <strong>CoverSet</strong> : Choose m(m≧n) weak links different from <strong>BaseSet</strong> to completely
+            cover <strong>BaseSet</strong>.  This is called <strong>CoverSet(m-CoverSet)</strong>.
+            Elements that do not belong to <strong>BaseSet </strong> are acceptable.
+            In order for General Logic to be established, elements that do not belong to <strong>BaseSet</strong> are necessary.
+            <Strong>CoverSet</Strong> may overlap.The true number of <strong>CoverSet </strong> is m or less. <br><br>
+
+            <strong>Rank</strong> : Define the ranking of <strong>BaseSet and CoverSet </strong> pairs as follows. <br>
+            <strong>BaseSet/CoverSet Rank＝ｍ-ｎ</strong><br><br>
+        </p>
+
+		<h2>General Logic</h2>	
+        <h4>rank 0:</h4>
+        <p>
+            When the <strong>n-CoverSet</strong> completely covers the <strong>n-BaseSet</strong>,
+            the cells/digits of <strong>CoverSet-BaseSet </strong> (difference set) are not true.
+            If the difference set is empty, the logic here does not hold.<br>
+            If true, the weak link containing it will have no truth in the intersection with <strong>BaseSet</strong>.
+            Therefore, n-1 true is included in <strong>CoverSet∩BaseSet</strong>.
+            In other words, <strong>BaseSet</strong> got lost. Therefore, the first assumption is incorrect.<br>
+
+            The following figure is the simplest Fish <strong>BaseSet(column) and CoverSet(line)</strong>.
+            Check <strong>BaseSet</strong> and <strong> CoverSet</strong>, <strong>BaseSet-CoverSet</strong>(difference),
+            <strong>BaseSet∩CoverSet</strong>(common) .
+            Note that <strong>BaseSet-CoverSet</strong> is not limited to one element.
+            Even if there are two or more, all of them can be excluded.<br></p>
+		<img src="images/img60/BCSet1Eng.png" alt="General Logic" height="200" ><br><br>
+		
+        <h4>rank 1:</h4>
+        <p>
+            Consider the case of covering n-BaseSet with (n+1)-CoverSet.<br>
+            The choice of CoverSet covering n-BaseSet is free.
+            In order to be an analysis algorithm, the following conditions must be satisfied.<br>
+            Condition 1:(n+1)-CoverSet completely covers n-BaseSet. <br>
+            Condition 2:Two of the (n+1)weak links of CoverSet have elements in common which are not included in the n-BaseSet.<br>
+
+            When these conditions are satisfied, the elements of the intersection of condition 2 are not true.<br>
+            Assumed that the digit X of the common part is true.
+            Since digit X is not included in Baseset and is contained in two weak links of CoverSet,
+            there are n-1 weak links of CoverSet including true of BaseSet.
+            The first assumption is incorrect as the true number of BaseSet is insufficient.<br>
+        </p>
+
+		<img src="images/img60/BCSet2Eng.png" height="200" ><br><br>
+		<p>Next is an example of rank 1, BaseSet are 3 cells.</p>
+		<img src="images/img60/BCSet3Eng.png" alt="General Logic" height="200"><br><br>
+
+        <h4>rank k(k≧1):</h4>
+		<p>Consider the case of covering n-BaseSet with (n+k)-CoverSet.<br>The configuration is the same as Rank 1.
+            In order to be an analysis algorithm, the following conditions must be satisfied.
+
+            Condition 1:(n+k)-CoverSet completely covers n-BaseSet. <br>
+            Condition 2:(k+1) of the (n+k)weak links of CoverSet have elements in common which are not included in the n-BaseSet.<br />
+
+            When these conditions are satisfied, the elements of the intersection of condition 2 are not true.<br>
+            Assumed that the digit X of the common part is true.
+            Since digit X is not included in Baseset and is contained in (k+1) weak links of CoverSet,
+            there are n-1 weak links of CoverSet including true of BaseSet.
+            The first assumption is incorrect as the true number of BaseSet is insufficient.<br></p>
+		<br>
+		
+		<img src="images/img60/BCSet4Eng.png" alt="General Logic" height="200"><br><br>
+		
+		<h2>General Logic program code</h2>
+		<p>General Logic program code is in <a href="page17.html"> GNPX proj Sudoku analysis application source project </a>.
+            The algorithm is relatively simple, since Fish is extended to rows, columns, blocks, and cells.
+            However, be aware of the following points.<br><br>
+            General Logic is logic to exclude cells/digita that break Locked as "not true". 
+            There is no way to decide which cell/digit the candidate is unique. 
+            In addition to General Logic, you need code to fix (eg Single).<br><br>
+		
+            Minimum programs to solve Sudoku can be configured with "single+General Logic".<br>
+            However, GeneralLogic's search has a larger computational complexity than the conventional method, 
+            which is a major practical problem.
+            In the current version of GNPX, it took several tens of minutes to solve the 4th order GeneralLogic
+            (using some speed-up procedures).
+            It can not be solved within the practical use time for the 5th or higher order or the rank 2 or more.<br>
+            Original paper<a href="http://www.sudokuone.com/sweb/general.htm">A General Logic for Sudoku</a>,
+            there is an example of 7th rank 3.<br></p>
+	
+		<h2>Example of General Logic solution</h2>
+		<p>Here is an example of GeneralLogic solution. 
+            In the upper, cells and digits excluded as "LockedTriple [3D] r459c2#168 r37c2#1 is not True" are the same,
+            but there is no solution corresponding to the conventional method.<br>
+            The lower can exclude the same cell/digit in ALS-XZ(Singly Linked) (lower right). 
+            However, the method used is quite different.<br></p>
+		<img src="images/img60/GenerslLogic01.png" alt="General Logic" width="500">
+		<p class="newLine">3..5....2.5.2...1.....36.....59.7.31..9...4..23.8.46.....79.....7...8.4.8....2..9<br>	  
+						   5..7....3.3.4...6.....36.....45.1.29..9...4..68.9.27.....27.....1...3.5.7....5..4<br></p>
+		<p>
+            As shown in the following table (application example of General Logic),
+            the solution of the conventional method can be reinterpreted by GeneralLogic.<br>
+            The next example is the 4th order General Logic (rank 0,1). In this way,
+            the conventional method may not correspond to the GeneralLogic solution.
+            GeneralLogic shows that it is a more general solution.<br>
+		<img src="images/img60/GenerslLogic02.png" alt="General Logic" width="500">
+		<p class="newLine">1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2</p>
+
+		<p>It is also an issue to explore the new solution from the GeneralLogic solution.</p>
+
+		<h2>Application example of General Logic</h2>
+		<p>An example of applying General Logic to scenes solved by a normal Sudoku algorithm is shown.<br>
+            "Single" is definite of the cell/digit where the candidate became unique, so GeneralLogic is not necessary,
+            it is shown as the smallest application example of BaseSet/CoverSet.</p>
+	    <table border="1" style="border-collapse:collapse;">
+	        <tr>
+	        	<th style="width: 57px">Algorithm</th>
+	        	<th width="200">Example</th>
+	        	<th width="200">BaseSet</th>
+				<th width="200">CoverSet</th>
+				<th width="200">Comment</th>
+	        </tr>
+	
+	        <tr>
+	        	<td style="width: 57px">Single/<br>LastDigit</td>
+	        	<td class="auto-style4"><img src="images/img60/01LastDigit_Single.png" class="auto-style5" style="float: left" height="135" width="135">
+	        	<td class="auto-style7">
+					<img src="images/img60/01LastDigit_SingleB.png" class="auto-style5" style="float:left" height="135" width="135">
+					<br><br>BaseSet:b1#6</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/01LastDigit_SingleC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:c3#6</td>
+				<td>rank0<br>r68c3#6 is not true</td>
+	        </tr>
+	        
+	        <tr>
+	        	<td style="width: 57px">Single/<br>Naked</td>
+	        	<td class="auto-style4"> <img src="images/img60/02Naked_Single.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/02Naked_SingleB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:r1c1</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/02Naked_SingleC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:r1</td>
+	        	<td>rank0<br>r1c8#9 is not true</td>
+	        </tr>
+	        
+	        <tr>
+	        	<td style="width: 57px">Single/<br>Naked</td>
+	        	<td class="auto-style4"> <img src="images/img60/03Hidden_Single.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/03Hidden_SingleB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:b2#2</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/03Hidden_SingleC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:r2#2</td>
+	        	<td>rank0<br>r2c2#2 is not true</td>
+	        </tr>
+	        
+		    <tr>
+	        	<td style="width: 57px">LockedCandidate/<br>(type1)</td>
+	        	<td class="auto-style4"> <img src="images/img60/04LockedCandidate1.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/04LockedCandidate1B.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:b5#5</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/04LockedCandidate1C.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:r5#5</td>
+	        	<td>rank0<br>r5c9#5 is not true</td>
+	        </tr>
+	        
+		    <tr>
+	        	<td style="width: 57px">LockedCandidate/<br>(type2)</td>
+	        	<td class="auto-style4"> <img src="images/img60/05LockedCandidate2.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/05LockedCandidate2B.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:b12#7</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/05LockedCandidate2C.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:r23#7</td>
+	        	<td>rank0<br>r2c8#7 is not true</td>
+	        </tr>
+		    <tr>
+	        	<td style="width: 57px">LockedSet/Naked</td>
+	        	<td class="auto-style4"> <img src="images/img60/06LockedSetNaked.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style4">
+					<img src="images/img60/06LockedSetNakedB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:r6c45</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/06LockedSetNakedC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:r6#38</td>
+	        	<td>rank0<br>r6c38#3 r6c789#8 is not true</td>
+	        </tr>
+		    <tr>
+	        	<td style="width: 57px">LockedSet/Hidden</td>
+	        	<td class="auto-style4"> <img src="images/img60/07LockedSetHidden.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/07LockedSetHiddenB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:b4#249</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/07LockedSetHiddenC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r4c23 r5c2 </td>
+	        	<td>rank0<br>r4c3#3 r5c2#5 is not true</td>
+	        </tr>
+	        <tr>
+	        	<td style="width: 57px">Fish</td>
+	        	<td class="auto-style4"> <img src="images/img60/08Fish.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/08FishB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:r57#4</td>
+	        	<td class="auto-style4">
+					<img src="images/img60/08FishC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:c25#4</td>
+	        	<td>rank0<br>r48c2#6 is not true</td>
+	        </tr>
+		    <tr>
+	        	<td style="width: 57px">FinnedFish</td>
+	        	<td class="auto-style4"> <img src="images/img60/09FinnedFish.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/09FinnedFishB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:r17#4</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/09FinnedFishC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>c57#4 b2#4</td>
+	        	<td>rank1<br>r3c5#4 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">Franken/Mutant Fish</td>
+	        	<td class="auto-style4"> <img src="images/img60/10FMFish.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/10FMFishB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r1#8 c38#8</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/10FMFishC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r9#8 b13#8</td>
+	        	<td>rank1<br>r9c19#8 is not true</td>
+	        </tr>
+	        <tr>
+	        	<td style="width: 57px">Finned F/M Fish</td>
+	        	<td class="auto-style4"> <img src="images/img60/11FinnedFMFish.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/11FinnedFMFishB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r4568#7 c1#7 b23#7</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/11FinnedFMFishC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r27#7 c23569#7 b16#7</td>
+	        	<td>rank2<br>r2c3#7 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">SkyScraper</td>
+	        	<td class="auto-style4"> <img src="images/img60/12SkyScraper.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/12SkyScraperB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r2#4 b#4</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/12SkyScraperC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>C34#4 r6#4</td>
+	        	<td>rank1<br>r6c3#4 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">EmptyRectangle</td>
+	        	<td class="auto-style4"> <img src="images/img60/13EmptyRectangle.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/13EmptyRectangleB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>c8#6 b4#6</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/13EmptyRectangleC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r68#6 c3#6</td>
+	        	<td>rank1<br>r8c3#6 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">X-Chain</td>
+		        	<td class="auto-style4"> <img src="images/img60/14XChain.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/14XChainB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r5#3 b2#3</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/14XChainC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r1#3 c25#3</td>
+	        	<td>rank1<br>r1c2#2 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">XY-Chain</td>
+	        	<td class="auto-style4"> <img src="images/img60/15XYChain.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/15XYChainB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r1c5 r4c45 r7c4</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/15XYChainC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r1#8 c2#2 r4#3 c4#1 c4#8</td>
+	        	<td>rank1<br>r1c4#8 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">ColoringTrap</td>
+	        	<td class="auto-style4"> <img src="images/img60/16ColoringTrap.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/16ColoringTrapB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet<br>:r1#5 C49#5</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/16ColoringTrapC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>b239#5 C7#5</td>
+	        	<td>rank1<br>r7c8#5 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">ColoringWrap</td>
+	        	<td class="auto-style4"> <img src="images/img60/17ColoringWrap.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/17ColoringWrapB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r7#5 C69#5 b14#5</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/17ColoringWrapC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r156#5 C23#5 b3#5</td>
+	        	<td><span class="auto-style6">(左図例はBase/CoverSetによる解が重なっている。）<br>
+				</span><br>rank1<br>r1c7#5 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">MultiColoringType1</td>
+	        	<td class="auto-style4"> <img src="images/img60/18MultiColoring.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/18MultiColoringB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r8#4 c58#4</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/18MultiColoringC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r5#4 C8#4 b33#4</td>
+	        	<td>rank1<br>r12c8#4 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">MultiColoringType2</td>
+	        	<td class="auto-style4"> <img src="images/img60/19MultiColoring.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/19MultiColoringB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r6#4 c18#4<br><br>(BaseSetに含む<br>
+					セルのみが対象)</td>
+	        	<td>
+					<img src="images/img60/19MultiColoringC1.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r29#4 c3#4 b6#4
+
+					<img src="images/img60/19MultiColoringC2.png" class="auto-style5" style="float: left" height="135" width="135"><div class="auto-style7">
+					</div>
+
+					&nbsp;<br><br><br>Coverset:<br>r9#4 c12#4 b6#4</td>
+
+	        	<td><br>rank1<br>r2c3#4 is not true<br><br><br><br><br><br><br>
+				<br>rank1<br>r1c9#4 is not true<br><br><br></td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">XY-Wing</td>
+	        	<td class="auto-style4"> <img src="images/img60/20XYWing.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/20XYWingB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r36c2 r6c8</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/20XYWingC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r3#7 r6#2 c2#3 c8#7</td>
+	        	<td>rank1<br>r3c8#7 is not true</td>
+	        </tr>
+
+		    <tr>
+	        	<td style="width: 57px">W-Wing</td>
+	        	<td class="auto-style4"> <img src="images/img60/21WWing.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/21WWingB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r3c4 r7c7 r1#1</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/21WWingC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r7#4 c4#14 c7#1<br></td>
+	        	<td>rank1<br>r7c4#4 is not true</td>
+	        </tr>
+		    <tr>
+	        	<td style="width: 57px">RemotePair</td>
+	        	<td class="auto-style4"> <img src="images/img60/22RemotePair.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/22RemotePairB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r4c5 r5c4 r5c9 r7c9</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/22RemotePairC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r57#7 c5#7 c9#3 b5#3</td>
+	        	<td>rank1<br>r7c5#7 is not true</td>
+	        </tr>
+	        
+		    <tr>
+	        	<td style="width: 57px">XYZ Wing</td>
+	        	<td class="auto-style4"> <img src="images/img60/23XYZWing.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/23XYZWingB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r4c78 r9c8</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/23XYZWingC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r4#5 c8#69 b6#9</td>
+	        	<td>rank1<br>r6c8#9 is not true</td>
+	        </tr>
+	        
+		    <tr>
+	        	<td style="width: 57px">XYZ Wing(ALS)</td>
+	        	<td class="auto-style4"> <img src="images/img60/24XYZWing_ALS.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/24XYZWing_ALSB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r36c1 r456c2</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/24XYZWing_ALSC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>c1#69 b4#1267<br>(表示略） </td>
+	        	<td>rank1<br>r5c1#6 is not true</td>
+	        </tr>
+		    <tr>
+	        	<td style="width: 57px">SueDeCoq</td>
+	        	<td class="auto-style4"> <img src="images/img60/25SueDeCoq.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/25SueDeCoqB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r1c5 r2c469</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/25SueDeCoqC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>c2#19 b2#78</td>
+	        	<td>rank0<br>r2c3#1 is not true</td>
+	        </tr>
+	        
+		    <tr>
+	        	<td style="width: 57px">ALS XZ(SinglyLinked)</td>
+	        	<td class="auto-style4"> <img src="images/img60/26ALSXZ_SinglyLinked.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/26ALSXZ_SinglyLinkedB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r2c46 r3c24</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/26ALSXZ_SinglyLinkedC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r2#67 r3#1 b1#6 b2#5</td>
+	        	<td>rank1<br>r1c2#6 is not true</td>
+	        </tr>
+	        
+		    <tr>
+	        	<td style="width: 57px">ALS XZ(DoublyLinked)</td>
+	        	<td class="auto-style4"> <img src="images/img60/27ALSXZ_DoublyLinked.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/27ALSXZ_DoublyLinkedB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r1c3459 r3c1238</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/27ALSXZ_DoublyLinkedC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r1#236 b3#24 b1#156</td>
+	        	<td>rank0<br>r2c67#24 is not true</td>
+	        </tr>
+        
+		    <tr>
+	        	<td style="width: 57px">ALS XY-Wing</td>
+	        	<td class="auto-style4"> <img src="images/img60/28ALS_XYWing.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/28ALS_XYWingB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r1c78 r12c3 r4c57</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/28ALS_XYWingC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r14#1 r1#9 c3#45 c7#2 </td>
+	        	<td>rank1<br>r4c3#5 is not true</td>
+	        </tr>
+	        
+		    <tr>
+	        	<td style="width: 57px">ALS Chain</td>
+	        	<td class="auto-style4"> <img src="images/img60/29ALS_XYChain.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/29ALS_XYChainB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r4c5 r4c379 r5c5 r6c7</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/29ALS_XYChainC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r4#247 r5#4 c6#4 b6#45</td>
+	        	<td>rank1<br>r5c8#4 is not true</td>
+	        </tr>
+        
+		    <tr>
+	        	<td style="width: 57px">ALS DeathBlossom</td>
+	        	<td class="auto-style4"> <img src="images/img60/30ALS_DeathBlossom.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/30ALS_DeathBlossomB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r2c3 r12368c2 r27c7</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/30ALS_DeathBlossomC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r2#69 r7#7 c2#34567 c7#5</td>
+	        	<td>rank1<br>r7c2#7 is not true</td>
+	        </tr>
+	        
+		    <tr>
+	        	<td style="width: 57px">NiceLoop Continuous</td>
+	        	<td class="auto-style4"> <img src="images/img60/31NiceLoopContinuous.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/31NiceLoopContinuousB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r8#9 c36#7 c6#1</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/31NiceLoopContinuousC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:<br>r4#7 r6c7 r8c37</td>
+	        	<td>rank0<br>r4c1#7 is not true</td>
+	        </tr>
+		    <tr>
+	        	<td style="width: 57px">NiceLoop Discontinuous</td>
+	        	<td class="auto-style4"> <img src="images/img60/32NiceLoopDiscontinuous.png" class="auto-style5" style="float: left" height="135" width="135">
+				<td class="auto-style7">
+					<img src="images/img60/32NiceLoopDiscontinuousB.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>BaseSet:<br>r2#5 c1#2 c3#8 r4c4</td>
+	        	<td class="auto-style7">
+					<img src="images/img60/32NiceLoopDiscontinuousC.png" class="auto-style5" style="float: left" height="135" width="135">
+					<br><br>Coverset:r2c13 r4#2 r7#8 c4#8</td>
+	        	<td>rank1<br>r7c4#8 is not true</td>
+	        </tr>
+	    </table>
+	
+	
+	<p><br></p>
+	
+	
+	</article>
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+	</div>
+
+</body>
+
+</html>

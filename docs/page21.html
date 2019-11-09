@@ -1,0 +1,103 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku C# Cell class(UCell)</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+</head>
+
+<body id="page" onload="prettyPrint()">
+	
+	<a id="pageTop"></a>
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+		<a id="UCell"></a>
+		<h2>Cell class(UCell)</h2>
+		<p>This is Sudoku's individual cell class.
+		Here is the basic element only （<a href="page21a.html#UCell_all">full version</a>).</p>
+		
+		<ul style="font-size:medium">
+			<li>rc is the position(internal representation) of the cell and the value is 0 to 80.
+			It has its own position information and it is used when handling collection of cells by analysis algorithm.
+			<br><br></li>
+			
+			<li>r, c, b are the internal representation values of the row, column, and block of the cell position, 
+			and the value is 0 to 8. This value is determined when the cell is created.
+			it is set in the constructor and has the readonly attribute.<br><br></li>
+			
+			<li>no is a problem of Sudoku or solved digit. Digits set as problems are 1 to 9,
+			The solved digit is -1 to -9, and the cell which has not yet been solved is 0.<br><br></li>
+			
+			<li>FreeB is a bit representation of possible candidate digits for that cell in the process of solving the problem.
+			For example, when there are 1, 4, and 6 as candidates in a certain cell, the value is <br>
+			1&lt;&lt;(1-1) | 1&lt;&lt;(4-1) |1&lt;&lt;(6-1) = 1+8+32 = 41.<br><br></li>
+			
+			<li>FreeBC represents the digit of possible candidate in that cell.
+			This is a property, calculated when it is needed.
+			<br><br></li>
+			
+			<li>FixedNo is the value determined by the analysis program.<br>
+			CancelB is a bit representation that the analysis program is not a digit of that cell.<br>
+			In GNPX, FixedNo and CancelB were used, and analysis processing and update processing were separated.
+			This indicates an analysis process (determination of a digit / determination that a digit is not included).<br><br></li>
+		</ul>
+
+		<pre class="prettyprint linenums lang-C title：'簡略版'"><small>public class UCell{
+    public readonly int  rc;
+    public readonly int  r;
+    public readonly int  c;
+    public readonly int  b;
+
+    public int  No; 
+    public int  FreeB; 
+    public int  FreeBC{ get{ return FreeB.BitCount(); } }
+
+    public int  FixedNo;
+    public int  CancelB;
+      
+    public UCell( int rc, int No=0 ){
+        this.rc = rc;
+        this.r  = rc/9;
+        this.c  = rc%9;
+        this.b  = rc/27*3+(rc%9)/3;
+        this.No = No;
+        this.FreeB = 0x1FF;
+    }
+}</small></pre>
+	</article>
+</section>
+
+<footer>
+	<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+
+</html>

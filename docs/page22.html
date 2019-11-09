@@ -1,0 +1,142 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku C# Problem class(UProblem)</title>
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+</head>
+
+<body id="page" onload="prettyPrint()">
+	
+	<a id="pageTop"></a>
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg">	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+
+<!-- ========================================================================== -->
+<section id="menuList">
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+		<a id="UProblem"></a>
+		<h2>Problem class(UProblem)</h2>
+		<ul style="font-size:medium">
+			<li>"DifficultyLevel" is the difficulty of the problem. This is not the difficulty of human solving.
+				With the following analysis algorithms, it is easy to examine by program, 
+				but there are many ways that humans find it extremely difficult to discover.
+				It was decided appropriately (subjectively appropriateness). In addition, it is up to level 1, 2, 3, 4 to solve manually.
+				As far as I have allocated to about level 10, I think that it will increase even further with the idea of unpackaged analysis algorithm.</li><br><br>
+			
+			<li>"Insoluble" is a logical variable with two or more solutions,
+			    which is true when there is contradiction and no solution exists at all.</li><br><br>
+			 
+			<li>"BDL" is a List of 81 cells representing problems. Although it can be used as an array, 
+				i adopted this because i want to use various functions of the List collection. </li><br><br>
+		</ul>
+
+		<pre class="prettyprint linenums lang-C "><small>public class UProblem{
+    public int         IDm;
+    public int         ID;
+    public List&lt;UCell&gt; BDL;
+    public int[]       AnsNum;
+
+    public long       HTicks;
+    public string     Name; 
+    public string     TimeStamp;
+
+    public int        DifLevel;    //-1:InitialState　0:Manual
+    public bool       Insoluble;   //No solution
+
+    public int        stageNo;
+    public UAlgMethod pMethod=null;
+    public string     solMessage;
+    public string     Sol_Result;
+    public string     Sol_ResultLong;
+    public string     GNPX_AnalyzerMessage;
+    public string     extRes{ get; set; }
+    public int        SolCode;
+
+    public UProblem( ){
+        ID=-1;
+        BDL = new List&lt;UCell&gt;();
+        for( int rc=0; rc&lt;81; rc++ ) BDL.Add(new UCell(rc));
+        this.DifLevel = 0;
+        HTicks=DateTime.Now.Ticks;
+    }
+    public UProblem( string Name ): this(){ this.Name=Name; }
+
+    public UProblem( List&lt;UCell&gt; BDL ){
+        this.BDL      = BDL;
+        this.DifLevel = 0;
+        HTicks=DateTime.Now.Ticks;
+    }
+    public UProblem( int ID, List&lt;UCell&gt; BDL, string Name="", int DifLvl=0, string TimeStamp="" ){
+        this.ID       = ID;
+        this.BDL      = BDL;
+        this.Name     = Name;
+        this.DifLevel = DifLvl;
+        this.TimeStamp = TimeStamp;
+        HTicks=DateTime.Now.Ticks;
+    }
+
+    public UProblem Copy( int stageNo, int IDm ){
+        UProblem P = (UProblem)this.MemberwiseClone();
+        P.BDL = new List&lt;UCell&gt;();
+        foreach( var q in BDL ) P.BDL.Add(q.Copy());
+        P.HTicks=DateTime.Now.Ticks;;
+        P.stageNo=this.stageNo+1;
+        P.IDm=IDm;
+        return P;
+    }
+
+    public string ToLineString(){
+        string st = BDL.ConvertAll(q=&gt;Max(q.No,0)).Connect("").Replace("0",".");
+        st += ", " + (ID+1) + "  ,\"" + Name + "\"";
+        st += ", " + DifLevel.ToString();
+        st += ", \"" + TimeStamp +  "\"";
+        return st;
+    }
+    public string CopyToBuffer(){
+        string st = BDL.ConvertAll(q=&gt;Max(q.No,0)).Connect("").Replace("0",".");
+        return st;
+    }
+    public string ToGridString( bool SolSet ){
+        string st="";
+        BDL.ForEach( P =&gt;{
+            st+=(SolSet? P.No: Max(P.No,0));
+            if( P.c==8 ) st+="\r";
+            else if( P.rc!=80 ) st+=",";
+        } );
+        return st;
+    }
+}</small>
+</pre>
+	</article>
+	</section>
+
+<footer>
+	<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

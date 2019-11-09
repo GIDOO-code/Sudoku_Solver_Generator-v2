@@ -1,0 +1,293 @@
+﻿<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku XYZ-Wing</title>
+	
+	<link href="google-code-prettify/prettify.css" rel="stylesheet" type="text/css" >
+	<script src="google-code-prettify/prettify.js" type="text/javascript"> </script>
+	
+	<script src="lib/jquery.js" type="text/javascript"></script>
+	<script src="lib/jquery.cookie.js" type="text/javascript"></script>
+	<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	<script src="js/treeView.js" type="text/javascript" ></script>
+	
+	<script src="js/naviHeader.js" type="text/javascript" > </script>
+	<script src="js/naviAlgorithm.js" type="text/javascript" > </script>
+	
+	<link rel="stylesheet" href="css/jquery.treeview.css">
+	<link rel="stylesheet" href="css/screen.css">
+
+	<link href="styleStandardEng.css" rel="stylesheet">
+	
+	<style type="text/css">
+		.redLarge{ color: #F00; font-size:large; }
+	</style>
+</head>
+	
+<body id="page" onload="prettyPrint()">
+	<header>
+		<img src="images/imgTop/SuDoKuAlgorithm3.jpg" >
+	</header>
+
+    <script type="text/javascript"> writeNaviHeader(); </script>
+	
+<!-- ========================================================================== -->
+<section id="menuList"><br>
+	<aside>
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>	
+	</aside>
+</section>
+
+<!-- -------------------------------------------------------------------------- -->
+<section id="main">
+	<article>
+		<h2><br>XYZ-Wing evolves into <a href="page53a.html"> "ALS Death Blossom" </a>.</h2>
+		<h2 id="xyzWing">XYZ-Wing（Basic form）</h2>
+		<p><a href="#XYZWingALS">　➡XYZ-WingALS</a></p>
+		<p>XYZ-Wing is an analysis algorithm that uses the intersection of blocks and rows(or columns).<br>
+		It is assumed that the candidate number is a cell of xyz,
+		the candidate numbers of other cells belonging to the same row are xz, 
+		and the candidate numbers of other cells belonging to the same block are yz.
+		At this time, the candidate number z can be excluded from the cell
+		that is as the same block and same row(right figure).
+		Even if rows are replaced with columns.</p>
+		<p style="text-align:center">
+			<img src="images/img44/img44aEng.png" alt="XYZ-Wing" width="517" height="205">
+		</p><br>
+		<p>Let candidate number and cell number be orders.
+		There are 4th to 6th order analysis algorithms.<br>
+		WXYZ-Wing(4th), VWXYZ-Wing(5th), UVWXYZ-Wing (6th)
+		In both cases, the cells other than the axis cell are bivalue (two candidate).
+		Also, in case of 3rd order, there was 1 cell placement in each row and block,
+		but there are various variations in arrangement of 4th order or more(next figure)
+		The cell marked with* is in Locked and the number Z is excluded from this cell.
+		However, the condition
+		"all the cells have a targeted number, and all bivalue cells except the target cell" are too strict. 
+		Patterns of 4th order or higher are rare.
+		The way to relax the condition of bivalue (XYZ-WingEx) is shown later.
+		
+		<p style="text-align:center">
+			<img src="images/img44/img44b.png" width="745" height="361">
+		</p>
+		
+		<p>The point of this analysis method is Locked when a cell is focused,
+		if bivalue cells in the influence area of the cell are aggregated in row/block(or column/block),
+		it agrees with the candidate number of the focused cell.</p>
+	
+		<p>Here is an example of XYZ-Wing. (Left: XYZ-Wing right: WXYZ-Wing)</p>
+		<img class="imgL" src="images/img44/img44c.png" alt="XYZ-Wing" style="width: 271px; height: 270px">
+		<img class="imgL" src="images/img44/img44d.png" alt="XYZ-Wing" style="width: 271px; height: 270px">
+		<small>
+		<p class="newLine">8.9..3..4.24...61..7...6.297.2.4.......3.2.......5.1.225.1...4..47...83.1..7..2.5<br>
+						   ..3..4...1.86539...5.7...83..6.37.9.7..4....54.....72.....9.51...9..6...8..3..26.<br></p></small>
+
+		<h2>XY-Wing C# program</h2>
+		<p>The analysis algorithm is as follows. 
+		If assembled in order as shown in the image diagram, the algorithm can be easily constructed.<br>
+		</p>
+	<pre class="prettyprint linenums lang-C"><small>public partial class SimpleUVWXYZwingGen: AnalyzerBaseV2{
+    public List&lt;UCell&gt; FBCX;
+
+    public SimpleUVWXYZwingGen( GNPX_AnalyzerMan AnMan ): base(AnMan){
+            FBCX=null;
+    }
+
+    public override void Initialize(){ FBCX=null; }
+
+    public bool XYZwing( ){    return _UVWXYZwing(3); }  //XYZ-wing
+    public bool WXYZwing( ){   return _UVWXYZwing(4); }  //WXYZ-wing
+    public bool VWXYZwing( ){  return _UVWXYZwing(5); }  //VWXYZ-wing
+    public bool UVWXYZwing( ){ return _UVWXYZwing(6); }  //UVWXYZ-wing
+
+    private bool _UVWXYZwing( int wsz ){     //simple UVWXYZwing
+        if(FBCX==null) FBCX = pBDL.FindAll(p=&gt;p.FreeBC==wsz);
+        if( FBCX.Count==0 ) return false;
+
+        bool wingF=false;
+        foreach( var P0 in FBCX ){  //focused cell
+            int b0=P0.b;            //focused block
+            foreach( int no in P0.FreeB.IEGet_BtoNo() ){ //focused number
+                int noB=1&lt;&lt;no;
+                Bit81 P0con = (new Bit81(pBDL,noB,FreeBC:2)) & ConnectedCells[P0.rc];
+                Bit81 Pin   = P0con&HouseCells[18+P0.b];
+                
+                Bit81 Pout=null, Pin2=null;
+                for( int dir=0; dir&lt;2; dir++ ){ //dir 0:row 1:col
+                    int rcDir = (dir==0)? P0.r: (9+P0.c);
+                    Pin2 = Pin-HouseCells[rcDir];
+                    if( Pin2.IsZero() ) continue;
+                    Pout = (P0con&HouseCells[rcDir])-HouseCells[18+P0.b];
+                    if( Pin2.Count+Pout.Count != (wsz-1) ) continue;
+
+                    int FreeBin  = Pin2.AggregateFreeB(pBDL);
+                    int FreeBout = Pout.AggregateFreeB(pBDL);
+                    if( (FreeBin|FreeBout)!=P0.FreeB ) continue;
+                    Bit81 ELst   = HouseCells[rcDir]&HouseCells[18+P0.b];
+                    ELst.BPReset(P0.rc);
+                    string msg3=&quot;&quot;;
+                    foreach( var E in ELst.IEGet_rc().Select(p=&gt;pBDL[p]) ){
+                        if( (E.FreeB&noB)&gt;0 ){
+                            E.CancelB=noB; wingF=true; 
+                            msg3 += &quot; &quot;+E.rc.ToRCString();
+                        }
+                    }
+                    if(!wingF)  continue;
+                    //--- ...wing fond -------------
+		            .
+		            . (Solution report code)
+		            .
+					return true;
+                }
+            }
+        }
+        return false;
+    }
+}</small></pre>
+	</article><br>
+	
+	<article>
+	<h2 id="XYZWingALS">XYZ-WingALS</h2>
+	<p><a href="#xyzWing">XYZ-Wing</a> is an algorithm of the combination of the axis cell and the bivalue cell.
+		The cell group in the block to be combined and the cell group outside the block form ALS respectively.
+		Therefore, remove the condition of bivalue.
+		XYZ-Wing logic is established even if it is expanded to a combination of the cell serving as the axis,
+		the ALS in the block and the ALS outside the block.<br>
+		The following figure is an image of XYZ-Wing (ALS).
+		When the number X of the cell<strong class="redLarge">*</strong> is true, ALS1 and ALS2 become LockedSet,
+		and the result shows the relationship affecting the candidate number of the axis cell P.
+		When the axis cell P does not contain the noted number X(lower right figure),
+		the cell<strong class="redLarge">*</strong> can	also be at a position where
+		it can relate to all of the target numbers in both ALS.</p>
+		<p style="text-align:center">
+			<img src="images/img44/img44eEng.png" alt="XYZ-WingALS" >
+		</p><br>
+	
+	<p>The establishment conditions and analysis algorithm of XYZ-Wing(ALS) can be configured as follows.
+	<ol style="font-size:medium">
+		<li>Generate all ALS</li>
+		<li>Select axis cell(The number of candidate of the cell is the order)</li>
+		<li>Set the number X(Focused number)</li>
+		<li>Select a row or column of axis cells(explained below in row selection)</li>
+		<li>Select ALS2 that contains X, in the selected row and outside the block</li>
+		<li>Select ALS1 in the block containing the axis.
+			ALS1 contains X and does not include the selected row.</li><br>
+		
+		The ALS1 and ALS2 chosen in this way are in a position that can influence the axis cell. 
+		Also, {Axis cell} ⊂ ({ALS1} ∪ {ALS2}) is a necessary condition (representing an element with {})<br><br>
+
+		<li>Numbers in row in the block(excluding axis cells) can be excluded.</li>
+		<li>And if the axis cell does not include the X as a candidate, outside of focused block and row,
+		it is possible to exclude X relating to all X of ALS1 and ALS2.</li>
+	</ol><br><br>
+	Here is an example of XYZ-Wing (ALS).
+	</p>
+		<img class="imgL" src="images/img44/img44f.png" alt="XYZ-WingALS" style="width: 271px; height: 270px">　
+		<img class="imgL" src="images/img44/img44g.png" alt="XYZ-WingALS" style="width: 271px; height: 270px">
+		<small>
+		<p class="newLine">7.1..9..8.52...19..8...3.574.3.5.......2.1.......3.7.519.7...3..37...68.8..3..9.1<br>
+						   2.9..3..8.17...63..8...6.259.5.6.......3.2.......9.3.114.6...9..53...48.7..4..2.6<br></p></small>
+
+		<h2>XYZ-WingALS C# program</h2>
+		<p>It is an analysis program of XY-WingALS. The above algorithms are encoded in order.<br>
+		</p>
+	<pre class="prettyprint linenums lang-C"><small>public bool XYZwingALS( ){
+	Prepare();
+    if( ALSMan.ALSLst==null || ALSMan.ALSLst.Count&lt;=2 ) return false;
+
+    for( int sz=3; sz&lt;8; sz++ ){
+        if( _XYZwingALSSub(sz) ) return true;
+    }
+    return false;
+}
+
+private bool _XYZwingALSSub( int wsz ){ //simple UVWXYZwing
+    List&lt;UCell&gt; FBCX = pBDL.FindAll(p=&gt;p.FreeBC==wsz);
+    if( FBCX.Count==0 ) return false;
+
+    foreach( var P0 in FBCX ){  //Forcused Cell
+        int b0=P0.b;            //Forcused Block
+
+        for( int no=0; no&lt;9; no++ ){
+            int noB=1&lt;&lt;no;
+
+            Bit81 P0con = (new Bit81(pBDL,noB)) & ConnectedCells[P0.rc];
+            Bit81 Pin   = P0con&HouseCells[18+b0];
+
+            for( int dir=0; dir&lt;2; dir++ ){ //dir 0:row 1:col
+                int rcDir = (dir==0)? P0.r: (9+P0.c);
+                Bit81 Pin2 = Pin-HouseCells[rcDir];　//ALS candidate position in the block
+                if( Pin2.IsZero() ) continue;
+
+                Bit81 Pout = (P0con&HouseCells[rcDir])-HouseCells[18+P0.b];//ALS candidate position outside the block
+                foreach( var ALSout in ALSMan.IEGetCellInHouse(1,noB,Pout,rcDir) ){ //ALS out of Forcused Block
+                    int FreeBOut2 = ALSout.FreeB.DifSet(noB);
+                    Bit81 EOut=new Bit81();　    //#no existence position(outer-ALS)
+                    foreach( var P in ALSout.UCellLst.Where(p=&gt;(p.FreeB&noB)&gt;0) ) EOut.BPSet(P.rc);
+
+                    foreach( var ALSin in ALSMan.IEGetCellInHouse(1,noB,Pin2,18+b0) ){
+                        int FreeBin2 = ALSin.FreeB.DifSet(noB);
+
+                        Bit81 Ein=new Bit81();   //#no existence position(inner-ALS)
+                        foreach( var P in ALSin.UCellLst.Where(p=&gt;(p.FreeB&noB)&gt;0) ) Ein.BPSet(P.rc);
+
+                        int Cover= P0.FreeB.DifSet(ALSout.FreeB|ALSin.FreeB);
+                        if( Cover!=0 ) continue; //Numbers in inner-ALS and outer-ALS cover numbers in the Forcused cell
+                        
+                        Bit81 Epat= EOut|Ein; //Cells covered by excluded Cells&Number
+                        if( Epat.IsZero() ) continue;
+                        bool SolFond=false;
+                        string msg3=&quot;&quot;;
+
+                        int FreeBin3 = P0.FreeB.DifSet(FreeBOut2|FreeBin2); 
+                        foreach( var E in pBDL.Where(p=&gt;(p.FreeB&noB)&gt;0) ){
+                            if( E.rc==P0.rc || Pout.IsHit(E.rc) || Pin2.IsHit(E.rc) )  continue;
+                            if( !(Epat-ConnectedCells[E.rc]).IsZero() )  continue;
+                            if( FreeBin3&gt;0 && !ConnectedCells[E.rc].IsHit(P0.rc) )  continue;
+                            E.CancelB=noB; SolFond=true;
+                            msg3 += &quot; &quot;+E.rc.ToRCString();
+                        }
+
+                        if(SolFond){
+                            SolCode=2;     
+                            string[] xyzWingName={ &quot;XYZ-Wing&quot;,&quot;WXYZ-Wing&quot;,&quot;VWXYZ-Wing&quot;,&quot;UVWXYZ-Wing&quot;};
+                            string SolMsg = xyzWingName[wsz-3]+&quot;(ALS)&quot;;
+
+                            if(SolInfoB){
+                                P0.SetNoBBgColor(P0.FreeB,AttCr,SolBkCr2);
+                                foreach( var P in ALSin.UCellLst  ) P.SetNoBBgColor(P.FreeB,AttCr,SolBkCr);
+                                foreach( var P in ALSout.UCellLst ) P.SetNoBBgColor(P.FreeB,AttCr,SolBkCr);
+
+                                string msg0=&quot; Pivot: &quot;+P0.rc.ToRCString();
+                                string st=&quot;&quot;; foreach( var P in ALSin.UCellLst ) st+=&quot; &quot;+P.rc.ToRCString();
+                                string msg1 = &quot; in: &quot;+st.ToString_SameHouseComp();
+                                st=&quot;&quot;;  foreach( var P in ALSout.UCellLst ) st+=&quot; &quot;+P.rc.ToRCString();
+                                string msg2 = &quot; out: &quot;+st.ToString_SameHouseComp();
+                                st=&quot;&quot;; foreach( var rc in Pin2.IEGet_rc() ) st+=&quot; &quot;+rc.ToRCString();
+
+                                Result = SolMsg+msg0+msg1+msg2;  
+                                ResultLong = SolMsg+&quot;\r&quot;+msg0+ &quot;\r   &quot;+msg1+ &quot;\r  &quot;+msg2+ &quot;\r Eliminated: &quot;+msg3.ToString_SameHouseComp();
+
+                            }
+                            if( !pAnMan.SnapSaveGP(true) )  return true;
+                            foreach( var E in pBDL.Where(p=&gt;(p.FreeB&noB)&gt;0) ) E.CancelB=0;
+                            SolFond=false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}</small></pre>
+						   
+	</article>
+</section>
+	<footer>
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>
