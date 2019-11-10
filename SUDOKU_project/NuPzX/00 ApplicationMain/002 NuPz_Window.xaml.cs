@@ -333,7 +333,14 @@ namespace GNPZ_sdk{
             Console.WriteLine("The current culture is {0}", cul);
             if(cul=="ja-JP") Process.Start("http://csdenp.web.fc2.com");
             else             Process.Start("http://csdenpe.web.fc2.com"); 
-        }               
+        }  
+        
+        private void btnHomePageGitHub_Click( object sender, RoutedEventArgs e ){
+            string cul=Thread.CurrentThread.CurrentCulture.Name;
+            Console.WriteLine("The current culture is {0}", cul);
+            if(cul=="ja-JP") Process.Start("https://gidoo-code.github.io/Sudoku_Solver_Generator_jp");
+            else             Process.Start("https://gidoo-code.github.io/Sudoku_Solver_Generator"); 
+        }  
    
     #region ShortMessage
         public void shortMessage(string st, sysWin.Point pt, Color cr, int tm ){

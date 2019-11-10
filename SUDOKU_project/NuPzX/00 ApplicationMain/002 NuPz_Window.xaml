@@ -100,7 +100,7 @@
         <Image x:Name="PB_GBoard" Width="338" Height="338" Margin="18,108,0,0" Stretch="Fill" VerticalAlignment="Top"
                  HorizontalAlignment="Left" 
                Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/LockedCandidate.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
-       
+
         <!--
                Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/ColorSwatchCircle.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
         
@@ -1498,10 +1498,29 @@
                      Style="{DynamicResource ResourceKey=styleTabItemTop}" 
                      FontFamily="Microsoft NeoGothic" FontSize="11" Background="White" >
                 <Grid Width="515" Margin="0,-1,0,10">
+                    <Label BorderBrush="#FF5C62A0" 
+                        Content="In development" 
+                        FontFamily="MS Mincho" FontSize="12" Foreground="#FFEC1818" HorizontalAlignment="Left" Margin="27,6,0,0" VerticalAlignment="Top" Background="{x:Null}" />
                     <Button x:Name="btnHomePage"
                             Content="{Binding Resources.btnHomePage, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                             FontSize="12" Height="28" HorizontalAlignment="Left" 
-                            Margin="22,24,0,0" VerticalAlignment="Top" Width="100" Click="btnHomePage_Click" Foreground="White" >
+                            Margin="165,24,0,0" VerticalAlignment="Top" Width="100" Click="btnHomePage_Click" Foreground="White" >
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFC1B5B5" Offset="0" />
+                                <GradientStop Color="#FF161D6C" Offset="0.472" />
+                                <GradientStop Color="Black" Offset="1" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Label x:Name="lblPuzzle_Copy" 
+            Content="or"
+            FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" Margin="0,31,355,0" 
+            VerticalAlignment="Top"  />
+                    <Button x:Name="btnHomePageGitHub"
+                        Content="GitHub HomePage"
+                        FontSize="12" Height="28" HorizontalAlignment="Left" 
+                        Margin="19,24,0,0" VerticalAlignment="Top" Width="110" Click="btnHomePageGitHub_Click" Foreground="White" >
                         <Button.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFC1B5B5" Offset="0" />
