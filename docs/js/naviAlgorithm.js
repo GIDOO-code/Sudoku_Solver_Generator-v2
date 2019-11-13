@@ -3,7 +3,7 @@ function writeNaviAlgorithm(){
 //	html += '<nav>';
 
 	html += '<nav class="naviL">';
-	    html += '<p>Sudoku Algorithm</p>';
+	    html += '<p>Algorithm</p>';
     	html += '<ul id="navigation">';
 			html += '<li><a href="?Single">Single</a>';
 				html += '<ul>';		

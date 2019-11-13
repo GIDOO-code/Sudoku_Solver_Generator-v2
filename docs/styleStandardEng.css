@@ -83,7 +83,7 @@ nav #current a{
 }
 
 .naviL {
-	position:: fixed;
+/*	position: fixed; */
     display: block;
 	background-color: white;
 }
