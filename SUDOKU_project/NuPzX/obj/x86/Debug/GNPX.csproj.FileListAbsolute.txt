@@ -204,3 +204,11 @@ E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x8
 E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Debug\ja-JP\GNPXEx.resources.dll
 E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Debug\GNPXEx.exe
 E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Debug\GNPXEx.pdb
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\Sudoku_App\GNPXEx.exe.config
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\Sudoku_App\GNPXEx.exe
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\Sudoku_App\GNPXEx.pdb
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\Sudoku_App\ja-JP\GNPXEx.resources.dll
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\Sudoku_App\GNPXEx.exe.config
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\Sudoku_App\GNPXEx.exe
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\Sudoku_App\GNPXEx.pdb
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\Sudoku_App\ja-JP\GNPXEx.resources.dll
