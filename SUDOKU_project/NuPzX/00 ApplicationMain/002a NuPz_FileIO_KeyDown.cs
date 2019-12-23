@@ -109,7 +109,7 @@ namespace GNPZ_sdk{
                 string st=(string)Clipboard.GetData(DataFormats.Text);
                 Clipboard.Clear();
                 if( st==null || st.Length<81 ) return ;
-                var UP=GNP00.SDK_ToUProblem(st,saveF:true); 
+                var UP=GNP00.SDK_ToUPuzzle(st,saveF:true); 
                 if( UP==null) return;
                 GNP00.CurrentPrbNo=999999999;//GNP00.SDKProbLst.Count-1
                 _SetScreenProblem();

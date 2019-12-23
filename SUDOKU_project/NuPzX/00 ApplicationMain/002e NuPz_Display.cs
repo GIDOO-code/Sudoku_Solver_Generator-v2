@@ -153,7 +153,7 @@ namespace GNPZ_sdk{
             if(GNP00.GSmode=="DigRecogCmp" || GNP00.GSmode=="DigRecogCancel"){
                 if(GNP00.SDK81!=null){
                     GNP00.CurrentPrbNo=999999999;
-                    GPML=GNP00.SDK_ToUProblem(GNP00.SDK81,saveF:true);
+                    GPML=GNP00.SDK_ToUPuzzle(GNP00.SDK81,saveF:true);
                     GNP00.CurrentPrbNo=GPML.ID;     //20180731
                 }
                 displayTimer.Stop();
@@ -193,7 +193,7 @@ namespace GNPZ_sdk{
                 if(nn>9) nn=0;
                 st += st.ToString();
             }
-            UPuzzle UP=GNP00.SDK_ToUProblem(st,saveF:true); 
+            UPuzzle UP=GNP00.SDK_ToUPuzzle(st,saveF:true); 
             return UP;
         }
         private RenderTargetBitmap bmpPD = new RenderTargetBitmap(176,176, 96,96, PixelFormats.Default);//176=18*9+2*4+1*6        
