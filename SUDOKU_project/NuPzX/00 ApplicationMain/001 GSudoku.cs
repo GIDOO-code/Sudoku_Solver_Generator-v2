@@ -32,9 +32,6 @@ namespace GNPZ_sdk{
         
         public SDK_Ctrl         SDKCntrl;           //Problem Generator
         public GNPZ_Engin       GNPX_Eng;           //Analysis Engine
-        
-//        private string          fName="LMparameter.txt";
-//      public sdkFrameRecgV3Man SDKRecgMan;
 
         public string           SDK_MethodsFileName = "SDK_Methods_V2.txt";
 
@@ -215,7 +212,7 @@ namespace GNPZ_sdk{
                             }
                             else if(nc>=3){ difLvl=1; name=eLst[2]; }
 
-                            string st = eLst[0].Replace(".", "0").Replace(" ", "");
+                            string st = eLst[0].Replace(".", "0").Replace("-", "0").Replace(" ", "");
                             List<UCell> BDLa=_stringToBDL(st);
                             int ID=SDKProbLst.Count; 
 
@@ -261,16 +258,17 @@ namespace GNPZ_sdk{
             SDKProbLst.ForEach(P=>P.ID=(ID++));
             CurrentPrbNo=(ID-1);
         }
-        public UPuzzle SDK_ToUProblem( int[] SDK81, string name="", int difLvl=0, bool saveF=false ){
+        public UPuzzle SDK_ToUPuzzle( int[] SDK81, string name="", int difLvl=0, bool saveF=false ){
+            if(SDK81==null) return null;
             string st="";
             foreach( var p in SDK81 ){ 
                 if(p>9) st += "0";
                 else st += (p<=9)? p.ToString(): ".";
             }
-            var UP=SDK_ToUProblem( st, name, difLvl, saveF);
+            var UP=SDK_ToUPuzzle( st, name, difLvl, saveF);
             return UP;
         }
-        public UPuzzle SDK_ToUProblem( string st, string name="", int difLvl=0, bool saveF=false ){
+        public UPuzzle SDK_ToUPuzzle( string st, string name="", int difLvl=0, bool saveF=false ){
             List<UCell> B=_stringToBDL(st);
             if(B==null)  return null;
             var UP=new UPuzzle(999999999,B,name,difLvl);
@@ -279,7 +277,7 @@ namespace GNPZ_sdk{
         }   
 
         public List<UCell> _stringToBDL( string stOrg ){
-            string st = stOrg.Replace(".", "0").Replace(" ", "");
+            string st = stOrg.Replace(".", "0").Replace("-", "0").Replace(" ", "");
             try{               
                 List<UCell> B = new List<UCell>();
                 int rc=0;
