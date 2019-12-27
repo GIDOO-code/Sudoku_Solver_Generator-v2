@@ -11,5 +11,5 @@
    GeneralLogic.
 There are also functions for transposed transformation of Sudoku problems, standardization and ordering of Sudoku problems.
 The algorithm is explained on the HTML page. <br>
-https://gidoo-code.github.io/Sudoku_Solver_Generator/index.html
+https://gidoo-code.github.io/Sudoku_Solver_Generator/index.html<br>
 https://gidoo-code.github.io/Sudoku_Solver_Generator/page2.html
