@@ -605,4 +605,8 @@
     <value>多重候補を省く</value>
     <comment>Omit multiple candidates</comment>
   </data>
+  <data name="chbWhiteBack" xml:space="preserve">
+    <value>白背景</value>
+    <comment>White Back</comment>
+  </data>
 </root>

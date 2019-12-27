@@ -609,4 +609,8 @@
     <value>Method is set by Analysis / Method</value>
     <comment>Method is set by Analysis / Method</comment>
   </data>
+  <data name="chbWhiteBack" xml:space="preserve">
+    <value>White Back</value>
+    <comment>White Back</comment>
+  </data>
 </root>

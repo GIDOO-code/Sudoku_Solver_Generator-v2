@@ -99,19 +99,24 @@ namespace GNPZ_sdk{
             this.pColorDic = GNPXApp000.ColorDic;
         }
 
-        public void GBoardPaint( RenderTargetBitmap bmp, List<UCell> qBDL, string GSmode="", bool sNoAssist=false ){
-            if( qBDL==null )  return;
+        public void GBoardPaint( RenderTargetBitmap bmp, List<UCell> qBDL, string GSmodeX="", bool sNoAssist=false, bool whiteBack=false ){
+            if(qBDL==null || bmp==null)  return;
 
             int   LWid  = pGNP00.lineWidth;
             int   CSiz  = pGNP00.cellSize;
             int   CSizP = CSiz+LWid;
 
+            Brush brBL = new SolidColorBrush(pColorDic["BoardLine"]);
             Brush brBoad = new SolidColorBrush(pColorDic["Board"]);
             Brush brFNo  = new SolidColorBrush(pColorDic["CellForeNo"]);
             Brush brPNo  = new SolidColorBrush(pColorDic["CellBkgdPNo"]);    
             Brush brMNo  = new SolidColorBrush(pColorDic["CellBkgdMNo"]);    
-            Brush brZNo  = new SolidColorBrush(pColorDic["CellBkgdZNo"]);    
-          
+            Brush brZNo  = new SolidColorBrush(pColorDic["CellBkgdZNo"]); 
+            if(whiteBack){
+                brBL=brFNo = Brushes.Black; 
+                brBoad=brPNo=brMNo=brZNo = Brushes.White;
+            }
+
             //ＭＳ 明朝 平成明朝 ＭＳ　ゴシック
             GFont gFnt32 = new GFont( "Courier", 32, FontWeights.DemiBold, FontStyles.Normal );
             GFormattedText GF32 = new GFormattedText( gFnt32 );           
@@ -142,7 +147,7 @@ namespace GNPZ_sdk{
                     }
                        
                     //Unsolved
-                    if( sNoAssist ){
+                    if(sNoAssist){
                         foreach( UCell P in qBDL.Where(p=>p.No==0) ){
                             int r=P.r, c=P.c;
                             pt.X = LWid + c*CSizP + (c/3);
@@ -157,7 +162,7 @@ namespace GNPZ_sdk{
                 }
 
               #region Draw line on board
-                Brush brBL = new SolidColorBrush(pColorDic["BoardLine"]);
+
                 Pen   pen, pen1=new Pen(brBL,1), pen2=new Pen(brBL,2);               
                 Point ptS, ptE;
                 int hh=1;

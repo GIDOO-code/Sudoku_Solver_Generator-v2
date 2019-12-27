@@ -41,6 +41,7 @@ namespace GNPZ_sdk{
             if( GNP00.AnalyzerMode=="MultiSolve" && __DispMode!="Complated" )  return;
             try{
                 UPuzzle currentP = GPML?? pGP;
+                if(currentP==null) return;
 
                 lblUnderAnalysis.Visibility = (GNP00.GSmode=="tabASolve")? Visibility.Visible: Visibility.Hidden; 
                 Lbl_onAnalyzerM.Visibility = Visibility.Visible; 
@@ -157,15 +158,11 @@ namespace GNPZ_sdk{
                     GNP00.CurrentPrbNo=GPML.ID;     //20180731
                 }
                 displayTimer.Stop();
-            /*
-                btnRecog.Content="Input";
-                bdbtnRecog.BorderBrush=Brushes.Blue;
-                cameraMessageBox.Content = (GNP00.GSmode=="DigRecogCmp")? "Fixed": "Canceled";
-                cameraMessageBox.Foreground = Brushes.LightBlue;
-            */
+
                 _SetScreenProblem();
                 GNP00.GSmode = "tabACreate";
             }
+//            else{ bdrCamera.BorderBrush=Brushes.Orange;}
 /*
             bool? B=SDK_Ctrl.paraSearching;
             if(B!=null && !(bool)B){
@@ -175,6 +172,7 @@ namespace GNPZ_sdk{
             }
 */
             switch(GNP00.GSmode){
+                case "DigRecog":
                 case "DigRecogTry":
                 case "tabACreate": _Display_CreateProblem(); break;
 
@@ -320,14 +318,17 @@ namespace GNPZ_sdk{
  
         private void btnCopyBitMap_Click( object sender, RoutedEventArgs e ){
             try{
-                Clipboard.SetData(DataFormats.Bitmap,BitmapFrame.Create(bmpGZero));
+                var bmf = _CreateBitmapImage();
+                Clipboard.SetData(DataFormats.Bitmap,bmf);
             }
             catch(System.Runtime.InteropServices.COMException){ /* NOP */ }
             //( clipboard COMException http://shen7113.blog.fc2.com/blog-entry-28.html )
         }
         private void btnSaveBitMap_Click( object sender, RoutedEventArgs e ){
             BitmapEncoder enc = new PngBitmapEncoder(); // JpegBitmapEncoder(); BmpBitmapEncoder();
-            BitmapFrame bmf = BitmapFrame.Create(bmpGZero);
+          //BitmapFrame bmf = BitmapFrame.Create(bmpGZero); //#####
+            var bmp = _CreateBitmapImage();
+            var bmf = BitmapFrame.Create(bmp);
             enc.Frames.Add(bmf);
             try {
                 Clipboard.SetData(DataFormats.Bitmap,bmf);
@@ -339,6 +340,14 @@ namespace GNPZ_sdk{
             using( Stream stream = File.Create(pRes.fldSuDoKuImages+"/"+fName) ){
                 enc.Save(stream);
             }    
+        }
+
+        private RenderTargetBitmap _CreateBitmapImage(){
+            bool sWhiteBack = (bool)chbWhiteBack.IsChecked;
+            if(!sWhiteBack) return bmpGZero;
+            var bmpGZeroW = new RenderTargetBitmap((int)PB_GBoard.Width,(int)PB_GBoard.Height, 96,96, PixelFormats.Default);
+            SDKGrp.GBoardPaint( bmpGZeroW, pGP.BDL, "tabACreate", whiteBack:true );
+            return bmpGZeroW;
         }
     #endregion display
     }

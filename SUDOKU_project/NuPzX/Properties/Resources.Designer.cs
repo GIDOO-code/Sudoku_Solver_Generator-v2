@@ -457,6 +457,15 @@ namespace GNPZ_sdk.Properties {
         }
         
         /// <summary>
+        ///   White Back に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string chbWhiteBack {
+            get {
+                return ResourceManager.GetString("chbWhiteBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Puzzle File に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string filePuzzleFile {

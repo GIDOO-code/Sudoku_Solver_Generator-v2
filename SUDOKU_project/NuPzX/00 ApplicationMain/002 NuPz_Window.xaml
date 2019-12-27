@@ -1041,6 +1041,11 @@
                               IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MS Mincho" VerticalContentAlignment="Center" Margin="216,275,0,116" 
                               Checked="chbSetAnswer_Checked" Unchecked="chbSetAnswer_Checked" Height="20" />
                     <Label x:Name="lblProcessorCount" BorderBrush="#FF5C62A0" Content="ProcessorCount:" FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="84,178,0,0" VerticalAlignment="Top" />
+                    <CheckBox x:Name="chbWhiteBack" 
+                        Content="{Binding Resources.chbWhiteBack, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                        Background="White" Foreground="White" 
+                        IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MS Mincho" VerticalContentAlignment="Center" Margin="216,304,0,89" 
+                        Height="20" />
                     <!--
                     <Button Content="Copy" FontFamily="MS Gothic" Foreground="White" Height="25" HorizontalAlignment="Left" Margin="58,268,0,0" x:Name="rcbCopy" VerticalAlignment="Top" Width="51" Style="{Binding}" Click="rcbCopy_Click">
                         <Button.Background>
