@@ -266,6 +266,7 @@ namespace GNPZ_sdk{
         private void  MultiLangage_JP_Click(Object sender,RoutedEventArgs e){
             ResourceService.Current.ChangeCulture("ja-JP");
             txtCopyrightDisclaimer.Text = CopyrightJP;
+            bruMoveTimer.Start();
         }
         private void  btnMultiLangage_Click(object sender, RoutedEventArgs e){
             ResourceService.Current.ChangeCulture("en");
@@ -275,6 +276,7 @@ namespace GNPZ_sdk{
         private void  cmbLanguageLst_SelectionChanged(Object sender,SelectionChangedEventArgs e){
             string lng=(string)cmbLanguageLst.SelectedValue;
             ResourceService.Current.ChangeCulture(lng);
+            bruMoveTimer.Start();
         }
         public object Culture{ get{ return pRes.Culture; } }
 
