@@ -9,6 +9,6 @@
    SueDeCoq, (Multi)Coloring,
    ALS-Wing, ALS-XZ, ALS-Chain,
    (ALS)DeathBlossom(Ext.), (Grouped)NiceLoop, ForceChain and
-   GeneralLogic.
+   GeneralLogic. 
 There are also functions for transposed transformation of Sudoku problems, standardization and ordering of Sudoku problems.
 The algorithm is explained on the HTML page.
