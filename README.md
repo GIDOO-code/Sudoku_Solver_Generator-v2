@@ -1,5 +1,6 @@
 # Sudoku_Solver_Generator
-![GNPX](/images/GNPX_start.PNG)
+![GNPX](/images/GNPX_start.png)
+
  Sudoku analysis and generation C# program.
  The only algorithm used is non-backtracking.
  The algorithm used is
@@ -10,5 +11,8 @@
    ALS-Wing, ALS-XZ, ALS-Chain,
    (ALS)DeathBlossom(Ext.), (Grouped)NiceLoop, ForceChain and
    GeneralLogic. 
-There are also functions for transposed transformation of Sudoku problems, standardization and ordering of Sudoku problems.
-The algorithm is explained on the HTML page.
+There are also functions for transposed transformation of Sudoku problems, standardization and ordering of Sudoku problems.  
+
+The algorithm is explained on the HTML page.  
+https://gidoo-code.github.io/Sudoku_Solver_Generator/  
+https://gidoo-code.github.io/Sudoku_Solver_Generator_jp/
