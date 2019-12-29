@@ -1,7 +1,8 @@
 # Sudoku_Solver_Generator
- Sudoku analysis and generation C# program. 
+![GNPX](/images/GNPX_start.PNG)
+ Sudoku analysis and generation C# program.
  The only algorithm used is non-backtracking.
- The algorithm used is 
+ The algorithm used is
    Single, LockedCandidate, (hidden)LockedSet(2D-7D),
    (Finned)(Franken/Mutant/Kraken)Fish(2D-7D),
    Skyscraper, EmptyRectangle, XY-Wing, W-Wing, RemotePair, XChain, XYChain,
@@ -10,4 +11,4 @@
    (ALS)DeathBlossom(Ext.), (Grouped)NiceLoop, ForceChain and
    GeneralLogic.
 There are also functions for transposed transformation of Sudoku problems, standardization and ordering of Sudoku problems.
-The algorithm is explained on the HTML page. 
+The algorithm is explained on the HTML page.
