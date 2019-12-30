@@ -18,3 +18,4 @@ https://gidoo-code.github.io/Sudoku_Solver_Generator/
 https://gidoo-code.github.io/Sudoku_Solver_Generator_jp/
 
 # Click here for version "with Camera Shooting"
+https://github.com/GIDOO-code/Sudoku_Solver_Generator_withCamera
