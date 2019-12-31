@@ -5,7 +5,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <StartWorkingDirectory>E:\◆◆数独集合体\■■SuDoKu20 English\SuDoKu2019 July Develop\</StartWorkingDirectory>
+    <StartWorkingDirectory>..\SUDOKU_App\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup>
     <PublishUrlHistory>publish\</PublishUrlHistory>
