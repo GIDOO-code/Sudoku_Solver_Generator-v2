@@ -245,9 +245,9 @@
     <value>Undo</value>
     <comment>Undo</comment>
   </data>
-  <data name="chbDisplayCandidate" xml:space="preserve">
-    <value>Display Candidate</value>
-    <comment>Display Candidate</comment>
+  <data name="chbShowCandidate" xml:space="preserve">
+    <value>Show Candidate</value>
+    <comment>Show Candidate</comment>
   </data>
   <data name="lblEpapsedTimeTS3" xml:space="preserve">
     <value>Elapsed time:</value>

@@ -358,15 +358,6 @@ namespace GNPZ_sdk.Properties {
         }
         
         /// <summary>
-        ///   Display Candidate に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string chbDisplayCandidate {
-            get {
-                return ResourceManager.GetString("chbDisplayCandidate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   File Output on Success に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string chbFileOutputOnSuccess {
@@ -426,6 +417,15 @@ namespace GNPZ_sdk.Properties {
         public static string chbSetAnswer {
             get {
                 return ResourceManager.GetString("chbSetAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Show Candidate に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string chbShowCandidate {
+            get {
+                return ResourceManager.GetString("chbShowCandidate", resourceCulture);
             }
         }
         

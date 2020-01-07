@@ -245,9 +245,9 @@
     <value>戻 す</value>
     <comment>Undo</comment>
   </data>
-  <data name="chbDisplayCandidate" xml:space="preserve">
+  <data name="chbShowCandidate" xml:space="preserve">
     <value>空き数字を表示</value>
-    <comment>Disply Candidate</comment>
+    <comment>Show Candidate</comment>
   </data>
   <data name="lblEpapsedTimeTS3" xml:space="preserve">
     <value>経過時間:</value>

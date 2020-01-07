@@ -135,7 +135,7 @@ namespace GNPZ_sdk{
 
         private void chbAnalyze00_Checked( object sender, RoutedEventArgs e ){
             if( bmpGZero==null )  return;
-            sNoAssist = (bool)chbDisplayCandidate.IsChecked;//chbShowNoUsedDigits
+            sNoAssist = (bool)chbShowCandidate.IsChecked;//chbShowNoUsedDigits
             _SetScreenProblem();
         }
         private void chbAssist01_Checked( object sender, RoutedEventArgs e ){

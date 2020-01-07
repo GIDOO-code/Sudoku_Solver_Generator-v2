@@ -336,8 +336,8 @@
                                         <ColumnDefinition Width="56*"/>
                                         <ColumnDefinition Width="33*"/>
                                     </Grid.ColumnDefinitions>
-                                    <CheckBox x:Name="chbDisplayCandidate"
-                                              Content="{Binding Resources.chbDisplayCandidate, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                    <CheckBox x:Name="chbShowCandidate"
+                                              Content="{Binding Resources.chbShowCandidate, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
                                               Foreground="White" Margin="20,-15,0,0" Background="White"  IsChecked="True" HorizontalAlignment="Left" Checked="chbAnalyze00_Checked" Unchecked="chbAnalyze00_Checked" VerticalAlignment="Center" FontFamily="MS Gothic" Grid.ColumnSpan="3" VerticalContentAlignment="Center" />
                                     <CheckBox x:Name="chbConfirmMultipleCells"
                                               Content="{Binding Resources.chbConfirmMultipleCells, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
@@ -576,8 +576,8 @@
                                     <RowDefinition Height="60*"/>
                                     <RowDefinition Height="60*"/>
                                     <RowDefinition Height="90*"/>
-                                    <RowDefinition Height="60*"/>
-                                    <RowDefinition Height="61*"/>
+                                    <RowDefinition Height="70*"/>
+                                    <RowDefinition Height="51*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.Background>
                                     <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
@@ -618,11 +618,11 @@
                                 <Label x:Name="lblGenLogMaxSize" 
                                        Content="{Binding Resources.lblGenLogMaxSize, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                        FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" Margin="20,39,0,0" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" />
-                                <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="47,39,0,0" MaxValue="10" MinValue="2" x:Name="GenLogMaxSize" Value="3" VerticalAlignment="Top" Width="49" Height="19" Grid.Row="5" Grid.Column="2" NumUDValueChanged="GenLogMaxSize_NumUDValueChanged" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="47,39,0,0" MaxValue="10" MinValue="2" x:Name="GenLogMaxSize" Value="3" VerticalAlignment="Top" Width="49" Height="22" Grid.Row="5" Grid.Column="2" NumUDValueChanged="GenLogMaxSize_NumUDValueChanged" />
                                 <Label x:Name="lblGenLogMaxRank"
                                        Content="{Binding Resources.lblGenLogMaxRank, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                        FontFamily="MS Gothic"  FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" Margin="114,39,0,0" VerticalAlignment="Top" Width="70" Grid.Row="5" Grid.Column="2" Grid.RowSpan="2" />
-                                <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="184,39,0,0" MaxValue="10" MinValue="0" x:Name="GenLogMaxRank"  Value="1" VerticalAlignment="Top" Width="49" Height="19" Grid.Row="5" Grid.Column="2" NumUDValueChanged="GenLogMaxRank_NumUDValueChanged" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="184,39,0,0" MaxValue="10" MinValue="0" x:Name="GenLogMaxRank"  Value="1" VerticalAlignment="Top" Width="49" Height="22" Grid.Row="5" Grid.Column="2" NumUDValueChanged="GenLogMaxRank_NumUDValueChanged" />
                                 <Label x:Name="label44001_Copy2" BorderBrush="#FF5C62A0" 
             Content="In development" 
             FontFamily="MS Mincho" FontSize="12" Foreground="#FFEC1818" HorizontalAlignment="Left" Margin="44,7,0,0" VerticalAlignment="Top" Background="{x:Null}" Grid.Column="2" Grid.Row="5" />
@@ -976,7 +976,7 @@
                     </Button>
                     <Button Content="English" FontFamily="MS Gothic" FontSize="12"  Click="btnMultiLangage_Click"
                 Foreground="White" Height="22" HorizontalAlignment="Left" Margin="206,38,0,0" 
-                x:Name="MultiLangage" VerticalAlignment="Top" Width="56" Style="{Binding}" RenderTransformOrigin="-1.08,0.534">
+                x:Name="MultiLangage" VerticalAlignment="Top" Width="56" Style="{Binding}" >
                         <Button.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="Black" Offset="0.8" />

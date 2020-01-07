@@ -266,12 +266,15 @@ namespace GNPZ_sdk{
         private void  MultiLangage_JP_Click(Object sender,RoutedEventArgs e){
             ResourceService.Current.ChangeCulture("ja-JP");
             txtCopyrightDisclaimer.Text = CopyrightJP;
+            _MethodSelectionMan();
             bruMoveTimer.Start();
         }
         private void  btnMultiLangage_Click(object sender, RoutedEventArgs e){
             ResourceService.Current.ChangeCulture("en");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             txtCopyrightDisclaimer.Text = CopyrightEN;
+            _MethodSelectionMan();
+            bruMoveTimer.Start();
         }
         private void  cmbLanguageLst_SelectionChanged(Object sender,SelectionChangedEventArgs e){
             string lng=(string)cmbLanguageLst.SelectedValue;
@@ -370,7 +373,7 @@ namespace GNPZ_sdk{
             GNP00.GSmode = (string)tb.Name;    //Tab Name -> State mode
 
             switch(GNP00.GSmode){
-                case "tabASolve": sNoAssist = (bool)chbDisplayCandidate.IsChecked; break;
+                case "tabASolve": sNoAssist = (bool)chbShowCandidate.IsChecked; break;
                 case "tabACreate":
                     TabItem tb2=tabAutoManual.SelectedItem as TabItem;
                     if( tb2==null )  return ;
