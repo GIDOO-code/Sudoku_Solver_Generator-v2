@@ -257,9 +257,9 @@
     <value>複数セルを確定</value>
     <comment>Confirm multiple cells</comment>
   </data>
-  <data name="chbDifficultySetting" xml:space="preserve">
+  <data name="chbSetDifficulty" xml:space="preserve">
     <value>難易度設定</value>
-    <comment>Difficulty Setting</comment>
+    <comment>Set Difficulty</comment>
   </data>
   <data name="btnCreateProblemMlt" xml:space="preserve">
     <value>問題作成</value>

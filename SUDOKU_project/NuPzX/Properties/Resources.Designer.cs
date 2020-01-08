@@ -349,15 +349,6 @@ namespace GNPZ_sdk.Properties {
         }
         
         /// <summary>
-        ///   Difficulty Setting に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string chbDifficultySetting {
-            get {
-                return ResourceManager.GetString("chbDifficultySetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   File Output on Success に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string chbFileOutputOnSuccess {
@@ -417,6 +408,15 @@ namespace GNPZ_sdk.Properties {
         public static string chbSetAnswer {
             get {
                 return ResourceManager.GetString("chbSetAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Set Difficulty に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string chbSetDifficulty {
+            get {
+                return ResourceManager.GetString("chbSetDifficulty", resourceCulture);
             }
         }
         

@@ -342,8 +342,8 @@
                                     <CheckBox x:Name="chbConfirmMultipleCells"
                                               Content="{Binding Resources.chbConfirmMultipleCells, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
                                               Background="White" Foreground="White" Margin="20,25,0,-40" IsChecked="True" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Bottom" Grid.ColumnSpan="3" Visibility="Hidden" />
-                                    <CheckBox x:Name="chbDifficultySetting"
-                                              Content="{Binding Resources.chbDifficultySetting, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
+                                    <CheckBox x:Name="chbSetDifficulty"
+                                              Content="{Binding Resources.chbSetDifficulty, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
                                               Background="White" Foreground="White" Margin="20,5,-2,-20"  IsThreeState="False" HorizontalAlignment="Left" IsChecked="True" FontFamily="MS Gothic" Grid.ColumnSpan="3" RenderTransformOrigin="0.549,-0.667" VerticalContentAlignment="Center" IsEnabled="False" />
                                 </Grid>
                                 <Label x:Name="lblAppliedCount"

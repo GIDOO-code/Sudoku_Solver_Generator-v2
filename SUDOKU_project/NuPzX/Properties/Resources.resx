@@ -253,9 +253,9 @@
     <value>Elapsed time:</value>
     <comment>Elapsed time:</comment>
   </data>
-  <data name="chbDifficultySetting" xml:space="preserve">
-    <value>Difficulty Setting</value>
-    <comment>Difficulty Setting</comment>
+  <data name="chbSetDifficulty" xml:space="preserve">
+    <value>Set Difficulty</value>
+    <comment>Set Difficulty</comment>
   </data>
   <data name="chbConfirmMultipleCells" xml:space="preserve">
     <value>Confirm multiple cells</value>

@@ -391,7 +391,7 @@ namespace GNPZ_sdk{
                 AnalyzerMMemo  = nM;
             }
 
-            if(nZ==0 && (bool)chbDifficultySetting.IsChecked){
+            if(nZ==0 && (bool)chbSetDifficulty.IsChecked){
                 string prbMessage;
                 int DifLevel = GNP00.GNPX_Eng.GetDifficultyLevel( out prbMessage );
                 pGP.DifLevel = DifLevel;

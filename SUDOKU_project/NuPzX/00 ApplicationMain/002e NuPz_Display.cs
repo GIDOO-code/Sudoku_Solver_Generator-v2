@@ -250,7 +250,7 @@ namespace GNPZ_sdk{
                     Lbl_onAnalyzerM.Content = pRes.msgAnalysisComplate;
                     Lbl_onAnalyzerM.Foreground = Brushes.LightBlue;  
 
-					if( (bool)chbDifficultySetting.IsChecked ){
+					if( (bool)chbSetDifficulty.IsChecked ){
 						string prbMessage;
 						int DifLevel = GNP00.GNPX_Eng.GetDifficultyLevel( out prbMessage );
 						pGP.DifLevel = DifLevel;
