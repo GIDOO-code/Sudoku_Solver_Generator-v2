@@ -262,8 +262,8 @@
     <comment>Confirm multiple cells</comment>
   </data>
   <data name="btnCreateProblemMlt" xml:space="preserve">
-    <value>Create Problem</value>
-    <comment>Create Problem</comment>
+    <value>Create Puzzle</value>
+    <comment>Create Puzzle</comment>
   </data>
   <data name="btnMultiSolve" xml:space="preserve">
     <value>Multi Solve</value>
@@ -305,9 +305,9 @@
     <value>Method</value>
     <comment>Method</comment>
   </data>
-  <data name="lblNoOfProblems" xml:space="preserve">
-    <value>Problems: </value>
-    <comment>No. of problems:</comment>
+  <data name="lblNoOfPuzzles" xml:space="preserve">
+    <value>Puzzles:</value>
+    <comment>No. of Puzzles:</comment>
   </data>
   <data name="lblNoOfTrials" xml:space="preserve">
     <value>Trials:</value>
@@ -321,7 +321,7 @@
     <value>cum. Trials:</value>
     <comment>cum. Trials:</comment>
   </data>
-  <data name="lblProblemLevel" xml:space="preserve">
+  <data name="lblPuzzleLevel" xml:space="preserve">
     <value>Problem Level:</value>
     <comment>Problem Level</comment>
   </data>

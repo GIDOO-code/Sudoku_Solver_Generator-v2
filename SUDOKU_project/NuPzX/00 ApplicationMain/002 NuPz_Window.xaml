@@ -232,7 +232,7 @@
                                 <Label x:Name="lblStep"
                                        Content="{Binding Resources.lblStep, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
                                        FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,13,62,0" VerticalAlignment="Top" Grid.Column="1" Width="59" HorizontalContentAlignment="Right" />
-                                <TextBlock x:Name="txbStepCC" HorizontalAlignment="Right" TextWrapping="Wrap" Text="0" Width="22" Foreground="White" FontFamily="MS Gothic" FontSize="14" TextAlignment="Center" RenderTransformOrigin="0.727,0.917" Margin="0,18,46,336" Grid.Column="1"/>
+                                <TextBlock x:Name="txbStepCC" HorizontalAlignment="Right" TextWrapping="Wrap" Text="0" Width="22" Foreground="White" FontFamily="MS Gothic" FontSize="14" TextAlignment="Center" Margin="0,18,46,336" Grid.Column="1"/>
                                 <Label x:Name="LblMethod"
                                        Content="{Binding Resources.LblMethod, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
                                        FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="99,134,0,0"  VerticalAlignment="Top" Grid.Column="1" Width="46" />
@@ -344,7 +344,7 @@
                                               Background="White" Foreground="White" Margin="20,25,0,-40" IsChecked="True" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Bottom" Grid.ColumnSpan="3" Visibility="Hidden" />
                                     <CheckBox x:Name="chbSetDifficulty"
                                               Content="{Binding Resources.chbSetDifficulty, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
-                                              Background="White" Foreground="White" Margin="20,5,-2,-20"  IsThreeState="False" HorizontalAlignment="Left" IsChecked="True" FontFamily="MS Gothic" Grid.ColumnSpan="3" RenderTransformOrigin="0.549,-0.667" VerticalContentAlignment="Center" IsEnabled="False" />
+                                              Background="White" Foreground="White" Margin="20,5,-2,-20"  IsThreeState="False" HorizontalAlignment="Left" IsChecked="True" FontFamily="MS Gothic" Grid.ColumnSpan="3" VerticalContentAlignment="Center" IsEnabled="False" />
                                 </Grid>
                                 <Label x:Name="lblAppliedCount"
                                        Content="{Binding Resources.lblAppliedCount, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                              
@@ -386,7 +386,7 @@
                                 <Label x:Name="lblStepM"
                                        Content="{Binding Resources.lblStepM, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
                                        FontSize="12" Foreground="White" Height="23" HorizontalAlignment="Left" Margin="409,6,0,0" VerticalAlignment="Top" Width="57" HorizontalContentAlignment="Right" FontFamily="MS Gothic" />
-                                <TextBlock x:Name="txbStepMCC" HorizontalAlignment="Right" TextWrapping="Wrap" Text="0" Width="22" Foreground="White" FontFamily="MS Gothic" FontSize="14" TextAlignment="Center" RenderTransformOrigin="0.727,0.917" Margin="0,11,35,342"/>
+                                <TextBlock x:Name="txbStepMCC" HorizontalAlignment="Right" TextWrapping="Wrap" Text="0" Width="22" Foreground="White" FontFamily="MS Gothic" FontSize="14" TextAlignment="Center" Margin="0,11,35,342"/>
                                 <Grid Margin="0,204,7,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="148" Grid.Column="2" Height="0"/>
                                 <GroupBox x:Name="gbxMSearchCondition"
                                           Header="{Binding Resources.gbxMSearchCondition, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
@@ -590,7 +590,7 @@
                                        Content="{Binding Resources.lblALSSizeMax, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                        FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Right" Margin="0,16,410,0" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
                                 <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" MaxValue="8" MinValue="1" x:Name="ALSSizeMax" Value="5" VerticalAlignment="Top" Width="49" Height="19" Margin="47,18,0,0" Grid.Row="1" Grid.Column="2" NumUDValueChanged="ALSSizeMax_NumUDValueChanged" />
-                                <Label Content="NiceLoop" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="22" HorizontalAlignment="Left" Margin="0" x:Name="lblNLGroup" VerticalAlignment="Top" RenderTransformOrigin="1.613,0.682" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" />
+                                <Label Content="NiceLoop" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="22" HorizontalAlignment="Left" Margin="0" x:Name="lblNLGroup" VerticalAlignment="Top" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="1" />
                                 <Label x:Name="lblNLMaxSize" 
                                        Content="{Binding Resources.lblNLMaxSize, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" 
                                        FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Right" Margin="0,19,410,0" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Width="70" Grid.ColumnSpan="2" />
@@ -613,7 +613,7 @@
                                 <Label x:Name="Foece1_SolutionDigit" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,46,0,0" VerticalAlignment="Top" Content="All solutions for digit n or for cell" Grid.Row="4" Grid.Column="2" />
                                 <Label x:Name="Force2_ComplateSol" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,61,0,0" VerticalAlignment="Top" Content="Complete solution on board" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" />
                                 <CheckBox Content="ForceChain Cell/House" Foreground="White" Margin="13,18,0,0" x:Name="ForceChainCellHouse" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="1" Checked="ForceChainCellHouse_Checked" Unchecked="ForceChainCellHouse_Checked" Grid.ColumnSpan="2" IsChecked="True" />
-                                <Label Content="GeneralLogic" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="0" x:Name="lblGeneralLogicGroup" VerticalAlignment="Top" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="1" />
+                                <Label Content="General Logic" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="0" x:Name="lblGeneralLogicGroup" VerticalAlignment="Top" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="1" />
                                 <CheckBox Content="GeneralLogic" Foreground="White" Margin="13,22,0,0" x:Name="GeneralLogicOnChbx" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="5" Grid.Column="1" Checked="GeneralLogicOnChbx_Checked" Unchecked="GeneralLogicOnChbx_Checked" Grid.ColumnSpan="2" />
                                 <Label x:Name="lblGenLogMaxSize" 
                                        Content="{Binding Resources.lblGenLogMaxSize, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
@@ -642,11 +642,11 @@
                             <GradientStop Color="#FF65646F" Offset="1" />
                         </LinearGradientBrush>
                     </Grid.Background>
-                    <TabControl Height="395" HorizontalAlignment="Left" Margin="12,7,0,0" x:Name="tabAutoManual" VerticalAlignment="Top" Width="511">
+                    <TabControl Height="395" HorizontalAlignment="Left" Margin="12,7,0,0" x:Name="tabAutoManual" VerticalAlignment="Top" Width="553">
                         <TabItem x:Name="tabManual"
                                  Header="{Binding Resources.tabManual, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                  Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" HorizontalAlignment="Right">
-                            <Grid Background="#FF3D3D52" Height="Auto" Width="507">
+                            <Grid Background="#FF3D3D52" Height="Auto" Width="548">
                                 <CheckBox x:Name="chbShowNoUsedDigits" 
                                           Content="{Binding Resources.chbShowNoUsedDigits, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                 	      FontFamily="MS Mincho" FontSize="12" Foreground="White"	HorizontalAlignment="Left" VerticalAlignment="Center" 
@@ -708,33 +708,37 @@
                         <TabItem x:Name="tabAuto" 
                                  Header="{Binding Resources.tabAuto, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                  Style="{DynamicResource ResourceKey=styleTabItemTopSmall}" Width="40" FontSize="12">
-                            <Grid Width="503" HorizontalAlignment="Right">
+                            <Grid Width="549" HorizontalAlignment="Right">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="94*"/>
+                                    <ColumnDefinition Width="455*"/>
+                                </Grid.ColumnDefinitions>
                                 <Grid.Background>
                                     <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                                         <GradientStop Color="#FF3E3838" Offset="0" />
                                         <GradientStop Color="#FF1E1C38" Offset="1" />
                                     </LinearGradientBrush>
                                 </Grid.Background>
-                                <Label x:Name="lblNoOfProblems" 
-                                       Content="{Binding Resources.lblNoOfProblems, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                
-                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" HorizontalAlignment="Right" Margin="0,28,395,0" VerticalAlignment="Top" />
+                                <Label x:Name="lblNoOfPuzzles" 
+                                       Content="{Binding Resources.lblNoOfPuzzles, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"                                
+                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" HorizontalAlignment="Right" Margin="0,26,426,0" VerticalAlignment="Top" Height="22" Grid.ColumnSpan="2" />
                                 <Label x:Name="lblNoOfProblems1" 
                                        Content="____" 
-                                       FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Right" Margin="0,28,371,0" VerticalAlignment="Top" />
+                                       FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Right" Margin="0,28,398,0" VerticalAlignment="Top" Grid.Column="1" Height="22" />
                                 <Label 
                                     Content="/" 
-                                    FontFamily="MS Gothic" FontWeight="Normal" Foreground="White" HorizontalAlignment="Left" Margin="139,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.75,1.227" />
+                                    FontFamily="MS Gothic" FontWeight="Normal" Foreground="White" HorizontalAlignment="Left" Margin="55,27,0,0" VerticalAlignment="Top" Grid.Column="1" Height="22" Width="16" />
                                 <TextBox x:Name="gamGen05"
-                                       Background="#FF37378F" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="18" HorizontalAlignment="Left" Margin="153,30,0,317" Text="10" TextAlignment="Center" VerticalAlignment="Center" Width="52" DataContext="{Binding}" VerticalContentAlignment="Center" />
-                                <Label x:Name="lblProblemLevel"
-                                       Content="{Binding Resources.lblProblemLevel, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" Height="28" HorizontalAlignment="Right" Margin="0,55,395,0" VerticalAlignment="Top" />
-                                <GIDOO_space:NumericUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="21" HorizontalAlignment="Left" MaxValue="20" MinValue="1" x:Name="gamGen01"  Value="1" VerticalAlignment="Top" Width="40" Margin="111,54,0,0" NumUDValueChanged="gamGen01_NumUDValueChanged" />
-                                <Label Content="～" FontFamily="MS Gothic" FontSize="12" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="151,54,0,0" x:Name="label32" VerticalAlignment="Top" />
-                                <GIDOO_space:NumericUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="21" HorizontalAlignment="Left" Margin="174,54,0,0" MaxValue="20" MinValue="1" x:Name="gamGen02" Value="3" VerticalAlignment="Top" Width="40" NumUDValueChanged="gamGen02_NumUDValueChanged" />
+                                       Background="#FF37378F" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="18" HorizontalAlignment="Left" Margin="71,30,0,317" Text="10" TextAlignment="Center" VerticalAlignment="Center" Width="52" DataContext="{Binding}" VerticalContentAlignment="Center" Grid.Column="1" />
+                                <Label x:Name="lblPuzzleLevel"
+                                       Content="{Binding Resources.lblPuzzleLevel, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
+                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" Height="28" HorizontalAlignment="Right" Margin="0,54,426,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="21" HorizontalAlignment="Left" MaxValue="20" MinValue="1" x:Name="gamGen01"  Value="1" VerticalAlignment="Top" Width="40" Margin="29,54,0,0" NumUDValueChanged="gamGen01_NumUDValueChanged" Grid.Column="1" />
+                                <Label Content="～" FontFamily="MS Gothic" FontSize="12" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="69,54,0,0" x:Name="label32" VerticalAlignment="Top" Grid.Column="1" Height="22" Width="22" />
+                                <GIDOO_space:NumericUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="21" HorizontalAlignment="Left" Margin="92,54,0,0" MaxValue="20" MinValue="1" x:Name="gamGen02" Value="3" VerticalAlignment="Top" Width="40" NumUDValueChanged="gamGen02_NumUDValueChanged" Grid.Column="1" />
                                 <Button x:Name="btnCreateProblemMlt"
                                     Content="{Binding Resources.btnCreateProblemMlt, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                    FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="58,79,0,0" Width="115" Click="btnP13Start_Click" Height="25" VerticalAlignment="Top">
+                                    FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="58,79,0,0" Width="115" Click="btnP13Start_Click" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2">
                                     <Button.Background>
                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                             <GradientStop Color="Black" Offset="0.8" />
@@ -746,26 +750,26 @@
 
                                 <CheckBox x:Name="chbChangeBasicPattenOnSuccess"
                                           Content="{Binding Resources.chbChangeBasicPattenOnSuccess, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                          FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Left" Margin="27,123,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsChecked="True" Width="178" Height="17" />
+                                          FontFamily="MS Gothic" Foreground="White" HorizontalAlignment="Left" Margin="27,123,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsChecked="True" Height="17" Grid.ColumnSpan="2" />
                                 <CheckBox x:Name="chbRandomizingNumbers"     
                                           Content="{Binding Resources.chbRandomizingNumbers, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                          BorderBrush="#FF5C62A0" Foreground="White" IsChecked="True" VerticalAlignment="Top" Margin="27,140,0,0" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Center" Width="164" />
+                                          BorderBrush="#FF5C62A0" Foreground="White" IsChecked="True" VerticalAlignment="Top" Margin="27,140,0,0" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Height="15" />
                                 <Label x:Name="lblNoOfTrials"
                                        Content="{Binding Resources.lblNoOfTrials, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                       FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" Margin="38,159,0,0" VerticalAlignment="Top" DataContext="{Binding SDtrial}" HorizontalAlignment="Left" Width="64"/>
-                                <TextBlock x:Name="txbNoOfTrials" HorizontalAlignment="Left" Margin="102,165,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic"/>
+                                       FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="22" Margin="0,159,4,0" VerticalAlignment="Top" DataContext="{Binding SDtrial}" HorizontalAlignment="Right"/>
+                                <TextBlock x:Name="txbNoOfTrials" HorizontalAlignment="Left" Margin="3,165,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic" Grid.Column="1"/>
                                 <Label x:Name="lblNoOfTrialsCum" 
                                        Content="{Binding Resources.lblNoOfTrialsCum, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                       FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Right" Margin="0,178,402,0" VerticalAlignment="Top" />
-                                <TextBlock x:Name="txbNoOfTrialsCum" HorizontalAlignment="Left" Margin="102,183,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.486,1.2" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic"/>
+                                       FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Right" Margin="0,178,4,0" VerticalAlignment="Top" Height="22" />
+                                <TextBlock x:Name="txbNoOfTrialsCum" HorizontalAlignment="Left" Margin="3,183,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic" Grid.Column="1"/>
                                 <Label x:Name="lblBasicPattern"
                                        Content="{Binding Resources.lblBasicPattern, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" HorizontalAlignment="Right" Margin="0,197,402,0" VerticalAlignment="Top" DataContext="{Binding SDtrial}"/>
-                                <TextBlock x:Name="txbBasicPattern" HorizontalAlignment="Left" Margin="102,203,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic"/>
+                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" HorizontalAlignment="Right" Margin="0,197,4,0" VerticalAlignment="Top" DataContext="{Binding SDtrial}" Height="22"/>
+                                <TextBlock x:Name="txbBasicPattern" HorizontalAlignment="Left" Margin="3,203,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic" Grid.Column="1"/>
                                 <Label x:Name="lblEpapsedTimeTS3"
                                        Content="{Binding Resources.lblEpapsedTimeTS3, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" Height="22" HorizontalAlignment="Right" Margin="0,215,402,0" VerticalAlignment="Top" />
-                                <TextBlock x:Name="txbEpapsedTimeTS3" HorizontalAlignment="Left" Margin="102,220,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.486,1.2" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic"/>
+                                       FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" Height="22" HorizontalAlignment="Right" Margin="0,215,4,0" VerticalAlignment="Top" />
+                                <TextBlock x:Name="txbEpapsedTimeTS3" HorizontalAlignment="Left" Margin="3,220,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="16" FontSize="12" Foreground="White" FontFamily="MS Gothic" Grid.Column="1"/>
                                 <!--
                                 <CheckBox x:Name="chbFileOutputOnSuccess"
                                           Content="{Binding Resources.chbFileOutputOnSuccess, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
@@ -773,35 +777,35 @@
            -->
                                 <Label x:Name="lblMethodSetting" 
                                        Content="{Binding Resources.lblMethodSetting, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                       FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="6,291,0,0" VerticalAlignment="Top" Width="220" />
+                                       FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="6,291,0,0" VerticalAlignment="Top" Width="220" Grid.ColumnSpan="2" Height="22" />
                                 <Label x:Name="lblResourceMemory"
                                        Content="＿＿＿" 
-                                       FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="11,309,0,0" VerticalAlignment="Top" Height="22" />
+                                       FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="11,309,0,0" VerticalAlignment="Top" Height="22" Width="46" />
                                 <Label x:Name="lblSolutionLevel"
                                     Content="＿＿＿" 
-                                    FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="11,323,0,0" VerticalAlignment="Top" Height="22" />
-                                <Grid Margin="246,5,0,0" Width="250" HorizontalAlignment="Left">
+                                    FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="11,326,0,0" VerticalAlignment="Top" Height="22" Width="46" />
+                                <Grid Margin="164,5,-12,0" Width="303" HorizontalAlignment="Left" Grid.Column="1">
                                     <Label x:Name="lblPattern" Background="{x:Null}" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="7,8,0,0" VerticalAlignment="Top" Width="64" Height="22" 
                                            Content="{Binding Resources.lblPattern, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" />
-                                    <RadioButton x:Name="patSel01" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,11,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic" 
+                                    <RadioButton x:Name="patSel01" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="74,11,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="True" Width="219" VerticalContentAlignment="Center" FontFamily="MS Gothic" 
                                                  Content="{Binding Resources.patSel01, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
-                                    <RadioButton x:Name="patSel02" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,26,0,0" VerticalAlignment="Top" Foreground="White" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                    <RadioButton x:Name="patSel02" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="74,26,0,0" VerticalAlignment="Top" Foreground="White" Width="219" VerticalContentAlignment="Center" FontFamily="MS Gothic"
                                                  Content="{Binding Resources.patSel02, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
-                                    <RadioButton x:Name="patSel03" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,41,0,0" VerticalAlignment="Top" Foreground="White" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                    <RadioButton x:Name="patSel03" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="74,41,0,0" VerticalAlignment="Top" Foreground="White" Width="219" VerticalContentAlignment="Center" FontFamily="MS Gothic"
                                                  Content="{Binding Resources.patSel03, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
-                                    <RadioButton x:Name="patSel04" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,56,0,0" VerticalAlignment="Top" Foreground="White" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                    <RadioButton x:Name="patSel04" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="74,56,0,0" VerticalAlignment="Top" Foreground="White" Width="219" VerticalContentAlignment="Center" FontFamily="MS Gothic"
                                                  Content="{Binding Resources.patSel04, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
-                                    <RadioButton x:Name="patSel05" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,71,0,0" VerticalAlignment="Top" Foreground="White" Width="144" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                    <RadioButton x:Name="patSel05" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="74,71,0,0" VerticalAlignment="Top" Foreground="White" Width="219" VerticalContentAlignment="Center" FontFamily="MS Gothic"
                                                  Content="{Binding Resources.patSel05, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
-                                    <RadioButton x:Name="patSel06" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,86,0,0" VerticalAlignment="Top" Foreground="White" Width="147" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                    <RadioButton x:Name="patSel06" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="74,86,0,0" VerticalAlignment="Top" Foreground="White" Width="219" VerticalContentAlignment="Center" FontFamily="MS Gothic"
                                                  Content="{Binding Resources.patSel06, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
-                                    <RadioButton x:Name="patSel00" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="84,101,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="False" Width="147" VerticalContentAlignment="Center" FontFamily="MS Gothic"
+                                    <RadioButton x:Name="patSel00" GroupName="PatSel" Height="18" HorizontalAlignment="Left" Margin="74,101,0,0" VerticalAlignment="Top" Foreground="White" IsChecked="False" Width="219" VerticalContentAlignment="Center" FontFamily="MS Gothic"
                                                  Content="{Binding Resources.patSel00, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"/>
                                     <Label x:Name="lblMinimum"
                                            Content="{Binding Resources.lblMinimum, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                           FontFamily="MS Gothic" Foreground="White" Margin="0,121,170,0"  VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                           FontFamily="MS Gothic" Foreground="White" Margin="0,121,223,0"  VerticalAlignment="Top" HorizontalAlignment="Right" />
                                     <GIDOO_space:NumericUpDown Background="#FF202040" Foreground="White" Height="21" HorizontalAlignment="Left" Margin="80,122,0,0" MaxValue="50" MinValue="1" x:Name="CellNumMax" Value="25" VerticalAlignment="Top" Width="47" FontFamily="MS Gothic" FontSize="12" />
-                                    <Label Content="...." FontFamily="MS Gothic" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="132,121,0,0" x:Name="labelPattern" VerticalAlignment="Top" Width="109" />
+                                    <Label Content="...." FontFamily="MS Gothic" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="138,121,0,0" x:Name="labelPattern" VerticalAlignment="Top" Width="109" />
                                     <Button x:Name="btnPatternAutoGen"
                                             Content="{Binding Resources.btnPatternAutoGen, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                             FontFamily="MS Gothic" FontSize="10" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="192,181,0,0" VerticalAlignment="Top" Click="btnPatternAutoGen_Click" Width="55" ToolTip="Automatic pattern setting">
@@ -841,18 +845,18 @@
                                     </Button>
                                     <CheckBox x:Name="chbCreateProblemEx2"     
                                     Content="basic pattern"
-                                    BorderBrush="#FF5C62A0" Foreground="White" VerticalAlignment="Top" Margin="117,329,0,0" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Center" Checked="chbCreateProblemEx2_Checked" Unchecked="chbCreateProblemEx2_Unchecked" RenderTransformOrigin="12.827,-12" />
+                                    BorderBrush="#FF5C62A0" Foreground="White" VerticalAlignment="Top" Margin="117,329,0,0" HorizontalAlignment="Left" FontFamily="MS Gothic" VerticalContentAlignment="Center" Checked="chbCreateProblemEx2_Checked" Unchecked="chbCreateProblemEx2_Unchecked" />
                                     <Image x:Name="PB_BasePatDig" 
                                         Width="176" Height="176"  Margin="8,145,0,0" OpacityMask="#FF73ACE1" 
                                         HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="2"
                                         MouseDown="PB_pattern_MouseDown" />
                                 </Grid>
-                                <Rectangle Fill="#FFB4BACB" HorizontalAlignment="Left" Height="321" Margin="239,21,0,0" Stroke="#FFB4BACB" VerticalAlignment="Top" Width="2"/>
-                                <Grid x:Name="gridExhaustiveSearch" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="190" Margin="32,241,0,0">
+                                <Rectangle Fill="#FFB4BACB" HorizontalAlignment="Left" Height="321" Margin="157,21,0,0" Stroke="#FFB4BACB" VerticalAlignment="Top" Width="2" Grid.Column="1"/>
+                                <Grid x:Name="gridExhaustiveSearch" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="214" Margin="32,241,0,0" Grid.ColumnSpan="2">
                                     <Label x:Name="lblAllSearchOption" 
                                            Content="{Binding Resources.lblAllSearchOption, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                            BorderBrush="#FF5C62A0"  FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Height="23" />
-                                    <Label Content="LatinSquare Row" FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" />
+                                    <Label Content="LatinSquare Row" FontFamily="MS Gothic" FontSize="12" FontWeight="Normal" Foreground="White" Height="22" HorizontalAlignment="Left" Margin="8,20,0,0" VerticalAlignment="Top" />
                                     <GIDOO_space:NumericUpDown Background="#FF202040" FontFamily="MS Gothic" FontSize="14" Foreground="White" Height="22" HorizontalAlignment="Left" MaxValue="9" MinValue="1" x:Name="UP_ESRow" Value="6" VerticalAlignment="Top" Width="40" Margin="110,21,0,0" />
                                     <Button x:Name="btnESnxtSucc" Height="20" HorizontalAlignment="Left" Margin="150,22,0,0" 
                                 	    VerticalAlignment="Top" Width="25" Content="▶" Foreground="White" Click="btnESnxtSucc_Click" BorderBrush="#FF2E9BDE" >
@@ -864,7 +868,7 @@
                                             </LinearGradientBrush>
                                         </Button.Background>
                                     </Button>
-                                    <Label Content="In development" FontFamily="MS Mincho" Foreground="#FFE62626" HorizontalAlignment="Left" Margin="95,1,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="10.667" />
+                                    <Label Content="In development" FontFamily="MS Mincho" Foreground="#FFE62626" HorizontalAlignment="Left" Margin="109,1,-4,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="10.667" />
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -993,7 +997,7 @@
                     <TextBox x:Name="randomSeed" Background="#FF000019" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="18" HorizontalAlignment="Center" Margin="168,84,350,0" Text="0" TextAlignment="Center" VerticalAlignment="Top" Width="50" TextChanged="randomSeed_TextChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
                     <Label x:Name="lblSeedSetting" 
                            Content="{Binding Resources.lblSeedSetting, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                           BorderBrush="#FF5C62A0"  FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="214,82,0,0" VerticalAlignment="Top" Width="145" />
+                           BorderBrush="#FF5C62A0"  FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Left" Margin="214,82,0,0" VerticalAlignment="Top" />
                     <Label x:Name="lblPuzzleCreationType" 
                            Content="{Binding Resources.lblPuzzleCreationType, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                            BorderBrush="#FF5C62A0"  FontFamily="MS Mincho" FontSize="12" Foreground="White" Height="26" HorizontalAlignment="Right" Margin="0,106,402,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" />

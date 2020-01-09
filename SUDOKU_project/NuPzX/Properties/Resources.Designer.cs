@@ -70,7 +70,7 @@ namespace GNPZ_sdk.Properties {
         }
         
         /// <summary>
-        ///   Create Problem に類似しているローカライズされた文字列を検索します。
+        ///   Create Puzzle に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string btnCreateProblemMlt {
             get {
@@ -781,11 +781,11 @@ namespace GNPZ_sdk.Properties {
         }
         
         /// <summary>
-        ///   Problems:  に類似しているローカライズされた文字列を検索します。
+        ///   Puzzles: に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string lblNoOfProblems {
+        public static string lblNoOfPuzzles {
             get {
-                return ResourceManager.GetString("lblNoOfProblems", resourceCulture);
+                return ResourceManager.GetString("lblNoOfPuzzles", resourceCulture);
             }
         }
         
@@ -826,15 +826,6 @@ namespace GNPZ_sdk.Properties {
         }
         
         /// <summary>
-        ///   Problem Level: に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string lblProblemLevel {
-            get {
-                return ResourceManager.GetString("lblProblemLevel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Puzzle に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string lblPuzzle {
@@ -858,6 +849,15 @@ namespace GNPZ_sdk.Properties {
         public static string lblPuzzleCreationType2 {
             get {
                 return ResourceManager.GetString("lblPuzzleCreationType2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Problem Level: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string lblPuzzleLevel {
+            get {
+                return ResourceManager.GetString("lblPuzzleLevel", resourceCulture);
             }
         }
         
