@@ -5,7 +5,7 @@
 - The camera version requires several DLLs.
 
 # 1. File
-![](images/manual_10File.png)
+![](images/Manual_10File.png)
 ## OpenPuzzle File
 Load sudoku puzzle file.  
 The file format is a sequence of 81 digits, the puzzle is 1-9, and the space is 0/'.'.  
@@ -31,7 +31,7 @@ Save the current Puzzle to a "favorite" file(SDK_Favorite.txt).
 # 2. Solve
 The left side shows the puzzle analysis status.
  
-![](images/manual_20Solve.png)
+![](images/Manual_20Solve.png)
 
 ## 2.1 Solve / Solve
 ### Solve / Undo / SolveUp / InitialState
@@ -42,7 +42,7 @@ The left side shows the puzzle analysis status.
 A description of the applied algorithm is shown in the box above.  
 Indicates the number of applied algorithms is shown in the box bellow.
 
-![](images/manual_21Solve2.png)
+![](images/Manual_21Solve2.png)
 
 ## 2.2 Solve / MultiSolve
 ### MultiSolve / |< / <
@@ -53,7 +53,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
 - The box below lists the applicable algorithms.  
 - '|<’Returns to the beginning.
 - '<' Returns to the previous state.
-![](images/manual_22MultiSolve.png)
+![](images/Manual_22MultiSolve.png)
 
 ## 2.3 Solve / Method
 ### Method and Order
@@ -81,7 +81,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - Max.Size is the maximum size of Baseset. A puzzle with Size=3 can be solved in about 1 second, while a puzzle with Size=5 takes several minutes.
   - Rank = (Coverset Size) - (Baseset Size). In GNPX, find the solution from 0 to Max.Size.
 
-![](images/manual_24MethodOption.png)
+![](images/Manual_24MethodOption.png)
 
 
 # 3. Create
