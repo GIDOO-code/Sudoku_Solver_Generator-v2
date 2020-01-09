@@ -94,7 +94,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - To delete a cell number, click the number again
 - New, Copy, Clear, Delete is what it means.
 
-![](images/Manual_30CreateManual.PNG)
+![](images/Manual_30CreateManual.png)
 
 ## 3.2 Create / Auto
 - First, make the desired puzzle pattern.
