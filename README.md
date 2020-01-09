@@ -1,3 +1,5 @@
+# new!  brief Manual 
+
 # Sudoku_Solver_Generator
 ![GNPX](/images/GNPX_start.PNG)
 
