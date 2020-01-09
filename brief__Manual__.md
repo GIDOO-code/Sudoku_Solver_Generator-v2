@@ -67,7 +67,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - GeneralLogic is described in more detail on HP.
   - Enable/disable of 'GeneralLogic' and 'ForceChainCell/House' is set by 'Solve/MethodOption'.
 
-![](images/Manual_Method.png)
+![](images/Manual_23Method.png)
 
 ### 2.4 Solve / MethodOption
 - ALS / Max.Size :Maximum size of ALS(Almost Locked Set) used in the algorithm.
@@ -81,7 +81,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - Max.Size is the maximum size of Baseset. A puzzle with Size=3 can be solved in about 1 second, while a puzzle with Size=5 takes several minutes.
   - Rank = (Coverset Size) - (Baseset Size). In GNPX, find the solution from 0 to Max.Size.
 
-![](images/manual_MethodOption.png)
+![](images/manual_24MethodOption.png)
 
 
 # 3. Create
