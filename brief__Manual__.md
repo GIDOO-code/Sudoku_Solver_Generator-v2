@@ -93,6 +93,9 @@ Indicates the number of applied algorithms is shown in the box bellow.
     Image strongly and click again.
   - To delete a cell number, click the number again
 - New, Copy, Clear, Delete is what it means.
+- Sudoku puzzle consisting of 81 digits can be pasted on the left grid.
+  - '.' Is converted to 0, ignoring spaces and CRLF, so it supports puzzles of various formats.
+  - This allows you to enter the numbers that appear on the HP puzzle.
 
 ![](images/Manual_30CreateManual.png)
 
