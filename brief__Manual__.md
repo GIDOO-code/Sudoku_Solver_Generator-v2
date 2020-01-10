@@ -35,7 +35,7 @@ The left side shows the puzzle analysis status.
 
 ## 2.1 Solve / Solve
 ### Solve / Undo / SolveUp / InitialState
-- "Solve" Solve the problem one step. Sometimes the same algorithm determines multiple cell candidates.
+- "Solve" Solve the problem one step. Sometimes the same algorithm determines multiple cells candidates.
 - 'Undo' returns state by one step.
 - "SolveUp" solves to the complete.
 - "InitialState" returns to the initial state  
