@@ -698,10 +698,22 @@
                                         </LinearGradientBrush>
                                     </Button.Background>
                                 </Button>
-                                <Label Width="291" Height="24" Margin="46,146,0,0"
+                                <Label Height="24" Margin="46,146,0,0"
                                        Content="Imagine a number and click on the target cell."
                                        FontFamily="MS Mincho" FontSize="12" Foreground="White" 
                                        HorizontalAlignment="Left"  VerticalAlignment="Top"  />
+                                <Label Height="24" Margin="46,170,0,0"
+                                    Content="When the number appeared different from what you imagined, "
+                                    FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+                                    HorizontalAlignment="Left"  VerticalAlignment="Top"  />
+                                <Label Height="24" Margin="46,184,0,0"
+                                    Content="your image was not enough. "
+                                    FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+                                    HorizontalAlignment="Left"  VerticalAlignment="Top"  />
+                                <Label Height="24" Margin="46,209,0,0"
+                                    Content="Imagine strongly and click again."
+                                    FontFamily="MS Mincho" FontSize="12" Foreground="White" 
+                                    HorizontalAlignment="Left"  VerticalAlignment="Top"  />
                             </Grid>
                         </TabItem>
 

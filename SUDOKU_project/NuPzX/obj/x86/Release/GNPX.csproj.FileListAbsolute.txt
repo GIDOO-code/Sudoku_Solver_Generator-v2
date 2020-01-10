@@ -1,0 +1,42 @@
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_App\GNPXEx.exe.config
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_App\GNPXEx.exe
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_App\GNPXEx.pdb
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_App\ja-JP\GNPXEx.resources.dll
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GNPX.csprojAssemblyReference.cache
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\014 SDK_PuzzlePrinter.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\015 ToGNPXHP.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\017 ExtendResult.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\018 DevelopWin.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\10 Graphics\11 WPFColorPickerLib\ColorPicker.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\Styles\ComboBoxStyle.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\Styles\ListBoxStyle1.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\Styles\ListBoxStyle2.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\Styles\TextBlockStyle.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\Style.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\Styles\DataGridStyle.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\Styles\ListBoxStyle.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\Styles\TabControlStyle.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\002 NuPz_Window.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\014 SDK_PuzzlePrinter.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\015 ToGNPXHP.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\017 ExtendResult.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\018 DevelopWin.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\02 Library Class\G_Control\NumericUpDown.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\10 Graphics\11 WPFColorPickerLib\ColorDialog.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\10 Graphics\11 WPFColorPickerLib\ColorPicker.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\App.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GeneratedInternalTypeHelper.g.cs
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GNPXEx_MarkupCompile.cache
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GNPXEx_MarkupCompile.lref
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\00 ApplicationMain\002 NuPz_Window.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\02 Library Class\G_Control\NumericUpDown.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\10 Graphics\11 WPFColorPickerLib\ColorDialog.baml
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GNPXEx.g.resources
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GNPZ_sdk.Properties.Resources.resources
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GNPZ_sdk.Properties.Resources.ja-JP.resources
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GNPX.csproj.GenerateResource.cache
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\ja-JP\GNPXEx.resources.dll
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GNPXEx.exe
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKU_project\NuPzX\obj\x86\Release\GNPXEx.pdb
