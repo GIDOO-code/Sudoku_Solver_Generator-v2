@@ -35,7 +35,7 @@ The left side shows the puzzle analysis status.
 
 ## 2.1 Solve / Solve
 ### Solve / Undo / SolveUp / InitialState
-- "Solve" Solve the problem one step. Sometimes the same algorithm determines multiple cell candidates.
+- "Solve" Solve the problem one step. Sometimes the same algorithm determines multiple cells candidates.
 - 'Undo' returns state by one step.
 - "SolveUp" solves to the complete.
 - "InitialState" returns to the initial state  
@@ -91,7 +91,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - Click anywhere on the 9x9 grid.
   - When the number appeared different from what you imagined, your image was not enough.
     Image strongly and click again.
-  - To delete a cell number, click the number again
+  - To delete a cell number, click the number again.
 - New, Copy, Clear, Delete is what it means.
 - Sudoku puzzle consisting of 81 digits can be pasted on the left grid.
   - '.' Is converted to 0, ignoring spaces and CRLF, so it supports puzzles of various formats.
@@ -103,9 +103,9 @@ Indicates the number of applied algorithms is shown in the box bellow.
 - First, make the desired puzzle pattern.
   - As for the symmetry, there are point symmetry(2 types) and line symmetry (4 types) and no symmetry.
 - Click on 'Pattern' to generate a Sudoku puzzle pattern.
-   - 'MinMum' is the minimum number of pattern cells.Automatically generate more cells than the minimum number of patterns
+   - 'Minimum' is the minimum number of pattern cells.Automatically generate more cells than the minimum number of patterns.
    - 'cells' is the number of cells in the generated pattern.
-   - Patterns can be created and modified by clicking on cells. At this time, the symmetry specification works.
+   - 'Pattern' can be created and modified by clicking on cells. At this time, the symmetry specification works.
    - Import the pattern from the puzzle displayed on the left grid.
 - Generate puzzles by specifying the number and difficulty of puzzles.
   - Specify basic pattern changes and randomization.
