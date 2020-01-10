@@ -137,8 +137,8 @@ Or manually choose between English and Japanese.
 
 ![](images/Manual_40Option.png)
 
-# 5 Transpose
-## 5.1 Transpose/Transpose
+# 5 Transform
+## 5.1 Transform/Transform
 Transform Sudoku puzzle. The Sudoku puzzle that can be converted below is essentially the same as the original puzzle.
 - Change numbers in Sudoku puzzles.
   - Click the cells in the order to change to 1-9. "Done" is interrupted before reaching 9.  
@@ -154,7 +154,7 @@ Transform Sudoku puzzle. The Sudoku puzzle that can be converted below is essent
 
 ![](images/Manual_50TransposeTranspose.png)
 
-## 5.1 Transpose/Standardization
+## 5.1 Transform/Standardization
 Convert to Sudoku puzzle standard form.  
 - Definition of standard form and conversion method are shown on HP.  
 (In the displayed puzzle, it can be converted to the standard form in 9 steps.)
@@ -165,7 +165,7 @@ Convert to Sudoku puzzle standard form.
 
 ![](images/Manual_51TransposeStandardization.png)
 
-# 5 Transpose
+# 5 Transform
 Jump to HP from the application.
 
 ![](images/Manual_60HomePage.png)
