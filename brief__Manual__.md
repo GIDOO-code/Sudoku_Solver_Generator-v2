@@ -103,9 +103,9 @@ Indicates the number of applied algorithms is shown in the box bellow.
 - First, make the desired puzzle pattern.
   - As for the symmetry, there are point symmetry(2 types) and line symmetry (4 types) and no symmetry.
 - Click on 'Pattern' to generate a Sudoku puzzle pattern.
-   - 'MinMum' is the minimum number of pattern cells.Automatically generate more cells than the minimum number of patterns
+   - 'Minimum' is the minimum number of pattern cells.Automatically generate more cells than the minimum number of patterns.
    - 'cells' is the number of cells in the generated pattern.
-   - Patterns can be created and modified by clicking on cells. At this time, the symmetry specification works.
+   - 'Patterns' can be created and modified by clicking on cells. At this time, the symmetry specification works.
    - Import the pattern from the puzzle displayed on the left grid.
 - Generate puzzles by specifying the number and difficulty of puzzles.
   - Specify basic pattern changes and randomization.
