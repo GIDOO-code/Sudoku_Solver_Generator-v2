@@ -165,7 +165,7 @@ Convert to Sudoku puzzle standard form.
 
 ![](images/Manual_51TransposeStandardization.png)
 
-# 6 Transform
+# 6 HomePage
 Jump to HP from the application.
 
 ![](images/Manual_60HomePage.png)
