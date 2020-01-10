@@ -353,10 +353,6 @@
     <value>All Search Option</value>
     <comment>All Search Option</comment>
   </data>
-  <data name="lblMethodCreation" xml:space="preserve">
-    <value>Method is set by Analysis / Method</value>
-    <comment>Method is set by Analysis / Method</comment>
-  </data>
   <data name="lblMinimum" xml:space="preserve">
     <value>Minimum</value>
     <comment>Minimum</comment>
@@ -606,8 +602,8 @@
     <comment>Bitmap Copy</comment>
   </data>
   <data name="lblMethodSetting" xml:space="preserve">
-    <value>Method is set by Analysis / Method</value>
-    <comment>Method is set by Analysis / Method</comment>
+    <value>Method is set by Solve/Method</value>
+    <comment>Method is set by Solve/Method</comment>
   </data>
   <data name="chbWhiteBack" xml:space="preserve">
     <value>White Back</value>

@@ -736,16 +736,7 @@ namespace GNPZ_sdk.Properties {
         }
         
         /// <summary>
-        ///   Method is set by Analysis / Method に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string lblMethodCreation {
-            get {
-                return ResourceManager.GetString("lblMethodCreation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Method is set by Analysis / Method に類似しているローカライズされた文字列を検索します。
+        ///   Method is set by Solve/Method に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string lblMethodSetting {
             get {

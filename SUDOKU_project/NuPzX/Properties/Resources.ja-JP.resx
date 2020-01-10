@@ -355,7 +355,7 @@
   </data>
   <data name="lblMethodSetting" xml:space="preserve">
     <value>自動作成時の手法は解析/手法で設定</value>
-    <comment>Method is set by Analysis / Method</comment>
+    <comment>Method is set by Solve/Method</comment>
   </data>
   <data name="lblMinimum" xml:space="preserve">
     <value>最小セル数</value>
