@@ -89,7 +89,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
 - You can handcraft the Puzzle in the square on the left.
   - Please strongly imagine one of the numbers 1-9.
   - Click anywhere on the 9x9 grid.
-  - When the number appeared different from what you imagined, your image was not enough.
+  - When the number appeared different from what you imagined, your image was not enough.  
     Imagine strongly and click again.
   - To delete a cell number, click the number again.
 - New, Copy, Clear, Delete is what it means.
