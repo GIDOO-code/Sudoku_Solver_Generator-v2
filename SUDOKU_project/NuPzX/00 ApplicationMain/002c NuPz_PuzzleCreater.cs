@@ -283,7 +283,7 @@ namespace GNPZ_sdk{
         private void btnP13Start2Complated( ){
             __DispMode="Complated"; 
             AnalyzerBaseV2.__SimpleAnalizerB__=false;
-            chbCreateProblemEx2.IsEnabled=true;
+            this.Dispatcher.Invoke(() => { chbCreateProblemEx2.IsEnabled=true; } );
             taskSDK=null;
         }
 
