@@ -792,10 +792,10 @@
                                        FontFamily="MS Mincho" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="6,291,0,0" VerticalAlignment="Top" Width="220" Grid.ColumnSpan="2" Height="22" />
                                 <Label x:Name="lblResourceMemory"
                                        Content="＿＿＿" 
-                                       FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="11,309,0,0" VerticalAlignment="Top" Height="22" Width="46" />
+                                       FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="11,309,0,0" VerticalAlignment="Top" Height="22" Width="235" Grid.ColumnSpan="2" />
                                 <Label x:Name="lblSolutionLevel"
                                     Content="＿＿＿" 
-                                    FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="11,326,0,0" VerticalAlignment="Top" Height="22" Width="46" />
+                                    FontFamily="MS Mincho" FontSize="12" Foreground="#FFAAAAC0" HorizontalAlignment="Left" Margin="11,326,0,0" VerticalAlignment="Top" Height="22" Width="235" Grid.ColumnSpan="2" />
                                 <Grid Margin="164,5,-12,0" Width="303" HorizontalAlignment="Left" Grid.Column="1">
                                     <Label x:Name="lblPattern" Background="{x:Null}" FontFamily="MS Gothic" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="7,8,0,0" VerticalAlignment="Top" Width="64" Height="22" 
                                            Content="{Binding Resources.lblPattern, Mode=OneWay, Source={x:Static app:ResourceService.Current}}" />
