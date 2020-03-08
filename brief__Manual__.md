@@ -6,7 +6,7 @@
 
 # 1. File
 ![](images/Manual_10File.png)
-## OpenPuzzle File
+## 1.1 File / OpenPuzzle File
 Load sudoku puzzle file.  
 The file format is a sequence of 81 digits, the puzzle is 1-9, and the space is 0/'.'.  
 In addition, can also input a file with difficulty etc. as an option.
@@ -21,11 +21,11 @@ In addition, can also input a file with difficulty etc. as an option.
 4....9.5.23..58.67...4.7.........3253.2....8.5.1...7.....89....9......7..1.72..46 
 ```
 
-## Save File
+## 1.2 File / Save File
 Save all Sudoku puzzles as files.  
 There are several options. Also, output a list of difficulty levels, solution methods, etc.
 
-## Save to favorities.
+## 1.3 File / Save to favorities.
 Save the current Puzzle to a "favorite" file(SDK_Favorite.txt).
 
 # 2. Solve
