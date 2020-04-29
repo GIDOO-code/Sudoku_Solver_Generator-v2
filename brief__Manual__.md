@@ -45,7 +45,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
 ![](images/Manual_21Solve2.png)
 
 ## 2.2 Solve / MultiSolve
-### MultiSolve / |< / <
+### MultiSolve /  "|<"  /  "<"
 - Find multiple algorithms applicable in the current situation.  
 - A description of the selected algorithm appears in the box above. 'Try click selection!'  
   The candidate to be determined differs depending on the algorithm to be selected.  
