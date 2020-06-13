@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SUDOKUcore": {
+      "commandName": "Project",
+      "workingDirectory": "..\\SUDOKU_App\\"
+    }
+  }
+}
