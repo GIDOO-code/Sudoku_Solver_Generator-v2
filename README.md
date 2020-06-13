@@ -1,4 +1,4 @@
-# Soon.  Release .Net Core version.
+# Soon! Release .Net Core version.
 
 # Sudoku_Solver_Generator
 ![GNPX](/images/GNPX_start.png)
