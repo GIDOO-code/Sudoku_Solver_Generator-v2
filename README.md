@@ -22,4 +22,3 @@ https://gidoo-code.github.io/Sudoku_Solver_Generator_jp/
 https://github.com/GIDOO-code/Sudoku_Solver_Generator_withCamera
 ![GNPX](images/Sudoku_Camera00.png)
 
-Release the ".Net Core" version
