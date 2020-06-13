@@ -1,3 +1,4 @@
+# Release the .Net Core version.
 # new!  brief Manual 
 
 # Sudoku_Solver_Generator
@@ -21,3 +22,5 @@ https://gidoo-code.github.io/Sudoku_Solver_Generator_jp/
 # Click here for version "with Camera Shooting"
 https://github.com/GIDOO-code/Sudoku_Solver_Generator_withCamera
 ![GNPX](images/Sudoku_Camera00.png)
+
+Release the ".Net Core" version
