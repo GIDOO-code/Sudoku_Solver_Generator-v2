@@ -1,0 +1,612 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnOpenPuzzleFile" xml:space="preserve">
+    <value>Open Puzzle File</value>
+    <comment>Open Puzzle File</comment>
+  </data>
+  <data name="btnProbNxt" xml:space="preserve">
+    <value>Next</value>
+    <comment>Next</comment>
+  </data>
+  <data name="btnProbPre" xml:space="preserve">
+    <value>Pre</value>
+    <comment>Pre</comment>
+  </data>
+  <data name="btnSavePuzzle" xml:space="preserve">
+    <value>Save Puzzle</value>
+    <comment>Save Puzzle</comment>
+  </data>
+  <data name="btnSaveToFavorites" xml:space="preserve">
+    <value>Save to favorites</value>
+    <comment>Save to favorites</comment>
+  </data>
+  <data name="btnSolve" xml:space="preserve">
+    <value>Solve</value>
+    <comment>Solve</comment>
+  </data>
+  <data name="msgSuspend" xml:space="preserve">
+    <value>Suspend</value>
+    <comment>Suspend</comment>
+  </data>
+  <data name="chbAddAlgorithmList" xml:space="preserve">
+    <value>Add Algorithm List</value>
+    <comment>Add Algorithm List</comment>
+  </data>
+  <data name="chbAdditionalSave" xml:space="preserve">
+    <value>Additional Save if file exist</value>
+    <comment>Additional Save if file exist</comment>
+  </data>
+  <data name="chbFormatLine" xml:space="preserve">
+    <value>Format : Line type</value>
+    <comment>Format : Line type</comment>
+  </data>
+  <data name="chbInitialState" xml:space="preserve">
+    <value>Set Initial State</value>
+    <comment>Set Initial State</comment>
+  </data>
+  <data name="chbSaveWithAnswer" xml:space="preserve">
+    <value>Save with Answer</value>
+    <comment>Save with Answer</comment>
+  </data>
+  <data name="chbSortByDiffOrder" xml:space="preserve">
+    <value>Sort by Difficulty Order</value>
+    <comment>Sort by Difficulty Order</comment>
+  </data>
+  <data name="lblStep" xml:space="preserve">
+    <value>Step</value>
+    <comment>Step</comment>
+  </data>
+  <data name="lblDifficulty" xml:space="preserve">
+    <value>difficulty</value>
+    <comment>difficulty</comment>
+  </data>
+  <data name="lblPuzzle" xml:space="preserve">
+    <value>Puzzle</value>
+    <comment>Puzzle</comment>
+  </data>
+  <data name="lblSaveAll" xml:space="preserve">
+    <value>Save all</value>
+    <comment>Save all</comment>
+  </data>
+  <data name="lblSaveCurrentPuzzle" xml:space="preserve">
+    <value>Save current puzzle</value>
+    <comment>Save current puzzle</comment>
+  </data>
+  <data name="lblUnderAnalysis" xml:space="preserve">
+    <value>under Analysis</value>
+    <comment>under Analysis</comment>
+  </data>
+  <data name="tabATransform" xml:space="preserve">
+    <value>Transform</value>
+    <comment>Transform</comment>
+  </data>
+  <data name="tabACreate" xml:space="preserve">
+    <value>Create</value>
+    <comment>Create</comment>
+  </data>
+  <data name="tabAFile" xml:space="preserve">
+    <value>File</value>
+    <comment>File</comment>
+  </data>
+  <data name="tabAHomepage" xml:space="preserve">
+    <value>HomePage</value>
+    <comment>HomePage</comment>
+  </data>
+  <data name="tabAOption" xml:space="preserve">
+    <value>Option</value>
+    <comment>Option</comment>
+  </data>
+  <data name="tabASolve" xml:space="preserve">
+    <value>Solve</value>
+    <comment>Solve</comment>
+  </data>
+  <data name="tabBMethod" xml:space="preserve">
+    <value>Method</value>
+    <comment>Method</comment>
+  </data>
+  <data name="tabBMethodOption" xml:space="preserve">
+    <value>Method Option</value>
+    <comment>MethodOption</comment>
+  </data>
+  <data name="tabBMultiSolve" xml:space="preserve">
+    <value>MultiSolve</value>
+    <comment>MultiSolve</comment>
+  </data>
+  <data name="tabBSolve" xml:space="preserve">
+    <value>Solve</value>
+    <comment>Solve</comment>
+  </data>
+  <data name="btnInitialState" xml:space="preserve">
+    <value>Initial State</value>
+    <comment>Initial State</comment>
+  </data>
+  <data name="btnSolveUp" xml:space="preserve">
+    <value>Solve Up</value>
+    <comment>Solve Up</comment>
+  </data>
+  <data name="btnUndo" xml:space="preserve">
+    <value>Undo</value>
+    <comment>Undo</comment>
+  </data>
+  <data name="chbShowCandidate" xml:space="preserve">
+    <value>Show Candidate</value>
+    <comment>Show Candidate</comment>
+  </data>
+  <data name="lblEpapsedTimeTS3" xml:space="preserve">
+    <value>Elapsed time:</value>
+    <comment>Elapsed time:</comment>
+  </data>
+  <data name="chbSetDifficulty" xml:space="preserve">
+    <value>Set Difficulty</value>
+    <comment>Set Difficulty</comment>
+  </data>
+  <data name="chbConfirmMultipleCells" xml:space="preserve">
+    <value>Confirm multiple cells</value>
+    <comment>Confirm multiple cells</comment>
+  </data>
+  <data name="btnCreateProblemMlt" xml:space="preserve">
+    <value>Create Puzzle</value>
+    <comment>Create Puzzle</comment>
+  </data>
+  <data name="btnMultiSolve" xml:space="preserve">
+    <value>Multi Solve</value>
+    <comment>Multi Solve</comment>
+  </data>
+  <data name="chbChangeBasicPattenOnSuccess" xml:space="preserve">
+    <value>Change Basic Pattern on Success</value>
+    <comment>Change Basic Pattern on Success</comment>
+  </data>
+  <data name="chbFileOutputOnSuccess" xml:space="preserve">
+    <value>File Output on Success</value>
+    <comment>File Output on Success</comment>
+  </data>
+  <data name="chbRandomizingNumbers" xml:space="preserve">
+    <value>Randomizing Numbers</value>
+    <comment>Randomizing Numbers</comment>
+  </data>
+  <data name="chbShowNoUsedDigits" xml:space="preserve">
+    <value>Show noused digits</value>
+    <comment>Show noused digits</comment>
+  </data>
+  <data name="lblAppliedCount" xml:space="preserve">
+    <value>Count</value>
+    <comment>Count</comment>
+  </data>
+  <data name="lblBasicPattern" xml:space="preserve">
+    <value>Basic Pattern:</value>
+    <comment>Basic Pattern:</comment>
+  </data>
+  <data name="lblCreateEdit" xml:space="preserve">
+    <value>Create / Edit</value>
+    <comment>Create / Edit</comment>
+  </data>
+  <data name="lblElapsedTime" xml:space="preserve">
+    <value>Elapsed Time:</value>
+    <comment>Elapsed Time:</comment>
+  </data>
+  <data name="LblMethod" xml:space="preserve">
+    <value>Method</value>
+    <comment>Method</comment>
+  </data>
+  <data name="lblNoOfPuzzles" xml:space="preserve">
+    <value>Puzzles:</value>
+    <comment>No. of Puzzles:</comment>
+  </data>
+  <data name="lblNoOfTrials" xml:space="preserve">
+    <value>Trials:</value>
+    <comment>Trials</comment>
+  </data>
+  <data name="lblNoOfTrialsCanceled" xml:space="preserve">
+    <value>Canceled</value>
+    <comment>Canceled</comment>
+  </data>
+  <data name="lblNoOfTrialsCum" xml:space="preserve">
+    <value>cum. Trials:</value>
+    <comment>cum. Trials:</comment>
+  </data>
+  <data name="lblPuzzleLevel" xml:space="preserve">
+    <value>Problem Level:</value>
+    <comment>Problem Level</comment>
+  </data>
+  <data name="msgNoSolution" xml:space="preserve">
+    <value>There are cells with no candidate digits</value>
+    <comment>There are cells with no candidate digits</comment>
+  </data>
+  <data name="tabAuto" xml:space="preserve">
+    <value>Auto</value>
+    <comment>Auto</comment>
+  </data>
+  <data name="tabManual" xml:space="preserve">
+    <value>Manual</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="btnPatternAutoGen" xml:space="preserve">
+    <value>Pattern</value>
+    <comment>Pattern</comment>
+  </data>
+  <data name="btnPatternCapture" xml:space="preserve">
+    <value>Pattern Capture</value>
+    <comment>Pattern Capture</comment>
+  </data>
+  <data name="btnPatternClear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblAllSearchOption" xml:space="preserve">
+    <value>All Search Option</value>
+    <comment>All Search Option</comment>
+  </data>
+  <data name="lblMinimum" xml:space="preserve">
+    <value>Minimum</value>
+    <comment>Minimum</comment>
+  </data>
+  <data name="lblNoOfCells" xml:space="preserve">
+    <value>Cells: </value>
+    <comment>Cells</comment>
+  </data>
+  <data name="lblPattern" xml:space="preserve">
+    <value>Pattern</value>
+    <comment>Pattern</comment>
+  </data>
+  <data name="msgAnalysisComplate" xml:space="preserve">
+    <value>Analysis completed</value>
+    <comment>Analysis completed</comment>
+  </data>
+  <data name="patSel00" xml:space="preserve">
+    <value>No Symmetry</value>
+    <comment>No Symmetry</comment>
+  </data>
+  <data name="patSel01" xml:space="preserve">
+    <value>Point Symmetry (90 degrees)</value>
+    <comment>Point Symmetry (90 degrees)</comment>
+  </data>
+  <data name="patSel02" xml:space="preserve">
+    <value>Point Symmetry (180 degrees)</value>
+    <comment>Point Symmetry (180 degrees)</comment>
+  </data>
+  <data name="patSel03" xml:space="preserve">
+    <value>Line Symmetry (vertical)</value>
+    <comment>Line Symmetry (vertical)</comment>
+  </data>
+  <data name="patSel04" xml:space="preserve">
+    <value>Line Symmetry (horizontal)</value>
+    <comment>Line Symmetry (horizontal)</comment>
+  </data>
+  <data name="patSel05" xml:space="preserve">
+    <value>Line Symmetry (lower right)</value>
+    <comment>Line Symmetry (lower right)</comment>
+  </data>
+  <data name="patSel06" xml:space="preserve">
+    <value>Line Symmetry (upper right)</value>
+    <comment>Line Symmetry (upper right)</comment>
+  </data>
+  <data name="lblStepM" xml:space="preserve">
+    <value>Step</value>
+    <comment>Step</comment>
+  </data>
+  <data name="lblCellsPuzzle" xml:space="preserve">
+    <value>Puzzle</value>
+    <comment>Puzzle</comment>
+  </data>
+  <data name="lblCellsSolved" xml:space="preserve">
+    <value>Solved</value>
+    <comment>Solved</comment>
+  </data>
+  <data name="lvlCellsUnsolved" xml:space="preserve">
+    <value>UnSolved</value>
+    <comment>UnSolved</comment>
+  </data>
+  <data name="gbxMSearchCondition" xml:space="preserve">
+    <value>Search Condition</value>
+    <comment>Search Condition</comment>
+  </data>
+  <data name="lblAlgorithmM" xml:space="preserve">
+    <value>Algorithm</value>
+    <comment>Algorithm</comment>
+  </data>
+  <data name="lblDifficultyM" xml:space="preserve">
+    <value>Difficulty</value>
+    <comment>difficulty</comment>
+  </data>
+  <data name="lblMaxAlgorithm" xml:space="preserve">
+    <value>Algorithm</value>
+    <comment>Algorithm</comment>
+  </data>
+  <data name="lblMaxAllAlgorithm" xml:space="preserve">
+    <value>All Algorithm</value>
+    <comment>All Algorithm</comment>
+  </data>
+  <data name="LblMaxLevel" xml:space="preserve">
+    <value>Level</value>
+    <comment>Level</comment>
+  </data>
+  <data name="lblMaxTime" xml:space="preserve">
+    <value>Time</value>
+    <comment>Time</comment>
+  </data>
+  <data name="LblMaximum" xml:space="preserve">
+    <value>Maximum</value>
+    <comment>Maximum</comment>
+  </data>
+  <data name="btnDefaultSettings" xml:space="preserve">
+    <value>Default Setting</value>
+    <comment>Default Setting</comment>
+  </data>
+  <data name="btnMethodCheck" xml:space="preserve">
+    <value>Check</value>
+    <comment>Check</comment>
+  </data>
+  <data name="btnMethodClear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblMethodAndOrder" xml:space="preserve">
+    <value>Method And Order</value>
+    <comment>Method And Order</comment>
+  </data>
+  <data name="msgUpperLimitBreak" xml:space="preserve">
+    <value>Upper Limit Break</value>
+    <comment>Upper Limit Break</comment>
+  </data>
+  <data name="msgUpperLimitTimeBreak" xml:space="preserve">
+    <value>Upper Limit Time Break</value>
+    <comment>Upper Limit Time Break</comment>
+  </data>
+  <data name="btnHomePage" xml:space="preserve">
+    <value>HomePage</value>
+    <comment>HomePage</comment>
+  </data>
+  <data name="chbSetAnswer" xml:space="preserve">
+    <value>Set Solution</value>
+    <comment>Set Solution</comment>
+  </data>
+  <data name="lblALSSizeMax" xml:space="preserve">
+    <value>Max. Size</value>
+    <comment>Max. Size</comment>
+  </data>
+  <data name="lblAnalysisLevel" xml:space="preserve">
+    <value>Analysis Level</value>
+    <comment>Analysis Level</comment>
+  </data>
+  <data name="lblForceChainType" xml:space="preserve">
+    <value>Type</value>
+    <comment>Type</comment>
+  </data>
+  <data name="lblGenLogMaxRank" xml:space="preserve">
+    <value>Max. Rank</value>
+    <comment>Max. Rank</comment>
+  </data>
+  <data name="lblGenLogMaxSize" xml:space="preserve">
+    <value>Max. Size</value>
+    <comment>Max. Size</comment>
+  </data>
+  <data name="lblGNLType" xml:space="preserve">
+    <value>Type</value>
+    <comment>Type</comment>
+  </data>
+  <data name="lblNLMaxSize" xml:space="preserve">
+    <value>Max. Size</value>
+    <comment>Max. Size</comment>
+  </data>
+  <data name="lblPuzzleCreationType" xml:space="preserve">
+    <value>Puzzle Creation Type</value>
+    <comment>Puzzle Creation Type</comment>
+  </data>
+  <data name="lblPuzzleCreationType2" xml:space="preserve">
+    <value>(0: Standard 1: High speed 2:Exhaustive search )</value>
+    <comment>(0: Standard 1: High speed 2:Exhaustive search )</comment>
+  </data>
+  <data name="lblRandomNumberSeed" xml:space="preserve">
+    <value>Random Seed</value>
+    <comment>Random Seed</comment>
+  </data>
+  <data name="lblSeedSetting" xml:space="preserve">
+    <value>(0:Auto 0&gt;:seed Seting)</value>
+    <comment>(0:Auto 0&gt;:seed Seting)</comment>
+  </data>
+  <data name="btnNomalize" xml:space="preserve">
+    <value>Standardization</value>
+    <comment>Standardization</comment>
+  </data>
+  <data name="btnNumChange" xml:space="preserve">
+    <value>Change</value>
+    <comment>Change</comment>
+  </data>
+  <data name="btnNumChangeFix" xml:space="preserve">
+    <value>Fix</value>
+    <comment>Fix</comment>
+  </data>
+  <data name="btnTransEst" xml:space="preserve">
+    <value>Save</value>
+    <comment>Save</comment>
+  </data>
+  <data name="btnTransLRg" xml:space="preserve">
+    <value>horizontal</value>
+    <comment>horizontal</comment>
+  </data>
+  <data name="btnTransRes" xml:space="preserve">
+    <value>to Beginning</value>
+    <comment>to Beginning</comment>
+  </data>
+  <data name="btnTransRtg" xml:space="preserve">
+    <value>Clockwise</value>
+    <comment>Clockwise</comment>
+  </data>
+  <data name="btnTransUDg" xml:space="preserve">
+    <value>Vertical</value>
+    <comment>Vertical</comment>
+  </data>
+  <data name="chbNrmlNum" xml:space="preserve">
+    <value>show Solution</value>
+    <comment>show Solution</comment>
+  </data>
+  <data name="chbShowSolution" xml:space="preserve">
+    <value>Show Solution</value>
+    <comment>Show Solution</comment>
+  </data>
+  <data name="lblChangeNumber" xml:space="preserve">
+    <value>Change Number</value>
+    <comment>Change Number</comment>
+  </data>
+  <data name="lblClickOnNumber" xml:space="preserve">
+    <value>Click on number</value>
+    <comment>Click on number</comment>
+  </data>
+  <data name="lblTransAsymetric" xml:space="preserve">
+    <value>Transformation(Asymmetric)</value>
+    <comment>Transformation(Asymmetric)</comment>
+  </data>
+  <data name="lblTransSymetric" xml:space="preserve">
+    <value>Transformation(Symmetric)</value>
+    <comment>Transformation(Symmetric)</comment>
+  </data>
+  <data name="btnSaveBitmap" xml:space="preserve">
+    <value>Bitmap Save</value>
+    <comment>Bitmap Save</comment>
+  </data>
+  <data name="filePuzzleFile" xml:space="preserve">
+    <value>Puzzle File</value>
+    <comment>Puzzle File</comment>
+  </data>
+  <data name="fldSuDoKuImages" xml:space="preserve">
+    <value>SuDoKu Images</value>
+    <comment>SuDoKu Images</comment>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>English</value>
+    <comment>English</comment>
+  </data>
+  <data name="GenLS_turbo" xml:space="preserve">
+    <value>Omit multiple candidates</value>
+    <comment>Omit multiple candidates</comment>
+  </data>
+  <data name="btnCopyBitmap" xml:space="preserve">
+    <value>Bitmap Copy</value>
+    <comment>Bitmap Copy</comment>
+  </data>
+  <data name="lblMethodSetting" xml:space="preserve">
+    <value>Method is set by Solve/Method</value>
+    <comment>Method is set by Solve/Method</comment>
+  </data>
+  <data name="chbWhiteBack" xml:space="preserve">
+    <value>White Back</value>
+    <comment>White Back</comment>
+  </data>
+</root>

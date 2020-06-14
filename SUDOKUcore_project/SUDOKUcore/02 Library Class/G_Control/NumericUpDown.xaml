@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="GIDOO_space.NumericUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GIDOO_space"
+             mc:Ignorable="d" Height="22" Width="72" >
+    <Grid Margin="0,0,0,0" Background="#FFC7CBD6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="10" Width="23*"/>
+            <ColumnDefinition MinWidth="10" Width="13*"/>
+        </Grid.ColumnDefinitions>
+        <RepeatButton Grid.Column="1" Grid.Row="0" Click="UpButton_Click" BorderThickness="1,1,1,0" Panel.ZIndex="1">
+            <Image Source="/02 Library Class/G_Control/ImgUp.png"/>
+        </RepeatButton>
+        <RepeatButton Grid.Column="1" Grid.Row="1" Click="DownButton_Click" BorderThickness="1,0,1,1" Panel.ZIndex="1">
+            <Image Source="/02 Library Class/G_Control/ImgDown.png"/>
+        </RepeatButton>
+
+        <TextBox x:Name="textBoxValue" Grid.RowSpan="2" TextWrapping="Wrap"
+                 Foreground="White" FontFamily="MS Gothic" FontSize="12" Background="Black" 
+                 TextAlignment="Center" VerticalContentAlignment="Center"
+                 Text="{Binding Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NumericUpDown}}}" 
+                 TextChanged="textBoxValue_TextChanged" />
+    </Grid>
+</UserControl>
