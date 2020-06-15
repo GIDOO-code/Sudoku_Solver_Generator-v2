@@ -1,4 +1,4 @@
-# GNPX manual
+# GNPX manual (Sudoku Solver/Analyzer) 
 - The execution program is SUDOKU_App/GNPX.exe.
 - SDK_Methods_V2.txt is the condition definition file.
 - Compile with VisualStudio project and place the program in SUDOKU_App folder.
