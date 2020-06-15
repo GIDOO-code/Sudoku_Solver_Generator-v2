@@ -53,6 +53,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
 - The box below lists the applicable algorithms.  
 - '|<’ Returns to the beginning.
 - '<' Returns to the previous state.
+
 ![](images/Manual_22MultiSolve.png)
 
 ## 2.3 Solve / Method
@@ -154,7 +155,7 @@ Transform Sudoku puzzle. The Sudoku puzzle that can be converted below is essent
 
 ![](images/Manual_50TransposeTranspose.png)
 
-## 5.1 Transform/Standardization
+## 5.2 Transform/Standardization
 Convert to Sudoku puzzle standard form.  
 - Definition of standard form and conversion method are shown on HP.  
 (In the displayed puzzle, it can be converted to the standard form in 9 steps.)
