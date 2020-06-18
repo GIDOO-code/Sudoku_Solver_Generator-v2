@@ -25,7 +25,7 @@ In one phase, some cells have undetermined digits.
 The Sudoku analysis algorithm prove that some digits are true 
 or some candidate digits are true or false. 
 And move to a new pahse.<br>
-<img src="/Images/LogicalPuzzle/NextPhase.png" height="250"/><br>
+<img src="Images/LogicalPuzzle/NextPhase.png" height="250"/><br>
 ***
 
 
