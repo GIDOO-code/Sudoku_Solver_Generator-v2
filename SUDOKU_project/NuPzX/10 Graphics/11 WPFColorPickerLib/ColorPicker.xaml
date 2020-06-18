@@ -45,15 +45,15 @@
             <Label Content="Pick swatch type" Foreground="White" FontWeight="Bold" 
                    VerticalAlignment="Center"/>
             <Image x:Name="ImgSqaure1" Height="20" Width="20" 
-                   Source="Images/ColorSwatchSquare.png" Margin="45,0,0,0" 
+                   Source="images/ColorSwatchSquare.png" Margin="45,0,0,0" 
                    ToolTip="Square swatch1" 
                    MouseLeftButtonDown="Swatch_MouseLeftButtonDown"/>
             <Image x:Name="ImgSqaure2" Height="20" Width="20" 
-                   Source="Images/ColorSwatchSquare2.png" Margin="5,0,0,0" 
+                   Source="images/ColorSwatchSquare2.png" Margin="5,0,0,0" 
                    ToolTip="Square swatch2" 
                    MouseLeftButtonDown="Swatch_MouseLeftButtonDown"/>
             <Image x:Name="ImgCircle1" Height="20" Width="20" 
-                   Source="Images/ColorSwatchCircle.png" Margin="5,0,0,0" 
+                   Source="images/ColorSwatchCircle.png" Margin="5,0,0,0" 
                    ToolTip="Circle swatch1" 
                    MouseLeftButtonDown="Swatch_MouseLeftButtonDown"/>
         </StackPanel>
@@ -79,7 +79,7 @@
                 <Image x:Name="ColorImage" Width="150" Height="150" 
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top" Margin="2"
-                       Source="Images/ColorSwatchSquare.png"/>
+                       Source="images/ColorSwatchSquare.png"/>
 
                 <Canvas x:Name="CanvImage" Width="150" Height="150" 
                        HorizontalAlignment="Center"
