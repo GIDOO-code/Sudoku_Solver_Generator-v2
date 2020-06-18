@@ -15,9 +15,9 @@ Sudoku has a total of 324 restrictions on these rows, columns, blocks, and cells
 In Sudoku, there are 324 constraints on rows, columns, blocks, and cells.
 Row/column and block constraints are not independent.
 The following symbols are used to describe each cell and constraint in Sudoku.<br>
-<img src="Images/LogicalPuzzle/CellBlock1.png" height="250"/><br>
+<img src="Images/Puzzle/CellBlock1.png" height="250"/><br>
 ![](images/Manual/Manual_10File.png)
-![](Images/LogicalPuzzle/CellBlock1.png)
+![](Images/Puzzle/CellBlock1.png)
 ***
 
 
@@ -27,7 +27,7 @@ In one phase, some cells have undetermined digits.
 The Sudoku analysis algorithm prove that some digits are true 
 or some candidate digits are true or false. 
 And move to a new pahse.<br>
-<img src="Images/LogicalPuzzle/NextPhase.png" height="250"/><br>
+<img src="Images/Puzzle/NextPhase.png" height="250"/><br>
 ***
 
 
@@ -38,19 +38,19 @@ There are many groups of links in the phase.
 It shows concretely. Focusing on one phase of Sudoku, candidate digits remain in each cell.
 Candidate digits related by row/column/block/cell constraints form links.
 The links shown in the following figure are just one example.<br>
-<img src="/Images/LogicalPuzzle/SW_Link_exsample.png" width="300"/><br>
+<img src="/Images/Puzzle/SW_Link_exsample.png" width="300"/><br>
 
 Two cells link is called "Strong link".
 Three or more cells is called "Weak link".
 The images of ”Strong link" and "Weak link" are shown below.
 
 For strong link, one is true and the other is false.<br>
-<img src="/Images/LogicalPuzzle/StrongLink.png" height="250"/><br>
+<img src="/Images/Puzzle/StrongLink.png" height="250"/><br>
 
 For weak link, if any one is true, the rest are all false.
 If it is false, the remaining truth is not determined.
 "Strong link" is also "Weak link".<br>
-<img src="/Images/LogicalPuzzle/WeakLink.png" height="250"/><br>
+<img src="/Images/Puzzle/WeakLink.png" height="250"/><br>
 
 
 
@@ -61,16 +61,16 @@ ALS(AlmostLockedSet) and AIC(Alternate Inference Chain) are extended link.
 ALS is a state in which there are n+1 candidate digits in n cells.
 ALS Cells are in a common row/column/block.
 This is a bundle of links with the same constraints, but it should be understood as ALS.<br>
-<img src="/Images/LogicalPuzzle/ALS.png" height="250"/><br>
+<img src="/Images/Puzzle/ALS.png" height="250"/><br>
 
 ALS is a powerful method to solve Sudoku, and many algorithms use ALS.<br>
-<img src="/Images/LogicalPuzzle/ALS_Locked.png" height="250"/><br>
+<img src="/Images/Puzzle/ALS_Locked.png" height="250"/><br>
 
 AIC is a link that occurs at the part where row(column) and block constraints overlap.
 For example, when the candidate digits are arranged as follows, the link is weak.
 Algorithms such as NiceLoop composed of simple Cell-Link 
 can be extended to algorithms using ALS-Link and AIC-Link.<br>
-<img src="/Images/LogicalPuzzle/AIC_Link.png" height="250"/><br>
+<img src="/Images/Puzzle/AIC_Link.png" height="250"/><br>
 ***
 
 
@@ -86,14 +86,14 @@ https://gidoo-code.github.io/Sudoku_Solver_Generator/page2.html
 ### 1)Single
 Locked with one cell and one digit is self-evident from the definition of Sudoku. 
 Other elements are determined to be false in the link.<br>
-<img src="/Images/LogicalPuzzle/Single.png" height="400"/><br>
+<img src="/Images/Puzzle/Single.png" height="400"/><br>
 
 ### 2)1D LockedCandidate
 In Sudoku, row/column and block constraints are not independent.
 If the candidate is limited to the position where the row/column and block overlap, it becomes "Locked".
 The candidate to break "Locked" is false.<br>
-<img src="/Images/LogicalPuzzle/LockedCandidate1.png" height="275"/><br>
-<img src="/Images/LogicalPuzzle/LockedCandidate2.png" height="275"/><br>
+<img src="/Images/Puzzle/LockedCandidate1.png" height="275"/><br>
+<img src="/Images/Puzzle/LockedCandidate2.png" height="275"/><br>
 
 ### 3)2D LockedSet
 If two cells with two candidate digits are linked by a link, it will be "Locked".
@@ -104,9 +104,9 @@ The second example below is Locked of 2 cells 2 candidate digits of r48c6,
 but also locked of 3 cells 3 digits of r579c6,
 The two Locked are in a dual relationship. The candidates for breaking "Locked" are the same.
 Due to the dual relationship, the fifth or higher order LockedSet analysis algorithm is not necessary in practice.<br>
-<img src="/Images/LogicalPuzzle/LockedSet2.png" height="250"/><br>
-<img src="/Images/LogicalPuzzle/LockedSet3.png" height="250"/><br>
-<img src="/Images/LogicalPuzzle/LockedSet4.png" height="250"/><br>
+<img src="/Images/Puzzle/LockedSet2.png" height="250"/><br>
+<img src="/Images/Puzzle/LockedSet3.png" height="250"/><br>
+<img src="/Images/Puzzle/LockedSet4.png" height="250"/><br>
 
 ### 4)Fish
 The figure below shows an example of the X-wing (2D-Fish) algorithm, 
@@ -116,15 +116,15 @@ The elements of BaseSet and CoverSet are links of rows/columns/blocks/cells.
 The logic for BaseSet and CoverSet is described on the HP for Extended Fish and General Logic.
 <https://gidoo-code.github.io/Sudoku_Solver_Generator/page36.html>"Franken/Mutant Fish"
 <https://gidoo-code.github.io/Sudoku_Solver_Generator/page60.html>"GeneralLogic"<br>
-<img src="/Images/LogicalPuzzle/Fish1.png" height="250"/><br>
+<img src="/Images/Puzzle/Fish1.png" height="250"/><br>
 
 ### 5)Skyscraper
-<img src="/Images/LogicalPuzzle/Skyscraper.png" height="250"/><br>
+<img src="/Images/Puzzle/Skyscraper.png" height="250"/><br>
 
 ### 6)Sue De Coq
 If there are two ALS and candidate digits satisfies a certain condition, it becomes a strange "Locked".
 In many cases, there is a simpler analysis algorithm, so Sue De Coq Locked is rarely needed.
-<img src="/Images/LogicalPuzzle/SueDeCoq.png" height="250"/><br>
+<img src="/Images/Puzzle/SueDeCoq.png" height="250"/><br>
 
 ### 7)another
 In addition to the ones shown here, there are many Sudoku analysis algorithms.
