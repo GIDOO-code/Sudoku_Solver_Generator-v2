@@ -5,7 +5,7 @@
 - The camera version requires several DLLs.
 
 # 1. File
-![](images/Manual_10File.png)
+![](images/Manual/Manual_10File.png)
 ## 1.1 File / OpenPuzzle File
 Load sudoku puzzle file.  
 The file format is a sequence of 81 digits, the puzzle is 1-9, and the space is 0/'.'.  
@@ -31,7 +31,7 @@ Save the current Puzzle to a "favorite" file(SDK_Favorite.txt).
 # 2. Solve
 The left side shows the puzzle analysis status.
  
-![](images/Manual_20Solve.png)
+![](images/Manual/Manual_20Solve.png)
 
 ## 2.1 Solve / Solve
 ### Solve / Undo / SolveUp / InitialState
@@ -42,7 +42,7 @@ The left side shows the puzzle analysis status.
 A description of the applied algorithm is shown in the box above.  
 Indicates the number of applied algorithms is shown in the box bellow.
 
-![](images/Manual_21Solve2.png)
+![](images/Manual/Manual_21Solve2.png)
 
 ## 2.2 Solve / MultiSolve
 ### MultiSolve /  '|<'  /  '<'
@@ -54,7 +54,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
 - '|<’ Returns to the beginning.
 - '<' Returns to the previous state.
 
-![](images/Manual_22MultiSolve.png)
+![](images/Manual/Manual_22MultiSolve.png)
 
 ## 2.3 Solve / Method
 ### Method and Order
@@ -68,7 +68,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - GeneralLogic is described in more detail on HP.
   - Enable/disable of 'GeneralLogic' and 'ForceChainCell/House' is set by 'Solve/MethodOption'.
 
-![](images/Manual_23Method.png)
+![](images/Manual/Manual_23Method.png)
 
 ### 2.4 Solve / MethodOption
 - ALS / Max.Size :Maximum size of ALS(Almost Locked Set) used in the algorithm.
@@ -82,7 +82,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - Max.Size is the maximum size of Baseset. A puzzle with Size=3 can be solved in about 1 second, while a puzzle with Size=5 takes several minutes.
   - Rank = (Coverset Size) - (Baseset Size). In GNPX, find the solution from 0 to Max.Size.
 
-![](images/Manual_24MethodOption.png)
+![](images/Manual/Manual_24MethodOption.png)
 
 
 # 3. Create
@@ -98,7 +98,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - '.' Is converted to 0, ignoring spaces and CRLF, so it supports puzzles of various formats.
   - This allows you to enter the numbers that appear on the HP puzzle.
 
-![](images/Manual_30CreateManual.png)
+![](images/Manual/Manual_30CreateManual.png)
 
 ## 3.2 Create / Auto
 - First, make the desired puzzle pattern.
@@ -113,7 +113,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - Indicates the status information of the trial.
   - The algorithm applied to generate the puzzle is specified during the analysis phase(Solve/Method).
  
-![](images/Manual_31CreateAuto.png)
+![](images/Manual/Manual_31CreateAuto.png)
 
 ## 3.3 Create / Camera ( "Sudoku_Solver_Generator_withCamera" version )
 - Select the "Camera" tab to start the web camera.
@@ -125,7 +125,7 @@ Indicates the number of applied algorithms is shown in the box bellow.
   - If recognized, save automatically or save manually.
   - In case of recognition failure, edit the cell in the left grid directly. Or "Delete".
 
-![](images/Manual_32CreateCamera.png)
+![](images/Manual/Manual_32CreateCamera.png)
   
 # 4. Option
 - Normally, it switches to English and Japanese depending on the PC environment.  
@@ -136,7 +136,7 @@ Or manually choose between English and Japanese.
   - The save destination is a dedicated folder in the execution folder.
   - "Solved" and "white background" can be specified for the image type.
 
-![](images/Manual_40Option.png)
+![](images/Manual/Manual_40Option.png)
 
 # 5 Transform
 ## 5.1 Transform/Transform
@@ -153,7 +153,7 @@ Transform Sudoku puzzle. The Sudoku puzzle that can be converted below is essent
 - "Save" saves the converted puzzle.
 - "To Beginning" returns to the original puzzle after various returns
 
-![](images/Manual_50TransposeTranspose.png)
+![](images/Manual/Manual_50TransposeTranspose.png)
 
 ## 5.2 Transform/Standardization
 Convert to Sudoku puzzle standard form.  
@@ -164,9 +164,9 @@ Convert to Sudoku puzzle standard form.
   - For transformations involving row and column exchange, a matrix exchange is performed first.
 - There are hundreds of millions of puzzles that can be converted, but they can be converted into one standard form.
 
-![](images/Manual_51TransposeStandardization.png)
+![](images/Manual/Manual_51TransposeStandardization.png)
 
 # 6 HomePage
 Jump to HP from the application.
 
-![](images/Manual_60HomePage.png)
+![](images/Manual/Manual_60HomePage.png)

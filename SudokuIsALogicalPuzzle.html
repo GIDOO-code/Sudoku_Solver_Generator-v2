@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sudoku is a logical puzzle</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+        
+    </head>
+    <body class="vscode-light">
+        <hr>
+<h1 id="sudoku-is-a-logical-puzzle">Sudoku is a logical puzzle</h1>
+<h1 id="reason-for-not-using-the-absurd-method-in-the-sudoku-analysis-algorithm">(Reason for not using the absurd method in the Sudoku analysis algorithm)</h1>
+<p>Sudoku is a logical puzzle. Repeat the next step to solve.</p>
+<ol>
+<li>Sudoku solving Algorithm looks for a &quot;locked&quot; pattern in the phase.</li>
+<li>Determine the truth of the candidate digits derived from &quot;Locked&quot;.</li>
+<li>Proceed to the next phase.</li>
+</ol>
+<hr>
+<h2 id="constraints">Constraints</h2>
+<p>Sudoku is a puzzle in which digits(1-9) are arranged vertically, horizontally and in blocks.
+Arrange digits(1-9) in rows, columns, and blocks without overlapping or omission.
+One of the digits(1-9) is placed in the cell.
+Sudoku has a total of 324 restrictions on these rows, columns, blocks, and cells.
+In Sudoku, there are 324 constraints on rows, columns, blocks, and cells.
+Row/column and block constraints are not independent.
+The following symbols are used to describe each cell and constraint in Sudoku.<br>
+<img src="Images/LogicalPuzzle/CellBlock1.png" height="250"/><br></p>
+<hr>
+<h1 id="phase">Phase</h1>
+<p>One state of Sudoku analysis is called a &quot;phase&quot;.
+In one phase, some cells have undetermined digits.
+The Sudoku analysis algorithm prove that some digits are true
+or some candidate digits are true or false.
+And move to a new pahse.<br>
+<img src="Images/LogicalPuzzle/NextPhase.png" height="250"/><br></p>
+<hr>
+<h2 id="link-simple-link">Link (simple link)</h2>
+<p>The cell set that contains the candidate digits can represent the constraint state as a &quot;link&quot;.
+There are many groups of links in the phase.</p>
+<p>It shows concretely. Focusing on one phase of Sudoku, candidate digits remain in each cell.
+Candidate digits related by row/column/block/cell constraints form links.
+The links shown in the following figure are just one example.<br>
+<img src="Images/LogicalPuzzle/SW_Link_exsample.png" width="300"/><br></p>
+<p>Two cells link is called &quot;Strong link&quot;.
+Three or more cells is called &quot;Weak link&quot;.
+The images of ”Strong link&quot; and &quot;Weak link&quot; are shown below.</p>
+<p>For strong link, one is true and the other is false.<br>
+<img src="Images/LogicalPuzzle/StrongLink.png" height="250"/><br></p>
+<p>For weak link, if any one is true, the rest are all false.
+If it is false, the remaining truth is not determined.
+&quot;Strong link&quot; is also &quot;Weak link&quot;.<br>
+<img src="Images/LogicalPuzzle/WeakLink.png" height="250"/><br></p>
+<h2 id="link-2-als-aic">Link-2 (ALS, AIC)</h2>
+<p>The Sudoku algorithm consists of a combination of links.
+ALS(AlmostLockedSet) and AIC(Alternate Inference Chain) are extended link.</p>
+<p>ALS is a state in which there are n+1 candidate digits in n cells.
+ALS Cells are in a common row/column/block.
+This is a bundle of links with the same constraints, but it should be understood as ALS.<br>
+<img src="Images/LogicalPuzzle/ALS.png" height="250"/><br></p>
+<p>ALS is a powerful method to solve Sudoku, and many algorithms use ALS.<br>
+<img src="Images/LogicalPuzzle/ALS_Locked.png" height="250"/><br></p>
+<p>AIC is a link that occurs at the part where row(column) and block constraints overlap.
+For example, when the candidate digits are arranged as follows, the link is weak.
+Algorithms such as NiceLoop composed of simple Cell-Link
+can be extended to algorithms using ALS-Link and AIC-Link.<br>
+<img src="Images/LogicalPuzzle/AIC_Link.png" height="250"/><br></p>
+<hr>
+<h2 id="locked">Locked</h2>
+<p>To understand the Sudoku algorithm, the following are important:
+The state where the Sudoku digit has been confirmed or
+the candidate digit has been determined to be true or false is called &quot;Locked&quot;.
+The purpose here is to understand &quot;Locked&quot; conceptually.
+The following shows some &quot;Locked&quot;.
+The algorithm is explained on the HTML page.  <br>
+<a href="https://gidoo-code.github.io/Sudoku_Solver_Generator/page2.html">https://gidoo-code.github.io/Sudoku_Solver_Generator/page2.html</a></p>
+<h3 id="1single">1)Single</h3>
+<p>Locked with one cell and one digit is self-evident from the definition of Sudoku.
+Other elements are determined to be false in the link.<br>
+<img src="Images/LogicalPuzzle/Single.png" height="400"/><br></p>
+<h3 id="21d-lockedcandidate">2)1D LockedCandidate</h3>
+<p>In Sudoku, row/column and block constraints are not independent.
+If the candidate is limited to the position where the row/column and block overlap, it becomes &quot;Locked&quot;.
+The candidate to break &quot;Locked&quot; is false.<br>
+<img src="Images/LogicalPuzzle/LockedCandidate1.png" height="275"/><br>
+<img src="Images/LogicalPuzzle/LockedCandidate2.png" height="275"/><br></p>
+<h3 id="32d-lockedset">3)2D LockedSet</h3>
+<p>If two cells with two candidate digits are linked by a link, it will be &quot;Locked&quot;.
+In each cell, it is not decided which of the two candidate digits is true and the other is false,
+but it is decided that they are either.
+&quot;Locked&quot; holds in the same way for cells 3-4.
+The second example below is Locked of 2 cells 2 candidate digits of r48c6,
+but also locked of 3 cells 3 digits of r579c6,
+The two Locked are in a dual relationship. The candidates for breaking &quot;Locked&quot; are the same.
+Due to the dual relationship, the fifth or higher order LockedSet analysis algorithm is not necessary in practice.<br>
+<img src="Images/LogicalPuzzle/LockedSet2.png" height="250"/><br>
+<img src="Images/LogicalPuzzle/LockedSet3.png" height="250"/><br>
+<img src="Images/LogicalPuzzle/LockedSet4.png" height="250"/><br></p>
+<h3 id="4fish">4)Fish</h3>
+<p>The figure below shows an example of the X-wing (2D-Fish) algorithm,
+where two sets of links are covered by two different sets of links.
+There are n link sets (BaseSet) and n link sets (CoverSet), and CoverSet covers baseSet. This is &quot;locked&quot;.
+The elements of BaseSet and CoverSet are links of rows/columns/blocks/cells.
+The logic for BaseSet and CoverSet is described on the HP for Extended Fish and General Logic.
+<a href="https://gidoo-code.github.io/Sudoku_Solver_Generator/page36.html">https://gidoo-code.github.io/Sudoku_Solver_Generator/page36.html</a>&quot;Franken/Mutant Fish&quot;
+<a href="https://gidoo-code.github.io/Sudoku_Solver_Generator/page60.html">https://gidoo-code.github.io/Sudoku_Solver_Generator/page60.html</a>&quot;GeneralLogic&quot;<br>
+<img src="Images/LogicalPuzzle/Fish1.png" height="250"/><br></p>
+<h3 id="5skyscraper">5)Skyscraper</h3>
+<p><img src="Images/LogicalPuzzle/Skyscraper.png" height="250"/><br></p>
+<h3 id="6sue-de-coq">6)Sue De Coq</h3>
+<p>If there are two ALS and candidate digits satisfies a certain condition, it becomes a strange &quot;Locked&quot;.
+In many cases, there is a simpler analysis algorithm, so Sue De Coq Locked is rarely needed.
+<img src="Images/LogicalPuzzle/SueDeCoq.png" height="250"/><br></p>
+<h3 id="7another">7)another</h3>
+<p>In addition to the ones shown here, there are many Sudoku analysis algorithms.
+<a href="https://gidoo-code.github.io/Sudoku_Solver_Generator/page2.html">https://gidoo-code.github.io/Sudoku_Solver_Generator/page2.html</a> ”Sudoku Aalgorithm”</p>
+<hr>
+<h1 id="summary">Summary.</h1>
+<h1 id="reason-for-not-using-the-absurd-method-in-the-sudoku-analysis-algorithm-1">Reason for not using the absurd method in the Sudoku analysis algorithm.</h1>
+<ul>
+<li>The Sudoku analysis algorithm is composed of a combination of links and extended links.</li>
+<li>The links and extended links used in the Sudoku analysis algorithm are all links in the current phase.</li>
+<li>The Sudoku parsing algorithm is to find the &quot;Locked&quot; state of a cell/digit pattern and
+to find candidate digit that break the &quot;Locked&quot; state.</li>
+<li>From the “Locked” state, the candidate digit is determined to be true (confirmed positive) or
+the candidate digit is false (confirmed negative).</li>
+</ul>
+<h4 id="the-absurd-method-assumed-method-advances-the-phase-each-time-the-truth-of-the-candidate-digit-is-assumed-and-uses-the-link-in-the-next-phase">The absurd method (assumed method) advances the phase each time the truth of the candidate digit is   assumed, and uses the link in the next phase.</h4>
+<p>I am in a position not to accept the absurd method (the hypothetical method) as a method of solving Sudoku. Because it is ad hoc and not logical.</p>
+<hr>
+<h1 id="supplement">Supplement</h1>
+<p>The Sudoku analysis algorithm is integrated into &quot;General Logic&quot; that includes these in a unified manner.
+<a href="http://www.sudokuone.com/sweb/general.htm">http://www.sudokuone.com/sweb/general.htm</a>&quot;A General Logic for Sudoku&quot;
+<a href="https://gidoo-code.github.io/Sudoku_Solver_Generator/page60.html">https://gidoo-code.github.io/Sudoku_Solver_Generator/page60.html</a> ”Sudoku Aalgorithm”
+Since &quot;General Logic&quot; is general-purpose, there is a problem in the efficiency of solving.</p>
+<hr>
+
+    </body>
+    </html>
