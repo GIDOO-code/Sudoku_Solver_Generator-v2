@@ -16,8 +16,6 @@ In Sudoku, there are 324 constraints on rows, columns, blocks, and cells.
 Row/column and block constraints are not independent.
 The following symbols are used to describe each cell and constraint in Sudoku.<br>
 <img src="images/Puzzle/CellBlock1.png" height="250"/><br>
-![](images/Manual/Manual_10File.png)<br>
-![](images/Puzzle/CellBlock1.png)
 ***
 
 
