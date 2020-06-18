@@ -111,7 +111,7 @@ The figure below shows an example of the X-wing (2D-Fish) algorithm,
 where two sets of links are covered by two different sets of links.
 There are n link sets (BaseSet) and n link sets (CoverSet), and CoverSet covers baseSet. This is "locked".
 The elements of BaseSet and CoverSet are links of rows/columns/blocks/cells.
-The logic for BaseSet and CoverSet is described on the HP for Extended Fish and General Logic.
+The logic for BaseSet and CoverSet is described on the HP for Extended Fish and General Logic.<br>
 <https://gidoo-code.github.io/Sudoku_Solver_Generator/page36.html>"Franken/Mutant Fish"<br>
 <https://gidoo-code.github.io/Sudoku_Solver_Generator/page60.html>"GeneralLogic"<br>
 <img src="/images/Puzzle/Fish1.png" height="250"/><br>
@@ -125,7 +125,7 @@ In many cases, there is a simpler analysis algorithm, so Sue De Coq Locked is ra
 <img src="/images/Puzzle/SueDeCoq.png" height="250"/><br>
 
 ### 7)another
-In addition to the ones shown here, there are many Sudoku analysis algorithms.
+In addition to the ones shown here, there are many Sudoku analysis algorithms.<br>
 <https://gidoo-code.github.io/Sudoku_Solver_Generator/page2.html> ”Sudoku Aalgorithm”<br>
 
 ***
@@ -145,7 +145,7 @@ I am in a position not to accept the absurd method (the hypothetical method) as 
 ***
 
 # Supplement
-The Sudoku analysis algorithm is integrated into "General Logic" that includes these in a unified manner.
+The Sudoku analysis algorithm is integrated into "General Logic" that includes these in a unified manner.<br>
 <http://www.sudokuone.com/sweb/general.htm>"A General Logic for Sudoku"<br>
 <https://gidoo-code.github.io/Sudoku_Solver_Generator/page60.html> ”Sudoku Aalgorithm”<br>
 Since "General Logic" is general-purpose, there is a problem in the efficiency of solving.
