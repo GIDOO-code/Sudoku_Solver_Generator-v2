@@ -132,7 +132,7 @@ In addition to the ones shown here, there are many Sudoku analysis algorithms.<b
 
 
 # Summary.
-# Reason for not using the absurd method in the Sudoku analysis algorithm.
+### Reason for not using the absurd method in the Sudoku analysis algorithm.
 * The Sudoku analysis algorithm is composed of a combination of links and extended links.
 * The links and extended links used in the Sudoku analysis algorithm are all links in the current phase.
 * The Sudoku parsing algorithm is to find the "Locked" state of a cell/digit pattern and 
