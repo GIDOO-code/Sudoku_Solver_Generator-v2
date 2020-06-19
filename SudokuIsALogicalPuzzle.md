@@ -1,6 +1,6 @@
 ***
 # Sudoku is a logical puzzle
-# (Reason for not using the absurd method in the Sudoku analysis algorithm)
+### (Reason for not using the absurd method in the Sudoku analysis algorithm)
 Sudoku is a logical puzzle. Repeat the next step to solve.
 1) Sudoku solving Algorithm looks for a "locked" pattern in the phase.
 2) Determine the truth of the candidate digits derived from "Locked".
