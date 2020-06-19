@@ -141,7 +141,7 @@ In addition to the ones shown here, there are many Sudoku analysis algorithms.<b
   the candidate digit is false (confirmed negative).
 
 #### The absurd method (assumed method) advances the phase each time the truth of the candidate digit is   assumed, and uses the link in the next phase.
-i do not accept the absurd method (the hypothetical method) as a method of solving Sudoku.
+i do not accept the absurd method (the hypothetical method) as a method of solving Sudoku.<br>
 Because it is ad hoc and not logical.
 ***
 
