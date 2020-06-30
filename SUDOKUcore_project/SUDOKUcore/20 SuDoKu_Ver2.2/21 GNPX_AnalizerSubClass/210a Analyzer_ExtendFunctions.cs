@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 using GIDOO_space;
 
@@ -178,12 +178,12 @@ namespace GNPXcore{
             if(((HH>>=9)&0x1FF)>0) st += "b"+(HH&0x1FF).ToBitStringN(9)+" ";
             return st.Trim();
         }
-        static public string tfxToString(this int tfx){
+        static public string tfxToString(this int tfx, string noSt=" "){
             string st="";
             if(tfx<0)            st += "---";
-            if(tfx>=0 &&tfx<9)   st += "r"+(tfx+1)+" ";
-            if(tfx>=9 && tfx<18) st += "c"+(tfx-9+1)+" ";
-            if(tfx>=18)          st += "b"+(tfx-18+1)+" ";
+            if(tfx>=0 &&tfx<9)   st += "r"+(tfx+1)+noSt;
+            if(tfx>=9 && tfx<18) st += "c"+(tfx-9+1)+noSt;
+            if(tfx>=18)          st += "b"+(tfx-18+1)+noSt;
             return st.Trim();
         }
         static public string ToString_SameHouseComp(this string st){

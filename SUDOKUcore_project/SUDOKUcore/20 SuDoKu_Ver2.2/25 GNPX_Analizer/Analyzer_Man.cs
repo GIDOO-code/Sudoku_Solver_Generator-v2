@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Media;
 using System.Threading;
-using static System.Console;
+using static System.Diagnostics.Debug;
 using static System.Math;
 
 namespace GNPXcore{

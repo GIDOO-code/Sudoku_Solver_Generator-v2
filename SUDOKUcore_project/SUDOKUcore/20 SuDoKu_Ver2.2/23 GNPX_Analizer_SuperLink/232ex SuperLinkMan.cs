@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using static System.Console;
+using static System.Diagnostics.Debug;
 using System.Windows.Media;
 
 using GIDOO_space;
@@ -71,7 +71,7 @@ namespace GNPXcore {
                         var Q2=rcQue.ToList().Distinct();
                         rcQue.Clear();
                         foreach(var X in Q2) rcQue.Enqueue(X);
-                            //if(DevelopB){ WriteLine(); foreach(var P in rcQue) WriteLine($"--rcQue---{P.GrLKToString()}"); WriteLine(); }
+                            //if(DevelopB){ WriteLine("\r"); foreach(var P in rcQue) WriteLine($"--rcQue---{P.GrLKToString()}"); WriteLine("\r"); }
                     }
 
 					GroupedLink R = rcQue.Dequeue();                                     //dequeue next element

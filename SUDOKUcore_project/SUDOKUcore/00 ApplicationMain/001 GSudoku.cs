@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 
 using static System.Math;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 using System.Windows.Media;
 using System.Threading;

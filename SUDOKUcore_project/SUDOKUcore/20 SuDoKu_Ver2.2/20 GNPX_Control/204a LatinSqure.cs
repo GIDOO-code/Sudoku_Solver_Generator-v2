@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 namespace GNPXcore{
     public partial class LatinSqureGen{
@@ -248,7 +248,7 @@ namespace GNPXcore{
 
         private void __DBUGprint2(int[,] pSol99,string st=""){
             string po;
-            WriteLine();
+            WriteLine("\r");
             for(int r=0; r<9; r++){
                 po = st+r.ToString("##0:");
                 for(int c=0; c<9; c++){

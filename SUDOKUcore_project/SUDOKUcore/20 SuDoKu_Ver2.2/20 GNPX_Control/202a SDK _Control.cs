@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using static System.Math;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 namespace GNPXcore{
     public partial class SDK_Ctrl{
@@ -17,7 +17,7 @@ namespace GNPXcore{
 
         private void __DBUGprint2_Ans( List<UCell> UQ, string st=""){
             string po;
-            WriteLine();
+            WriteLine("\r");
             for(int r=0; r<9; r++){
                 po = st+r.ToString("##0:");
                 for(int c=0; c<9; c++){
@@ -78,7 +78,7 @@ namespace GNPXcore{
                     LSUcc=0;
 #if DEBUG
                     if(__ca>0)  WriteLine(" solution:"+__cb+"/"+__ca);
-                    else        WriteLine();
+                    else        WriteLine("\r");
                     
                     double per = LSlst.Count*100.0/__cc;
                     Write( "========== LSpattern = "+ LSlst.Count+"/"+__cc + "("+per.ToString("0.00")+"%)");
@@ -221,7 +221,7 @@ namespace GNPXcore{
                                 Write($"\r##  {r}:");
                                 PatSel[r].ForEach(c=> Write(" "+c));
                             }
-                            WriteLine();
+                            WriteLine("\r");
                         }
             do{
               LNxtLevel:
@@ -253,7 +253,7 @@ namespace GNPXcore{
                 pn=PatSel[RX].Count;
                 int nxtX=9;
                 while(prmB.Successor(nxtX)){
-                        if(_DEBUGmode_){ Array.ForEach(prmB.Index,P=>Write(" "+P)); WriteLine(); }
+                        if(_DEBUGmode_){ Array.ForEach(prmB.Index,P=>Write(" "+P)); WriteLine("\r"); }
 
                     for(int cx2=0; cx2<pn; cx2++){
                         nxtX=cx2;

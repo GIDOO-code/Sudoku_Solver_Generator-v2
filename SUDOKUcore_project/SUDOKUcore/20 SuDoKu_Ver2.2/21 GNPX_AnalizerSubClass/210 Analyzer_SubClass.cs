@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 using GIDOO_space;
 
@@ -13,8 +13,8 @@ namespace GNPXcore{
     // Generator functions are from various class entities.
     // Functions are bit operation(arithmetic, logical, string functions).
         public readonly int[] _BP;
-        public int   ID;
-        public int   no;  // 0-8
+        public int   ID;    // usage differs depending on the algorithm.
+        public int   no;    // 0-8
         public int Count{ get{ return BitCount(); } }   //count propertie
 
         //============================================================== Generator
@@ -188,10 +188,12 @@ namespace GNPXcore{
             int bPat = (bp&7) | ((bp&sft9)>>6) | ((bp&sft18)>>12);
             return bPat;
         }
+
         public int Get_RowColumnBlock(){
             int rcb=0;
             foreach(var rc in IEGetRC()){
-                rcb |= 1<<(rc/9) | 1<<((rc%9)+9) | 1<<(rc/27*3+(rc%9)/3+18);
+                rcb |= rc.ToRCBitPat();
+              //rcb |= 1<<(rc/9) | 1<<((rc%9)+9) | 1<<(rc/27*3+(rc%9)/3+18);
             }
             return rcb;
         }
@@ -246,33 +248,35 @@ namespace GNPXcore{
   #region Bit981
     public class Bit981{
         //bit81×9 digits
-        static private int[] tfbPat;
-        static readonly int   sz=9;
-        public  int     ID;
-        public  Bit81[] _BQ;
-        public  int[]   tfx27Lst;
-        public  int     nzBit=0;
+        static readonly int  sz=9;          // size(fixed)
+//###        static private int[] __RCBpattern;  // rc -> bit representation of Row/Column/Block
 
+        public  Bit81[]      _BQ;           // bit representation of the rc position of the cell
+        public  int[]        RCBbit;        // rcb bit representation
+        public  int          noBit=0;       // bit representation of digits containing cell elements
+#if false
         static Bit981(){
-            tfbPat=new int[81];
+            __RCBpattern=new int[81];
             for(int rc=0; rc<81; rc++){
-                tfbPat[rc] =(1<<(rc/9)) | (1<<(rc%9+9)) | (1<<((rc/27*3+(rc%9)/3)+18));
+                __RCBpattern[rc] = rc.ToRCBitPat();
+                    //(1<<(rc/9)) | (1<<(rc%9+9)) | (1<<((rc/27*3+(rc%9)/3)+18));
             }
         }
+#endif
         public int Count{ get{ return BitCount(); } }
 
         public Bit981(){
-            _BQ=new Bit81[9]; tfx27Lst=new int[9];
+            _BQ=new Bit81[9]; RCBbit=new int[9];
             for(int n=0; n<sz; n++) _BQ[n]=new Bit81();
         }
         public Bit981(Bit981 Q): this(){
-            this.nzBit=Q.nzBit;
+            this.noBit=Q.noBit;
             for(int n=0; n<sz; n++) this._BQ[n]=Q._BQ[n];
         }
         public Bit981(Bit81 P): this(){
             int no=P.no;
             this._BQ[no]=P;
-            if(!P.IsZero()) nzBit |= (1<<no);
+            if(!P.IsZero()) noBit |= (1<<no);
         }
          
         public Bit981(UGLink UGL): this(){
@@ -282,47 +286,48 @@ namespace GNPXcore{
                 int no=UGL.rcBit81.no;
                 B._BQ[no] = UGL.rcBit81;
                 foreach(int rc in UGL.rcBit81.IEGet_rc())  B._BQ[no].BPSet(rc);
-                if(!UGL.rcBit81.IsZero()) nzBit |= (1<<no);
+                if(!UGL.rcBit81.IsZero()) noBit |= (1<<no);
             }
             else{ 
                 UCell uc=UGL.UC as UCell;
                 foreach(var n in uc.FreeB.IEGet_BtoNo()){
                     B._BQ[n].BPSet(uc.rc);
-                    nzBit |= (1<<n);
+                    noBit |= (1<<n);
                 }
             }
         }
 
         public void Clear(){
-            for(int n=0; n<sz; n++){ this._BQ[n].Clear(); tfx27Lst[n]=0; }
-            nzBit=0;
+            for(int n=0; n<sz; n++){ this._BQ[n].Clear(); RCBbit[n]=0; }
+            noBit=0;
         }
         public void BPSet(int no, int rc, bool tfbSet=false){
-            _BQ[no].BPSet(rc); nzBit |= (1<<no);
-            if(tfbSet) tfxSet(no,rc);
+            _BQ[no].BPSet(rc); noBit |= (1<<no);
+            if(tfbSet) rcbBitSet(no,rc);
         }
         public void BPSet(int no, Bit81 sdX, bool tfbSet=false){
-            _BQ[no] |= sdX; nzBit |= (1<<no);
+            _BQ[no] |= sdX; noBit |= (1<<no);
             if(tfbSet){
-                foreach(var rc in sdX.IEGetRC())  tfxSet(no,rc);
+                foreach(var rc in sdX.IEGetRC())  rcbBitSet(no,rc);
             }
         }
         public void BPReset(int no, int rc){
             _BQ[no].BPReset(rc);
-            if(_BQ[no].IsZero()) nzBit.BitReset(no);
+            if(_BQ[no].IsZero()) noBit.BitReset(no);
         }
-        public void tfxSet(int no, int rc){
-            //(1<<(rc/9)) | (1<<(rc%9+9)) | (1<<((rc/27*3+(rc%9)/3)+18));
-            tfx27Lst[no] |= tfbPat[rc];
-
+        public void rcbBitSet(int no, int rc){           
+            RCBbit[no] |= rc.ToRCBitPat();     //(1<<(rc/9)) | (1<<(rc%9+9)) | (1<<((rc/27*3+(rc%9)/3)+18));
         }
       //public Bit81 Get_BP81A2(int n0, int n1){ return _BQ[n0]&_BQ[n1]; }
-        public void tfxReset(int n, int tfx){ tfx27Lst[n] = tfx27Lst[n].BitReset(tfx); }
-
+/*
+        public void rcbBitReset(int n, int tfx){ 
+            if(n!=0xF) RCBbit[n].BitReset(tfx); 
+        }
+*/
         public Bit981 Copy(){ 
             Bit981 Scpy=new Bit981();
             for(int n=0; n<sz; n++) Scpy._BQ[n] = _BQ[n].Copy();
-            Scpy.nzBit = this.nzBit;
+            Scpy.noBit = this.noBit;
             return Scpy;
         }
 
@@ -351,17 +356,17 @@ namespace GNPXcore{
             return C;
         }
         static private void __Set_nzBit(Bit981 C){
-            int nzBit=0;
+            int noBit=0;
             for(int n=0; n<sz; n++){
-                if(C._BQ[n].IsZero()) nzBit &= ((1<<n)^0x7FFFFFFF);
-                else nzBit |= (1<<n);
+                if(C._BQ[n].IsZero()) noBit &= ((1<<n)^0x7FFFFFFF);
+                else noBit |= (1<<n);
             }
-            C.nzBit=nzBit;
+            C.noBit=noBit;
         }
 
         static public bool operator==(Bit981 A, Bit981 B){
             try{
-                if(A.nzBit!=B.nzBit)  return false;
+                if(A.noBit!=B.noBit)  return false;
                 if(B is Bit981){
                     for(int k=0; k<sz; k++){ if(A._BQ[k]!=B._BQ[k]) return false; }
                     return true;
@@ -372,7 +377,7 @@ namespace GNPXcore{
         }
         static public bool operator!=(Bit981 A, Bit981 B){
             try{
-                if(A.nzBit!=B.nzBit)  return true;
+                if(A.noBit!=B.noBit)  return true;
                 if(B is Bit981){
                     for(int k=0; k<sz; k++){ if(A._BQ[k]!=B._BQ[k]) return true; }
                     return false;
@@ -395,13 +400,8 @@ namespace GNPXcore{
             }
             return (uint)(this._BQ[sz-1].CompareTo(B._BQ[sz-1]));
         }
-/*
-        public int  _SetNonZeroB(){
-            NonZeroB=0;
-            for(int n=0; n<sz; n++){ if(!_BQ[n].IsZero()) NonZeroB |= (1<<n); }
-            return NonZeroB;
-        }
-*/
+
+
         public int IsHit(int rc){
             int H=0;
             for(int n=0; n<9; n++){ if(IsHit(n,rc)) H |= (1<<n); }
@@ -416,12 +416,12 @@ namespace GNPXcore{
         }
         public Bit81 CompressToHitCells(){
             Bit81 Q=new Bit81();
-            foreach(var n in nzBit.IEGet_BtoNo()) Q |= _BQ[n];
+            foreach(var n in noBit.IEGet_BtoNo()) Q |= _BQ[n];
             return Q;
         }
 
         public bool IsZero(){
-            if(nzBit==0)  return true;
+            if(noBit==0)  return true;
             for(int k=0; k<sz; k++){ if(!_BQ[k].IsZero())  return false; }
             return true;
         }    
@@ -433,7 +433,7 @@ namespace GNPXcore{
         }       
         public int  BitCount(){
             int bc=0;
-            foreach(int n in nzBit.IEGet_BtoNo()) bc += _BQ[n].BitCount();
+            foreach(int n in noBit.IEGet_BtoNo()) bc += _BQ[n].BitCount();
             // for(int k=0; k<sz; k++) bc+=_BQ[k].BitCount();
             return bc;
         } 
@@ -453,12 +453,12 @@ namespace GNPXcore{
         }
         public int GetBitPattern_rcN(int rc){
             int bp=0;
-            foreach(var n in nzBit.IEGet_BtoNo()){ if(_BQ[n].IsHit(rc))  bp|=1<<n; }
+            foreach(var n in noBit.IEGet_BtoNo()){ if(_BQ[n].IsHit(rc))  bp|=1<<n; }
             return bp;
         }
 
         public override string ToString(){
-            string st="nonZero:"+nzBit.ToBitString(9)+"\r";
+            string st="nonZero:"+noBit.ToBitString(9)+"\r";
             for(int no=0; no<sz; no++){
                 st += string.Format("no:{0} {1}", no, _BQ[no]) + "\r";
             }

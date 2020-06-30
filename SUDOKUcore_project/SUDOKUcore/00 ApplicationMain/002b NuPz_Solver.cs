@@ -5,7 +5,7 @@ using System.Linq;
 using System.Globalization;
 
 using static System.Math;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 using System.Windows;
 using System.Windows.Controls;
@@ -249,6 +249,8 @@ namespace GNPXcore{
             GNP00.GNPX_Eng.AnMan.ResetAnalysisResult(AllF);
             GNP00.GNPX_Eng.AnalyzerCounterReset();
             SDK_Ctrl.UGPMan=null;           //Initialize Step/Multiple Solution search 
+
+            GeneralLogicGen.GLtrialCC=0;
 
             displayTimer.Stop();
             _SetScreenProblem();

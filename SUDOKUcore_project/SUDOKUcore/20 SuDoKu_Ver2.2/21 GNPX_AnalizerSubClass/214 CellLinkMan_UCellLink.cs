@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 using GIDOO_space;
 
@@ -93,7 +93,7 @@ namespace GNPXcore {
         #endregion Debug Print
         }
         private void __NLPrint( List<UCellLink>[] CeLkLst ){
-            WriteLine();
+            WriteLine("\r");
             int nc=0;
             foreach( var P81 in CeLkLst.Where(p=>p!=null) ){
                 foreach( var P in P81 ){

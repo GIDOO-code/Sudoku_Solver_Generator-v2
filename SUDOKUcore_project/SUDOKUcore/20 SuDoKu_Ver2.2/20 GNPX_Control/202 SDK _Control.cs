@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using static System.Console;
+using static System.Diagnostics.Debug;
 using static System.Math;
 using System.Threading;
 using System.Threading.Tasks;
@@ -128,7 +128,7 @@ namespace GNPXcore{
         }    
         private void __DBUGprint( List<UCell> BDL ){
             string po;
-            WriteLine();
+            WriteLine("\r");
             for(int r=0; r<9; r++ ){
                 po = r.ToString("            ##0:");
                 for(int c=0; c<9; c++ ){
@@ -215,7 +215,7 @@ namespace GNPXcore{
  
         private void __DBUGprint2( int[,] pSol99, string st="" ){
             string po;
-            WriteLine();
+            WriteLine("\r");
             for(int r=0; r<9; r++ ){
                 po = st+r.ToString("##0:");
                 for(int c=0; c<9; c++ ){
@@ -229,7 +229,7 @@ namespace GNPXcore{
 
         private void __DBUGprint2( int[] X, bool sqF, string st="" ){
             string po, p2="";
-            if(sqF) WriteLine();
+            if(sqF) WriteLine("\r");
             for(int r=0; r<9; r++ ){
                 po = "";
                 for(int c=0; c<9; c++ ){

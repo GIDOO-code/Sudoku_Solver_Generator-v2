@@ -62,12 +62,12 @@
         </p>
 	
 		<h2>Weak link</h2>	
-		<p>GeneralLogic's basics are <a href="page25.html"> weak links</a>.<br>
+		<p>GeneralLogic's basics is a <a href="page25.html"> weak links</a>.<br>
         Sudoku has constraints on rows, columns and blocks. 
-        Franken/Mutant Fish is a solution algorithm composed of rows, columns, and blocks.&nbsp;
+        Franken/Mutant Fish is an algorithm composed of rows, columns, and blocks.&nbsp;
         Furthermore, from the Sudoku rule that any digit from 1 to 9 enters for 9×9 cells, each cell is also weak link.
         In total, Sudoku has 324 constraints. <br>
-        <strong>general Logic </strong> is a solution algorithm composed of weak links in rows, columns, blocks, and cells. 
+        <strong>general Logic </strong> is an algorithm composed of weak links in rows, columns, blocks, and cells. 
         (Strong links are included in weak links.)</p>
 		
 		<p style="text-align:center">
@@ -78,13 +78,14 @@
         <p>
             <strong>BaseSet</strong> : Select n weak links so that they do not overlap.
             This n weak links are called <strong>BaseSet(n-BaseSet)</strong>.
-            There is one truth for each weak link, and there are n truths for <strong>BaseSet </strong> as a whole.<br><br>
+            There is one true for each weak link, and there are n trues for <strong>BaseSet </strong> as a whole.<br><br>
 
             <strong>CoverSet</strong> : Choose m(m≧n) weak links different from <strong>BaseSet</strong> to completely
             cover <strong>BaseSet</strong>.  This is called <strong>CoverSet(m-CoverSet)</strong>.
-            Elements that do not belong to <strong>BaseSet </strong> are acceptable.
-            In order for General Logic to be established, elements that do not belong to <strong>BaseSet</strong> are necessary.
-            <Strong>CoverSet</Strong> may overlap.The true number of <strong>CoverSet </strong> is m or less. <br><br>
+			There may be elements that do not belong to <strong>BaseSet </strong>.          
+			In order for General Logic to be established, 
+			Elements that do not belong to <strong>BaseSet</strong> are required to establish General Logic.
+            <Strong>CoverSet</Strong> may overlap. The true number of <strong>CoverSet </strong> is m or less. <br><br>
 
             <strong>Rank</strong> : Define the ranking of <strong>BaseSet and CoverSet </strong> pairs as follows. <br>
             <strong>BaseSet/CoverSet Rank＝ｍ-ｎ</strong><br><br>
@@ -128,7 +129,7 @@
 
         <h4>rank k(k≧1):</h4>
 		<p>Consider the case of covering n-BaseSet with (n+k)-CoverSet.<br>The configuration is the same as Rank 1.
-            In order to be an analysis algorithm, the following conditions must be satisfied.
+            In order to be an analysis algorithm, the following conditions must be satisfied.<br>
 
             Condition 1:(n+k)-CoverSet completely covers n-BaseSet. <br>
             Condition 2:(k+1) of the (n+k)weak links of CoverSet have elements in common which are not included in the n-BaseSet.<br />

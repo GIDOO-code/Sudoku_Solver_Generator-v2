@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GIDOO_space;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 namespace GNPXcore{
     public partial class NiceLoopGen: AnalyzerBaseV2{

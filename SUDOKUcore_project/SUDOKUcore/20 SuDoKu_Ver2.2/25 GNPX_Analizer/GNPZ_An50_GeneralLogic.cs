@@ -1,25 +1,31 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 using GIDOO_space;
 
 namespace GNPXcore{
-    public partial class GeneralLogicGen: AnalyzerBaseV2{
-        static private int GLtrialCC=0;
-        static public int ChkBas1=0, ChkBas2=0, ChkBas3=0,  ChkBas4=0;
+
+//*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*====*==*==*==*
+//  GeneralLogic is in development now.
+//  (Completeness is about 30%.)
+//  A lot of development code remains.
+//*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*
+
+    public class GeneralLogicGen: AnalyzerBaseV2{
+        static public int GLtrialCC=0;
+        static public int  ChkBas0=0, ChkBas1=0, ChkBas2=0, ChkBas3=0,  ChkBas4=0;
         static public int ChkCov1=0, ChkCov2=0;
-        static public int ChkBas1A=0, ChkBas1B=0;
+        static public int ChkBas3A=0, ChkBas3B=0;
         private int GStageMemo;
         private UGLinkMan UGLMan;
         private int GLMaxSize;
         private int GLMaxRank;
 
         public GeneralLogicGen( GNPX_AnalyzerMan pAnMan ): base(pAnMan){ }
-        //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2
 
-        public bool GeneralLogicExnm( ){
+        public bool GeneralLogicExnm( ){                                //### GeneralLogic controler
             if(pAnMan.GStage!=GStageMemo){
 				GStageMemo=pAnMan.GStage;
                 GLMaxSize = GNPXApp000.GMthdOption["GenLogMaxSize"].ToInt();
@@ -28,31 +34,35 @@ namespace GNPXcore{
                 if(SDK_Ctrl.UGPMan==null)  SDK_Ctrl.UGPMan=new UPuzzleMan(1);
                 UGLMan.PrepareUGLinkMan( printB:false );    //SDK_Ctrl.UGPMan.stageNo==12 ); //false); 
 			}
-                 
-            WriteLine( "--- GeneralLogic --- trial:{0}", ++GLtrialCC);
+            
+            WriteLine( $"--- GeneralLogic --- trial:{++GLtrialCC}" );
             for(int sz=1; sz<=GLMaxSize; sz++ ){
                 for(int rnk=0; rnk<=GLMaxRank; rnk++ ){ 
                     if(rnk>=sz) continue;
-                    ChkBas1=0; ChkBas2=0; ChkBas3=0; ChkBas4=0; ChkCov1=0; ChkCov2=0;
-                    ChkBas1A=0; ChkBas1B=0;
-                    if(GeneralLogicExB(sz,rnk)){
-                        WriteLine($" {sz} {rnk} ++ Bas:{ChkBas2}({ChkBas3},{ChkBas4})/{ChkBas1}  Cov:{ChkCov2}/{ChkCov1}  interNum({ChkBas1A}/{ChkBas1B})" );
-                        return true;
-                    }
-                    WriteLine($" {sz} {rnk}    Bas:{ChkBas2}({ChkBas3},{ChkBas4})/{ChkBas1}  Cov:{ChkCov2}/{ChkCov1}  interNum({ChkBas1A}/{ChkBas1B})");
+                    ChkBas1=0; ChkBas2=0; ChkBas3=0; ChkBas4=0;
+                    ChkBas3A=0; ChkBas3B=0;
+                    ChkCov1=0; ChkCov2=0;
+
+                    bool solB = GeneralLogicEx(sz,rnk);
+
+                    string st = solB? "++": "  ";
+                    WriteLine($" {sz} {rnk} {st} Bas:({ChkBas1},{ChkBas2},{ChkBas3},{ChkBas4})/{ChkBas0} " +
+                              $" Cov:{ChkCov2}/{ChkCov1}  interNum({ChkBas3A}/{ChkBas3B})");
+
+                    if(solB) return true;
                 }
             }
             return false;
         }
         
-        private bool GeneralLogicExB( int sz, int rnk ){
+        private bool GeneralLogicEx( int sz, int rnk ){                 //### GeneralLogic main routine
             if(sz>GLMaxSize || rnk>GLMaxRank)  return false;
 
-            foreach( var UBC in UGLMan.IEGet_BaseSet(sz,rnk) ){         //### BaseSet generation
+            foreach( var UBC in UGLMan.IEGet_BaseSet(sz,rnk) ){         //### BaseSet generator
                 if( pAnMan.CheckTimeOut() ) return false;
 
                 var bas=UBC.HB981;
-                foreach( var UBCc in UGLMan.IEGet_CoverSet(UBC,rnk) ){  //### CoverSet generation
+                foreach( var UBCc in UGLMan.IEGet_CoverSet(UBC,rnk) ){  //### CoverSet generator
 
                     for(int no=0; no<9; no++ ){
                         if( !(UBCc.HC981._BQ[no]-UBCc.HB981._BQ[no]).IsZero() )  goto SolFound;
@@ -60,7 +70,7 @@ namespace GNPXcore{
                     continue;
 
                   SolFound:
-                    foreach( int n in UBCc.Can981.nzBit.IEGet_BtoNo() ){
+                    foreach( int n in UBCc.Can981.noBit.IEGet_BtoNo() ){
                         foreach( int rc in UBCc.Can981._BQ[n].IEGetRC() ){
                             pBDL[rc].CancelB |= (1<<n);
                         }
@@ -70,8 +80,6 @@ namespace GNPXcore{
                     if(__SimpleAnalizerB__)  return true;
                     if(!pAnMan.SnapSaveGP(false)) return true;                 
                 }
-                
-               // if(sz>=3) WriteLine("----------------------------Check\r"+UBC);
             }
             return false;
         }
@@ -79,7 +87,7 @@ namespace GNPXcore{
         private void _generalLogicResult( UBasCov UBCc ){
             try{
                 Bit81 Q=new Bit81();
-                foreach( var P in UBCc.covUGLs )  Q |= P.rcbn2.CompressToHitCells();
+                foreach( var P in UBCc.covUGLs )  Q |= P.rcnBit.CompressToHitCells();
                 foreach( var UC in Q.IEGetRC().Select(rc=>pBDL[rc]))   UC.SetCellBgColor(SolBkCr2);
            
                 for(int rc=0; rc<81; rc++ ){
@@ -173,69 +181,100 @@ namespace GNPXcore{
             }
         }
     }  
+
+    public class UBasCov{
+        public Bit324       usedLK;
+        public List<UGLink> basUGLs; //
+        public List<UGLink> covUGLs; //
+        public Bit981 HB981;
+        public Bit981 HC981;
+        public Bit981 Can981;
+        public int    rcCan;
+        public int    noCan;
+        public int    sz;
+        public int    rnk;
+
+        public UBasCov( List<UGLink> basUGLs, Bit981 HB981, int sz, Bit324 usedLK ){
+            this.basUGLs=basUGLs; this.HB981=HB981; this.sz=sz; this.usedLK=usedLK;
+        }
+ 
+        public void addCoverSet( List<UGLink> covUGLs, Bit981 HC981, Bit981 Can981, int rnk ){
+            this.covUGLs=covUGLs; this.HC981=HC981; this.Can981=Can981; this.rnk=rnk;
+        }
+        public override string ToString(){
+            string st="";
+            foreach( var UGL in basUGLs){
+                if(UGL.rcBit81 is Bit81){   // RCB
+                    int no=UGL.rcBit81.no;
+                    st += string.Format("Bit81: no:{0}  {1}\r", no, UGL.rcBit81 );
+                }
+                else{   // Cell
+                    UCell UC=UGL.UC;
+                    st += string.Format("UCell: {0}\r", UC );
+                }
+            }
+            return st;
+        }
+    }
+
 }
-/*
- --- GeneralLogic ---
- 1 0++ ChkBas:93/93 ChkCov:22/91
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:34/114
- 2 0++ ChkBas:525/12003 ChkCov:62/2753
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:34/106
- 2 0++ ChkBas:823/19699 ChkCov:151/3745
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:34/98
- 2 0   ChkBas:1001/22438 ChkCov:154/3443
- 2 1++ ChkBas:150/3205 ChkCov:1/49185
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:34/96
- 2 0   ChkBas:999/22438 ChkCov:154/3288
- 2 1   ChkBas:999/22438 ChkCov:0/307800
- 3 0++ ChkBas:2786/61340 ChkCov:201/32460
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:34/92
- 2 0++ ChkBas:754/19205 ChkCov:149/2769
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:34/86
- 2 0   ChkBas:997/22912 ChkCov:156/2652
- 2 1++ ChkBas:286/6243 ChkCov:1/89215
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:34/82
- 2 0   ChkBas:1006/23070 ChkCov:156/2386
- 2 1   ChkBas:1006/23070 ChkCov:0/259596
- 3 0++ ChkBas:13679/243322 ChkCov:1049/98539
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:34/78
- 2 0   ChkBas:1017/23228 ChkCov:156/2261
- 2 1   ChkBas:1017/23228 ChkCov:0/256172
- 3 0++ ChkBas:1454/33372 ChkCov:102/11552
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:34/78
- 2 0   ChkBas:1003/23386 ChkCov:156/2108
- 2 1   ChkBas:1003/23386 ChkCov:0/237574
- 3 0   ChkBas:16990/280563 ChkCov:1116/97797
- 3 1++ ChkBas:590/14150 ChkCov:1/1509911
---- GeneralLogic ---
- 1 0++ ChkBas:18/18 ChkCov:3/13
---- GeneralLogic ---
- 1 0   ChkBas:120/160 ChkCov:36/76
- 2 0   ChkBas:994/23702 ChkCov:172/1973
- 2 1   ChkBas:994/23702 ChkCov:0/223552
- 3 0   ChkBas:16014/276481 ChkCov:1192/85045
- 3 1++ ChkBas:1253/29585 ChkCov:1/3294416
---- GeneralLogic ---
- 1 0   ChkBas:117/156 ChkCov:36/66
- 2 0   ChkBas:948/22794 ChkCov:164/1529
- 2 1   ChkBas:948/22794 ChkCov:0/189390
- 3 0   ChkBas:14737/259340 ChkCov:1294/60163
- 3 1   ChkBas:14737/259340 ChkCov:0/37206592
- 4 0++ ChkBas:46397/736632 ChkCov:1809/754867
---- GeneralLogic ---
- 1 0++ ChkBas:51/51 ChkCov:13/26
---- GeneralLogic ---
- 1 0   ChkBas:117/156 ChkCov:38/60
- 2 0++ ChkBas:14/314 ChkCov:3/43
---- GeneralLogic ---
- 1 0   ChkBas:117/156 ChkCov:38/56
- 2 0++ ChkBas:607/18725 ChkCov:180/1013
- */
+
+#if false
+1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2
+--- GeneralLogic --- trial:1
+ 1 0 ++ Bas:(83,0,0,0)/83  Cov:1/70  interNum(0/0)
+--- GeneralLogic --- trial:2
+ 1 0    Bas:(103,0,0,0)/226  Cov:0/80  interNum(0/0)
+ 2 0 ++ Bas:(302,224,59,12)/3894  Cov:1/337  interNum(0/0)
+--- GeneralLogic --- trial:3
+ 1 0    Bas:(103,0,0,0)/4037  Cov:0/72  interNum(0/0)
+ 2 0 ++ Bas:(495,369,106,24)/10078  Cov:1/496  interNum(0/0)
+--- GeneralLogic --- trial:4
+ 1 0    Bas:(103,0,0,0)/10221  Cov:0/64  interNum(0/0)
+ 2 0    Bas:(601,414,116,46)/18738  Cov:0/511  interNum(0/0)
+ 2 1 ++ Bas:(276,221,141,50)/21270  Cov:1/26826  interNum(17/62)
+--- GeneralLogic --- trial:5
+ 1 0    Bas:(103,0,0,0)/21413  Cov:0/62  interNum(0/0)
+ 2 0    Bas:(595,409,115,46)/29930  Cov:0/503  interNum(0/0)
+ 2 1    Bas:(995,719,515,206)/39963  Cov:0/102852  interNum(44/171)
+ 3 0 ++ Bas:(2615,2350,488,14)/232225  Cov:1/15031  interNum(0/0)
+--- GeneralLogic --- trial:6
+ 1 0    Bas:(103,0,0,0)/232368  Cov:0/58  interNum(0/0)
+ 2 0    Bas:(598,400,109,46)/240896  Cov:0/496  interNum(0/0)
+ 2 1    Bas:(1008,713,505,211)/250929  Cov:0/95975  interNum(43/166)
+ 3 0 ++ Bas:(1732,1539,251,10)/379859  Cov:1/5287  interNum(0/0)
+--- GeneralLogic --- trial:7
+ 1 0    Bas:(103,0,0,0)/380002  Cov:0/56  interNum(0/0)
+ 2 0    Bas:(639,428,116,46)/389008  Cov:0/512  interNum(0/0)
+ 2 1    Bas:(984,689,506,219)/399106  Cov:0/80559  interNum(46/160)
+ 3 0 ++ Bas:(2846,2495,458,15)/612945  Cov:1/10197  interNum(0/0)
+--- GeneralLogic --- trial:8
+ 1 0    Bas:(103,0,0,0)/613088  Cov:0/52  interNum(0/0)
+ 2 0 ++ Bas:(643,421,108,46)/621676  Cov:1/438  interNum(0/0)
+--- GeneralLogic --- trial:9
+ 1 0    Bas:(103,0,0,0)/621819  Cov:0/48  interNum(0/0)
+ 2 0    Bas:(633,399,108,46)/630999  Cov:0/364  interNum(0/0)
+ 2 1 ++ Bas:(469,361,251,100)/635484  Cov:1/37825  interNum(22/84)
+--- GeneralLogic --- trial:10
+ 1 0    Bas:(103,0,0,0)/635627  Cov:0/44  interNum(0/0)
+ 2 0    Bas:(646,397,108,46)/644814  Cov:0/346  interNum(0/0)
+ 2 1    Bas:(993,651,480,223)/654912  Cov:0/61890  interNum(42/155)
+ 3 0    Bas:(5160,4295,682,36)/1028704  Cov:0/8550  interNum(0/0)
+ 3 1 ++ Bas:(1769,1232,609,62)/1091945  Cov:1/1292152  interNum(54/370)
+--- GeneralLogic --- trial:11
+ 1 0 ++ Bas:(17,0,0,0)/1091962  Cov:1/11  interNum(0/0)
+--- GeneralLogic --- trial:12
+ 1 0    Bas:(102,0,0,0)/1092104  Cov:0/40  interNum(0/0)
+ 2 0    Bas:(659,393,104,49)/1101333  Cov:0/257  interNum(0/0)
+ 2 1    Bas:(979,619,457,215)/1111289  Cov:0/53027  interNum(42/154)
+ 3 0    Bas:(4955,4097,621,37)/1481104  Cov:0/5782  interNum(0/0)
+ 3 1 ++ Bas:(3186,2142,1038,87)/1610525  Cov:1/2393747  interNum(119/698)
+--- GeneralLogic --- trial:13
+ 1 0    Bas:(99,0,0,0)/1610663  Cov:0/30  interNum(0/0)
+ 2 0    Bas:(645,374,95,47)/1619582  Cov:0/175  interNum(0/0)
+ 2 1    Bas:(930,570,428,211)/1629010  Cov:0/37957  interNum(41/146)
+ 3 0    Bas:(4520,3676,550,41)/1970843  Cov:0/2553  interNum(0/0)
+ 3 1 ++ Bas:(3157,2040,1020,90)/2097474  Cov:1/1840876  interNum(97/649)
+
+Execution time: 38.5seconds.
+#endif

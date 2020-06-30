@@ -99,10 +99,10 @@
         <!-- DataContext="{Binding}" -->
         <Image x:Name="PB_GBoard" Width="338" Height="338" Margin="18,108,0,0" Stretch="Fill" VerticalAlignment="Top"
                  HorizontalAlignment="Left" 
-               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/images/LockedCandidate.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
+               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/LockedCandidate.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
 
         <!--
-               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/images/ColorSwatchCircle.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
+               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/ColorSwatchCircle.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
         
                 MouseLeftButtonDown="PB_GBoard_MouseLeftButtonDown"
                MouseLeftButtonUp="PB_GBoard_MouseLeftButtonUp"
@@ -613,7 +613,7 @@
                                 <Label x:Name="Force0_Single" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,30,0,0" VerticalAlignment="Top" Content="Single solution" Grid.Row="4" Grid.Column="2" />
                                 <Label x:Name="Foece1_SolutionDigit" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,46,0,0" VerticalAlignment="Top" Content="All solutions for digit n or for cell" Grid.Row="4" Grid.Column="2" />
                                 <Label x:Name="Force2_ComplateSol" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,61,0,0" VerticalAlignment="Top" Content="Complete solution on board" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" />
-                                <CheckBox Content="ForceChain Cell/House" Foreground="White" Margin="13,18,0,0" x:Name="ForceChainCellHouse" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="1" Checked="ForceChainCellHouse_Checked" Unchecked="ForceChainCellHouse_Checked" Grid.ColumnSpan="2" IsChecked="True" />
+                                <CheckBox Content="ForceChain Cell/House" Foreground="White" Margin="13,18,0,0" x:Name="ForceChainCellHouse" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="1" Checked="ForceChainCellHouse_Checked" Unchecked="ForceChainCellHouse_Checked" Grid.ColumnSpan="2" IsChecked="True" IsEnabled="False" />
                                 <Label Content="General Logic" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="0" x:Name="lblGeneralLogicGroup" VerticalAlignment="Top" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="1" />
                                 <CheckBox Content="GeneralLogic" Foreground="White" Margin="13,22,0,0" x:Name="GeneralLogicOnChbx" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="5" Grid.Column="1" Checked="GeneralLogicOnChbx_Checked" Unchecked="GeneralLogicOnChbx_Checked" Grid.ColumnSpan="2" />
                                 <Label x:Name="lblGenLogMaxSize" 
@@ -1560,6 +1560,8 @@
         </TabControl>
         <GIDOO_space:NumericUpDown HorizontalAlignment="Left" Height="100" Margin="859,667,0,0" VerticalAlignment="Top" Width="100"/>
         <RepeatButton Content="RepeatButton" HorizontalAlignment="Left" Margin="613,-87,0,0" VerticalAlignment="Top"/>
-
+    <!--
+        <Image Panel.ZIndex="-1" Source="/00 ApplicationMain/ssc2018-09a_Inline.jpg" Stretch="Fill"/>
+    -->
     </Grid>
 </Window>

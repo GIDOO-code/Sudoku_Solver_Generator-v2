@@ -1,5 +1,5 @@
 ﻿using System;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 namespace GNPXcore{
     public partial class LatinSqureGen{
@@ -56,7 +56,7 @@ namespace GNPXcore{
             s/=56; p[2]=s%6; p[3]=(s/6)%6; p[4]=(s/36)%6;
             p[5]=(s/216)%6; p[6]=(s/1296)%6; p[7]=(s/7776)%6;
                 //for(int k=0; k<8; k++) Write( $"{p[k]} " );
-                //WriteLine();         
+                //WriteLine("\r");         
         }
       
         private void _LatinSqureSub_00( ){
@@ -153,7 +153,7 @@ namespace GNPXcore{
         }
         private void __DBUGprint( ){
             string po;
-            WriteLine();
+            WriteLine("\r");
             for(int r=0; r<9; r++){
                 po = r.ToString("##0:");
                 for(int c=0; c<9; c++){

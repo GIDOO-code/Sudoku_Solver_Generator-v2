@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 namespace GNPXcore {
     public class GroupedLink: IComparable, IEquatable<GroupedLink> {

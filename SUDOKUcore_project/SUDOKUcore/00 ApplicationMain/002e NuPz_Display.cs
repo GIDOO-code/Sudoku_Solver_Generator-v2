@@ -5,7 +5,7 @@ using System.Linq;
 using System.Globalization;
 
 using static System.Math;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 using System.Windows;
 using System.Windows.Controls;

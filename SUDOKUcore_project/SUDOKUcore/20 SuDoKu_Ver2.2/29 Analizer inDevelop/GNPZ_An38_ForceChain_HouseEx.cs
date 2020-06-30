@@ -4,7 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
-using static System.Console;
+using static System.Diagnostics.Debug;
 using System.Threading;
 
 using GIDOO_space;

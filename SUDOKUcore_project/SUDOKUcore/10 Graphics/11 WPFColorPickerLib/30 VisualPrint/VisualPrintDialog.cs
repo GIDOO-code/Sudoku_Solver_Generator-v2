@@ -21,7 +21,7 @@ using System.Windows.Markup;
 using System.Windows.Xps;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps.Serialization;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 //WPF Visual Print Component
 //http://www.codeproject.com/Articles/164033/WPF-Visual-Print-Component

@@ -2,34 +2,43 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using static System.Console;
+using static System.Diagnostics.Debug;
 using static System.Math;
 
 using GIDOO_space;
 
-namespace GNPXcore {
+//*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*====*==*==*==*
+//  GeneralLogic is in development now.
+//  (Completeness is about 30%.)
+//  A lot of development code remains.
+//*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*
+
+namespace GNPXcore{
     public class UGLinkMan{
         public List<UCell>    pBDL;             
-        public Bit81[]        pHouseCells;
-        public Bit81[]        p_connectedCells;
+        public Bit81[] pHouseCells;
         private List<Bit81>   HBL=new List<Bit81>();
         private List<UGLink>  UGLLst=null;
-        private List<int>     usedLKIgnrLst=null;
+        private List<int>     usedLKIgnrLst=null;           //House is different but cells pattern is the same. Same during one stage
 
         private Bit81[]       Colored=new Bit81[9];
         private Bit81[]       Processed=new Bit81[9];
         public  Bit81[]       BPnoBLst = new Bit81[9];
 
         static public bool printSW=false;
+        private int stageNo{ get{ return SDK_Ctrl.UGPMan.stageNo; } }
 
-        //..7.2..4546.5....9.95.....7.....8.3.9...6...1.7.2...987......8384...1.5253..8.9..  
+        //..7.2..4546.5....9.95.....7.....8.3.9...6...1.7.2...987......8384...1.5253..8.9.. 
         //83..76..2....85.....1...7...8...3....67...13....7...4...2...3.....24....9..63..25 
+        //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2  
 
         public UGLinkMan( AnalyzerBaseV2 AnB ){
             this.pBDL = AnB.pBDL;
             this.pHouseCells       = AnalyzerBaseV2.HouseCells;
-            this.p_connectedCells   = AnalyzerBaseV2.ConnectedCells;
-            UGLink.p_connectedCells = AnalyzerBaseV2.ConnectedCells;
+            BaseSetStatus.pHouseCells = AnalyzerBaseV2.HouseCells;
+            UGLink.pConnectedCells = AnalyzerBaseV2.ConnectedCells;
+            BaseSetStatus.pConnectedCells   = AnalyzerBaseV2.ConnectedCells;
+
             for(int no=0; no<9; no++ ){
                 Colored[no]=new Bit81(); Processed[no]=new Bit81();
             }
@@ -37,185 +46,186 @@ namespace GNPXcore {
         }
 
         public int PrepareUGLinkMan( bool printB=false ){
-            Bit81Chk.p_connectedCells   = AnalyzerBaseV2.ConnectedCells;
+
             UGLLst=new List<UGLink>();
             usedLKIgnrLst=new List<int>();
-            UGLink.SrNum0=0;
-            for(int no=0; no<9; no++){          // row/column/block elements
+            UGLink.IDnum0=0;
+            
+            //In UGLLst, rcb-Links is first, and cell-Links is second. This order is used in the algorithm.
+            // 1)rcb-Links
+            for(int no=0; no<9; no++){          //no:digit
                 Bit81 BPnoB=new Bit81(pBDL,(1<<no));
                 BPnoBLst[no] = BPnoB;
-                for(int tfx=0; tfx<27; tfx++){ 
-                    Bit81 Q = pHouseCells[tfx]&BPnoB;
+                for(int tfx=0; tfx<27; tfx++){  //tfx:house
+                    Bit81 Q = pHouseCells[tfx]&BPnoB;   
                     if(Q.IsZero()) continue;
                     Q.no=no;
-                    Q.ID=(tfx<<4)|no;
-                    if(UGLLst.All(P=>(P.rcBit81.no!=no || P.rcBit81!=Q))){ UGLLst.Add(new UGLink(Q)); } // Q is unique?
-                    else usedLKIgnrLst.Add(Q.ID);
+                    Q.ID=(tfx<<4)|no;                             //ID is the usage within this algorithm(UGLinkMan).
+                    if( UGLLst.All(P=>(P.rcBit81.no!=no || P.rcBit81!=Q)) ){ UGLLst.Add(new UGLink(Q)); }           //Q is unique?
+                    else{ usedLKIgnrLst.Add(Q.ID); }                                       //House is different but cells pattern is the same.
                 }
             }
-            foreach( var UC in pBDL.Where(p=>p.No==0) )  UGLLst.Add(new UGLink(UC));    // cell elements
-            UGLink.pBPnoBLst=BPnoBLst;
 
-            if(printB)  UGLLst.ForEach(P=>WriteLine(P.ToString("prepare")));
+            // 2)cell-Links
+            foreach( var UC in pBDL.Where(p=>p.No==0) )  UGLLst.Add(new UGLink(UC));    // cell elements
+
+            if(printB){
+                UGLLst.ForEach(P=>WriteLine(P.ToString("prepare")));
+                _usedLKLst_checkPrint("### usedLKIgnrLst",usedLKIgnrLst);
+            }
             return UGLLst.Count;
         }
-
-        public int __checkCC=0;
         public IEnumerable<UBasCov> IEGet_BaseSet( int sz, int rnk ){ 
             if(UGLLst==null)  yield break;
 
-            __checkCC=0;
+            List<UGLink>  basUGLs   = new List<UGLink>();                               //BaseSet List
+            Bit981        HB981     = new Bit981();                                     //BaseSet bitPattern
+            Bit324        usedLK    = new Bit324();                                     //usedLink(by serial number)
+            List<int>     usedLKLst = new List<int>();
 
-            List<UGLink>  basUGLs=new List<UGLink>();
-            Bit981        HB981=new Bit981();           //BaseSet bitPattern
-            Bit324        usedLK=new Bit324();          //usedLink(by serial number)
-            List<int>     usedLKLst=new List<int>();
 
-            Bit81Chk      coverChk=new Bit81Chk(sz,rnk,basUGLs,usedLKLst,usedLKIgnrLst);
+            BaseSetStatus      BSstatus  = new BaseSetStatus(sz,rnk,basUGLs,usedLKLst,usedLKIgnrLst);
 
             var cmbBas=new Combination(UGLLst.Count,sz);
-            long rcbn36=0;
+            long RCBN_frameA=0;
 
             int jkC=0;
             int nxt=int.MaxValue;   //(skip function)
             while(cmbBas.Successor(nxt)){
-                                    GeneralLogicGen.ChkBas1++;   //*****
+                                    GeneralLogicGen.ChkBas0++;   //*****
 
                 jkC++;
-              //*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==* sz=1
+                //Use the BaseSet list(basUGLs) and bit representations(HB981).
+                //  sz=1  *==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*
                 if(sz==1){
                     UGLink UGL=UGLLst[cmbBas.Index[0]];
-                    if( UGL.UC is UCell ) goto LNextSet; // if size=1, cell-type is invalid
+                    if( UGL.UC is UCell ) goto LNextSet;                                    //only row/column/block link.
 
-                    // UGL.rcBit81 is Bit81
-                    int blkB=(int)UGL.Get_rcbnFrame(2);
-                    if(blkB.BitCount()>1)  goto LNextSet;
+                    HB981.Clear();    HB981.BPSet(UGL.rcBit81.no,UGL.rcBit81,tfbSet:false); //accumulate rcbn info. in HB981.
+                    basUGLs.Clear();  basUGLs.Add(UGL);                                     //set UGL in BaseSet
 
-                    int no=UGL.rcBit81.no, b=blkB.BitToNum();
-                    var P = UGLLst.Find(U => U.Equal_no_block(no,b) );
-                    if(P==null) goto LNextSet;
-                    if((P.rcBit81-UGL.rcBit81).Count==0)  goto LNextSet;
-
-                    //there are numbers only within one block
-                    HB981.Clear();    HB981.BPSet(UGL.rcBit81.no,UGL.rcBit81,tfbSet:false);
-                    basUGLs.Clear();  basUGLs.Add(UGL);
-                                GeneralLogicGen.ChkBas2++;   //*****
+                                GeneralLogicGen.ChkBas1++;   //*****
                     goto LBSFound;   //possibility of solution
                 }
 
-              //*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==* sz>=2
+                //  sz>=2  *==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*             
                 HB981.Clear();
                 basUGLs.Clear();
                 usedLKLst.Clear();
-                coverChk.Clear();
-                rcbn36=0;
-
-                //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2
-
-                for(int k=0; k<sz; k++ ){
+                BSstatus.Clear(); 
+   
+                RCBN_frameA=0;
+                int[] _RCB_frameB = new int[9];
+                for(int k=0; k<sz; k++ ){                                                   //(r:row c:column b:block n:digit => rcbn)
                     nxt=k;
-                    UGLink UGL=UGLLst[cmbBas.Index[k]];
-                    rcbn36 |= UGL.rcbnFrame2 ;
+                    UGLink UGL = UGLLst[cmbBas.Index[k]];
+                    RCBN_frameA |= UGL.RCBN_frameB ;                                               //bit representation of rcbn
 
-                    if( !Check_rcbnCondition(sz,rnk,k,rcbn36) ) goto LNextSet;  //# Extremely efficient
+                    if( !Check_rcbnCondition(sz,rnk,k,RCBN_frameA) ) goto LNextSet;   //### extremely efficient
 
-                    if(UGL.rcBit81 is Bit81){    // ............ rcb ............
-                        if(k>0 && HB981.IsHit(UGL.rcBit81.no,UGL.rcBit81))  goto LNextSet; //included in BaseSet
-                        HB981.BPSet(UGL.rcBit81.no,UGL.rcBit81,tfbSet:true);               //register to BaseSet
-                        usedLKLst.Add(UGL.rcBit81.ID);    //tfx<<4 | no
-                        int no = UGL.rcBit81.no;
-                        coverChk.noB |= 1<<no;  //qq
+                    if(UGL.rcBit81 is Bit81){                           // ........................ rcb link  ........................
+                        int no=UGL.rcBit81.no;
+                        if(k>0 && HB981.IsHit(no,UGL.rcBit81))  goto LNextSet;              //elements already included in HB981
+                        HB981.BPSet(no,UGL.rcBit81,tfbSet:true);                            //accumulate rcbn info. in HB981.
+                        usedLKLst.Add(UGL.rcBit81.ID);      //(ID=tfx<<4 | no)              //[rcb_link type]register ID to used list.
+                        _RCB_frameB[no] |= (int)UGL.RCBN_frameB&0x3FFFFFF;
                     }
-                    else{                        // ........... Cell ............
+                    else{                                               // ....................... Cell link ........................
                         UCell UC=UGL.UC;
-                        int   rc=UC.rc;  
-                        foreach( var n in UC.FreeB.IEGet_BtoNo(9) ){
-                            if(k>0 && HB981.IsHit(n,rc))   goto LNextSet;
-                            HB981.BPSet(n,rc,tfbSet:true);
+                        int   rc=UC.rc; 
+                        //In UGLLst, rcb-Links is first, and cell-Links is second.
+                        //Even in combination, this order is maintained.
+                        //Therefore, the condition "cell-links have common parts with rcb-Links?" is satisfied.
+                        foreach( var no in UC.FreeB.IEGet_BtoNo(9) ){
+                            if(k>0 && HB981.IsHit(no,rc))   goto LNextSet;                   //Not BaseSet as it has no intersection.
+                            HB981.BPSet(no,rc,tfbSet:true);                                  //accumulate rcbn info. in HB981.
+                            _RCB_frameB[no] |= rc.ToRCBitPat();
                         }
-                        int IDrc = rc<<17 | 1<<16;
-                        usedLKLst.Add(IDrc);    //tfx<<4 | no
+                        int IDrc = rc<<4 | 0xF; //( 0xF:Cell type identification flag )
+                        usedLKLst.Add(IDrc);               //(ID=rc<<4| no)               //[cell type]register ID to used list.
+
                     }
-                    basUGLs.Add(UGL); //qq                   
+                    basUGLs.Add(UGL);                                                       //set UGL in BaseSet
+                                                                        // ...........................................................
                 }
-                                            GeneralLogicGen.ChkBas2++;   //*****
+                BSstatus.RCB_frameB = _RCB_frameB;
+                            
 
-                bool niceB=coverChk.Check_BaseSetCondition(HB981);//########## check_rcB9 ##########
-                if( !niceB )    goto LNextSet;
-
-                //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2     
-                if(sz>=2){
-                    int noBP=HB981.nzBit;
-                    int noCC=noBP.BitCount();
-                    if(noCC>=2){
-                        List<int> IX = noBP.IEGet_BtoNo().ToList();
-
-                        if(sz>=2){
-                            for(int k=0; k<noCC; k++){
-                                Bit81 A=new Bit81(), B=new Bit81();
-                                int no=IX[k];
-                                foreach(var P in basUGLs){
-                                    if(P.rcBit81 is Bit81){
-                                        if(P.rcBit81.no==no) A |= P.rcBit81;
-                                        else                 B |= P.rcBit81;
-                                    }
-                                    else{
-                                        int rc=P.UC.rc;
-                                        foreach(var n in P.UC.FreeB.IEGet_BtoNo()){
-                                            if(n==no) A.BPSet(rc);
-                                            else      B.BPSet(rc);
-                                        }
-                                    }
-                                }
-
-                                int nOL=(B&A).Count;
-                                if(rnk==0 && nOL<2)  goto LNextSet;
-                                if(rnk>0  && nOL<1)  goto LNextSet;                           
-                            //    WriteLine("---------- no:{0} sz:{1} rnk:{2} nOL:{3} (A-B):{4} (B-A):{5}", no, sz,rnk, nOL, (A-B).Count, (B-A).Count );
-                            }       
-                            //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2
-                        }
-                    }
+#if false
+                if(SDK_Ctrl.UGPMan.stageNo==10 && _usedLKLst_ToString(usedLKLst)==" [r3#1] [r3#7]"){
+                    _usedLKLst_checkPrint($"usedLKLst:{jkC}",usedLKLst); 
                 }
+#endif
+            //*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*
+                if( !BSstatus.Check_1(HB981) )  goto LNextSet;  //A and B are not linked by other link(C).
+                if( !BSstatus.Check_2(HB981) )  goto LNextSet;
+                if( !BSstatus.Check_3(HB981) )  goto LNextSet;
+                if( !BSstatus.Check_4(HB981) )  goto LNextSet;
 
-                //---------------------------------------------------------------------------------------  
-              LBSFound:
-                    if(SDK_Ctrl.UGPMan.stageNo==12 && sz>=3){// && rnk==1 ){
-                        WriteLine("\r sz:{0} rnk:{1} jkc:{2}", sz, rnk, jkC );
-                        Check_rcbnCondition(sz,rnk,sz,rcbn36,printB:true);
+// ###          if(SDK_Ctrl.UGPMan.stageNo==10) _check_board( jkC, usedLKLst, HB981);
+            //*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*
+        /*
+                  
+                  //if(SDK_Ctrl.UGPMan.stageNo==12 && sz>=3){// && rnk==1 ){
+                    if(SDK_Ctrl.UGPMan.stageNo==9 && sz>=2){// && rnk==1 ){
+                        WriteLine($"\r sz:{sz} rnk:{rnk} jkc:{jkC}");
+                        Check_rcbnCondition(sz,rnk,sz,RCBN_frameA,printB:true);
                         basUGLs.ForEach(P=>WriteLine(P.ToString("BaseSet")));
                     }
+        */
 
+              LBSFound:
                 usedLK.Clear();
-                basUGLs.ForEach(P=> usedLK.BPSet(P.SrNum) ); //IDrc: rc<<17 | 1<<16
+                basUGLs.ForEach(P=> usedLK.BPSet(P.IDnum) ); //IDrc: rc<<17 | 1<<16
                 UBasCov UBC=new UBasCov( basUGLs, HB981, sz, usedLK );
                 yield return UBC;
 
+                //---------------------------------------------------------------------------------------  
               LNextSet:
                 continue;
             }
             yield break;
         }
 
-        private bool Check_rcbnCondition3(int sz,int rnk, long rcbn36, int[] rcbn3){//########## Extremely efficient ##########
-            int rC = ((int)(rcbn36&0x1FF)).BitCount();
-            int cC = ((int)(rcbn36>>9)&0x1FF).BitCount();
-            int bC = ((int)(rcbn36>>18)&0x1FF).BitCount();
-            int nC = ((int)(rcbn36>>27)&0x1FF).BitCount();
-            if(sz==2){
-                if(nC==1){
-
-                }
+        private string _usedLKLst_ToString(List<int> Lst){
+            string st = "";
+            foreach(var P in Lst){
+                if((P&0xF)!=0xF){ st+=" ["+(P>>4).tfxToString($"#{((P&0xF)+1)}")+"]"; }
+                else{ st+=" ["+(P>>4).ToRCString()+"]"; }
             }
-            return true;
+            return st;
         }
-        private bool Check_rcbnCondition(int sz,int rnk, int kx, long rcbn36, bool printB=false ){ //########## Extremely efficient ##########
+        private void _usedLKLst_checkPrint( string AName, List<int> Lst){
+            string st = AName+" -->"+_usedLKLst_ToString(Lst);
+            Lst.ForEach(P=> st+=$" {P}");
+            WriteLine(st);
+        }
+
+        private void _check_board( int jkC, List<int> usedLKLst, Bit981 HB981){
+            _usedLKLst_checkPrint($"\rBaseSet usedLKLst:{jkC}",usedLKLst);
+
+            List<int> MLst=new List<int>();
+            foreach(var nx in HB981.noBit.IEGet_BtoNo()) MLst.Add(nx);
+
+            for( int r=0; r<9;r++){
+                string st= $"  {r+1} ";
+                MLst.ForEach(nx =>{
+                    string M=$" {nx+1}";
+                    var A=HB981._BQ[nx].Get_RowBitPatten(r);
+                    for( int c=0; c<9;c++)  st += ((A&(1<<c))>0)? M: " .";
+                    st += "    ";
+                } );
+                WriteLine(st);
+            }
+        }
+
+        private bool Check_rcbnCondition(int sz,int rnk, int kx, long RCBN_frameA, bool printB=false ){
             // kx is a cycle no 
             //Extremely efficient method by consideration
-            int rC = ((int)(rcbn36&0x1FF)).BitCount();
-            int cC = ((int)(rcbn36>>9)&0x1FF).BitCount();
-            int bC = ((int)(rcbn36>>18)&0x1FF).BitCount();
-            int nC = ((int)(rcbn36>>27)&0x1FF).BitCount();
+            int rC = ((int)(RCBN_frameA&0x1FF)).BitCount();
+            int cC = ((int)(RCBN_frameA>>9)&0x1FF).BitCount();
+            int bC = ((int)(RCBN_frameA>>18)&0x1FF).BitCount();
+            int nC = ((int)(RCBN_frameA>>27)&0x1FF).BitCount();
             List<int> _S = new List<int>();
             _S.Add(rC); _S.Add(cC); _S.Add(bC);   //aa  _S.Add(nC);
             _S.Sort();
@@ -227,80 +237,101 @@ namespace GNPXcore {
             
             if(sz>=2){
                 if(printB){
-                    Write( "  rC:{0} cC:{1} b:{2} nC:{3}  ->", rC, cC, bC, nC );
-                    _S.ForEach(p=>Write(" {0}",p));
-                    WriteLine();
+                    Write( $"  rC:{rC} cC:{cC} b:{bC} nC:{nC}  ->" );
+                    _S.ForEach(p=>Write($" {p}"));
+                    WriteLine("\r");
                 }
 
                 if(nC==1)  return (_S[1]<=sz+rnk);
                 else if(nC==2) return (_S[0]<=sz+rnk);
             }
-            return (Min(rcbC,bC)+(nC-1) <= sz+rnk);
+
+            return ( (rcbC+nC-1) <= sz+rnk );
+         // return (Min(rcbC,bC)+(nC-1) <= sz+rnk);
         }
 
         //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2            
-        public IEnumerable<UBasCov> IEGet_CoverSet( UBasCov UBC, int rnk ){ 
+        public IEnumerable<UBasCov> IEGet_CoverSet( UBasCov UBC, int rnk ){         //### CoverSet generator
             if(UGLLst==null)  yield break;
 
             List<UGLink> basUGLs=UBC.basUGLs;
-            Bit981 HB981=UBC.HB981;
-            Bit324 usedLK=UBC.usedLK;
-            int    nzBit=HB981.nzBit;
-            int    nzBitCC=nzBit.BitCount();
+            Bit981 HB981  = UBC.HB981;      //BaseSet
+            Bit324 usedLK = UBC.usedLK;     //used links 
+            int    noBit  = HB981.noBit;    //bit representation of digits containing cell elements
             int    sz=UBC.sz;
 
             List<UGLink> UGLCovLst=new List<UGLink>();  // UGLCovLst:candidate link
 
-          #region Create UGLCovLst
-            Bit81 Bcmp = HB981.CompressToHitCells();
-            foreach( var P in UGLLst.Where(q=>!usedLK.IsHit(q.SrNum)) ){
-                if(P.rcBit81 is Bit81){ //Row, column, block link
-                    if( (nzBit&(1<<P.rcBit81.no))==0 ) continue;
-                    int B = (HB981._BQ[P.rcBit81.no] & P.rcBit81).BitCount();
-                    if(B==0)  continue;
+          #region Preparation(Create UGLCovLst)
+            //Preparation: select candidates for CoverSet.(this process is extremely effective!)
+            // 1)First select BaseSet, then select CoverSet to cover.
+            // 2)CoverSet requirements:
+            //  .Exclude links that do not contain BaseSet elements
+            //  .Rank=0 includes two or more elements of BaseSet
+            //  .Rank>0 contains one or more elements of BaseSet
 
-                    // if rank:0, the CoverSet has two or more common items
-                    if( rnk==0 && (HB981._BQ[P.rcBit81.no]&P.rcBit81).Count<2 ) continue;                  
+            Bit81 Bcmp = HB981.CompressToHitCells();
+            foreach( var P in UGLLst.Where(q=>!usedLK.IsHit(q.IDnum)) ){            //Exclude Baseset links
+
+                if(P.rcBit81 is Bit81){         // P is a "row/column/block link" case
+                    if( (noBit&(1<<P.rcBit81.no))==0 ) continue;                    //Exclude links with digits not included in BaseSet.           
+                    int Bcount = (HB981._BQ[P.rcBit81.no] & P.rcBit81).BitCount();  //Bcount : Number of cells in common with BaseSet.
+                    if(Bcount==0)  continue;                                        //Link without common parts is excluded from candidate links.
+
+                    if( rnk==0 && Bcount<2 ) continue;                              //if rank=0, the CoverSet has two or more common items
                     UGLCovLst.Add(P);
                 }
-                else{   //Cell
-                    if(nzBitCC<=1) continue;
-                    if( (nzBit&P.UC.FreeB)==0 )  continue;
-                    int B=nzBit&P.UC.FreeB;
-                    if(B==0)  continue;
-                    int rc=P.UC.rc;
+
+                else{                           // P is a "cell" case
+                    if(noBit.BitCount()<=1) continue;                               //For links within a cell, the Coverset digits must be 2 or more.
+                    if( (noBit&P.UC.FreeB)==0 )  continue;                          //Exclude links with digits not included in BaseSet.
+                    int B=noBit&P.UC.FreeB;                                         //Common digits of BaseSet and link
+                    if(B==0)  continue;                                             //Link without common parts are excluded from candidate links.
+                    int rc=P.UC.rc;                                                 //focused cell
                     
                     int kcc=0, kccLim=(rnk==0)? 2:1;
-                    foreach( var no in B.IEGet_BtoNo() ){
-                        if( !HB981._BQ[no].IsHit(rc) )  continue;
-                        if(++kcc>=kccLim){ UGLCovLst.Add(P); break; }
+                    foreach( var no in B.IEGet_BtoNo() ){                           //no:Candidate digit of forcused cell.
+                        if( !HB981._BQ[no].IsHit(rc) )  continue;                   //do not check if BaseSet does not include no.
+                        if(++kcc>=kccLim){ UGLCovLst.Add(P); break; }               //number of digits contained in BaseSet satisfies the condition(kccLim).
                     }
                 } 
             }
-          #endregion
+          #endregion Preparation(Create UGLCovLst)
+
+          #region CoverSet generator
             if(UGLCovLst.Count<sz+rnk)  yield break;
-            Bit981 HC981=new Bit981();
-            Bit981 HLapB=new Bit981();
-            Bit981 Can981=new Bit981();
+            Bit981 HC981=new Bit981();            //CoverSet
+            Bit981 Can981=new Bit981();           //Items that break "Locked"(excludable candidates)
+
             Combination cmbCvr=new Combination(UGLCovLst.Count,sz+rnk);
             int nxt=int.MaxValue;
-            while( cmbCvr.Successor(nxt) ){
+            while( cmbCvr.Successor(nxt) ){                                         //Combination one-element generator
                                     ++GeneralLogicGen.ChkCov1;
             
                 HC981.Clear();
-                Array.ForEach( cmbCvr.Index, m=> HC981 |= UGLCovLst[m].rcbn2 );
+                Array.ForEach( cmbCvr.Index, m=> HC981 |= UGLCovLst[m].rcnBit );     //CoverSet bit representation
 
-                if( !(HB981-HC981).IsZero() ) goto LNextSet;    //BaseSet is covered?
-                Bit981 CsubB = HC981-HB981;
-                if( CsubB.IsZero() ) goto LNextSet;             //excludable candidates is exist?
+                if( !(HB981-HC981).IsZero() ) goto LNextSet;                        //BaseSet is covered?
+                Bit981 CsubB = HC981-HB981;                                         //CsubB:excludable candidates
+                if( CsubB.IsZero() ) goto LNextSet;                                 // is exist?
 
                 List<UGLink>  covUGLs=new List<UGLink>();
-                Array.ForEach( cmbCvr.Index, m=> covUGLs.Add(UGLCovLst[m]) );
+                Array.ForEach( cmbCvr.Index, m=> covUGLs.Add(UGLCovLst[m]) );       //CoverSet List representation
 
-                if(rnk==0){ Can981=CsubB; }
+                if(rnk==0){        
+                    Can981=CsubB;   //(excludable candidates)
+                }    
+                
                 else{   //if(rnk>0){
-                    bool SolFound=false;
-                    foreach( int n in CsubB.nzBit.IEGet_BtoNo() ){
+            /*  rank=k
+                Consider the case of covering n-BaseSet with (n+k)-CoverSet.
+                In order to be an analysis algorithm, the following conditions must be satisfied.
+                  1:(n+k)-CoverSet completely covers n-BaseSet.
+                  2:(k+1) of the (n+k)weak links of CoverSet have elements in common which are not included in the n-BaseSet.
+                When these conditions are satisfied, the elements of the intersection of condition 2 are not true.
+             */
+                    bool SolFound=false; 
+                    foreach( int n in CsubB.noBit.IEGet_BtoNo() ){
                         foreach( int rc in CsubB._BQ[n].IEGetRC() ){
                             int kc = covUGLs.Count(Q=>Q.IsHit(n,rc));
                             if(kc==rnk+1){
@@ -320,207 +351,232 @@ namespace GNPXcore {
                 continue;
             }
             yield break;
+          #endregion CoverSet generator
         }
 
-        public class Bit81Chk{
-            static public Bit81[]    p_connectedCells;
 
-            private List<int> usedLKLst;
-            private List<int> usedLKIgnrLst;
+
+    #region class BaseSetStatus
+        public class BaseSetStatus{
+            static public Bit81[] pHouseCells;
+            static public Bit81[] pConnectedCells;
+
+            private List<int>     usedLKLst;
+            private List<int>     usedLKIgnrLst;
+            public int[]          RCB_frameB;
 
             private int  sz;
             private int  rnk;
-            public  int  noB;
-            private List<UGLink> basUGLs;
+            private List<UGLink>  basUGLs;
+            public long[]  rcbnFrame9;      //bit representation of [ UC.FreeB<<27 | 1<<(UC.b+18)) | 1<<(UC.c+9) | (1<<UC.r) ]
 
-            public Bit81Chk( int sz, int rnk, List<UGLink> basUGLs,
-                             List<int> usedLKLst, List<int> usedLKIgnrLst ): base(){
+            public BaseSetStatus( int sz, int rnk, List<UGLink> basUGLs, List<int> usedLKLst, List<int> usedLKIgnrLst ): base(){
                 this.sz=sz; this.rnk=rnk; this.basUGLs=basUGLs;
-                this.usedLKLst=usedLKLst; this.usedLKIgnrLst=usedLKIgnrLst;
+                this.usedLKLst     = usedLKLst;
+                this.usedLKIgnrLst = usedLKIgnrLst;
+                rcbnFrame9 = new long[9];
+                foreach( var UGL in basUGLs){
+                    if(UGL.rcBit81 is Bit81){ rcbnFrame9[UGL.rcBit81.no] |= (long)UGL.RCBN_frameB; }
+                    else{
+                        int rc=UGL.UC.rc;
+                        foreach(var no in UGL.UC.FreeB.IEGet_BtoNo()) rcbnFrame9[no] |= (long) rc.ToRCBitPat();
+                    }
+                }
             }
 
-            public void Clear(){ noB=0; }// /*rcB9=0;*/ base.Clear(); }
+            public void Clear(){ }// /*rcB9=0;*/ base.Clear(); }
 
-        //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2
-
-            private int jkC=0;
-            public bool Check_BaseSetCondition( Bit981 HB981 ){//for sz>=2
-                bool niceB=false, E=false;
-                jkC++;
-
-              #region There is a link between the link and the other link group
-                for ( int k=0; k<sz; k++ ){
-                    UGLink UGL=basUGLs[k];
-                    Bit981 Bcum=new Bit981();
+            public bool Check_1( Bit981 HB981 ){                //##################################### Check_1 ---ok
+                            //There is a link(C) between the link(A) and the other links(B).
+                            // 1)Divide BaseSet into link(A) and other links(B)
+                            // 2)A and B are linked by other link(C)?
+                int szX = (sz==2)? 1: sz;
+                for( int k=0; k<szX; k++ ){
+                    UGLink A = basUGLs[k];
+                    Bit981 B = new Bit981();
                     for(int m=0; m<sz; m++ ){
                         if(m==k)  continue;
-                        Bcum |= basUGLs[m].rcbn2;
+                        B |= basUGLs[m].rcnBit;
                     }
-                    if( (Bcum&UGL.rcbn_conn2).Count<=0 ) goto Lreturn; //false
+                    if( (B&A.rcnConnected).Count<=0 ) return false;  //A and B are not linked by other link(C).
                 }
-              #endregion
-                                        GeneralLogicGen.ChkBas3++;   //*****                
-              #region Every element of the number(#no) has a link
-                //それぞれのリンクは、その他のリンク群と連結する。
-                //リンクしないセルはrnk個数以下でなければならない。
-                            //if(E) for(int n=0; n<9; n++ ) WriteLine(HB981.tfx27Lst[n].ToBitString(27));
-                Bit981 Q9 = HB981.Copy();                    
-                usedLKLst.ForEach(p=> HB981.tfxReset(p&0xF,p>>4) );
-                usedLKIgnrLst.ForEach(p=> HB981.tfxReset(p&0xF,p>>4) );
-                            //if(E) for(int n=0; n<9; n++ ) WriteLine(HB981.tfx27Lst[n].ToBitString(27));
-                int QPP=0;
-                foreach( var no in noB.IEGet_BtoNo() ){
-                    Bit81 Q = Q9._BQ[no];//new Bit81(HB981._BQ[no]);
-                            //if(E) WriteLine( "HB981.tfxLst[no]: "+HB981.tfx27Lst[no].ToBitString(27) );
-                    foreach( var tfx in HB981.tfx27Lst[no].IEGet_tfb() ){
-                        int bp=HB981.GetBitPattern_tfnx(no,tfx);
-                        if(bp<=0) continue;
-                        int nc=bp.BitCount(); 
-                        if(nc>=2){
-                                    if(E) WriteLine("Q: "+Q.ToString() );
-                            foreach( var nx in bp.IEGet_BtoNo() ){
-                                int rc=tfx.Get_tfx_rc(nx);
-                                Q.BPReset(rc);
-                            }
-                            //if(E) WriteLine("Q: "+Q.ToString() );
+
+                GeneralLogicGen.ChkBas1++;   //*****
+                return true;    //A and B are linked by other link(C)?
+            }
+
+            public bool Check_2( Bit981 HB981 ){ //for sz>=2     //##################################### Check_2     
+                bool niceB=false;
+                int noBit = HB981.noBit;
+                if(noBit.BitCount()>1){
+                            //Focus on one digit.
+                            // Each cell(A) is in a position to link with other cells.
+                    foreach( var no in noBit.IEGet_BtoNo() ){
+                        Bit81 Qno = HB981._BQ[no];  
+                        if( Qno.BitCount()==1 ){ goto Lreturn; }
+                        foreach( var rc in Qno.IEGetRC()){
+                            Bit81 R=Qno&pConnectedCells[rc];            //pConnectedCells: position to link with other cells.
+                            if(R.BitCount()<1){  goto Lreturn; }        //                 not include cell(A).
                         }
-                           
                     }
-                    QPP += Q.Count;  
                 }
-                if(QPP<=rnk){ niceB=true; goto Lreturn; }
-              #endregion
-                                        GeneralLogicGen.ChkBas3++;   //*****
-                
-              #region There is a possibility link between the patterns of numbers n1,n2
-                //数字間のリンクしないセルは、rnk*2以下でなければならない。
-                if( HB981.nzBit.BitCount()>=2 ){
-                    bool  firstB=true;
-                    Bit81 Q=null;
-                    foreach( var n in HB981.nzBit.IEGet_BtoNo() ){
-                        if(firstB){ Q=HB981._BQ[n]; firstB=false; }
-                        else Q |= HB981._BQ[n];
+                niceB=true;
+
+            Lreturn:
+                if(niceB)  GeneralLogicGen.ChkBas2++;   //*****
+                return niceB;
+            }
+ 
+            public bool Check_3( Bit981 HB981 ){                //##################################### Check_3
+                bool niceB=false;
+                int noBit = HB981.noBit;              
+                if( noBit.BitCount()<2 ){ niceB=true; goto Lreturn; }       //not applicable for 1 digit.  
+               
+                int noNotSingle=0;
+                { //There is a limit to the number of cells that have no links other than BaseSet.                   
+                    foreach(var P in usedLKLst){
+                        int no = P&0xF;
+                        if(no<9){
+                            noNotSingle |= 1<<no;
+                            int tfx = (int)(P>>4);  // get house(P=tfx<<4 | no)
+                            RCB_frameB[no] &= (1<<tfx) ^ 0x7FFFFFF;             //Exclude BaseSe link from candidates.
+                                //if(SDK_Ctrl.UGPMan.stageNo==10) WriteLine($"+++ tfx:{tfx} RCB_frameB[{no}]:{RCB_frameB[no].ToBitString27()}");
+
+                        }
                     }
+                }
+
+                Bit981 Q9 = HB981.Copy();
+                { //Excludes the cell with the same rc position from the BaseSet_copy(Q9).
+                    Bit81  Q  = HB981.noBit.IEGet_BtoNo().Aggregate(new Bit81(),(X,n)=> X|HB981._BQ[n]);
+
+                    noNotSingle ^= 0x1FF;
+                    foreach(var n in noNotSingle.IEGet_BtoNo()) Q9._BQ[n].Clear();
                     foreach( var rc in Q.IEGetRC() ){
-                        if( HB981.GetBitPattern_rcN(rc).BitCount()>=2 ){ //セルrcの数字間リンクがあるときは、Q9リセット
-                            foreach( var no in noB.IEGet_BtoNo() ) Q9._BQ[no].BPReset(rc);
+                        if( HB981.GetBitPattern_rcN(rc).BitCount()>=2 ){        //Q9 reset when there is a link between digits in cell[rc].
+                            foreach( var no in noBit.IEGet_BtoNo() ) Q9._BQ[no].BPReset(rc);
                         }
                     }
-                    int Q9cc = Q9.BitCount();
-                    if(Q9cc<=rnk){ niceB=true; goto Lreturn; } //直接リンクしないセルがrnk以下のときは、次のテストに進む
-                    if(Q9cc<=rnk*2){
-                                            GeneralLogicGen.ChkBas1B++;   //*****
-                        foreach( var n1 in Q9.nzBit.IEGet_BtoNo() ){
-                            foreach( var rc in Q9._BQ[n1].IEGetRC() ){
-                                foreach( var n2 in Q9.nzBit.IEGet_BtoNo().Where(nx=>nx!=n1) ){
-                                    if( (Q9._BQ[n2] & p_connectedCells[rc]).BitCount()==0 ) continue;
-                                    //リンクしないセル間を繋ぐリンクがある（”可能性あり”で次のテストに進む
-                                            GeneralLogicGen.ChkBas1A++;   //*****
-                                    niceB=true; goto Lreturn;
+                    foreach( var no in Q9.noBit.IEGet_BtoNo() ){
+                        foreach( int tfx in RCB_frameB[no].IEGet_BtoNo(27)){ 
+                            int tfxn=tfx<<4 | noBit;
+                            if( usedLKLst.Contains(tfxn) )  continue;
+                            var R = HB981._BQ[no]&pHouseCells[tfx];
+                            if(R.Count>=2){
+                                foreach( var rc in R.IEGetRC() ) Q9._BQ[no].BPReset(rc);
+                            }
+                        }
+                    }
+                }
+
+                int Q9cc = Q9.BitCount();
+                if(Q9cc <= rnk){ niceB=true; goto Lreturn; }
+                if(Q9cc <= rnk*2){  //Rank>0 connects indirectly to Finmed Link.
+                                        GeneralLogicGen.ChkBas3B++;   //*****
+                    foreach( var n1 in Q9.noBit.IEGet_BtoNo() ){
+                        foreach( var rc in Q9._BQ[n1].IEGetRC() ){
+                            foreach( var n2 in Q9.noBit.IEGet_BtoNo().Where(nx=>nx<n1) ){       //[rc]#n1 <-(indirectly)-> [rc']#n2
+                                if( (Q9._BQ[n2] & pConnectedCells[rc]).BitCount()==0 ) continue;
+                                //There may be links indirectly connecting cells. Proceed to the next test.
+                                        GeneralLogicGen.ChkBas3A++;   //*****
+                                niceB=true; goto Lreturn;
+                            }
+                        }
+                    }
+                }
+
+              Lreturn:
+                if(niceB)  GeneralLogicGen.ChkBas3++;   //*****
+                return niceB;
+            }
+
+            //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2  
+            public bool Check_4( Bit981 HB981 ){                //##################################### Check_4
+                bool niceB=false;
+                int noBP=HB981.noBit;
+                if( noBP.BitCount()<=1){ niceB=true; goto LNextSet; }
+                else{   //(noCC<=2)
+                    //Divide the BaseSet into two groups (A, B). 
+                    //Test for the intersection of A and B.
+                    foreach( var no in noBP.IEGet_BtoNo()){     //classified as #no and others.
+                        Bit81 A=new Bit81(), B=new Bit81();
+                            foreach(var P in basUGLs){
+                            if(P.rcBit81 is Bit81){             //Link type
+                                if(P.rcBit81.no==no) A |= P.rcBit81;
+                                else                 B |= P.rcBit81;
+                            }
+                            else{                               //Cell type
+                                int rc=P.UC.rc; 
+                                foreach(var n in P.UC.FreeB.IEGet_BtoNo()){
+                                    if(n==no) A.BPSet(rc);
+                                    else      B.BPSet(rc);
                                 }
                             }
                         }
 
+                        int nOL=(B&A).Count;
+                        if(rnk==0 && nOL<2)  goto LNextSet;
+                        if(rnk>0  && nOL<1)  goto LNextSet;                           
+                    //  WriteLine($"---------- no:{no} sz:{sz} rnk:{rnk} nOL:{nOL} (A-B):{(A-B).Count} (B-A):{(B-A).Count}");
                     }
+                    
+                    niceB=true;
+                    return true;
                 }
-              #endregion
 
-                                GeneralLogicGen.ChkBas4++;   //*****
-              Lreturn:
+            LNextSet:              
+                if(niceB) GeneralLogicGen.ChkBas4++;   //*****
                 return niceB;
             }
         }
+        #endregion class BaseSetStatus
     }
 
-    public class UBasCov{
-        public Bit324       usedLK;
-        public List<UGLink> basUGLs; //
-        public List<UGLink> covUGLs; //
-        public Bit981 HB981;
-        public Bit981 HC981;
-        public Bit981 Can981;
-        public int    rcCan;
-        public int    noCan;
-        public int    sz;
-        public int    rnk;
-
-        public UBasCov( List<UGLink> basUGLs, Bit981 HB981, int sz, Bit324 usedLK ){
-            this.basUGLs=basUGLs; this.HB981=HB981; this.sz=sz; this.usedLK=usedLK;
-        }
- 
-        public void addCoverSet( List<UGLink> covUGLs, Bit981 HC981, Bit981 Can981, int rnk ){
-            this.covUGLs=covUGLs; this.HC981=HC981; this.Can981=Can981; this.rnk=rnk;
-        }
-        public override string ToString(){
-            string st="";
-            foreach( var UGL in basUGLs){
-                if(UGL.rcBit81 is Bit81){   // RCB
-                    int no=UGL.rcBit81.no;
-                    st += string.Format("Bit81: no:{0}  {1}\r", no, UGL.rcBit81 );
-                }
-                else{   // Cell
-                    UCell UC=UGL.UC;
-                    st += string.Format("UCell: {0}\r", UC );
-                }
-            }
-            return st;
-        }
-    }
-        
-    //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2
+  #region UGLink
     public class UGLink{
         static public UGLinkMan pUGLM;
-        static public Bit81[]   p_connectedCells;
-        static public Bit81[]   pBPnoBLst;
-        static public int       SrNum0;
-        public List<UCell>      pBDL{ get{ return pUGLM.pBDL; } } 
-        public int      sz;
-        public int      SrNum;
+        static public Bit81[]   pConnectedCells;
+        static public int       IDnum0;
 
-        public Bit981   rcbn2;        // for _connectivity check
-        public Bit981   rcbn_conn2;   //   elated cells
+        public int      sz;             //size
+        public int      IDnum;          //generation order number
 
-        //-----------------------------------------
-        public UCell    UC=null;
-        //-----------------------------------------
-        public Bit81    rcBit81=null;
-        public long     rcbnFrame2;   //aggregate to frames
-        public long     rcbnID{
-            get{ 
-                if(rcBit81 is Bit81){ return (1<<(rcBit81.ID>>4)); }
-                else{ return (rcbnFrame2&0x7FFFFFF); }
-            }
-        }
+        //There are two types of UGLink, rcb_link and cell_link
+        public Bit81    rcBit81=null;   //rcb_link and used to identify rcb_link_type(not null).
+        public UCell    UC=null;        //cell_link and used to identify cell_link_type(not null)
 
-        public int tfx{
-            get{ return( (rcBit81 is Bit81)? (rcBit81.ID>>4): -1); }
-            set{ if(rcBit81 is Bit81) rcBit81.ID=(rcBit81.ID&0xF)|(value<<4); }
-        }
+        //Representing two types as common data
+        public Bit981   rcnBit;         //bit representation of rc[n] of GLink elements.
+        public Bit981   rcnConnected;   //bit representation of rc[n] of Connected Cells of GLink elements.
+        public long     RCBN_frameB;    //bit representation of [ UC.FreeB<<27 | 1<<(UC.b+18)) | 1<<(UC.c+9) | (1<<UC.r) ]
 
-        public UGLink( Bit81 rcBit81 ){
-            this.SrNum=SrNum0++; 
+        public int tfx{ get{ return( (rcBit81 is Bit81)? (rcBit81.ID>>4): -1); } }
+
+        public UGLink( Bit81 rcBit81 ){ //### rcb_link type ###
+            this.IDnum=IDnum0++; 
             this.rcBit81=rcBit81; this.sz=rcBit81.BitCount();
-            rcbn2=new Bit981(rcBit81);
+            rcnBit=new Bit981(rcBit81);
 
-            rcbn_conn2=new Bit981();   
+            rcnConnected=new Bit981();   
             var _conn=new Bit81();
             foreach(var rc in rcBit81.IEGet_rc()){
-                _conn |= p_connectedCells[rc];
-                for(int n=0; n<9; n++ ) rcbn_conn2.BPSet(n,rc);
+                _conn |= pConnectedCells[rc];
+                for(int n=0; n<9; n++ ) rcnConnected.BPSet(n,rc);
             }
             int no=rcBit81.no;
-            rcbn_conn2._BQ[no] = _conn-rcBit81;
-            rcbnFrame2 = (long)rcBit81.Get_RowColumnBlock() | ((long)1<<(no+27));   //■
+            rcnConnected._BQ[no] = _conn-rcBit81;
+            RCBN_frameB = (long)rcBit81.Get_RowColumnBlock() | ((long)1<<(no+27));   //■ RCBN_frameB
         }
-        public UGLink( UCell UC ){
-            this.SrNum=SrNum0++; this.UC=UC;
-            rcbn2=new Bit981();
-            rcbn_conn2=new Bit981();
-            foreach(var n in UC.FreeB.IEGet_BtoNo() )  rcbn2.BPSet(n,UC.rc);
-            for(int n=0; n<9; n++) rcbn_conn2._BQ[n] |= p_connectedCells[UC.rc];
+        public UGLink( UCell UC ){  //### Cell type ###
+            this.IDnum=IDnum0++; this.UC=UC;
+            rcnBit=new Bit981();
+            rcnConnected=new Bit981();
+            foreach(var n in UC.FreeB.IEGet_BtoNo() )  rcnBit.BPSet(n,UC.rc);
+            for(int n=0; n<9; n++) rcnConnected._BQ[n] |= pConnectedCells[UC.rc];
 
+            // bit representation of rcbn. [ UC.FreeB<<27 | 1<<(UC.b+18)) | 1<<(UC.c+9) | (1<<UC.r) ]
             int _rcbFrame = (1<<UC.r | 1<<(UC.c+9) | 1<<(UC.b+18));
-            rcbnFrame2 = (long)_rcbFrame | ((long)UC.FreeB)<<27;                   //■
+            RCBN_frameB = (long)_rcbFrame | ((long)UC.FreeB)<<27;                   //■ RCBN_frameB
         }
         public bool IsHit( int no, int rc ){
             if( rcBit81 is Bit81 ){ if( this.rcBit81.no==no && rcBit81.IsHit(rc) ) return true; }
@@ -528,6 +584,14 @@ namespace GNPXcore {
             return false;
         }
 
+        public string ToString( string ttl="" ){
+            string st = ttl+" UGLink IDnum:"+IDnum+" tfx:"+ tfx.tfxToString()+"("+tfx+")";
+            if(UC!=null) st+="UCell "+ UC.ToString();
+            else         st+="ULink no:"+ (rcBit81.no) + " Bit81 "+rcBit81.ToString();
+            return st;
+        }
+
+#if false
         public bool Equal_no_block( int noX, int blk ){
             if(rcBit81 is Bit81){
                 if(rcBit81.no!=noX) return false;
@@ -537,12 +601,12 @@ namespace GNPXcore {
             return false;
         }
 
-        public int Get_rcbnFrame(int nx){
+        public int Get_rcbnFrame(int nx){ //get presence bit representation of GLink elements
             switch(nx){
-                case 0: return (int)(rcbnFrame2&0x1FF);
-                case 1: return (int)(rcbnFrame2>>9)&0x1FF;
-                case 2: return (int)(rcbnFrame2>>18)&0x1FF;
-                case 3: return (int)(rcbnFrame2>>27)&0x1FF;
+                case 0: return (int)(RCBN_frameB&0x1FF);     //rows
+                case 1: return (int)(RCBN_frameB>>9)&0x1FF;  //columns
+                case 2: return (int)(RCBN_frameB>>18)&0x1FF; //blocks
+                case 3: return (int)(RCBN_frameB>>27)&0x1FF; //digits
             }
             return -1;
         }
@@ -550,7 +614,7 @@ namespace GNPXcore {
         public bool Check_connected( Bit981 HB981 ){
             if(rcBit81 is Bit81){
                 int no=rcBit81.no;
-                return  HB981._BQ[no].IsHit(rcbn_conn2._BQ[no]);
+                return  HB981._BQ[no].IsHit(rcnConnected._BQ[no]);
             }
             else{
                 int rc=UC.rc;
@@ -560,16 +624,12 @@ namespace GNPXcore {
                 return false;
             }
         }      
-
-        public string ToString( string ttl="" ){
-            string st = ttl+" UGLink SrNum:"+SrNum+" tfx:"+ tfx.tfxToString()+"("+tfx+")";
-            if(UC!=null) st+="UCell "+ UC.ToString();
-            else         st+="ULink no:"+ (rcBit81.no) + " Bit81 "+rcBit81.ToString();
-            return st;
-        }
         public string ToString2(){
             if(rcBit81 is Bit81) return (tfx.tfxToString()+("#"+(rcBit81.no+1))+" ");
             else             return (UC.rc.ToRCString()+" ");
         }
+#endif
+
     }
+  #endregion UGLink
 }

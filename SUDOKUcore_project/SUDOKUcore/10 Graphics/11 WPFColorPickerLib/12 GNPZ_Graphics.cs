@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 
 using static System.Math;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 using System.Windows;
 using System.Windows.Controls;

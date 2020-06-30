@@ -5,6 +5,8 @@ using System.Data;
 using System.Text;
 using System.Threading;
 using System.IO;
+using System.Linq;
+using static System.ValueTuple;
 
 using System.Windows;
 using System.Windows.Media;
@@ -67,5 +69,8 @@ namespace GIDOO_space{
             return rNorm;
         }
 
+        public static IEnumerable<(T, int)> WithIndex<T>(this IEnumerable<T> ts){
+            return ts.Select((t,i) => (t,i));
+        }
     }
 }

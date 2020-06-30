@@ -5,7 +5,8 @@ using System.Linq;
 using System.Globalization;
 
 using static System.Math;
-using static System.Console;
+//using static System.Diagnostics.Debug;
+using static System.Diagnostics.Debug;
 
 using System.Windows;
 using System.Windows.Controls;
@@ -199,7 +200,7 @@ namespace GNPXcore{
 //                NuPz_Win_camera();
             }
             catch(Exception e){
-                WriteLine(e.Message+"\r"+e.StackTrace);
+                Debug.WriteLine(e.Message+"\r"+e.StackTrace);
             }
         }
         private void Window_Loaded( object sender, RoutedEventArgs e ){

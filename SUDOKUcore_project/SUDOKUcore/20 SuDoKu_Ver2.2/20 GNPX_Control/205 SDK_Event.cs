@@ -1,5 +1,5 @@
 ﻿using System;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 namespace GNPXcore{
     public delegate void SDKEventHandler( object sender, SDKEventArgs args );

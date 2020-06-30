@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using VisualPrint;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 namespace GNPXcore{
     public partial class SDK_PuzzlePrinter: Window{

@@ -5,7 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Ink;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 //WPF: A Simple Color Picker With Preview
 //http://www.codeproject.com/Articles/33001/WPF-A-Simple-Color-Picker-With-Preview

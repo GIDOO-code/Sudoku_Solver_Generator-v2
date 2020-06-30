@@ -8,7 +8,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Media;
 
-using static System.Console;
+using static System.Diagnostics.Debug;
 using static System.Math;
 
 using GIDOO_space;

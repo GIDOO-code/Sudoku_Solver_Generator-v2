@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="00 ApplicationMain\ssc2018-09a_Inline.jpg" />
     <None Remove="02 Library Class\G_Control\ImgDown.png" />
     <None Remove="02 Library Class\G_Control\ImgUp.png" />
   </ItemGroup>
@@ -58,6 +59,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="00 ApplicationMain\ssc2018-09a_Inline.jpg" />
     <Resource Include="02 Library Class\G_Control\ImgDown.png" />
     <Resource Include="02 Library Class\G_Control\ImgUp.png" />
   </ItemGroup>

@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
-using static System.Console;
+using static System.Diagnostics.Debug;
 
 using GIDOO_space;
 
