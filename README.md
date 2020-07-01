@@ -1,9 +1,9 @@
 # In development  .Net Core version.
   Add description to code GeneralLogic and its auxiliary routein.<br>
   "GeneralLogic" completeness is about 30%.<br>
-  -Currently, the problem with size 3 is a few seconds.<br>
-  -As an expectation, I would like to solve a size 5 problem in a few seconds.<br>
-  -A new theory is needed.<br>
+   -Currently,it takes a few seconds to solve a size 3 problem.<br>
+   -As an expectation, I would like to solve a size 5 problem in a few seconds.<br>
+   -A new theory is needed.<br>
 
 # Sudoku_Solver_Generator
 ![GNPX](/images/GNPX_start.png)
