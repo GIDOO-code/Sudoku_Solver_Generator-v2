@@ -1,5 +1,5 @@
 # In development  .Net Core version.
-  "GeneralLogic" completeness is about 30%.
+  "GeneralLogic" completeness is about 30%.<br>
   Add description to code GeneralLogic and its auxiliary routein。
   
 # Sudoku_Solver_Generator
