@@ -1,5 +1,6 @@
 # In development  .Net Core version.
   "GeneralLogic" completeness is about 30%.
+  Add description to code GeneralLogic and its auxiliary routein。
   
 # Sudoku_Solver_Generator
 ![GNPX](/images/GNPX_start.png)
