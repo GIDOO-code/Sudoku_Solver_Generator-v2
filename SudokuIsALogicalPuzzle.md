@@ -148,6 +148,6 @@ Because it is ad hoc and not logical.
 # Supplement
 The Sudoku analysis algorithm is integrated into "General Logic" that includes these in a unified manner.<br>
 <http://www.sudokuone.com/sweb/general.htm>"A General Logic for Sudoku"<br>
-<https://gidoo-code.github.io/Sudoku_Solver_Generator/page60.html> ”Sudoku Aalgorithm”<br>
+<https://gidoo-code.github.io/Sudoku_Solver_Generator/page60.html> ”Sudoku Algorithm”<br>
 Since "General Logic" is general-purpose, there is a problem in the efficiency of solving.
 ***
