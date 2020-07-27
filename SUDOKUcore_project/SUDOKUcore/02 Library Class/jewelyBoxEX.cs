@@ -11,7 +11,7 @@ using System.Resources;
 
 namespace GIDOO_space{
     static public class GNPZExtender{
-        static readonly int[] __BC=new int[512]; //Number of 1's in binary representation 0-511
+        static readonly int[] __BC=new int[512]; //Number of 1's in binary expression 0-511
 
         static GNPZExtender(){
             for(int n=0; n<512; n++ ) __BC[n] = (n+512).BitCount()-1;           //avoid recursion with "+512"

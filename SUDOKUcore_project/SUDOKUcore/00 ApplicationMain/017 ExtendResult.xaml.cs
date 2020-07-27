@@ -10,6 +10,7 @@ namespace GNPXcore{
         public ExtendResultWin( NuPz_Win pGNP00win ){
 			this.pGNP00win=pGNP00win;
             InitializeComponent();		
+            devWin.Width = pGNP00win.Width;
             GNPXGNPX.Content = "GNPXcore "+DateTime.Now.Year;
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();
         }

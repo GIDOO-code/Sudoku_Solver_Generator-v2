@@ -198,6 +198,10 @@ namespace GNPXcore{
                 tabCtrlMode.Focus();
                 PB_GBoard.Focus();                 
 //                NuPz_Win_camera();
+
+
+//              WindowStartupLocation = WindowStartupLocation.Manual;
+//              WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
             catch(Exception e){
                 Debug.WriteLine(e.Message+"\r"+e.StackTrace);
@@ -417,8 +421,6 @@ namespace GNPXcore{
             B= (po.ToInt()==1);
             if(cul == "ja-JP") st = B ? "有効" : "無効";
             else st = (B? "" : "not ") + "available";
-            LblForceChain_CellHouse.Content = "ForceChain_Cell/House :" + st;
-            LblForceChain_CellHouse.Foreground = (B) ? Brushes.LightBlue : Brushes.Yellow;
         }
 
         private void tabSolver_SelectionChanged( object sender, SelectionChangedEventArgs e ){

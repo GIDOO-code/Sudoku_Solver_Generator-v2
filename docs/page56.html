@@ -46,6 +46,28 @@
 <!-- -------------------------------------------------------------------------- -->
 <section id="main">
 	<article>
+		<H2>The force algorithm is a logic solution.<br>
+			It's not an absurd algorithm.</h2>
+	<p>	All of the Force-based algorithms use the current (extended)link.
+		The chain is assembled using this links, and the truth or false of the cell candidate is logically derived.<br><br>
+		The Force algorithm is based on the following logic.
+		<ol>
+			<li>Set X has one element true and the rest false. Which is true is undecided.</li>
+			<li>In a chain starting with true element, the value of the derived element is determined to be true or false.</li>
+			<li>In a chain starting with false element, the value of the derived element is uncertain (it can be true or false).</li>
+			<li>A chain is created by assuming that the elements of set X are true.
+				If the true/false values ​​of the element x that are derived in the multiple chains match,
+				the true/false of the element x is determined.
+			<li>In multiple chains that start assuming element y of set Ⅹ as true,
+				if the true/false values ​​of the derived element z do not match (true and false are derived), 
+				the starting element y is determined to be false.</li>
+		</ol>
+
+		The (extended) link and chain structure of the Force method is relatively simple.<br>
+		It is also an efficient analysis method. That is, a good analytical algorithm.<br>
+		<a href="../SudokuIsALogicalPuzzle.html">Sudoku is a logical puzzle</a>
+	</p>
+
 	<h2>ForceChain</h2>
 		<p>ForceChain is an analysis algorithm that uses <a href="page28.html">super link</a>.
 		The algorithm uses a spillover search rather than a chain search that repeats trials such as NiceLoop.

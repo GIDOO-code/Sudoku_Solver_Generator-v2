@@ -1,0 +1,14 @@
+﻿<Window x:Class="GNPZ_sdk.NuPz_Win"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SUDOKUcore"
+        mc:Ignorable="d"
+        Title="SUDOKU" Height="450" Width="800">
+    <Grid>
+
+    </Grid>
+</Window>
+重大度レベル	コード	説明	プロジェクト	ファイル	行	抑制状態
+警告	CS0618	'string.Copy(string)' は旧形式です ('This API should not be used to create mutable strings. See https://go.microsoft.com/fwlink/?linkid=2084035 for alternatives.')	SUDOKUcore	E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\SUDOKUcore - コピー\SUDOKUcore\20 SuDoKu_Ver2.2\20 GNPX_Control\200 SDK_Problem.cs	15	アクティブ

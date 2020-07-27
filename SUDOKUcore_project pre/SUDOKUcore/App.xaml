@@ -1,0 +1,9 @@
+﻿<Application x:Class="SUDOKUcore.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SUDOKUcore"
+             StartupUri="00 ApplicationMain/002 NuPz_Window.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

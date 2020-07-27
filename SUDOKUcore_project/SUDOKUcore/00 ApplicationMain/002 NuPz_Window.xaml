@@ -17,7 +17,8 @@
         Loaded="Window_Loaded" Background="#FF181846" ShowInTaskbar="False" WindowStyle="None" 
         ShowActivated="True" ResizeMode="NoResize" Unloaded="Window_Unloaded" BorderBrush="Black" 
         MouseDown="Window_MouseDown" Width="954" Height="513" LocationChanged="GNPXwin_LocationChanged"
-        WindowStartupLocation="CenterOwner" >
+        WindowStartupLocation="Manual" >
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -559,7 +560,6 @@
                                     </Button.Background>
                                 </Button>
                                 <Label Content="GeneralLogic : 有効" FontSize="14" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,35,64,0" x:Name="LblGeneralLogic" VerticalAlignment="Top" Grid.Column="1" />
-                                <Label Content="ForceChain_Cell/House : 有効" FontSize="14" Foreground="White" Height="23" HorizontalAlignment="Right" Margin="0,53,64,0" x:Name="LblForceChain_CellHouse" VerticalAlignment="Top" Grid.Column="1" />
                             </Grid>
                         </TabItem>
                         <TabItem x:Name="tabBMethodOption" 
@@ -576,7 +576,7 @@
                                     <RowDefinition Height="60*"/>
                                     <RowDefinition Height="60*"/>
                                     <RowDefinition Height="60*"/>
-                                    <RowDefinition Height="90*"/>
+                                    <RowDefinition Height="70*"/>
                                     <RowDefinition Height="70*"/>
                                     <RowDefinition Height="51*"/>
                                 </Grid.RowDefinitions>
@@ -606,16 +606,18 @@
                                 <Label FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="0,52,0,0" x:Name="lblForceChainGroup" VerticalAlignment="Top" Content="Force Chain" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" />
                                 <Label x:Name="lblForceChainType"
                                        Content="{Binding Resources.lblForceChainType, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
-                                       FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" Margin="0,31,447,0" VerticalAlignment="Top" Grid.Row="4" Height="29" Width="62" HorizontalContentAlignment="Right" Grid.ColumnSpan="3" />
-                                <RadioButton x:Name="ForceL0" GroupName="ForceAlg" Content="L0" Height="18" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_Checked" Grid.Row="4" Grid.Column="2" Unchecked="GdNiceLoop_CGA_Checked" />
-                                <RadioButton x:Name="ForceL1" GroupName="ForceAlg" Content="L1" Height="18" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_Checked" Grid.Row="4" Grid.Column="2" />
-                                <RadioButton x:Name="ForceL2" GroupName="ForceAlg" Content="L2" Height="18" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_Checked" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" />
-                                <Label x:Name="Force0_Single" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,30,0,0" VerticalAlignment="Top" Content="Single solution" Grid.Row="4" Grid.Column="2" />
-                                <Label x:Name="Foece1_SolutionDigit" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,46,0,0" VerticalAlignment="Top" Content="All solutions for digit n or for cell" Grid.Row="4" Grid.Column="2" />
-                                <Label x:Name="Force2_ComplateSol" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,61,0,0" VerticalAlignment="Top" Content="Complete solution on board" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" />
-                                <CheckBox Content="ForceChain Cell/House" Foreground="White" Margin="13,18,0,0" x:Name="ForceChainCellHouse" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="1" Checked="ForceChainCellHouse_Checked" Unchecked="ForceChainCellHouse_Checked" Grid.ColumnSpan="2" IsChecked="True" IsEnabled="False" />
+                                       FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" Margin="0,11,447,0" VerticalAlignment="Top" Grid.Row="4" Height="29" Width="62" HorizontalContentAlignment="Right" Grid.ColumnSpan="3" />
+                                <RadioButton x:Name="ForceL0" GroupName="ForceAlg" Content="L0" Height="18" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_Checked" Grid.Row="4" Grid.Column="2" Unchecked="GdNiceLoop_CGA_Checked" />
+                                <RadioButton x:Name="ForceL1" GroupName="ForceAlg" Height="18" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_Checked" Grid.Row="4" Grid.Column="2" Content="L1" />
+                                <RadioButton x:Name="ForceL2" GroupName="ForceAlg" Content="L2" Height="18" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Foreground="White" Width="40" VerticalContentAlignment="Center" FontFamily="MS Gothic" Checked="ForceL0L1L2_Checked" Grid.Row="4" Grid.Column="2" />
+                                <Label x:Name="Force0_Single" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,10,0,0" VerticalAlignment="Top" Content="Single solution" Grid.Row="4" Grid.Column="2" />
+                                <Label x:Name="Foece1_SolutionDigit" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,26,0,0" VerticalAlignment="Top" Content="All solutions for digit n or for cell" Grid.Row="4" Grid.Column="2" />
+                                <Label x:Name="Force2_ComplateSol" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="47,41,0,0" VerticalAlignment="Top" Content="Complete solution on board" Grid.Row="4" Grid.Column="2" />
                                 <Label Content="General Logic" FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Left" Margin="0" x:Name="lblGeneralLogicGroup" VerticalAlignment="Top" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="1" />
                                 <CheckBox Content="GeneralLogic" Foreground="White" Margin="13,22,0,0" x:Name="GeneralLogicOnChbx" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="5" Grid.Column="1" Checked="GeneralLogicOnChbx_Checked" Unchecked="GeneralLogicOnChbx_Checked" Grid.ColumnSpan="2" />
+                                <Label x:Name="label44001_Copy2" BorderBrush="#FF5C62A0" 
+            Content="In development" 
+            FontFamily="MS Mincho" FontSize="12" Foreground="#FFEC1818" HorizontalAlignment="Left" Margin="44,7,0,0" VerticalAlignment="Top" Background="{x:Null}" Grid.Column="2" Grid.Row="5" />
                                 <Label x:Name="lblGenLogMaxSize" 
                                        Content="{Binding Resources.lblGenLogMaxSize, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                        FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" Margin="20,39,0,0" VerticalAlignment="Top" Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" />
@@ -624,9 +626,6 @@
                                        Content="{Binding Resources.lblGenLogMaxRank, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                                        FontFamily="MS Gothic"  FontSize="12" Foreground="#FFFEFFFF" Height="21" HorizontalAlignment="Left" Margin="114,39,0,0" VerticalAlignment="Top" Width="70" Grid.Row="5" Grid.Column="2" Grid.RowSpan="2" />
                                 <GIDOO_space:NumericUpDown Background="#FF202040" FontSize="12" Foreground="White" HorizontalAlignment="Left" Margin="184,39,0,0" MaxValue="10" MinValue="0" x:Name="GenLogMaxRank"  Value="1" VerticalAlignment="Top" Width="49" Height="22" Grid.Row="5" Grid.Column="2" NumUDValueChanged="GenLogMaxRank_NumUDValueChanged" />
-                                <Label x:Name="label44001_Copy2" BorderBrush="#FF5C62A0" 
-            Content="In development" 
-            FontFamily="MS Mincho" FontSize="12" Foreground="#FFEC1818" HorizontalAlignment="Left" Margin="44,7,0,0" VerticalAlignment="Top" Background="{x:Null}" Grid.Column="2" Grid.Row="5" />
                             </Grid>
                         </TabItem>
                     </TabControl>
@@ -1560,7 +1559,7 @@
         </TabControl>
         <GIDOO_space:NumericUpDown HorizontalAlignment="Left" Height="100" Margin="859,667,0,0" VerticalAlignment="Top" Width="100"/>
         <RepeatButton Content="RepeatButton" HorizontalAlignment="Left" Margin="613,-87,0,0" VerticalAlignment="Top"/>
-    <!--
+        <!--
         <Image Panel.ZIndex="-1" Source="/00 ApplicationMain/ssc2018-09a_Inline.jpg" Stretch="Fill"/>
     -->
     </Grid>

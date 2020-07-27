@@ -35,8 +35,8 @@ namespace GNPXcore{
     public partial class NuPz_Win{
     #region display
         private bool sNoAssist=false;
-        private int  solLevelCC=0;
-        private int  solLevelMax=0;
+//@        private int  solLevelCC=0;
+//@        private int  solLevelMax=0;
         private void _Display_GB_GBoard( UPuzzle GPML=null, bool DevelopB=false ){
             if( GNP00.AnalyzerMode=="MultiSolve" && __DispMode!="Complated" )  return;
             try{

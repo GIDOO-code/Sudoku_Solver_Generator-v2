@@ -62,7 +62,7 @@ ForceChain_ContradictionEx
 *Cell 1
 *GroupedCells 1
 *ALS 1
-*ForceLx ForceL0
+*ForceLx ForceL2
 *GeneralLogicOn 0
 *GenLogMaxSize 3
 *GenLogMaxRank 1

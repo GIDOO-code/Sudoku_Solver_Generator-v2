@@ -549,12 +549,6 @@ namespace GNPXcore{
             _MethodSelectionMan();
         }
 
-        private void ForceChainCellHouse_Checked(object sender, RoutedEventArgs e){
-            if(ForceChainCellHouse==null) return;
-            int k = (bool)ForceChainCellHouse.IsChecked? 1 : 0;
-            GNPXApp000.GMthdOption["ForceChainCellHouseOn"] = k.ToString();
-            _MethodSelectionMan();
-        }
         #endregion Method selection
     }
 }

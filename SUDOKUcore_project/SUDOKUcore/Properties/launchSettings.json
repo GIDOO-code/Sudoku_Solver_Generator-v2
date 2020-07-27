@@ -2,7 +2,7 @@
   "profiles": {
     "SUDOKUcore": {
       "commandName": "Project",
-      "workingDirectory": "..\\SUDOKU_App\\netcoreapp3.1"
+      "workingDirectory": "..\\..\\SUDOKU_App\\netcoreapp3.1"
     }
   }
 }

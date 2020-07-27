@@ -1,0 +1,612 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnOpenPuzzleFile" xml:space="preserve">
+    <value>ファイル入力</value>
+    <comment>Open Puzzle File</comment>
+  </data>
+  <data name="btnProbNxt" xml:space="preserve">
+    <value>次</value>
+    <comment>Next</comment>
+  </data>
+  <data name="btnProbPre" xml:space="preserve">
+    <value>前</value>
+    <comment>Pre</comment>
+  </data>
+  <data name="btnSavePuzzle" xml:space="preserve">
+    <value>保  存</value>
+    <comment>Save Puzzle</comment>
+  </data>
+  <data name="btnSaveToFavorites" xml:space="preserve">
+    <value>お気に入りに保存</value>
+    <comment>Save to favorites</comment>
+  </data>
+  <data name="btnSolve" xml:space="preserve">
+    <value>解 析</value>
+    <comment>Solve</comment>
+  </data>
+  <data name="msgSuspend" xml:space="preserve">
+    <value>中 断</value>
+    <comment>Suspend</comment>
+  </data>
+  <data name="chbAddAlgorithmList" xml:space="preserve">
+    <value>解法リスト出力</value>
+    <comment>Add Algorithm List</comment>
+  </data>
+  <data name="chbAdditionalSave" xml:space="preserve">
+    <value>ファイルが存在するとき追記</value>
+    <comment>Additional Save if file exist</comment>
+  </data>
+  <data name="chbFormatLine" xml:space="preserve">
+    <value>フォーマット 81数字</value>
+    <comment>Format : Line type</comment>
+  </data>
+  <data name="chbInitialState" xml:space="preserve">
+    <value>初期状態に戻して入力</value>
+    <comment>Set Initial State</comment>
+  </data>
+  <data name="chbSaveWithAnswer" xml:space="preserve">
+    <value>解を出力</value>
+    <comment>Save with Answer</comment>
+  </data>
+  <data name="chbSortByDiffOrder" xml:space="preserve">
+    <value>難易度順にソートして出力</value>
+    <comment>Sort by Difficulty Order</comment>
+  </data>
+  <data name="lblStep" xml:space="preserve">
+    <value>ステップ</value>
+    <comment>Step</comment>
+  </data>
+  <data name="lblDifficulty" xml:space="preserve">
+    <value>難易度</value>
+    <comment>difficulty</comment>
+  </data>
+  <data name="lblPuzzle" xml:space="preserve">
+    <value>問題</value>
+    <comment>Puzzle</comment>
+  </data>
+  <data name="lblSaveAll" xml:space="preserve">
+    <value>全パズルを保存</value>
+    <comment>Save all</comment>
+  </data>
+  <data name="lblSaveCurrentPuzzle" xml:space="preserve">
+    <value>現パズルを保存</value>
+    <comment>Save current puzzle</comment>
+  </data>
+  <data name="lblUnderAnalysis" xml:space="preserve">
+    <value>解析中</value>
+    <comment>under Analysis</comment>
+  </data>
+  <data name="tabATransform" xml:space="preserve">
+    <value>パズル変換</value>
+    <comment>Transform</comment>
+  </data>
+  <data name="tabACreate" xml:space="preserve">
+    <value>問題作成</value>
+    <comment>Create</comment>
+  </data>
+  <data name="tabAFile" xml:space="preserve">
+    <value>ファイル</value>
+    <comment>File</comment>
+  </data>
+  <data name="tabAHomepage" xml:space="preserve">
+    <value>ホームページ</value>
+    <comment>HomePage</comment>
+  </data>
+  <data name="tabAOption" xml:space="preserve">
+    <value>オプション</value>
+    <comment>Option</comment>
+  </data>
+  <data name="tabASolve" xml:space="preserve">
+    <value>解 析</value>
+    <comment>Solve </comment>
+  </data>
+  <data name="tabBMethod" xml:space="preserve">
+    <value>手 法</value>
+    <comment>Method</comment>
+  </data>
+  <data name="tabBMethodOption" xml:space="preserve">
+    <value>手法オプション</value>
+    <comment>MethodOption</comment>
+  </data>
+  <data name="tabBMultiSolve" xml:space="preserve">
+    <value>複数解析</value>
+    <comment>MultiSolve</comment>
+  </data>
+  <data name="tabBSolve" xml:space="preserve">
+    <value>解 析</value>
+    <comment>Solve</comment>
+  </data>
+  <data name="btnInitialState" xml:space="preserve">
+    <value>全リセット</value>
+    <comment>Initial State</comment>
+  </data>
+  <data name="btnSolveUp" xml:space="preserve">
+    <value>全解析</value>
+    <comment>Solve Up</comment>
+  </data>
+  <data name="btnUndo" xml:space="preserve">
+    <value>戻 す</value>
+    <comment>Undo</comment>
+  </data>
+  <data name="chbShowCandidate" xml:space="preserve">
+    <value>空き数字を表示</value>
+    <comment>Show Candidate</comment>
+  </data>
+  <data name="lblEpapsedTimeTS3" xml:space="preserve">
+    <value>経過時間:</value>
+    <comment>Epapsed Time:</comment>
+  </data>
+  <data name="chbConfirmMultipleCells" xml:space="preserve">
+    <value>複数セルを確定</value>
+    <comment>Confirm multiple cells</comment>
+  </data>
+  <data name="chbSetDifficulty" xml:space="preserve">
+    <value>難易度設定</value>
+    <comment>Set Difficulty</comment>
+  </data>
+  <data name="btnCreateProblemMlt" xml:space="preserve">
+    <value>問題作成</value>
+    <comment>Create Problems</comment>
+  </data>
+  <data name="btnMultiSolve" xml:space="preserve">
+    <value>複数解探索</value>
+    <comment>Multi Solve</comment>
+  </data>
+  <data name="chbChangeBasicPattenOnSuccess" xml:space="preserve">
+    <value>成功時に基本パターン変更</value>
+    <comment>Change Basic Pattern on Success</comment>
+  </data>
+  <data name="chbFileOutputOnSuccess" xml:space="preserve">
+    <value>成功時にファイル出力</value>
+    <comment>File Output on Success</comment>
+  </data>
+  <data name="chbRandomizingNumbers" xml:space="preserve">
+    <value>問題数字を乱数化</value>
+    <comment>Randomizing Numbers</comment>
+  </data>
+  <data name="chbShowNoUsedDigits" xml:space="preserve">
+    <value>未使用数字を表示</value>
+    <comment>Show noused Digits</comment>
+  </data>
+  <data name="lblAppliedCount" xml:space="preserve">
+    <value>適用回数</value>
+    <comment>Count</comment>
+  </data>
+  <data name="lblBasicPattern" xml:space="preserve">
+    <value>基本パターン:</value>
+    <comment>Basic Pattern:</comment>
+  </data>
+  <data name="lblCreateEdit" xml:space="preserve">
+    <value>問題作成/修正</value>
+    <comment>Create / Edit</comment>
+  </data>
+  <data name="lblElapsedTime" xml:space="preserve">
+    <value>経過時間:</value>
+    <comment>Elapsed Time:</comment>
+  </data>
+  <data name="LblMethod" xml:space="preserve">
+    <value>手  法</value>
+    <comment>Method</comment>
+  </data>
+  <data name="lblNoOfPuzzles" xml:space="preserve">
+    <value>問題数:</value>
+    <comment>No. of Puzzles:</comment>
+  </data>
+  <data name="lblNoOfTrials" xml:space="preserve">
+    <value>試行回数:</value>
+    <comment>No. of Trials</comment>
+  </data>
+  <data name="lblNoOfTrialsCanceled" xml:space="preserve">
+    <value>キャンセル</value>
+    <comment>Canceled</comment>
+  </data>
+  <data name="lblNoOfTrialsCum" xml:space="preserve">
+    <value>累積回数:</value>
+    <comment>cum. Trials:</comment>
+  </data>
+  <data name="lblPuzzleLevel" xml:space="preserve">
+    <value>問題レベル:</value>
+    <comment>Problem Level</comment>
+  </data>
+  <data name="msgNoSolution" xml:space="preserve">
+    <value>候補数字がなくなったセルがある</value>
+    <comment>There are cells with no candidate digits</comment>
+  </data>
+  <data name="tabAuto" xml:space="preserve">
+    <value>自動</value>
+    <comment>Auto</comment>
+  </data>
+  <data name="tabManual" xml:space="preserve">
+    <value>手動</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="btnPatternAutoGen" xml:space="preserve">
+    <value>パターン</value>
+    <comment>Pattern</comment>
+  </data>
+  <data name="btnPatternCapture" xml:space="preserve">
+    <value>パターン取込み</value>
+    <comment>Pattern Capture</comment>
+  </data>
+  <data name="btnPatternClear" xml:space="preserve">
+    <value>クリア</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblAllSearchOption" xml:space="preserve">
+    <value>全数探索オプション</value>
+    <comment>All Search Option</comment>
+  </data>
+  <data name="lblMethodSetting" xml:space="preserve">
+    <value>自動作成時の手法は解析/手法で設定</value>
+    <comment>Method is set by Solve/Method</comment>
+  </data>
+  <data name="lblMinimum" xml:space="preserve">
+    <value>最小セル数</value>
+    <comment>Minimum</comment>
+  </data>
+  <data name="lblNoOfCells" xml:space="preserve">
+    <value>セル数:</value>
+    <comment>Cells:</comment>
+  </data>
+  <data name="lblPattern" xml:space="preserve">
+    <value>パターン</value>
+    <comment>Pattern</comment>
+  </data>
+  <data name="msgAnalysisComplate" xml:space="preserve">
+    <value>解析完了</value>
+    <comment>Analysis completed</comment>
+  </data>
+  <data name="patSel00" xml:space="preserve">
+    <value>対称性なし</value>
+    <comment>No Symmetry</comment>
+  </data>
+  <data name="patSel01" xml:space="preserve">
+    <value>点対象（90度）</value>
+    <comment>Point Symmetry (90 degrees)</comment>
+  </data>
+  <data name="patSel02" xml:space="preserve">
+    <value>点対象（180度）</value>
+    <comment>Point Symmetry (180 degrees)</comment>
+  </data>
+  <data name="patSel03" xml:space="preserve">
+    <value>線対称（垂直）</value>
+    <comment>Line Symmetry (vertical)</comment>
+  </data>
+  <data name="patSel04" xml:space="preserve">
+    <value>線対称（水平）</value>
+    <comment>Line Symmetry (horizontal)</comment>
+  </data>
+  <data name="patSel05" xml:space="preserve">
+    <value>線対称（右下）</value>
+    <comment>Line Symmetry (lower right)</comment>
+  </data>
+  <data name="patSel06" xml:space="preserve">
+    <value>線対象（右上）</value>
+    <comment>Line Symmetry (upper right)</comment>
+  </data>
+  <data name="lblStepM" xml:space="preserve">
+    <value>ステップ</value>
+    <comment>Step</comment>
+  </data>
+  <data name="lblCellsPuzzle" xml:space="preserve">
+    <value>問題</value>
+    <comment>Puzzle</comment>
+  </data>
+  <data name="lblCellsSolved" xml:space="preserve">
+    <value>確定</value>
+    <comment>Solved</comment>
+  </data>
+  <data name="lvlCellsUnsolved" xml:space="preserve">
+    <value>残り</value>
+    <comment>UnSolved</comment>
+  </data>
+  <data name="gbxMSearchCondition" xml:space="preserve">
+    <value>探索条件</value>
+    <comment>Search Condition</comment>
+  </data>
+  <data name="lblAlgorithmM" xml:space="preserve">
+    <value>解法</value>
+    <comment>Algorithm</comment>
+  </data>
+  <data name="lblDifficultyM" xml:space="preserve">
+    <value>難度</value>
+    <comment>difficulty</comment>
+  </data>
+  <data name="lblMaxAlgorithm" xml:space="preserve">
+    <value>手法別</value>
+    <comment>Algorithm</comment>
+  </data>
+  <data name="lblMaxAllAlgorithm" xml:space="preserve">
+    <value>全手法</value>
+    <comment>All Algorithm</comment>
+  </data>
+  <data name="LblMaxLevel" xml:space="preserve">
+    <value>レベル</value>
+    <comment>Level</comment>
+  </data>
+  <data name="lblMaxTime" xml:space="preserve">
+    <value>時間</value>
+    <comment>Time</comment>
+  </data>
+  <data name="LblMaximum" xml:space="preserve">
+    <value>最大</value>
+    <comment>Maximum</comment>
+  </data>
+  <data name="btnDefaultSettings" xml:space="preserve">
+    <value>初期設定に戻す</value>
+    <comment>Default Setting</comment>
+  </data>
+  <data name="btnMethodCheck" xml:space="preserve">
+    <value>チェック</value>
+    <comment>Check</comment>
+  </data>
+  <data name="btnMethodClear" xml:space="preserve">
+    <value>クリア</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblMethodAndOrder" xml:space="preserve">
+    <value>解析・問題作成時に用いる手法・順序</value>
+    <comment>Method and order</comment>
+  </data>
+  <data name="msgUpperLimitBreak" xml:space="preserve">
+    <value>上限で中断</value>
+    <comment>Upper Limit Break</comment>
+  </data>
+  <data name="msgUpperLimitTimeBreak" xml:space="preserve">
+    <value>上限時間で中断</value>
+    <comment>Upper Limit Time Break</comment>
+  </data>
+  <data name="btnHomePage" xml:space="preserve">
+    <value>ホームページ</value>
+    <comment>HomePage</comment>
+  </data>
+  <data name="chbSetAnswer" xml:space="preserve">
+    <value>解表示</value>
+    <comment>Set Solution</comment>
+  </data>
+  <data name="lblALSSizeMax" xml:space="preserve">
+    <value>最大サイズ</value>
+    <comment>Max. Size</comment>
+  </data>
+  <data name="lblAnalysisLevel" xml:space="preserve">
+    <value>解析レベル</value>
+    <comment>Analysis Level</comment>
+  </data>
+  <data name="lblForceChainType" xml:space="preserve">
+    <value>タイプ</value>
+    <comment>Type</comment>
+  </data>
+  <data name="lblGenLogMaxRank" xml:space="preserve">
+    <value>最大ランク</value>
+    <comment>Max. Rank</comment>
+  </data>
+  <data name="lblGenLogMaxSize" xml:space="preserve">
+    <value>最大サイズ</value>
+    <comment>Max. Size</comment>
+  </data>
+  <data name="lblGNLType" xml:space="preserve">
+    <value>タイプ</value>
+    <comment>Type</comment>
+  </data>
+  <data name="lblNLMaxSize" xml:space="preserve">
+    <value>最大サイズ</value>
+    <comment>Max. Size</comment>
+  </data>
+  <data name="lblPuzzleCreationType" xml:space="preserve">
+    <value>問題作成方法</value>
+    <comment>Puzzle Creation Type</comment>
+  </data>
+  <data name="lblPuzzleCreationType2" xml:space="preserve">
+    <value>(0:標準 1:高速 2:全数)</value>
+    <comment>(0:Standard 1: High speed 2:Exhaustive search )</comment>
+  </data>
+  <data name="lblRandomNumberSeed" xml:space="preserve">
+    <value>乱数シード</value>
+    <comment>Random Seed</comment>
+  </data>
+  <data name="lblSeedSetting" xml:space="preserve">
+    <value>(0:自動 &gt;0:シード指定)</value>
+    <comment>(0:Auto 0&gt;:seed Seting)</comment>
+  </data>
+  <data name="btnNomalize" xml:space="preserve">
+    <value>標準化</value>
+    <comment>Standardization</comment>
+  </data>
+  <data name="btnNumChange" xml:space="preserve">
+    <value>変更</value>
+    <comment>Change</comment>
+  </data>
+  <data name="btnNumChangeFix" xml:space="preserve">
+    <value>確定</value>
+    <comment>Fix</comment>
+  </data>
+  <data name="btnTransEst" xml:space="preserve">
+    <value>変更保存</value>
+    <comment>Save</comment>
+  </data>
+  <data name="btnTransLRg" xml:space="preserve">
+    <value>左右反転</value>
+    <comment>horizontal</comment>
+  </data>
+  <data name="btnTransRes" xml:space="preserve">
+    <value>最初に戻す</value>
+    <comment>to Beginning</comment>
+  </data>
+  <data name="btnTransRtg" xml:space="preserve">
+    <value>右回転</value>
+    <comment>Clockwise</comment>
+  </data>
+  <data name="btnTransUDg" xml:space="preserve">
+    <value>上下反転</value>
+    <comment>Vertical</comment>
+  </data>
+  <data name="chbNrmlNum" xml:space="preserve">
+    <value>標準数独表示</value>
+    <comment>show Solution</comment>
+  </data>
+  <data name="chbShowSolution" xml:space="preserve">
+    <value>解表示</value>
+    <comment>Show Solution</comment>
+  </data>
+  <data name="lblChangeNumber" xml:space="preserve">
+    <value>数字変更</value>
+    <comment>Change Number</comment>
+  </data>
+  <data name="lblClickOnNumber" xml:space="preserve">
+    <value>変更する数字を順にクリック</value>
+    <comment>Click on number</comment>
+  </data>
+  <data name="lblTransAsymetric" xml:space="preserve">
+    <value>変換(対称性破壊)</value>
+    <comment>Transformation(Asymmetric)</comment>
+  </data>
+  <data name="lblTransSymetric" xml:space="preserve">
+    <value>対象変換(対称性維持)</value>
+    <comment>Transformation(Symmetric)</comment>
+  </data>
+  <data name="btnCopyBitmap" xml:space="preserve">
+    <value>ビットマップ コピー</value>
+    <comment>Bitmap Copy</comment>
+  </data>
+  <data name="btnSaveBitmap" xml:space="preserve">
+    <value>ビットマップ 保存</value>
+    <comment>Bitmap Save</comment>
+  </data>
+  <data name="filePuzzleFile" xml:space="preserve">
+    <value>問題ファイル</value>
+    <comment>Puzzle File</comment>
+  </data>
+  <data name="fldSuDoKuImages" xml:space="preserve">
+    <value>画像蔵</value>
+    <comment>SuDoKu Images</comment>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>日本語</value>
+    <comment>English</comment>
+  </data>
+  <data name="GenLS_turbo" xml:space="preserve">
+    <value>多重候補を省く</value>
+    <comment>Omit multiple candidates</comment>
+  </data>
+  <data name="chbWhiteBack" xml:space="preserve">
+    <value>白背景</value>
+    <comment>White Back</comment>
+  </data>
+</root>
