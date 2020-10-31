@@ -40,7 +40,7 @@ The left side shows the puzzle analysis status.
 - "SolveUp" solves to the complete.
 - "InitialState" returns to the initial state  
 A description of the applied algorithm is shown in the box above.  
-Indicates the number of applied algorithms is shown in the box bellow.
+The box below shows the number of algorithms applied
 
 ![](images/Manual/Manual_21Solve2.png)
 
