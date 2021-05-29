@@ -3473,7 +3473,7 @@ var Expr = Sizzle.selectors = {
 		checkbox: function(elem){
 			return "checkbox" === elem.type;
 		},
-		file: function(elem){
+		 function(elem){
 			return "file" === elem.type;
 		},
 		password: function(elem){
@@ -5931,7 +5931,7 @@ jQuery.extend({
 	httpSuccess: function( xhr ) {
 		try {
 			// IE error sometimes returns 1223 when it should be 204 so treat it as success, see #1450
-			return !xhr.status && location.protocol === "file:" ||
+			return !xhr.status && location.protocol === "" ||
 				xhr.status >= 200 && xhr.status < 300 ||
 				xhr.status === 304 || xhr.status === 1223;
 		} catch(e) {}
@@ -5996,7 +5996,7 @@ jQuery.extend({
  */
 if ( window.ActiveXObject ) {
 	jQuery.ajaxSettings.xhr = function() {
-		if ( window.location.protocol !== "file:" ) {
+		if ( window.location.protocol !== "" ) {
 			try {
 				return new window.XMLHttpRequest();
 			} catch(xhrError) {}

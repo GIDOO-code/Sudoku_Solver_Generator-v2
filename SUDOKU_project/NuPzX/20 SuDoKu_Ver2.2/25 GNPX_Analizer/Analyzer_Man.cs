@@ -4,10 +4,10 @@ using System.Data;
 using System.Linq;
 using System.Windows.Media;
 using System.Threading;
-using static System.Console;
+using static System.Diagnostics.Debug;
 using static System.Math;
 
-namespace GNPZ_sdk{
+namespace GNPXcore{
     using pRes=Properties.Resources;
     public delegate bool dSolver();
 
@@ -68,12 +68,15 @@ namespace GNPZ_sdk{
             SolverLst0.Add( new UAlgMethod( 2, "NakedSingle",  1, SSingle.NakedSingle ) );
             SolverLst0.Add( new UAlgMethod( 3, "HiddenSingle", 1, SSingle.HiddenSingle ) );
 
-            var GLTech=new GeneralLogicGen(this);
-            SolverLst0.Add( new UAlgMethod( 4, " GeneralLogic",  2, GLTech.GeneralLogicExnm, true) );
+//            var GLTech=new GeneralLogicGen(this);
+//            SolverLst0.Add( new UAlgMethod( 5, " GeneralLogic",  2, GLTech.GeneralLogic, true) );
+            var GLTech2=new GeneralLogicGen2(this);
+            SolverLst0.Add( new UAlgMethod( 4, " GeneralLogicEx",  2, GLTech2.GeneralLogic2, true) );
 
             var LockedCand=new LockedCandidateGen(this);
             SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate ) );
-                
+         // SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate_old ) );
+            
             var LockedSet=new LockedSetGen(this);
             SolverLst0.Add( new UAlgMethod( 10, "LockedSet(2D)",        3, LockedSet.LockedSet2 ) );
             SolverLst0.Add( new UAlgMethod( 12, "LockedSet(3D)",        4, LockedSet.LockedSet3 ) );
@@ -269,7 +272,7 @@ namespace GNPZ_sdk{
                 int freeB=0;
                 if(P.No==0){
                     foreach( var Q in pBDL.IEGetFixed_Pivot27(P.rc) ) freeB |= (1<<Abs(Q.No));
-                    freeB=(freeB>>=1)^0x1FF; //internal representation with 1 right bit shift
+                    freeB=(freeB>>=1)^0x1FF; //internal expression with 1 right bit shift
                     if(!allFlag) freeB &= P.FreeB;
                     if(freeB==0){ Insoluble=true; P.ErrorState=1; }//No solution
                 }

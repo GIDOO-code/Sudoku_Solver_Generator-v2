@@ -2,3 +2,6 @@ GNPXEX311.zip
 /docs/download
 *.pdb
 *.dll
+
+Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\obj
+Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\bin

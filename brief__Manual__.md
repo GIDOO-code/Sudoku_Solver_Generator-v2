@@ -1,12 +1,12 @@
-# GNPX manual (Sudoku Solver/Analyzer) 
+# GNPX manual
 - The execution program is SUDOKU_App/GNPX.exe.
 - SDK_Methods_V2.txt is the condition definition file.
 - Compile with VisualStudio project and place the program in SUDOKU_App folder.
 - The camera version requires several DLLs.
 
 # 1. File
-![](images/Manual/Manual_10File.png)
-## 1.1 File / OpenPuzzle File
+![](images/Manual_10File.png)
+## OpenPuzzle File
 Load sudoku puzzle file.  
 The file format is a sequence of 81 digits, the puzzle is 1-9, and the space is 0/'.'.  
 In addition, can also input a file with difficulty etc. as an option.
@@ -21,17 +21,17 @@ In addition, can also input a file with difficulty etc. as an option.
 4....9.5.23..58.67...4.7.........3253.2....8.5.1...7.....89....9......7..1.72..46 
 ```
 
-## 1.2 File / Save File
+## Save File
 Save all Sudoku puzzles as files.  
 There are several options. Also, output a list of difficulty levels, solution methods, etc.
 
-## 1.3 File / Save to favorities.
+## Save to favorities.
 Save the current Puzzle to a "favorite" file(SDK_Favorite.txt).
 
 # 2. Solve
 The left side shows the puzzle analysis status.
  
-![](images/Manual/Manual_20Solve.png)
+![](images/Manual_20Solve.png)
 
 ## 2.1 Solve / Solve
 ### Solve / Undo / SolveUp / InitialState
@@ -40,21 +40,20 @@ The left side shows the puzzle analysis status.
 - "SolveUp" solves to the complete.
 - "InitialState" returns to the initial state  
 A description of the applied algorithm is shown in the box above.  
-The box below shows the number of algorithms applied
+Indicates the number of applied algorithms is shown in the box bellow.
 
-![](images/Manual/Manual_21Solve2.png)
+![](images/Manual_21Solve2.png)
 
 ## 2.2 Solve / MultiSolve
-### MultiSolve /  '|<'  /  '<'
+### MultiSolve / |< / <
 - Find multiple algorithms applicable in the current situation.  
-- A description of the selected algorithm appears in the box above. 'Try click selection!'  
+- A description of the selected algorithm appears in the box above. "Try click selection!'  
   The candidate to be determined differs depending on the algorithm to be selected.  
   'MultiSolve' is an analysis from the results of the selected algorithm.
 - The box below lists the applicable algorithms.  
-- '|<’ Returns to the beginning.
+- '|<’Returns to the beginning.
 - '<' Returns to the previous state.
-
-![](images/Manual/Manual_22MultiSolve.png)
+![](images/Manual_22MultiSolve.png)
 
 ## 2.3 Solve / Method
 ### Method and Order
@@ -66,9 +65,9 @@ The box below shows the number of algorithms applied
   - GeneralLogic has equivalent functionality to all other algorithms.
   - Although versatile, it is treated as an option because no efficient method has yet been built. 
   - GeneralLogic is described in more detail on HP.
-  - Enable/disable of 'GeneralLogic' and 'ForceChainCell/House' is set by 'Solve/MethodOption'.
+  - Enable/disable of 'GeneralLogic' is set by 'Solve/MethodOption'.
 
-![](images/Manual/Manual_23Method.png)
+![](images/Manual_23Method.png)
 
 ### 2.4 Solve / MethodOption
 - ALS / Max.Size :Maximum size of ALS(Almost Locked Set) used in the algorithm.
@@ -82,7 +81,7 @@ The box below shows the number of algorithms applied
   - Max.Size is the maximum size of Baseset. A puzzle with Size=3 can be solved in about 1 second, while a puzzle with Size=5 takes several minutes.
   - Rank = (Coverset Size) - (Baseset Size). In GNPX, find the solution from 0 to Max.Size.
 
-![](images/Manual/Manual_24MethodOption.png)
+![](images/Manual_24MethodOption.png)
 
 
 # 3. Create
@@ -90,15 +89,15 @@ The box below shows the number of algorithms applied
 - You can handcraft the Puzzle in the square on the left.
   - Please strongly imagine one of the numbers 1-9.
   - Click anywhere on the 9x9 grid.
-  - When the number appeared different from what you imagined, your image was not enough.  
-    Imagine strongly and click again.
+  - When the number appeared different from what you imagined, your image was not enough.
+    Image strongly and click again.
   - To delete a cell number, click the number again.
 - New, Copy, Clear, Delete is what it means.
 - Sudoku puzzle consisting of 81 digits can be pasted on the left grid.
   - '.' Is converted to 0, ignoring spaces and CRLF, so it supports puzzles of various formats.
   - This allows you to enter the numbers that appear on the HP puzzle.
 
-![](images/Manual/Manual_30CreateManual.png)
+![](images/Manual_30CreateManual.png)
 
 ## 3.2 Create / Auto
 - First, make the desired puzzle pattern.
@@ -107,13 +106,13 @@ The box below shows the number of algorithms applied
    - 'Minimum' is the minimum number of pattern cells.Automatically generate more cells than the minimum number of patterns.
    - 'cells' is the number of cells in the generated pattern.
    - 'Pattern' can be created and modified by clicking on cells. At this time, the symmetry specification works.
-   - Or, import the pattern from the puzzle displayed on the left grid.
+   - Import the pattern from the puzzle displayed on the left grid.
 - Generate puzzles by specifying the number and difficulty of puzzles.
   - Specify basic pattern changes and randomization.
   - Indicates the status information of the trial.
   - The algorithm applied to generate the puzzle is specified during the analysis phase(Solve/Method).
  
-![](images/Manual/Manual_31CreateAuto.png)
+![](images/Manual_31CreateAuto.png)
 
 ## 3.3 Create / Camera ( "Sudoku_Solver_Generator_withCamera" version )
 - Select the "Camera" tab to start the web camera.
@@ -125,7 +124,7 @@ The box below shows the number of algorithms applied
   - If recognized, save automatically or save manually.
   - In case of recognition failure, edit the cell in the left grid directly. Or "Delete".
 
-![](images/Manual/Manual_32CreateCamera.png)
+![](images/Manual_32CreateCamera.png)
   
 # 4. Option
 - Normally, it switches to English and Japanese depending on the PC environment.  
@@ -136,10 +135,10 @@ Or manually choose between English and Japanese.
   - The save destination is a dedicated folder in the execution folder.
   - "Solved" and "white background" can be specified for the image type.
 
-![](images/Manual/Manual_40Option.png)
+![](images/Manual_40Option.png)
 
-# 5 Transform
-## 5.1 Transform/Transform
+# 5 Transpose
+## 5.1 Transpose/Transpose
 Transform Sudoku puzzle. The Sudoku puzzle that can be converted below is essentially the same as the original puzzle.
 - Change numbers in Sudoku puzzles.
   - Click the cells in the order to change to 1-9. "Done" is interrupted before reaching 9.  
@@ -153,9 +152,9 @@ Transform Sudoku puzzle. The Sudoku puzzle that can be converted below is essent
 - "Save" saves the converted puzzle.
 - "To Beginning" returns to the original puzzle after various returns
 
-![](images/Manual/Manual_50TransposeTranspose.png)
+![](images/Manual_50TransposeTranspose.png)
 
-## 5.2 Transform/Standardization
+## 5.1 Transpose/Standardization
 Convert to Sudoku puzzle standard form.  
 - Definition of standard form and conversion method are shown on HP.  
 (In the displayed puzzle, it can be converted to the standard form in 9 steps.)
@@ -164,9 +163,9 @@ Convert to Sudoku puzzle standard form.
   - For transformations involving row and column exchange, a matrix exchange is performed first.
 - There are hundreds of millions of puzzles that can be converted, but they can be converted into one standard form.
 
-![](images/Manual/Manual_51TransposeStandardization.png)
+![](images/Manual_51TransposeStandardization.png)
 
-# 6 HomePage
+# 5 Transpose
 Jump to HP from the application.
 
-![](images/Manual/Manual_60HomePage.png)
+![](images/Manual_60HomePage.png)
