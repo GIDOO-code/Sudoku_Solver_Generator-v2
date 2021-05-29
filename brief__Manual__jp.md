@@ -4,7 +4,7 @@
 - VisualStudioプロジェクトをコンパイルするときは、GNPX.exe を SUDOKU_App フォルダーに配置して下さい。
 
 # 1. File
-![](images/Manual_10File.png)
+![](images/manual/Manual_10File.png)
 ## OpenPuzzle File
 数独の問題ファイルを開来ます。  
 ファイルフォーマットは、以下のように、空白（0または.)、数字（1-9）のテキストです。
@@ -30,7 +30,7 @@
 # 2. Solve
 現在表示中の問題を解きます。
  
-![](images/Manual_20Solve.png)
+![](images/manual/Manual_20Solve.png)
 
 ## 2.1 Solve / Solve
 ### Solve / Undo / SolveUp / InitialState
@@ -41,7 +41,7 @@
 上の蘭には、適用したアルゴリズム名とその詳細を示します。
 下の蘭には、ここまでのステップで適用したアルゴリズムと適用回数を示します。
 
-![](images/Manual_21Solve2.png)
+![](images/manual/Manual_21Solve2.png)
 
 ## 2.2 Solve / MultiSolve
 ### MultiSolve / |< / <
@@ -51,7 +51,7 @@
 - '|<’クリックで、初期局面に戻ります。
 - '<'クリックで、前の状態に戻ります。適用可能なアルゴリズムのリストも前の状態です。
 
-![](images/Manual_22MultiSolve.png)
+![](images/manual/Manual_22MultiSolve.png)
 
 ## 2.3 Solve / Method
 ### Method and Order
@@ -61,7 +61,7 @@
 - アルゴリズム"GeneralLogic"の順序は固定です。全てのアルゴリズムを含む万能アルゴリズムなので、これを有効にしたときは、他のアルゴリズムは理論上適用されません。"GeneralLogic"に関しては、HPに解説しています。
 - 'GeneralLogic'は、'Solve/MethodOption'で有効/無効に設定します。
 
-![](images/Manual_23Method.png)
+![](images/manual/Manual_23Method.png)
 
 ### 2.4 Solve / MethodOption
 - ALS / Max.Size : アルゴリズムで用いる ALS(Almost Locked Set) の最大サイズ。
@@ -74,7 +74,7 @@
   - GeneralLogicのサイズは、Baseset Sizeのサイズで、その最大値を指定する。Size=3 は１秒ほどで解けるが、大きいサイズの問題は指数関数的に所要時間が増大し、Size=5では数分を要する。
   - Rank = (Coverset Size) - (Baseset Size). 
 
-![](images/Manual_24MethodOption.png)
+![](images/manual/Manual_24MethodOption.png)
 
 
 # 3. Create
@@ -87,7 +87,7 @@
 - New, Copy, Clear, Delete はその意味通りである。
 - 81個の数字からなる文字列（空白は0または.）は、左図内にペースト入力できる。文字列中の空白と改行は削除するので、ペーストできるフォーマットは多様である。
 
-![](images/Manual_30CreateManual.png)
+![](images/manual/Manual_30CreateManual.png)
 
 ## 3.2 Create / Auto
 - 最初に、数独のパターンを設定します。
@@ -101,7 +101,7 @@
   - 生成時に、数字のランダム化を指定できます。
   - 生成時にいくつかの情報を表示します。
 
-![](images/Manual_31CreateAuto.png)
+![](images/manual/Manual_31CreateAuto.png)
 
   
 # 4. Option
@@ -111,7 +111,7 @@
 - 左に表示の数独のビットマップをバッファーにコピー、あるいは、ホルダーに保存します。
   - 保存時の、フォルダー名は固定、保存ファイル名は自動で生成します。
   - いくつかのオプションがあります。
-![](images/Manual_40Option.png)
+![](images/manual/Manual_40Option.png)
 
 # 5 Transpose
 ## 5.1 Transpose/Transpose
@@ -124,7 +124,7 @@
   - 下段のボタン横の数字は、各変換方法の変換回数です。0が最初の状態です。
 - 'Save'クリックで、変換後のパズルを、保存します（システム内の保存で、外部ファイルへの保存は別途必要です）。
 
-![](images/Manual_50TransposeTranspose.png)
+![](images/manual/Manual_50TransposeTranspose.png)
 
 ## 5.1 Transpose/Standardization
 数独問題を標準形に変換します。
@@ -134,9 +134,9 @@
 - 標準形への変換は、数字変換と行・列・対象変換をコード化出来ます。
   - 数独問題を変換しても、標準形は一意であり、標準形はコードで表現できます。
 
-![](images/Manual_51TransposeStandardization.png)
+![](images/manual/Manual_51TransposeStandardization.png)
 
 # 5 Transpose
 Jump to HP from the application.
 
-![](images/Manual_60HomePage.png)
+![](images/manual/Manual_60HomePage.png)
