@@ -1,281 +1,234 @@
 <!DOCTYPE html>
-<html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>GNPX manual</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="gnpx-manual">GNPX manual</h1>
+<ul>
+<li>The execution program is SUDOKU_App/GNPX.exe.</li>
+<li>SDK_Methods_V2.txt is the condition definition file.</li>
+<li>Compile with VisualStudio project and place the program in SUDOKU_App folder.</li>
+<li>The camera version requires several DLLs.</li>
+</ul>
+<h1 id="1-file">1. File</h1>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_10File.png" alt=""></p>
+<h2 id="openpuzzle-file">OpenPuzzle File</h2>
+<p>Load sudoku puzzle file.<br>
+The file format is a sequence of 81 digits, the puzzle is 1-9, and the space is 0/'.'.<br>
+In addition, can also input a file with difficulty etc. as an option.</p>
+<p>** Sudoku Data File sampl. (see 'SUDOKU_App/GNPX_1_SAMPLE2.txt')**</p>
+<pre><code class="language-data"><code><div>023000800406080070780300502007008200060020700000650084602590400010004057005001020  
+032170608804009070750000000600008457200000006070400000300500084020900500400610702  
+000608300007004500600730428060000013004000600000300207518020030403006000296000700  
+.3.1.5.8...........8.....2...9.1.2...5.3.9.4..6.....7.7..6.1..851..7..69..8...7..  
+...3.9...3.......564.....89.........89..2..51..6.5.8..5.1...7.8.3.5.4.2.7..1.2..3  
+4....9.5.23..58.67...4.7.........3253.2....8.5.1...7.....89....9......7..1.72..46 
+</div></code></code></pre>
+<h2 id="save-file">Save File</h2>
+<p>Save all Sudoku puzzles as files.<br>
+There are several options. Also, output a list of difficulty levels, solution methods, etc.</p>
+<h2 id="save-to-favorities">Save to favorities.</h2>
+<p>Save the current Puzzle to a &quot;favorite&quot; file(SDK_Favorite.txt).</p>
+<h1 id="2-solve">2. Solve</h1>
+<p>The left side shows the puzzle analysis status.</p>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_20Solve.png" alt=""></p>
+<h2 id="21-solve--solve">2.1 Solve / Solve</h2>
+<h3 id="solve--undo--solveup--initialstate">Solve / Undo / SolveUp / InitialState</h3>
+<ul>
+<li>&quot;Solve&quot; Solve the problem one step. Sometimes the same algorithm determines multiple cells candidates.</li>
+<li>'Undo' returns state by one step.</li>
+<li>&quot;SolveUp&quot; solves to the complete.</li>
+<li>&quot;InitialState&quot; returns to the initial state<br>
+A description of the applied algorithm is shown in the box above.<br>
+Indicates the number of applied algorithms is shown in the box bellow.</li>
+</ul>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_21Solve2.png" alt=""></p>
+<h2 id="22-solve--multisolve">2.2 Solve / MultiSolve</h2>
+<h3 id="multisolve----">MultiSolve / |&lt; / &lt;</h3>
+<ul>
+<li>Find multiple algorithms applicable in the current situation.</li>
+<li>A description of the selected algorithm appears in the box above. &quot;Try click selection!'<br>
+The candidate to be determined differs depending on the algorithm to be selected.<br>
+'MultiSolve' is an analysis from the results of the selected algorithm.</li>
+<li>The box below lists the applicable algorithms.</li>
+<li>'|&lt;’Returns to the beginning.</li>
+<li>'&lt;' Returns to the previous state.
+<img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_22MultiSolve.png" alt=""></li>
+</ul>
+<h2 id="23-solve--method">2.3 Solve / Method</h2>
+<h3 id="method-and-order">Method and Order</h3>
+<ul>
+<li>Select the algorithm(Method) used for analysis and set the order.</li>
+<li>To change the order, select an algorithm and move it up/down.</li>
+<li>These settings are saved in the condition file and will be effective at the next startup.
+<ul>
+<li>The first four algorithms (Single and GeneralLogic) have a fixed selection and order.</li>
+<li>Since Single determines the cell number, it cannot be held.</li>
+<li>GeneralLogic has equivalent functionality to all other algorithms.</li>
+<li>Although versatile, it is treated as an option because no efficient method has yet been built.</li>
+<li>GeneralLogic is described in more detail on HP.</li>
+<li>Enable/disable of 'GeneralLogic' is set by 'Solve/MethodOption'.</li>
+</ul>
+</li>
+</ul>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_23Method.png" alt=""></p>
+<h3 id="24-solve--methodoption">2.4 Solve / MethodOption</h3>
+<ul>
+<li>ALS / Max.Size :Maximum size of ALS(Almost Locked Set) used in the algorithm.</li>
+<li>NiceLoop / Max.Size : Maximum size of (Grouped)NiceLoop used in algorithm.</li>
+<li>Grouped NiceLoop / type : Type to be enabled in grouped NiceLoop.</li>
+<li>Force Chain /
+<ul>
+<li>The cell/house type of Force_chain is optional because considering whether to accept it as a method.</li>
+<li>Force_Chain is simultaneously established in different places in one phase. You can choose from three different display methods to see its dynamics.</li>
+</ul>
+</li>
+<li>General Logic /
+<ul>
+<li>GeneralLogic is equivalent to all other analysis algorithms. Due to this strength, the activation of GeneralLogic can be specified in the 'MethodOption'.</li>
+<li>Max.Size is the maximum size of Baseset. A puzzle with Size=3 can be solved in about 1 second, while a puzzle with Size=5 takes several minutes.</li>
+<li>Rank = (Coverset Size) - (Baseset Size). In GNPX, find the solution from 0 to Max.Size.</li>
+</ul>
+</li>
+</ul>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_24MethodOption.png" alt=""></p>
+<h1 id="3-create">3. Create</h1>
+<h2 id="31-create--manual">3.1 Create / Manual</h2>
+<ul>
+<li>You can handcraft the Puzzle in the square on the left.
+<ul>
+<li>Please strongly imagine one of the numbers 1-9.</li>
+<li>Click anywhere on the 9x9 grid.</li>
+<li>When the number appeared different from what you imagined, your image was not enough.
+Image strongly and click again.</li>
+<li>To delete a cell number, click the number again.</li>
+</ul>
+</li>
+<li>New, Copy, Clear, Delete is what it means.</li>
+<li>Sudoku puzzle consisting of 81 digits can be pasted on the left grid.
+<ul>
+<li>'.' Is converted to 0, ignoring spaces and CRLF, so it supports puzzles of various formats.</li>
+<li>This allows you to enter the numbers that appear on the HP puzzle.</li>
+</ul>
+</li>
+</ul>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_30CreateManual.png" alt=""></p>
+<h2 id="32-create--auto">3.2 Create / Auto</h2>
+<ul>
+<li>First, make the desired puzzle pattern.
+<ul>
+<li>As for the symmetry, there are point symmetry(2 types) and line symmetry (4 types) and no symmetry.</li>
+</ul>
+</li>
+<li>Click on 'Pattern' to generate a Sudoku puzzle pattern.
+<ul>
+<li>'Minimum' is the minimum number of pattern cells.Automatically generate more cells than the minimum number of patterns.</li>
+<li>'cells' is the number of cells in the generated pattern.</li>
+<li>'Pattern' can be created and modified by clicking on cells. At this time, the symmetry specification works.</li>
+<li>Import the pattern from the puzzle displayed on the left grid.</li>
+</ul>
+</li>
+<li>Generate puzzles by specifying the number and difficulty of puzzles.
+<ul>
+<li>Specify basic pattern changes and randomization.</li>
+<li>Indicates the status information of the trial.</li>
+<li>The algorithm applied to generate the puzzle is specified during the analysis phase(Solve/Method).</li>
+</ul>
+</li>
+</ul>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_31CreateAuto.png" alt=""></p>
+<h2 id="33-create--camera--sudoku_solver_generator_withcamera-version-">3.3 Create / Camera ( &quot;Sudoku_Solver_Generator_withCamera&quot; version )</h2>
+<ul>
+<li>Select the &quot;Camera&quot; tab to start the web camera.
+<ul>
+<li>In a multiple camera environment, 1-3 cameras can be selected.</li>
+<li>If the camera does not start, 1) Click &quot;Activate&quot;, 2) Move to another screen and return, or restart.</li>
+<li>Invert the image if necessary.</li>
+</ul>
+</li>
+<li>Click “Detect”.
+<ul>
+<li>Recognize noisy, distorted, uneven brightness image.</li>
+<li>If recognized, save automatically or save manually.</li>
+<li>In case of recognition failure, edit the cell in the left grid directly. Or &quot;Delete&quot;.</li>
+</ul>
+</li>
+</ul>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_32CreateCamera.png" alt=""></p>
+<h1 id="4-option">4. Option</h1>
+<ul>
+<li>Normally, it switches to English and Japanese depending on the PC environment.<br>
+Or manually choose between English and Japanese.</li>
+<li>Specify the random number used when creating the puzzle. If set to 0, the system will set each time.</li>
+<li>(&quot;Omit multiple candidate&quot; is an option for developing a function to speed up. - Delete in the future)</li>
+<li>&quot;Copy&quot; or &quot;Save&quot; the puzzle image in the left grid.
+<ul>
+<li>The save destination is a dedicated folder in the execution folder.</li>
+<li>&quot;Solved&quot; and &quot;white background&quot; can be specified for the image type.</li>
+</ul>
+</li>
+</ul>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_40Option.png" alt=""></p>
+<h1 id="5-transpose">5 Transpose</h1>
+<h2 id="51-transposetranspose">5.1 Transpose/Transpose</h2>
+<p>Transform Sudoku puzzle. The Sudoku puzzle that can be converted below is essentially the same as the original puzzle.</p>
+<ul>
+<li>Change numbers in Sudoku puzzles.
+<ul>
+<li>Click the cells in the order to change to 1-9. &quot;Done&quot; is interrupted before reaching 9.<br>
+It's okay to click on an already set cell</li>
+<li>Click &quot;random&quot; to set it randomly. Each click results in a different number puzzle.</li>
+</ul>
+</li>
+<li>Change the order of rows (columns) and exchange rows and columns.
+<ul>
+<li>Since the Sudoku puzzle has restrictions on rows, columns, and blocks, the order of rows (columns) cannot be arbitrarily changed.</li>
+<li>The middle transformation transforms point-symmetric puzzles while preserving symmetry.</li>
+<li>The lower transformation does not preserve symmetry.</li>
+<li>The numbers displayed in the lower conversion diagram indicate the types that can be converted. 0 is the original puzzle.</li>
+</ul>
+</li>
+<li>&quot;Save&quot; saves the converted puzzle.</li>
+<li>&quot;To Beginning&quot; returns to the original puzzle after various returns</li>
+</ul>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_50TransposeTranspose.png" alt=""></p>
+<h2 id="51-transposestandardization">5.1 Transpose/Standardization</h2>
+<p>Convert to Sudoku puzzle standard form.</p>
+<ul>
+<li>Definition of standard form and conversion method are shown on HP.<br>
+(In the displayed puzzle, it can be converted to the standard form in 9 steps.)</li>
+<li>The conversion is shown in the lower middle diagram.
+<ul>
+<li>Clicking on the displayed number until it becomes 0 will cause the original problem.</li>
+<li>For transformations involving row and column exchange, a matrix exchange is performed first.</li>
+</ul>
+</li>
+<li>There are hundreds of millions of puzzles that can be converted, but they can be converted into one standard form.</li>
+</ul>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_51TransposeStandardization.png" alt=""></p>
+<h1 id="5-transpose-1">5 Transpose</h1>
+<p>Jump to HP from the application.</p>
+<p><img src="file:///e:\◆◆数独集合体\Git\Sudoku_Solver_Generator\images\Manual\Manual_60HomePage.png" alt=""></p>
 
-<head>
-    <meta charset="UTF-8">
-    <title>GNPX manual</title>
-    <style>
-    </style>
-
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-
-    <style>
-        .task-list-item {
-            list-style-type: none;
-        }
-
-        .task-list-item-checkbox {
-            margin-left: -20px;
-            vertical-align: middle;
-        }
-    </style>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-    </style>
-
-
-
-</head>
-
-<body class="vscode-light">
-    <h1 id="gnpx-manual">GNPX manual (Sudoku Solver/Analyzer) </h1>
-    <ul>
-        <li>The execution program is SUDOKU_App/GNPX.exe.</li>
-        <li>SDK_Methods_V2.txt is the condition definition file.</li>
-        <li>Compile with VisualStudio project and place the program in SUDOKU_App folder.</li>
-        <li>The camera version requires several DLLs.</li>
-    </ul>
-    <h1 id="1-file">1. File</h1>
-    <p><img src="images/Manual/Manual_10File.png" alt=""></p>
-    <h2 id="11-file--openpuzzle-file">1.1 File / OpenPuzzle File</h2>
-    <p>Load sudoku puzzle file.<br>
-        The file format is a sequence of 81 digits, the puzzle is 1-9, and the space is 0/'.'.<br>
-        In addition, can also input a file with difficulty etc. as an option.</p>
-    <p>** Sudoku Data File sampl. (see 'SUDOKU_App/GNPX_1_SAMPLE2.txt')**</p>
-    <pre><code class="language-data"><code><div>
-        023000800406080070780300502007008200060020700000650084602590400010004057005001020  
-        032170608804009070750000000600008457200000006070400000300500084020900500400610702  
-        000608300007004500600730428060000013004000600000300207518020030403006000296000700  
-        .3.1.5.8...........8.....2...9.1.2...5.3.9.4..6.....7.7..6.1..851..7..69..8...7..  
-        ...3.9...3.......564.....89.........89..2..51..6.5.8..5.1...7.8.3.5.4.2.7..1.2..3  
-        4....9.5.23..58.67...4.7.........3253.2....8.5.1...7.....89....9......7..1.72..46 
-    </div></code></code></pre>
-    
-    <h2 id="12-file--save-file">1.2 File / Save File</h2>
-    <p>Save all Sudoku puzzles as files.<br>
-        There are several options. Also, output a list of difficulty levels, solution methods, etc.</p>
-    <h2 id="13-file--save-to-favorities">1.3 File / Save to favorities.</h2>
-    <p>Save the current Puzzle to a &quot;favorite&quot; file(SDK_Favorite.txt).</p>
-
-    <h1 id="2-solve">2. Solve</h1>
-    <p>The left side shows the puzzle analysis status.</p>
-    <p><img src="images/Manual/Manual_20Solve.png" alt=""></p>
-
-    <h2 id="21-solve--solve">2.1 Solve / Solve</h2>
-    <h3 id="solve--undo--solveup--initialstate">Solve / Undo / SolveUp / InitialState</h3>
-    <ul>
-        <li>&quot;Solve&quot; Solve the problem one step. Sometimes the same algorithm determines multiple cells
-            candidates.</li>
-        <li>'Undo' returns state by one step.</li>
-        <li>&quot;SolveUp&quot; solves to the complete.</li>
-        <li>&quot;InitialState&quot; returns to the initial state<br>
-            A description of the applied algorithm is shown in the box above.<br>
-            Indicates the number of applied algorithms is shown in the box bellow.</li>
-    </ul>
-    <p><img src="images/Manual/Manual_21Solve2.png" alt=""></p>
-
-    <h2 id="22-solve--multisolve">2.2 Solve / MultiSolve</h2>
-    <h3 id="multisolve----">MultiSolve / '|&lt;' / '&lt;'</h3>
-    <ul>
-        <li>Find multiple algorithms applicable in the current situation.</li>
-        <li>A description of the selected algorithm appears in the box above. 'Try click selection!'<br>
-            The candidate to be determined differs depending on the algorithm to be selected.<br>
-            'MultiSolve' is an analysis from the results of the selected algorithm.</li>
-        <li>The box below lists the applicable algorithms.</li>
-        <li>'|&lt;’ Returns to the beginning.</li>
-        <li>'&lt;' Returns to the previous state.
-    </ul>
-    <p><img src="images/Manual/Manual_22MultiSolve.png" alt=""></li>
-
-
-    <h2 id="23-solve--method">2.3 Solve / Method</h2>
-    <h3 id="method-and-order">Method and Order</h3>
-    <ul>
-        <li>Select the algorithm(Method) used for analysis and set the order.</li>
-        <li>To change the order, select an algorithm and move it up/down.</li>
-        <li>These settings are saved in the condition file and will be effective at the next startup.
-            <ul>
-                <li>The first four algorithms (Single and GeneralLogic) have a fixed selection and order.</li>
-                <li>Since Single determines the cell number, it cannot be held.</li>
-                <li>GeneralLogic has equivalent functionality to all other algorithms.</li>
-                <li>Although versatile, it is treated as an option because no efficient method has yet been built.</li>
-                <li>GeneralLogic is described in more detail on HP.</li>
-                <li>Enable/disable of 'GeneralLogic' and 'ForceChainCell/House' is set by 'Solve/MethodOption'.</li>
-            </ul>
-        </li>
-    </ul>
-    <p><img src="images/Manual/Manual_23Method.png" alt=""></p>
-
-    <h3 id="24-solve--methodoption">2.4 Solve / MethodOption</h3>
-    <ul>
-        <li>ALS / Max.Size :Maximum size of ALS(Almost Locked Set) used in the algorithm.</li>
-        <li>NiceLoop / Max.Size : Maximum size of (Grouped)NiceLoop used in algorithm.</li>
-        <li>Grouped NiceLoop / type : Type to be enabled in grouped NiceLoop.</li>
-        <li>Force Chain /
-            <ul>
-                <li>The cell/house type of Force_chain is optional because considering whether to accept it as a method.
-                </li>
-                <li>Force_Chain is simultaneously established in different places in one phase. You can choose from
-                    three different display methods to see its dynamics.</li>
-            </ul>
-        </li>
-        <li>General Logic /
-            <ul>
-                <li>GeneralLogic is equivalent to all other analysis algorithms. Due to this strength, the activation of
-                    GeneralLogic can be specified in the 'MethodOption'.</li>
-                <li>Max.Size is the maximum size of Baseset. A puzzle with Size=3 can be solved in about 1 second, while
-                    a puzzle with Size=5 takes several minutes.</li>
-                <li>Rank = (Coverset Size) - (Baseset Size). In GNPX, find the solution from 0 to Max.Size.</li>
-            </ul>
-        </li>
-    </ul>
-    <p><img src="images/Manual/Manual_24MethodOption.png" alt=""></p>
-
-    <h1 id="3-create">3. Create</h1>
-
-    <h2 id="31-create--manual">3.1 Create / Manual</h2>
-    <ul>
-        <li>You can handcraft the Puzzle in the square on the left.
-            <ul>
-                <li>Please strongly imagine one of the numbers 1-9.</li>
-                <li>Click anywhere on the 9x9 grid.</li>
-                <li>When the number appeared different from what you imagined, your image was not enough.<br>
-                    Imagine strongly and click again.</li>
-                <li>To delete a cell number, click the number again.</li>
-            </ul>
-        </li>
-        <li>New, Copy, Clear, Delete is what it means.</li>
-        <li>Sudoku puzzle consisting of 81 digits can be pasted on the left grid.
-            <ul>
-                <li>'.' Is converted to 0, ignoring spaces and CRLF, so it supports puzzles of various formats.</li>
-                <li>This allows you to enter the numbers that appear on the HP puzzle.</li>
-            </ul>
-        </li>
-    </ul>
-    <p><img src="images/Manual/Manual_30CreateManual.png" alt=""></p>
-
-    <h2 id="32-create--auto">3.2 Create / Auto</h2>
-    <ul>
-        <li>First, make the desired puzzle pattern.
-            <ul>
-                <li>As for the symmetry, there are point symmetry(2 types) and line symmetry (4 types) and no symmetry.
-                </li>
-            </ul>
-        </li>
-        <li>Click on 'Pattern' to generate a Sudoku puzzle pattern.
-            <ul>
-                <li>'Minimum' is the minimum number of pattern cells.Automatically generate more cells than the minimum
-                    number of patterns.</li>
-                <li>'cells' is the number of cells in the generated pattern.</li>
-                <li>'Pattern' can be created and modified by clicking on cells. At this time, the symmetry specification
-                    works.</li>
-                <li>Or, import the pattern from the puzzle displayed on the left grid.</li>
-            </ul>
-        </li>
-        <li>Generate puzzles by specifying the number and difficulty of puzzles.
-            <ul>
-                <li>Specify basic pattern changes and randomization.</li>
-                <li>Indicates the status information of the trial.</li>
-                <li>The algorithm applied to generate the puzzle is specified during the analysis phase(Solve/Method).
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <p><img src="images/Manual/Manual_31CreateAuto.png" alt=""></p>
-
-    <h2 id="33-create--camera--sudoku_solver_generator_withcamera-version-">3.3 Create / Camera (
-        &quot;Sudoku_Solver_Generator_withCamera&quot; version )</h2>
-    <ul>
-        <li>Select the &quot;Camera&quot; tab to start the web camera.
-            <ul>
-                <li>In a multiple camera environment, 1-3 cameras can be selected.</li>
-                <li>If the camera does not start, 1) Click &quot;Activate&quot;, 2) Move to another screen and return,
-                    or restart.</li>
-                <li>Invert the image if necessary.</li>
-            </ul>
-        </li>
-        <li>Click “Detect”.
-            <ul>
-                <li>Recognize noisy, distorted, uneven brightness image.</li>
-                <li>If recognized, save automatically or save manually.</li>
-                <li>In case of recognition failure, edit the cell in the left grid directly. Or &quot;Delete&quot;.</li>
-            </ul>
-        </li>
-    </ul>
-    <p><img src="images/Manual/Manual_32CreateCamera.png" alt=""></p>
-
-    <h1 id="4-option">4. Option</h1>
-    <ul>
-        <li>Normally, it switches to English and Japanese depending on the PC environment.<br>
-            Or manually choose between English and Japanese.</li>
-        <li>Specify the random number used when creating the puzzle. If set to 0, the system will set each time.</li>
-        <li>(&quot;Omit multiple candidate&quot; is an option for developing a function to speed up. - Delete in the
-            future)</li>
-        <li>&quot;Copy&quot; or &quot;Save&quot; the puzzle image in the left grid.
-            <ul>
-                <li>The save destination is a dedicated folder in the execution folder.</li>
-                <li>&quot;Solved&quot; and &quot;white background&quot; can be specified for the image type.</li>
-            </ul>
-        </li>
-    </ul>
-    <p><img src="images/Manual/Manual_40Option.png" alt=""></p>
-
-    <h1 id="5-transform">5 Transform</h1>
-
-    <h2 id="51-transformtransform">5.1 Transform/Transform</h2>
-    <p>Transform Sudoku puzzle. The Sudoku puzzle that can be converted below is essentially the same as the original
-        puzzle.</p>
-    <ul>
-        <li>Change numbers in Sudoku puzzles.
-            <ul>
-                <li>Click the cells in the order to change to 1-9. &quot;Done&quot; is interrupted before reaching
-                    9.<br>
-                    It's okay to click on an already set cell</li>
-                <li>Click &quot;random&quot; to set it randomly. Each click results in a different number puzzle.</li>
-            </ul>
-        </li>
-        <li>Change the order of rows (columns) and exchange rows and columns.
-            <ul>
-                <li>Since the Sudoku puzzle has restrictions on rows, columns, and blocks, the order of rows (columns)
-                    cannot be arbitrarily changed.</li>
-                <li>The middle transformation transforms point-symmetric puzzles while preserving symmetry.</li>
-                <li>The lower transformation does not preserve symmetry.</li>
-                <li>The numbers displayed in the lower conversion diagram indicate the types that can be converted. 0 is
-                    the original puzzle.</li>
-            </ul>
-        </li>
-        <li>&quot;Save&quot; saves the converted puzzle.</li>
-        <li>&quot;To Beginning&quot; returns to the original puzzle after various returns</li>
-    </ul>
-    <p><img src="images/Manual/Manual_50TransposeTranspose.png" alt=""></p>
-
-    <h2 id="52-transformstandardization">5.2 Transform/Standardization</h2>
-    <p>Convert to Sudoku puzzle standard form.</p>
-    <ul>
-        <li>Definition of standard form and conversion method are shown on HP.<br>
-            (In the displayed puzzle, it can be converted to the standard form in 9 steps.)</li>
-        <li>The conversion is shown in the lower middle diagram.
-            <ul>
-                <li>Clicking on the displayed number until it becomes 0 will cause the original problem.</li>
-                <li>For transformations involving row and column exchange, a matrix exchange is performed first.</li>
-            </ul>
-        </li>
-        <li>There are hundreds of millions of puzzles that can be converted, but they can be converted into one standard
-            form.</li>
-    </ul>
-    <p><img src="images/Manual/Manual_51TransposeStandardization.png" alt=""></p>
-
-    <h1 id="6-homepage">6 HomePage</h1>
-    <p>Jump to HP from the application.</p>
-    <p><img src="images/Manual/Manual_60HomePage.png" alt=""></p>
-
-</body>
-
-</html>
+    </body>
+    </html>
