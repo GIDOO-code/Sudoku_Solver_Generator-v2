@@ -11,7 +11,7 @@ namespace GNPXcore {
         public int          ID;
         public bool         AvailableF=true;
         public UCellLink    UCelLK=null;
-        public int          GenNo;
+        public int          GenNo=0;
 //      public int          UGLSize{ get{ return UGCellsA.Size+UGCellsB.Size; } }
 
 
@@ -28,9 +28,7 @@ namespace GNPXcore {
         public Bit81        UsedCs=new Bit81();
         public object       preGrpedLink=null;
 
-        public GroupedLink(){
-             ID=_ID0++;   
-        }
+        public GroupedLink(){ ID=_ID0++; }
 
         public GroupedLink( UGrCells UGCellsA, UGrCells UGCellsB, int tfx, int type ): this(){
             this.UGCellsA = UGCellsA; this.UGCellsB = UGCellsB; //this.tfx=tfx;
@@ -122,11 +120,11 @@ namespace GNPXcore {
             return "null Exception";
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj){
             return Equals(obj as GroupedLink);
         }
 
-        public bool Equals(GroupedLink other) {
+        public bool Equals(GroupedLink other){
             return other != null &&
                    EqualityComparer<UCellLink>.Default.Equals(UCelLK, other.UCelLK) &&
                    EqualityComparer<UGrCells>.Default.Equals(UGCellsA, other.UGCellsA) &&
@@ -137,7 +135,7 @@ namespace GNPXcore {
                    FreeB == other.FreeB;
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode(){
             var hashCode = 1413630847;
             hashCode = hashCode * -1521134295 + EqualityComparer<UCellLink>.Default.GetHashCode(UCelLK);
             hashCode = hashCode * -1521134295 + EqualityComparer<UGrCells>.Default.GetHashCode(UGCellsA);
@@ -149,11 +147,11 @@ namespace GNPXcore {
             return hashCode;
         }
 
-        public static bool operator ==(GroupedLink left, GroupedLink right) {
+        public static bool operator ==(GroupedLink left, GroupedLink right){
             return EqualityComparer<GroupedLink>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(GroupedLink left, GroupedLink right) {
+        public static bool operator !=(GroupedLink left, GroupedLink right){
             return !(left == right);
         }
         /*

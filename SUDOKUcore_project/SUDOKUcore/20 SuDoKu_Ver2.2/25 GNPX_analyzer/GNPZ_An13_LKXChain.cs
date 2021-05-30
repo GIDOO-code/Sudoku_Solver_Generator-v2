@@ -35,7 +35,7 @@ namespace GNPXcore{
 
                         Color Cr  = _ColorsLst[0];
                         Color Cr1 = Color.FromArgb(255,Cr.R,Cr.G,Cr.B); 
-                        Color Cr2 = Color.FromArgb(120,Cr.R,Cr.G,Cr.B);    //(Lightness adjustment)
+                        Color Cr2 = Color.FromArgb(120,Cr.R,Cr.G,Cr.B);     //(Lightness adjustment)
                         foreach( var P in CRL[0].IEGetUCeNoB(pBDL,noB) ) P.SetNoBBgColor(noB,AttCr,Cr2);
                         foreach( var P in CRL[1].IEGetUCeNoB(pBDL,noB) ) P.SetNoBBgColor(noB,AttCr,Cr1);
                         pBDL[rcS].SetNoBBgColor(noB,AttCr,SolBkCr);

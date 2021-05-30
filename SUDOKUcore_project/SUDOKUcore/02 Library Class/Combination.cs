@@ -16,10 +16,10 @@ namespace GNPXcore{
     */
 
     public class Combination{
-        public readonly int N;
-        public readonly int R;
-        public int[] Index=null;
+        protected readonly int N;
+        protected readonly int R;
         private bool First=false;
+        public int[] Index=null;
         public Combination( int N, int R ){
             this.N=N;
             this.R=R;
@@ -60,6 +60,15 @@ namespace GNPXcore{
             ++Index[k]; 
             for(int j=k; j<R-1; ++j)  Index[j+1]=Index[j]+1;
             return true;
+        }
+
+        public IEnumerable<int> IEGetIndex(){
+            for(int m=0; m<R; m++) yield return Index[m];
+            yield break;
+        }
+        public IEnumerable<(int,int)> IEGetIndex2(){
+            for(int m=0; m<R; m++) yield return (m,Index[m]);
+            yield break;
         }
 
         public override string ToString(){

@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -81,6 +81,11 @@ namespace GNPXcore {
  
         //##### There is a bug #####
         public USuperLink Eval_SuperLinkChain( int rc0, int no0, bool Gbreak, int typeSel, bool DevelopB ){
+            // rc0: start cell's rc index 
+            // no0: start digit
+            // Gbreak(bool): T:If the evaluation values ‚Äã‚Äãare inconsistent, the search is suspended.
+            // typeSel(int): Start link type1  1:Strong  2:Weak  3:S+W  0:-
+
 			try{	
 				int dbX=0;
 
@@ -98,6 +103,7 @@ namespace GNPXcore {
 				GLKnoR0.preGrpedLink=null;
 				chainDesLKT[rc0,no0]=GLKnoR0;
 
+            #region stsrt
                 if( (typeSel&2)>0 ){//====================== Start with WeakLink(origin:rc#no0) ======================
 				    foreach( var GLKH in IEGet_SuperLinkFirst(P0,no0).Where(X=>X.type==W) ){	
 						    if(DevelopB) WriteLine("*1st:"+GLKH.GrLKToString());
@@ -154,9 +160,11 @@ namespace GNPXcore {
 					    }
 				    }
                 }
+            #endregion stsrt
 
-				//====================== Radiation Search ===============================
-				while(rcQue.Count>0){   
+            #region Radial Search
+                //====================== Radial Search ===============================
+                while(rcQue.Count>0){   
 					GroupedLink R = rcQue.Dequeue();                                            //dequeue next element
 						if(DevelopB) WriteLine($"{dbX++}---Queue:"+R.GrLKToString());
 					
@@ -207,9 +215,12 @@ namespace GNPXcore {
 								}
 							}
 						}
+                        GLKH.GenNo = R.GenNo+1;
 						rcQue.Enqueue(GLKH);                                                //enqueue next-GLink to RadiationSearchQueue						
 					}
-				}
+
+				} 
+            #endregion Radial Search
 
 				USLK.SolFound=true;                                                         //Solution found
 				return USLK;
@@ -372,26 +383,26 @@ namespace GNPXcore {
             var pQfalse=USLK.Qfalse;
 			if( !pQfalse[no].IsHit(P.rc) || !pQtrue[no].IsHit(P.rc) )  return false;
 
-			var pchainDesLKT=USLK.chainDesLKT;    //Å° 
-            var pchainDesLKF=USLK.chainDesLKF;Å@Å@//Å†
+			var pchainDesLKT=USLK.chainDesLKT;    //‚ñ† 
+            var pchainDesLKF=USLK.chainDesLKF;„ÄÄ„ÄÄ//‚ñ°
 
-			GroupedLink Pdes=(GroupedLink)pchainDesLKT[P.rc,no];  //Å° 
+			GroupedLink Pdes=(GroupedLink)pchainDesLKT[P.rc,no];  //‚ñ† 
 			string st = "";
-			if(Pdes!=null)   st += "   "+_chainToString2(P,Pdes,-(no+1));   //Å°_chainToString2
-			Pdes=(GroupedLink)pchainDesLKF[P.rc,no];Å@//Å†
+			if(Pdes!=null)   st += "   "+_chainToString2(P,Pdes,-(no+1));   //‚ñ†_chainToString2
+			Pdes=(GroupedLink)pchainDesLKF[P.rc,no];„ÄÄ//‚ñ°
 			if(Pdes!=null){
 				if(st.Length>4)  st += "\r";
                 else  st="";
-				st += "   "+_chainToString2(P,Pdes,no+1);                   //Å°_chainToString2
+				st += "   "+_chainToString2(P,Pdes,no+1);                   //‚ñ†_chainToString2
 			}
 			USLK.stMsg=st;
 			return true;
 		}
 	
         public string _GenMessage2true( USuperLink USLK, UCell PX, int noX ){
-			GroupedLink Pdes=(GroupedLink)USLK.chainDesLKT[PX.rc,noX];   //Å° 
+			GroupedLink Pdes=(GroupedLink)USLK.chainDesLKT[PX.rc,noX];   //‚ñ† 
 			string st = "";
-			if(Pdes!=null)   st += "   "+_chainToString2(PX,Pdes,-(noX+1));  //Å°_chainToString2
+			if(Pdes!=null)   st += "   "+_chainToString2(PX,Pdes,-(noX+1));  //‚ñ†_chainToString2
 			return st;
 		}
         public string GenMessage2FakeProposition(int rc0, int no, USuperLink USLK, UCell Q ){
@@ -402,9 +413,9 @@ namespace GNPXcore {
             return st;
         }
 		public string _GenMessage2false( USuperLink USLK, UCell P, int no ){
-			GroupedLink Pdes=(GroupedLink)USLK.chainDesLKF[P.rc,no];  //Å†
+			GroupedLink Pdes=(GroupedLink)USLK.chainDesLKF[P.rc,no];  //‚ñ°
 			string st = "";
-			if(Pdes!=null)   st += "   "+_chainToString2(P,Pdes,-(no+1));   //Å°_chainToString2
+			if(Pdes!=null)   st += "   "+_chainToString2(P,Pdes,-(no+1));   //‚ñ†_chainToString2
 			return st;
 		}
 		public string _chainToString2( UCell U, GroupedLink Gdes, int noRem ){

@@ -19,8 +19,8 @@ namespace GNPXcore{
     }
 */
     public class Permutation{
-        public readonly int N;
-        public readonly int R;
+        protected readonly int N;
+        protected readonly int R;
         private int[] Pwrk=null;
         public  int[] Index=null;
         private bool  First;

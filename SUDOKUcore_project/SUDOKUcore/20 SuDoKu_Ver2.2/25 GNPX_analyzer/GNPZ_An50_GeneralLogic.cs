@@ -13,11 +13,9 @@ namespace GNPXcore{
 //    Currently,it takes a few seconds to solve a size 3 problem.
 //    As an expectation, I would like to solve a size 5 problem in a few seconds.
 //    Probably need a new theory.
-//
-//  Meditation for a while.  2020 summer.
 //*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*
 
-    public class GeneralLogicGen: AnalyzerBaseV2{
+    public partial class GeneralLogicGen: AnalyzerBaseV2{
         static public int   GLtrialCC=0;
         static public int   ChkBas0=0, ChkBas1=0, ChkBas2=0, ChkBas3=0, ChkBas4=0, ChkBas5=0, ChkBas6=0, ChkBas7=0;
         static public int   ChkCov1=0, ChkCov2=0;
@@ -29,14 +27,14 @@ namespace GNPXcore{
 
         public GeneralLogicGen( GNPX_AnalyzerMan pAnMan ): base(pAnMan){ }
 
-        public bool GeneralLogicExnm( ){                                //### GeneralLogic controler
+        public bool GeneralLogic( ){                                //### GeneralLogic controler
             if(pAnMan.GStage!=GStageMemo){
 				GStageMemo=pAnMan.GStage;
                 GLMaxSize = GNPXApp000.GMthdOption["GenLogMaxSize"].ToInt();
                 GLMaxRank = GNPXApp000.GMthdOption["GenLogMaxRank"].ToInt();
                 UGLMan=new UGLinkMan(this);
                 if(SDK_Ctrl.UGPMan==null)  SDK_Ctrl.UGPMan=new UPuzzleMan(1);
-                UGLMan.PrepareUGLinkMan( printB:false );    //SDK_Ctrl.UGPMan.stageNo==12 ); //false); 
+                UGLMan.PrepareUGLinkMan( printB:false );
 			}
             
             WriteLine( $"--- GeneralLogic --- trial:{++GLtrialCC}" );
@@ -47,7 +45,7 @@ namespace GNPXcore{
                     ChkBas3A=0; ChkBas3B=0;
                     ChkCov1=0; ChkCov2=0;
 
-                    bool solB = GeneralLogicEx(sz,rnk);
+                    bool solB = GeneralLogicSolver(sz,rnk);
                     string st = solB? "++": "  ";
 
                     WriteLine($" {sz} {rnk} {st} Bas:({ChkBas1},{ChkBas2},{ChkBas3},{ChkBas4},{ChkBas5},{ChkBas6},{ChkBas7})/{ChkBas0} " +
@@ -58,7 +56,7 @@ namespace GNPXcore{
             return false;
         }
         
-        private bool GeneralLogicEx( int sz, int rnk ){                 //### GeneralLogic main routine
+        private bool GeneralLogicSolver( int sz, int rnk ){              //### GeneralLogic main routine
             if(sz>GLMaxSize || rnk>GLMaxRank)  return false;
 
             string st="";
@@ -83,15 +81,16 @@ namespace GNPXcore{
                     if(SolInfoB){
                         st=_generalLogicResult(UBCc);
                     }
-#if false
-                    if(sz==3){
-                        WriteLine("\r#################### "+st);
-                        UGLMan.Board_Check();       //for Research & Debug.
-                    }
-#endif
+
+/* @@ */   //                 WriteLine("\r#################### "+st);
+/* @@ */   //                 UGLMan.Board_Check();       //for Research & Debug.
+
                     if(__SimpleAnalizerB__)  return true;
                     if(!pAnMan.SnapSaveGP(false)) return true;                 
-                }
+                    }
+                
+              
+
             }
             return false;
         }
@@ -292,4 +291,62 @@ namespace GNPXcore{
 
 Execution time: 38.5seconds.
 
+
+
+--- GeneralLogic --- trial:1
+ 1 0 ++ Bas:(83,0,0,0,0)/83  Cov:1/70  interNum(0/0)
+--- GeneralLogic --- trial:2
+ 1 0    Bas:(103,0,0,0,0)/226  Cov:0/80  interNum(0/0)
+ 2 0 ++ Bas:(19,19,14,14,0)/3894  Cov:1/99  interNum(0/0)
+--- GeneralLogic --- trial:3
+ 1 0    Bas:(103,0,0,0,0)/4037  Cov:0/72  interNum(0/0)
+ 2 0 ++ Bas:(36,36,29,29,0)/10078  Cov:1/156  interNum(0/0)
+--- GeneralLogic --- trial:4
+ 1 0    Bas:(103,0,0,0,0)/10221  Cov:0/64  interNum(0/0)
+ 2 0    Bas:(60,60,53,53,0)/18738  Cov:0/193  interNum(0/0)
+ 2 1 ++ Bas:(120,106,92,92,0)/21270  Cov:1/13259  interNum(9/20)
+--- GeneralLogic --- trial:5
+ 1 0    Bas:(103,0,0,0,0)/21413  Cov:0/62  interNum(0/0)
+ 2 0    Bas:(60,60,53,53,0)/29930  Cov:0/193  interNum(0/0)
+ 2 1    Bas:(519,382,315,315,0)/39963  Cov:0/37540  interNum(25/76)
+ 3 0 ++ Bas:(184,161,105,104,0)/232225  Cov:1/4953  interNum(0/0)
+--- GeneralLogic --- trial:6
+ 1 0    Bas:(103,0,0,0,0)/232368  Cov:0/58  interNum(0/0)
+ 2 0    Bas:(61,61,54,54,0)/240896  Cov:0/192  interNum(0/0)
+ 2 1    Bas:(551,398,327,327,0)/250929  Cov:0/38208  interNum(28/81)
+ 3 0 ++ Bas:(120,101,66,65,0)/379859  Cov:1/1871  interNum(0/0)
+--- GeneralLogic --- trial:7
+ 1 0    Bas:(103,0,0,0,0)/380002  Cov:0/56  interNum(0/0)
+ 2 0    Bas:(64,64,57,57,0)/389008  Cov:0/219  interNum(0/0)
+ 2 1    Bas:(583,419,342,342,0)/399106  Cov:0/37686  interNum(30/88)
+ 3 0 ++ Bas:(189,159,103,101,0)/612945  Cov:1/2957  interNum(0/0)
+--- GeneralLogic --- trial:8
+ 1 0    Bas:(103,0,0,0,0)/613088  Cov:0/52  interNum(0/0)
+ 2 0 ++ Bas:(62,62,55,55,0)/621676  Cov:1/213  interNum(0/0)
+--- GeneralLogic --- trial:9
+ 1 0    Bas:(103,0,0,0,0)/621819  Cov:0/48  interNum(0/0)
+ 2 0    Bas:(61,61,55,55,0)/630999  Cov:0/187  interNum(0/0)
+ 2 1 ++ Bas:(246,204,166,166,0)/635484  Cov:1/17332  interNum(14/43)
+--- GeneralLogic --- trial:10
+ 1 0    Bas:(103,0,0,0,0)/635627  Cov:0/44  interNum(0/0)
+ 2 0    Bas:(60,60,54,54,0)/644814  Cov:0/159  interNum(0/0)
+ 2 1    Bas:(628,413,342,342,0)/654912  Cov:0/29724  interNum(30/89)
+ 3 0    Bas:(381,260,166,163,0)/1028704  Cov:0/2514  interNum(0/0)
+ 3 1 ++ Bas:(916,562,328,328,0)/1091945  Cov:1/424649  interNum(22/160)
+--- GeneralLogic --- trial:11
+ 1 0 ++ Bas:(17,0,0,0,0)/1091962  Cov:1/11  interNum(0/0)
+--- GeneralLogic --- trial:12
+ 1 0    Bas:(102,0,0,0,0)/1092104  Cov:0/40  interNum(0/0)
+ 2 0    Bas:(64,64,56,56,0)/1101333  Cov:0/140  interNum(0/0)
+ 2 1    Bas:(656,420,342,342,0)/1111289  Cov:0/28481  interNum(30/95)
+ 3 0    Bas:(377,248,161,157,0)/1481104  Cov:0/1487  interNum(0/0)
+ 3 1 ++ Bas:(1643,986,550,550,0)/1610525  Cov:1/815460  interNum(51/304)
+--- GeneralLogic --- trial:13
+ 1 0    Bas:(99,0,0,0,0)/1610663  Cov:0/30  interNum(0/0)
+ 2 0    Bas:(57,57,52,52,0)/1619582  Cov:0/84  interNum(0/0)
+ 2 1    Bas:(647,399,327,327,0)/1629010  Cov:0/20352  interNum(29/93)
+ 3 0    Bas:(369,238,158,154,0)/1970843  Cov:0/1071  interNum(0/0)
+ 3 1 ++ Bas:(1844,1085,601,601,0)/2097474  Cov:1/812196  interNum(53/343)
+
+ Execution time: 17.5 seconds.
 #endif

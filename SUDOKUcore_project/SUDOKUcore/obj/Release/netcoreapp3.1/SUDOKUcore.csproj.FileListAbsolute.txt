@@ -1,0 +1,181 @@
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csprojAssemblyReference.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\014 SDK_PuzzlePrinter.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\015 ToGNPXHP.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\017 ExtendResult.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\018 DevelopWin.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\Style.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorPicker.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ComboBoxStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\DataGridStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle1.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle2.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\TabControlStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\TextBlockStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\002 NuPz_Window.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\014 SDK_PuzzlePrinter.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\015 ToGNPXHP.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\017 ExtendResult.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\018 DevelopWin.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\02 Library Class\G_Control\NumericUpDown.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorDialog.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorPicker.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\App.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore_MarkupCompile.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore_MarkupCompile.lref
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\002 NuPz_Window.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\02 Library Class\G_Control\NumericUpDown.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorDialog.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.g.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GNPXcore.Properties.Resources.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GNPXcore.Properties.Resources.ja-JP.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csproj.GenerateResource.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.AssemblyInfoInputs.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.AssemblyInfo.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csproj.CoreCompileInputs.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\ja-JP\SUDOKUcore.resources.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.pdb
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200614 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.genruntimeconfig.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csprojAssemblyReference.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\014 SDK_PuzzlePrinter.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\015 ToGNPXHP.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\017 ExtendResult.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\018 DevelopWin.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\Style.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorPicker.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ComboBoxStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\DataGridStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle1.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle2.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\TabControlStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\TextBlockStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\002 NuPz_Window.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\014 SDK_PuzzlePrinter.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\015 ToGNPXHP.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\017 ExtendResult.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\018 DevelopWin.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\02 Library Class\G_Control\NumericUpDown.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorDialog.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorPicker.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\App.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore_MarkupCompile.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore_MarkupCompile.lref
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\002 NuPz_Window.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\02 Library Class\G_Control\NumericUpDown.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorDialog.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.g.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GNPXcore.Properties.Resources.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GNPXcore.Properties.Resources.ja-JP.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csproj.GenerateResource.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.AssemblyInfoInputs.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.AssemblyInfo.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csproj.CoreCompileInputs.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\ja-JP\SUDOKUcore.resources.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.pdb
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200630 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.genruntimeconfig.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.exe
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.deps.json
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.runtimeconfig.json
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.runtimeconfig.dev.json
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.pdb
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\ja-JP\SUDOKUcore.resources.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.exe
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.deps.json
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.runtimeconfig.json
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.runtimeconfig.dev.json
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\SUDOKUcore.pdb
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\SUDOKU_App\netcoreapp3.1\netcoreapp3.1\ja-JP\SUDOKUcore.resources.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\014 SDK_PuzzlePrinter.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\015 ToGNPXHP.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\017 ExtendResult.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\018 DevelopWin.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\Style.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorPicker.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ComboBoxStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\DataGridStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle1.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle2.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\TabControlStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\TextBlockStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\002 NuPz_Window.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\014 SDK_PuzzlePrinter.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\015 ToGNPXHP.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\017 ExtendResult.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\018 DevelopWin.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\02 Library Class\G_Control\NumericUpDown.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorDialog.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorPicker.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\App.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore_MarkupCompile.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore_MarkupCompile.lref
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\002 NuPz_Window.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\02 Library Class\G_Control\NumericUpDown.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorDialog.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.g.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GNPXcore.Properties.Resources.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GNPXcore.Properties.Resources.ja-JP.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csproj.GenerateResource.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.AssemblyInfoInputs.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.AssemblyInfo.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csproj.CoreCompileInputs.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\ja-JP\SUDOKUcore.resources.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.pdb
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200701 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.genruntimeconfig.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csprojAssemblyReference.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\014 SDK_PuzzlePrinter.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\015 ToGNPXHP.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\017 ExtendResult.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\018 DevelopWin.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\Style.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorPicker.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ComboBoxStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\DataGridStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle1.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\ListBoxStyle2.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\TabControlStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\Styles\TextBlockStyle.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\002 NuPz_Window.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\014 SDK_PuzzlePrinter.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\015 ToGNPXHP.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\017 ExtendResult.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\018 DevelopWin.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\02 Library Class\G_Control\NumericUpDown.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorDialog.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorPicker.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\App.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore_MarkupCompile.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore_MarkupCompile.lref
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\00 ApplicationMain\002 NuPz_Window.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\02 Library Class\G_Control\NumericUpDown.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\10 Graphics\11 WPFColorPickerLib\ColorDialog.baml
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.g.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GNPXcore.Properties.Resources.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\GNPXcore.Properties.Resources.ja-JP.resources
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csproj.GenerateResource.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.AssemblyInfoInputs.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.AssemblyInfo.cs
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.csproj.CoreCompileInputs.cache
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\ja-JP\SUDOKUcore.resources.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.dll
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.pdb
+E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20200705 SUDOKUcore_project\SUDOKUcore\obj\Release\netcoreapp3.1\SUDOKUcore.genruntimeconfig.cache

@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "SUDOKUcore": {
-      "commandName": "Project",
-      "workingDirectory": "..\\SUDOKU_App\\netcoreapp3.1"
-    }
-  }
-}

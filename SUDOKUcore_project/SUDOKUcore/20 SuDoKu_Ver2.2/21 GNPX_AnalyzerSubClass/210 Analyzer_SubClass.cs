@@ -4,6 +4,8 @@ using System.Linq;
 using static System.Diagnostics.Debug;
 
 using GIDOO_space;
+using System.Windows.Media.Animation;
+using Accessibility;
 
 namespace GNPXcore{
     public class Bit81{
@@ -498,9 +500,9 @@ namespace GNPXcore{
 
         public void Clear(){ for(int k=0; k<sz; k++) this._BP[k]= 0; }
 //        public void BPSet(int rc){ _BP[rc/32] |= (uint)(1<<(rc%32)); }
-        public void BPSet(int rc){
+        public void BPSet(int rcX){
             try{
-                _BP[rc/32] |= (uint)(1<<(rc%32));
+                _BP[rcX/32] |= (uint)(1<<(rcX%32));
             }
             catch(Exception e){
                 WriteLine(e.Message+"\r"+e.StackTrace);
@@ -509,6 +511,19 @@ namespace GNPXcore{
 
         public void BPSet(Bit324 sdX){ for(int k=0; k<sz; k++) _BP[k] |= sdX._BP[k]; }               
         public void BPReset(int rc){ _BP[rc/32] &= (uint)((1<<(rc%32))^0xFFFFFFFF); }
+
+        public IEnumerable<int> IEGet_Index(){
+            int rc=0;
+            uint B;
+            for(int k=0; k<sz; k++){
+                rc=k*32;
+                if((B=_BP[k])==0) continue;
+                for(int m=0; m<32; m++){
+                    if((B&1)==1) yield return (rc+m);
+                    B=B>>1;
+                }
+            }
+        }
 
         public Bit324 Copy(){ Bit324 Scpy=new Bit324(); Scpy.BPSet(this); return Scpy; }
 
@@ -611,4 +626,51 @@ namespace GNPXcore{
             return st;
         }
     }    
+
+    public class Bit981B{
+        static readonly int  sz=9;          // size(fixed)
+        private Bit981 _true;
+        private Bit981 _false;
+
+        public Bit981B(){
+            _true = new Bit981();
+            _false = new Bit981();
+        }
+        public void Clear(){
+            _true.Clear(); _false.Clear();
+        }
+        public void BPSet_true(int no, int rc ){ _true.BPSet(no,rc); }
+        public void BPSet_false(int no, int rc ){ _false.BPSet(no,rc); }
+
+        public void BPReset_true(int no, int rc ){ _true.BPReset(no,rc); }
+        public void BPReset_false(int no, int rc ){ _false.BPReset(no,rc); }
+
+        public void BPSet( int no, int rc, int _tvVal ){ 
+            if((_tvVal&0x1)>0)   _true.BPSet(no,rc);
+            if((_tvVal&0x21)>0)  _false.BPSet(no,rc);
+        }
+
+        public void BPSet( int no, int rc, (bool,bool) _tf ){ 
+            var (_t,_f)=_tf;
+            if(_t)   _true.BPSet(no,rc);
+            if(_f)  _false.BPSet(no,rc);
+        }
+        public void BPSetRev( int no, int rc, (bool,bool) _tf ){ 
+            var (_t,_f)=_tf;
+            if(_f)   _true.BPSet(no,rc);
+            if(_t)  _false.BPSet(no,rc);
+        }
+        public void BPReset( int no, int rc, int _tvVal ){ 
+            if((_tvVal&0x1)>0)   _true.BPReset(no,rc);
+            if((_tvVal&0x21)>0)  _false.BPReset(no,rc);
+        }
+        public bool IsTrue( int no, int rc ){ return _true.IsHit(no,rc); }
+        public bool IsFalse( int no, int rc ){ return _true.IsHit(no,rc); }
+        public (bool,bool) GetValue( int no, int rc){
+            bool _t=_true.IsHit(no,rc);
+            bool _f=_false.IsHit(no,rc);
+            return (_t,_f);
+        }
+
+    }
 }

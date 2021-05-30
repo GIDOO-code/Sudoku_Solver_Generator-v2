@@ -14,6 +14,50 @@ namespace GNPXcore{
             if((B/27*3+(B%9)/3)==(C/27*3+(C%9)/3))  return true;
             return false;
         }
+
+        static public string ToString_SameHouseComp1( this string st ){
+            char[] sep=new Char[]{ ' ', ',', '\t' };
+            List<string> T=st.Trim().Split(sep).ToList();
+            if(T.Count<=1) return st;
+            List<_ClassNSS> URCBCell=new List<_ClassNSS>();
+            T.ForEach(P=> URCBCell.Add(new _ClassNSS(P)));
+            return URCBCell.ToString_SameHouseComp2();
+        }
+        static private string ToString_SameHouseComp2( this List<_ClassNSS> URCBCell){
+            string st;
+            bool cmpF=true;
+            do{
+                cmpF=false;
+                foreach( var P in URCBCell ){
+                    List<_ClassNSS> Qlst=URCBCell.FindAll(Q=>(Q.stRCB==P.stRCB && Q.stNum[0]==P.stNum[0]));
+                    if(Qlst.Count>=2){
+                        st=Qlst[0].stNum[0].ToString();
+                        Qlst.ForEach(Q=>st+=Q.stNum.Substring(1,Q.stNum.Length-1));
+                        _ClassNSS R=URCBCell.Find(Q=>(Q.stRCB==P.stRCB));
+                        R.stNum = st;
+                        foreach(var T in Qlst.Skip(1)) URCBCell.Remove(T);
+                        cmpF=true;
+                        break;
+                    }
+
+                    Qlst=URCBCell.FindAll(Q=>(Q.stNum==P.stNum && Q.stRCB[0]==P.stRCB[0]));
+                    if(Qlst.Count>=2){
+                        st=Qlst[0].stRCB[0].ToString();
+                        Qlst.ForEach(Q=>st+=Q.stRCB.Substring(1,Q.stRCB.Length-1));
+                        _ClassNSS R=URCBCell.Find(Q=>(Q.stNum==P.stNum));
+                        R.stRCB = st;
+                        foreach(var T in Qlst.Skip(1)) URCBCell.Remove(T);
+                        cmpF=true;
+                        break;
+                    }
+                }
+
+            }while(cmpF);
+            st="";
+            URCBCell.ForEach(P=> st+=(P.stRCB+P.stNum+" ") );
+            return st;
+        }
+
         static public int  sameHouseCheck(this int B, int C){
             // 0:Completely Different
             // 1:Same Row　2:Same Column　4:Same Block --> Bit Representation
@@ -73,17 +117,26 @@ namespace GNPXcore{
             }
             return st;
         } 
-        static public string ToBitString(this long LNum0, int n9=4){
+        static public string ToBitString(this long LNum, int n9=4){
             string st = "";
-            long LNum = LNum0;
+            long LNumW = LNum;
             for(int k=0; k<n9; k++){
-                int LNumInt = (int)(LNum&0x1FF);
+                int LNumInt = (int)(LNumW&0x1FF);
                 st += LNumInt.ToBitString(9)+" /";
-                LNum >>= 9;
+                LNumW >>= 9;
             }
             return st;
         }
-
+        static public string ToBitStringN(this long LNum, int n9=4){
+            string st = "";
+            long LNumW = LNum;
+            for(int k=0; k<n9; k++){
+                int LNumInt = (int)(LNumW&0x1FF);
+                st += LNumInt.ToBitStringN(9)+" /";
+                LNumW >>= 9;
+            }
+            return st;
+        }
         static public string ToRCString(this int rc){
             string po = $"r{rc/9+1}c{(rc%9)+1}";
             return po;
@@ -368,5 +421,24 @@ namespace GNPXcore{
     	    return string.Join(separator,list);
         }       
     #endregion
+
+        private class _ClassNSS{
+            public int sz;
+            public string stRCB;
+            public string stNum="  ";
+            public _ClassNSS( int sz, string stRCB, string stNum ){
+                this.sz=sz; this.stRCB=stRCB; this.stNum=stNum;
+            }
+            public _ClassNSS( string st ){
+                try{
+                    sz=1; 
+                    if(st.Length>=2) stRCB=st.Substring(0,2);
+                    if(st.Length>=4) stNum=st.Substring(2,2);
+                }
+                catch(Exception){ }
+            }
+        }
     }
+
+
 }

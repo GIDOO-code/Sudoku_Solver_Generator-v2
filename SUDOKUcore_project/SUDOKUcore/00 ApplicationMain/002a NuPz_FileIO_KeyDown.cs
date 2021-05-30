@@ -89,6 +89,10 @@ namespace GNPXcore{
             bool KeySft  = (Keyboard.Modifiers&ModifierKeys.Shift)>0;
             bool KeyCtrl = (Keyboard.Modifiers&ModifierKeys.Control)>0;
 
+            var P=Mouse.GetPosition(PB_GBoard);
+            var (W,H)=(PB_GBoard.Width,PB_GBoard.Height);
+            if(P.X<0 || P.Y<0 || P.X>=W || P.Y>=H)  return;
+
             if(e.Key==Key.C && KeyCtrl){
                 string st=pGP.CopyToBuffer();
                 try{

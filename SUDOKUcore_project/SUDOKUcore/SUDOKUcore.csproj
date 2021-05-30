@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\..\SUDOKU_App</OutputPath>
+    <OutputPath>E:\◆◆数独集合体\◆◆◆投稿\投稿用問題作成 2020 Feb\</OutputPath>
+    <DefineConstants>NKLdef</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

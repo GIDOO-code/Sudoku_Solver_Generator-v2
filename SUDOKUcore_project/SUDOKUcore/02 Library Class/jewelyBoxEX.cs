@@ -75,6 +75,8 @@ namespace GIDOO_space{
         }
 
         static public int DifSet( this int A, int B ){ return (int)(A&(B^0xFFFFFFFF)); }
+        static public long DifSet( this long A, long B ){ return (long)(A&(B^0x7FFFFFFFFFFFFFFF)); }
+        static public ulong DifSet( this ulong A, ulong B ){ return (ulong)(A&(B^0xFFFFFFFFFFFFFFFF)); }
 
         static public string ToBitString( this int noB, int ncc ){
             string st="";

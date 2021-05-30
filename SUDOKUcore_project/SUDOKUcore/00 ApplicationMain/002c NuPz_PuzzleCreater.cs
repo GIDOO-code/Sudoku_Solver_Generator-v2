@@ -110,12 +110,12 @@ namespace GNPXcore{
             _SetScreenProblem();　    //Show free numbers
         }
 
-        private void PB_GBoard_MouseEnter(object sender,MouseEventArgs e) {
+        private void PB_GBoard_MouseEnter(object sender,MouseEventArgs e){
             if(!tabManual.IsSelected) return;
                     //WriteLine($"Enter...{tabManual.IsSelected} ");
             PB_GBoard.MouseDown += new MouseButtonEventHandler(Create_PB_GBoard_MouseLeftButtonDown);
         }
-        private void PB_GBoard_MouseLeave(object sender,MouseEventArgs e) {
+        private void PB_GBoard_MouseLeave(object sender,MouseEventArgs e){
                     //WriteLine($"Leave...{tabManual.IsSelected}");
             PB_GBoard.MouseDown -= new MouseButtonEventHandler(Create_PB_GBoard_MouseLeftButtonDown);
         }

@@ -68,12 +68,15 @@ namespace GNPXcore{
             SolverLst0.Add( new UAlgMethod( 2, "NakedSingle",  1, SSingle.NakedSingle ) );
             SolverLst0.Add( new UAlgMethod( 3, "HiddenSingle", 1, SSingle.HiddenSingle ) );
 
-            var GLTech=new GeneralLogicGen(this);
-            SolverLst0.Add( new UAlgMethod( 4, " GeneralLogic",  2, GLTech.GeneralLogicExnm, true) );
+//            var GLTech=new GeneralLogicGen(this);
+//            SolverLst0.Add( new UAlgMethod( 5, " GeneralLogic",  2, GLTech.GeneralLogic, true) );
+            var GLTech2=new GeneralLogicGen2(this);
+            SolverLst0.Add( new UAlgMethod( 4, " GeneralLogicEx",  2, GLTech2.GeneralLogic2, true) );
 
             var LockedCand=new LockedCandidateGen(this);
             SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate ) );
-                
+         // SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate_old ) );
+            
             var LockedSet=new LockedSetGen(this);
             SolverLst0.Add( new UAlgMethod( 10, "LockedSet(2D)",        3, LockedSet.LockedSet2 ) );
             SolverLst0.Add( new UAlgMethod( 12, "LockedSet(3D)",        4, LockedSet.LockedSet3 ) );

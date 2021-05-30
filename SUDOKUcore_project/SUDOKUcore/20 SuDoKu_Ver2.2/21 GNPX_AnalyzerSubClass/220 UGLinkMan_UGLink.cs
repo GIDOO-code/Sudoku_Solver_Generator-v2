@@ -19,7 +19,7 @@ using GIDOO_space;
 //*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*
 
 namespace GNPXcore{
-    public class UGLinkMan{
+    public partial class UGLinkMan{
         public List<UCell>     pBDL;             
         public Bit81[]         pHouseCells;
 
@@ -35,8 +35,8 @@ namespace GNPXcore{
 
         //..7.2..4546.5....9.95.....7.....8.3.9...6...1.7.2...987......8384...1.5253..8.9.. 
         //83..76..2....85.....1...7...8...3....67...13....7...4...2...3.....24....9..63..25 
-        //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2 
-        //6..2....1.8.9.4.2...9.1.3...9.8.1.35..3...7..45.3.7.6...7.4.2...6.7.9.1.9....2..3
+        //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2  
+
         public UGLinkMan( AnalyzerBaseV2 AnB ){
             this.pBDL = AnB.pBDL;
             this.pHouseCells       = AnalyzerBaseV2.HouseCells;
@@ -100,27 +100,28 @@ namespace GNPXcore{
             _jkc_=0;
             var  cmbBas=new Combination(UGLLst.Count,sz);
             int  nxt=int.MaxValue;   //(skip function)
-            while(cmbBas.Successor(nxt)) {
+            while(cmbBas.Successor(nxt)){
                 GeneralLogicGen.ChkBas0++;   //*****
 
                 _jkc_++;
-            // sz=1
+            //  sz=1  *==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*
                 if(sz==1){
                     UGLink UGL = UGLLst[cmbBas.Index[0]];
-                    if(UGL.UC is UCell) goto LNextSet;                                      //only row/column/block link.
+                    if(UGL.UC is UCell) goto LNextSet;                                    //only row/column/block link.
 
-                    HB981.Clear(); HB981.BPSet(UGL.rcBit81.no,UGL.rcBit81,tfbSet: false);   //accumulate rcbn info. in HB981.
-                    basUGLs.Clear(); basUGLs.Add(UGL);                                      //set UGL in BaseSet
+                    HB981.Clear(); HB981.BPSet(UGL.rcBit81.no,UGL.rcBit81,tfbSet: false); //accumulate rcbn info. in HB981.
+                    basUGLs.Clear(); basUGLs.Add(UGL);                                     //set UGL in BaseSet
 
                     GeneralLogicGen.ChkBas1++;   //*****
                     goto LBSFound;   //possibility of solution
                 }
             //===================================================================================================================
 
-            // sz>=2         
+            //  sz>=2  *==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*             
                 HB981.Clear();
                 basUGLs.Clear();
                 usedLKLst.Clear();
+                BSstatus.Clear();
 
                 RCBN_frameA = 0;
                 int[] _RCB_frameB = new int[9];
@@ -129,22 +130,22 @@ namespace GNPXcore{
                     UGLink UGL = UGLLst[cmbBas.Index[k]];
                     RCBN_frameA |= UGL.RCBN_frameB;                                         //bit expression of rcbn
 
-                    if(!Check_rcbnCondition(sz,rnk,k,RCBN_frameA)) goto LNextSet;           //### extremely efficient
+                    if(!Check_rcbnCondition(sz,rnk,k,RCBN_frameA)) goto LNextSet;   //### extremely efficient
 
-                    if(UGL.rcBit81 is Bit81) {                           // ........................ rcb link  ........................
+                    if(UGL.rcBit81 is Bit81){                           // ........................ rcb link  ........................
                         int no = UGL.rcBit81.no;
                         if(k>0 && HB981.IsHit(no,UGL.rcBit81)) goto LNextSet;               //elements already included in HB981
                         HB981.BPSet(no,UGL.rcBit81,tfbSet: true);                           //accumulate rcbn info. in HB981.
                         usedLKLst.Add(UGL.rcBit81.ID);      //(ID=tfx<<4 | no)              //[rcb_link type]register ID to used list.
                         _RCB_frameB[no] |= (int)UGL.RCBN_frameB & 0x3FFFFFF;
                     }
-                    else {                                               // ....................... Cell link ........................
+                    else{                                               // ....................... Cell link ........................
                         UCell UC = UGL.UC;
                         int rc = UC.rc;
                         //In UGLLst, rcb-Links is first, and cell-Links is second.
                         //Even in combination, this order is maintained.
                         //Therefore, the condition "cell-links have common parts with rcb-Links?" is satisfied.
-                        foreach(var no in UC.FreeB.IEGet_BtoNo(9)) {
+                        foreach(var no in UC.FreeB.IEGet_BtoNo(9)){
                             if(k>0 && HB981.IsHit(no,rc)) goto LNextSet;                    //Not BaseSet as it has no intersection.
                             HB981.BPSet(no,rc,tfbSet: true);                                //accumulate rcbn info. in HB981.
                             _RCB_frameB[no] |= rc.ToRCBitPat();
@@ -159,18 +160,32 @@ namespace GNPXcore{
                 BSstatus.RCB_frameB = _RCB_frameB;
                 __UsedLinkToFrame( HB981, usedLKLst, BSstatus);
 
-//                if(SDK_Ctrl.UGPMan.stageNo==20 && _usedLKLst_ToRCBString("",usedLKLst)==" r3#2 r4#2 r3#8" ){                
-//                    WriteLine( _usedLKLst_ToRCBString($"usedLKLst:{_jkc_}",usedLKLst,addFreeBB:true) ); 
-//                    Board_Check();
-//                }
-//                if(SDK_Ctrl.UGPMan.stageNo==20 && _usedLKLst_ToRCBString("",usedLKLst)==" r3#2 r4#2 r3#8" ){                
-//                    WriteLine( _usedLKLst_ToRCBString($"usedLKLst:{_jkc_}",usedLKLst,addFreeBB:true) ); 
-//                    Board_Check();
-//                } 
+////                if(SDK_Ctrl.UGPMan.stageNo==8 && _usedLKLst_ToRCBString("",usedLKLst)==" c1#3 c1#6"){
+////                    Board_Check("*** Check_6 ?");
+////                }
+
+                if(SDK_Ctrl.UGPMan.stageNo==20 && _usedLKLst_ToRCBString("",usedLKLst)==" r3#2 r4#2 r3#8" ){                
+                    WriteLine( _usedLKLst_ToRCBString($"usedLKLst:{_jkc_}",usedLKLst,addFreeBB:true) ); 
+                    Board_Check();
+                }
+
+                //*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*                                           
+//                Board_Check();
+        //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2   
 
                 if( !BSstatus.Check_1() ) goto LNextSet;      //A and B are not linked by other link(C).
                 if( !BSstatus.Check_2() ) goto LNextSet;      //Each cell(A) is in a position to link with other cells.
                 if( !BSstatus.Check_3() ) goto LNextSet;      //There is a limit to the number of cells that have no links other than BaseSet.
+
+                //*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*==*
+                /*
+                          //if(SDK_Ctrl.UGPMan.stageNo==12 && sz>=3){// && rnk==1 ){
+                            if(SDK_Ctrl.UGPMan.stageNo==9 && sz>=2){// && rnk==1 ){
+                                WriteLine($"\r sz:{sz} rnk:{rnk} jkc:{_jkc_}");
+                                Check_rcbnCondition(sz,rnk,sz,RCBN_frameA,printB:true);
+                                basUGLs.ForEach(P=>WriteLine(P.ToString("BaseSet")));
+                            }
+                */
 
                 LBSFound:
                 usedLK.Clear();
@@ -184,12 +199,12 @@ namespace GNPXcore{
             }
             yield break;
 
-            void __UsedLinkToFrame(Bit981 HB981,List<int> usedLKLst,BaseSet_Status BSstatus) {
+            void __UsedLinkToFrame(Bit981 HB981,List<int> usedLKLst,BaseSet_Status BSstatus){
                 int[] _frame_0 = new int[9];
                 int[] _frame_1 = new int[9];
                 Bit81 _frame_T = new Bit81();
                 int frm, _cellC=0;
-                foreach(var no in HB981.noBit.IEGet_BtoNo()) {
+                foreach(var no in HB981.noBit.IEGet_BtoNo()){
                     _frame_0[no] = frm = HB981._BQ[no].IEGetRC().Aggregate(0,(Q,rc) => Q | rc.ToRCBitPat());
                     _frame_1[no] = ___frame_ResetUsed(frm,no,usedLKLst);  
                     _frame_T   |= HB981._BQ[no];
@@ -246,7 +261,7 @@ namespace GNPXcore{
         private string  _usedLKLst_ToRCBString( string AName, List<int> usedLKLst, bool addFreeBB=false, bool printB=false){
             string st = AName;
             foreach(var P in usedLKLst){
-                if((P&0xF)!=0xF){ st+=" "+(P>>4).tfxToString($"#{((P&0xF)+1)}"); }
+                if((P&0xF)!=0xF){ st+=" "+(P>>4).tfxToString(); }
                 else{ 
                     st+=" "+(P>>4).ToRCString();
                     if(addFreeBB) st+="#"+pBDL[P>>4].FreeB.ToBitStringN(9);
@@ -381,8 +396,8 @@ namespace GNPXcore{
                 Bit981 CsubB = HC981-HB981;                                         //CsubB:excludable candidates
                 if( CsubB.IsZero() ) goto LNextSet;                                 // is exist?
 
-                List<UGLink>  covUGLs=new List<UGLink>();
-                Array.ForEach( cmbCvr.Index, m=> covUGLs.Add(UGLCovLst[m]) );       //CoverSet List expression
+                List<UGLink>  CoverSetLst=new List<UGLink>();
+                Array.ForEach( cmbCvr.Index, m=> CoverSetLst.Add(UGLCovLst[m]) );       //CoverSet List expression
 
                 if(rnk==0){ Can981=CsubB; }  //(excludable candidates)                  
                 else{   //if(rnk>0){
@@ -397,7 +412,7 @@ namespace GNPXcore{
                     bool SolFound=false; 
                     foreach( int n in CsubB.noBit.IEGet_BtoNo() ){
                         foreach( int rc in CsubB._BQ[n].IEGetRC() ){
-                            int kc = covUGLs.Count(Q=>Q.IsHit(n,rc));
+                            int kc = CoverSetLst.Count(Q=>Q.IsHit(n,rc));
                             if(kc==rnk+1){
                                 Can981.BPSet(n,rc);
                                 SolFound=true;
@@ -409,7 +424,7 @@ namespace GNPXcore{
                 }
                                     ++GeneralLogicGen.ChkCov2;   //*****
 
-                UBC.addCoverSet( covUGLs, HC981, Can981, rnk );
+                UBC.addCoverSet( CoverSetLst, HC981, Can981, rnk );
                 yield return UBC;
 
               LNextSet:
@@ -418,7 +433,6 @@ namespace GNPXcore{
             yield break;
           #endregion CoverSet generator
         }
-
 
     #region class BaseSet_Status
         public class BaseSet_Status{
@@ -429,6 +443,8 @@ namespace GNPXcore{
             public Bit981         HB981     = new Bit981();                                     //BaseSet bitPattern
             public Bit324         usedLK    = new Bit324();                                     //usedLink(by serial number)
             public List<int>      usedLKLst = new List<int>();
+
+//#         private List<int>     usedLKIgnrLst;    //(used in previous versions.)
 
             public int[]          RCB_frameB;
             public int            _cellC;           // Number of cell_link in BaseSet
@@ -443,9 +459,10 @@ namespace GNPXcore{
             public int           rnk;
             public long[]  rcbnFrame9;      //bit expression of [ UC.FreeB<<27 | 1<<(UC.b+18)) | 1<<(UC.c+9) | (1<<UC.r) ]
 
-            public BaseSet_Status( int sz, int rnk ){
+//#         public BaseSet_Status( int sz, int rnk, List<UGLink> basUGLs, List<int> usedLKLst, List<int> usedLKIgnrLst ): base(){
+            public BaseSet_Status( int sz, int rnk ): base(){
                 this.sz=sz; this.rnk=rnk;
-
+//#             this.usedLKIgnrLst = usedLKIgnrLst;
                 rcbnFrame9 = new long[9];
                 foreach( var UGL in basUGLs){
                     if(UGL.rcBit81 is Bit81){ rcbnFrame9[UGL.rcBit81.no] |= (long)UGL.RCBN_frameB; }
@@ -455,6 +472,8 @@ namespace GNPXcore{
                     }
                 }
             }
+
+            public void Clear(){ }// /*rcB9=0;*/ base.Clear(); }
 
             public bool Check_1( ){                //##################################### Check_1
                             //There is a link(C) between the link(A) and the other links(B).
@@ -509,8 +528,6 @@ namespace GNPXcore{
                             noNotSingle |= 1<<no;
                             int tfx = (int)(P>>4);  // get house(P=tfx<<4 | no)
                             RCB_frameB[no] &= (1<<tfx) ^ 0x7FFFFFF;             //Exclude BaseSe link from candidates.
-                                //if(SDK_Ctrl.UGPMan.stageNo==10) WriteLine($"+++ tfx:{tfx} RCB_frameB[{no}]:{RCB_frameB[no].ToBitString27()}");
-
                         }
                     }
                 }
@@ -559,8 +576,8 @@ namespace GNPXcore{
                 return niceB;
             }
 
+            //1..4....8.9.1...5.....63.....13.5.79..3...8..76.2.94.....75.....1...6.4.8....4..2  
         }
-
     #endregion class BaseSet_Status
 
     }
@@ -579,7 +596,7 @@ namespace GNPXcore{
 
         //Representing two types as common data
         public Bit981   rcnBit;         //bit expression of rc[n] of GLink elements.
-        public Bit981   rcnConnected;   //bit expression of rc[n] of Connected Cells of GLink elements.
+        public Bit981   rcnConnected;   //bit expression of rc[n] of Connected Cells of GLink elements.  (used only in Check_1)##
         public long     RCBN_frameB;    //bit expression of [ UC.FreeB<<27 | 1<<(UC.b+18)) | 1<<(UC.c+9) | (1<<UC.r) ]
 
         public int tfx{ get{ return( (rcBit81 is Bit81)? (rcBit81.ID>>4): -1); } }
@@ -616,6 +633,18 @@ namespace GNPXcore{
             return false;
         }
 
+        public IEnumerable<(int,int)> IEGet_UGLink_ToCellNo( ){ 
+            if(rcBit81 is Bit81){                           // UGLink is rcb link
+                int no = rcBit81.no;
+                foreach( var rc in rcBit81.IEGetRC())  yield return (rc,no);
+            }
+            else{                                           // UGLink is Cell link
+                int rc = UC.rc;
+                foreach( var no in UC.FreeB.IEGet_BtoNo()) yield return (rc,no);
+            }
+            yield break;
+        }
+
         public string ToString( string ttl="" ){
             string st = ttl+" UGLink IDnum:"+IDnum+" tfx:"+ tfx.tfxToString()+"("+tfx+")";
             if(UC!=null) st+="UCell "+ UC.ToString();
@@ -623,5 +652,4 @@ namespace GNPXcore{
             return st;
         }
     }
-
 }

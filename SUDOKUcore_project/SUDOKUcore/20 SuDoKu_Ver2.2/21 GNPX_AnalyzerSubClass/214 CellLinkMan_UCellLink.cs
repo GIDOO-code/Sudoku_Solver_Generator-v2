@@ -10,7 +10,7 @@ namespace GNPXcore {
     public class CellLinkMan{
         //Cell-to-cell link
         // Strong links are true and false in both directions. Link is 2 cells.
-        // Weak links are true only to the other. Link is 3 or more cells.
+        // Weak links propagate from true to false. Link is 3 or more cells.
         // http://csdenpe.web.fc2.com/page25.html
 
         private GNPX_AnalyzerMan pAnMan;
@@ -27,12 +27,12 @@ namespace GNPXcore {
 
 		public void  Initialize(){ SWCtrl=0; }
     
-      #region Create Stron/WeakLink List            
+      #region Create Strong/WeakLink List            
         public void  PrepareCellLink( int swSW ){
             if( (swSW.DifSet(SWCtrl))==0 )  return;
 
             if( SWCtrl==0 ) CeLK81=new List<UCellLink>[81];
-            _SrtongLinkSearch(true); //strong link
+            _StrongLinkSearch(true); //strong link
             _WeakLinkSearch( );      //weak link
             SWCtrl |= swSW; 
 
@@ -45,7 +45,7 @@ namespace GNPXcore {
             foreach( var P in CeLK81.Where(p=>p!=null) ){ P.ForEach(Q=>Q.LoopFlag=false); }
         }
 
-        private void _SrtongLinkSearch( bool weakOn ){
+        private void _StrongLinkSearch( bool weakOn ){
             for(int tfx=0; tfx<27; tfx++ ){
                 for(int no=0; no<9; no++){
                     int noB = 1<<no;
@@ -125,7 +125,7 @@ namespace GNPXcore {
             if(CeLK81[rc1]==null) CeLK81[rc1]=new List<UCellLink>();
             if(!CeLK81[rc1].Contains(LK))  CeLK81[rc1].Add(LK);
         }
-      #endregion Create Stron/WeakLink List
+      #endregion Create Strong/WeakLink List
 
         public IEnumerable<UCellLink> IEGetCellInHouse( int typB ){
             foreach(var P in CeLK81.Where(p=>p!=null) ){

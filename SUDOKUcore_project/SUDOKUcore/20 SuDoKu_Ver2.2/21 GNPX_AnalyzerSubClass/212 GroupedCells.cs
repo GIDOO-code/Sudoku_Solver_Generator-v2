@@ -76,11 +76,11 @@ namespace GNPXcore{
             return st;
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj){
             return Equals(obj as UGrCells);
         }
 
-        public bool Equals(UGrCells other) {
+        public bool Equals(UGrCells other){
             return other != null &&
                  //tfx == other.tfx &&      //Difference in tfx is acceptable. Important as an algorithm.
                    no == other.no &&
@@ -89,7 +89,7 @@ namespace GNPXcore{
         
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode(){
             var hashCode = 82016040;
           //hashCode = hashCode * -1521134295 + tfx.GetHashCode();  //Difference in tfx is acceptable. Important as an algorithm.
             hashCode = hashCode * -1521134295 + no.GetHashCode();
@@ -98,11 +98,11 @@ namespace GNPXcore{
             return hashCode;
         }
 
-        public static bool operator ==(UGrCells left, UGrCells right) {
+        public static bool operator ==(UGrCells left, UGrCells right){
             return EqualityComparer<UGrCells>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(UGrCells left, UGrCells right) {
+        public static bool operator !=(UGrCells left, UGrCells right){
             return !(left == right);
         }
 
