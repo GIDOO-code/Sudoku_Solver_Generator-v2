@@ -76,7 +76,7 @@ namespace GNPXcore {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/SUDOKUcore;V1.0.0.0;component/00%20applicationmain/015%20tognpxhp.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/SUDOKUcore;component/00%20applicationmain/015%20tognpxhp.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\00 ApplicationMain\015 ToGNPXHP.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

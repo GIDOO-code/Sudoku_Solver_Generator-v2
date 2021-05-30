@@ -77,8 +77,7 @@ namespace WPFColorPickerLib {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/SUDOKUcore;V1.0.0.0;component/10%20graphics/11%20wpfcolorpickerlib/colordialog.x" +
-                    "aml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/SUDOKUcore;component/10%20graphics/11%20wpfcolorpickerlib/colordialog.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\10 Graphics\11 WPFColorPickerLib\ColorDialog.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

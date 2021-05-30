@@ -1,7 +1,7 @@
 ﻿LastDigit
 NakedSingle
 HiddenSingle
--GeneralLogic
+-GeneralLogicEx
 LockedCandidate
 LockedSet(2D)
 LockedSet(2D)Hidden

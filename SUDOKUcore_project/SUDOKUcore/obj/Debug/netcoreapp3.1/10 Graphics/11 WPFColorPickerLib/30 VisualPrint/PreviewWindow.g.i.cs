@@ -76,8 +76,8 @@ namespace VisualPrint {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/SUDOKUcore;V1.0.0.0;component/10%20graphics/11%20wpfcolorpickerlib/30%20visualpr" +
-                    "int/previewwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/SUDOKUcore;component/10%20graphics/11%20wpfcolorpickerlib/30%20visualprint/previ" +
+                    "ewwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\10 Graphics\11 WPFColorPickerLib\30 VisualPrint\PreviewWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
