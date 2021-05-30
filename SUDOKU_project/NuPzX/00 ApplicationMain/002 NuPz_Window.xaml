@@ -99,10 +99,10 @@
         <!-- DataContext="{Binding}" -->
         <Image x:Name="PB_GBoard" Width="338" Height="338" Margin="18,108,0,0" Stretch="Fill" VerticalAlignment="Top"
                  HorizontalAlignment="Left" 
-               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/images/LockedCandidate.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
+               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/LockedCandidate.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
 
         <!--
-               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/images/ColorSwatchCircle.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
+               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/ColorSwatchCircle.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
         
                 MouseLeftButtonDown="PB_GBoard_MouseLeftButtonDown"
                MouseLeftButtonUp="PB_GBoard_MouseLeftButtonUp"

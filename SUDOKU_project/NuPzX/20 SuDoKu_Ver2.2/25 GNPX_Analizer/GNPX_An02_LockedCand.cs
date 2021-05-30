@@ -4,11 +4,12 @@ using System.Linq;
 
 using GIDOO_space;
 
-namespace GNPXcore{
+namespace GNPZ_sdk{
     public class LockedCandidateGen: AnalyzerBaseV2{
         public LockedCandidateGen( GNPX_AnalyzerMan pAnMan ): base(pAnMan){ }
 
         //http://csdenpe.web.fc2.com/page32.html
+
         public bool LockedCandidate( ){     //***** new version *****
             int b1, b2, hs0;
 
@@ -19,13 +20,12 @@ namespace GNPXcore{
                 int noB=(1<<no);
                 int[] BRCs = new int[9];
 
-
                 //aggregate rows and columns with #no for each block
                 foreach(var P in pBDL.Where(Q=>(Q.FreeB&noB)>0)){ BRCs[P.b] |= (1<<P.r)|(1<<(P.c+9)); }
 
                 for(int b0=0; b0<9; b0++ ){
                     for( int hs=0; hs<10; hs+=9 ){                              //0:row 9:collumn
-                        int RCH = BRCs[b0]&(0x1FF<<hs);
+                        int RCH = (BRCs[b0]>>hs)&0x1FF;
                         if( RCH.BitCount()!=1 ) continue;                       //only one row(column) has #no
                         hs0=RCH.BitToNum(18);                                   //hs0:house number
                         if( pBDL.IEGetCellInHouse(hs0,noB).All(Q=>Q.b==b0) )  continue;
@@ -36,7 +36,7 @@ namespace GNPXcore{
                             if(P.b!=b0) P.CancelB=noB;
                             else        P.SetNoBBgColor(noB,AttCr3,SolBkCr);
                         }
-                        string SolMsg= "Locked Candidate2 B"+(b0+1)+" #"+(no+1);
+                        string SolMsg= "Locked Candidate B"+(b0+1)+" #"+(no+1);
                         Result=SolMsg;
                         if(__SimpleAnalizerB__) return true;
                         if(SolInfoB) ResultLong=SolMsg;
@@ -72,7 +72,7 @@ namespace GNPXcore{
                         if(!HouseCells[hs].IsHit(P.rc))   P.CancelB=noB;
                         else                              P.SetNoBBgColor(noB,AttCr3,SolBkCr);
                     }
-                    string SolMsg= "Locked Candidate2 B"+(b0+1)+" #"+(no+1);
+                    string SolMsg= "Locked Candidate B"+(b0+1)+" #"+(no+1);
                     Result=SolMsg; 
                     if(__SimpleAnalizerB__)  return true;
                     foreach(var P in pBDL.IEGetCellInHouse(18+b1,noB)) P.SetNoBBgColor(noB,AttCr3,SolBkCr);
@@ -152,6 +152,5 @@ namespace GNPXcore{
             }
             return false;
         }
-
     }
 }

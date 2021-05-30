@@ -24,7 +24,7 @@ namespace GNPXcore{
 
                 for(int b0=0; b0<9; b0++ ){
                     for( int hs=0; hs<10; hs+=9 ){                              //0:row 9:collumn
-                        int RCH = BRCs[b0]&(0x1FF<<hs);
+                        int RCH = (BRCs[b0]>>hs)&0x1FF;
                         if( RCH.BitCount()!=1 ) continue;                       //only one row(column) has #no
                         hs0=RCH.BitToNum(18);                                   //hs0:house number
                         if( pBDL.IEGetCellInHouse(hs0,noB).All(Q=>Q.b==b0) )  continue;

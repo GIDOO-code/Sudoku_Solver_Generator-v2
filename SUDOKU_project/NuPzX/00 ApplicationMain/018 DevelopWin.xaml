@@ -16,7 +16,7 @@
             </Button.Background>
         </Button>
         <Image x:Name="dev_GBoard" Width="338" Height="338" Margin="54,114,0,0" Stretch="Fill" DataContext="{Binding}" 
-        	Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/images/ColorSwatchCircle.png" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        	Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/ColorSwatchCircle.png" HorizontalAlignment="Left" VerticalAlignment="Top" />
         <Button x:Name="SaveBitMap" Content="BitMap Save" FontFamily="MS Gothic" Foreground="White"
         	Height="25" HorizontalAlignment="Left" Margin="457,125,0,0"
         	VerticalAlignment="Top" Width="94" Style="{Binding}" Click="SaveBitMap_Click">
