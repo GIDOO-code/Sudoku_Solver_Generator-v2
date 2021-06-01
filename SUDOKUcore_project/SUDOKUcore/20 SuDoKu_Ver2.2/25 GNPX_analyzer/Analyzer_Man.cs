@@ -74,8 +74,8 @@ namespace GNPXcore{
             SolverLst0.Add( new UAlgMethod( 4, " GeneralLogicEx",  2, GLTech2.GeneralLogic2, true) );
 
             var LockedCand=new LockedCandidateGen(this);
+         // SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate2", 2, LockedCand.LockedCandidate2 ) );   // on develop 2021/june
             SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate ) );
-         // SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate_old ) );
             
             var LockedSet=new LockedSetGen(this);
             SolverLst0.Add( new UAlgMethod( 10, "LockedSet(2D)",        3, LockedSet.LockedSet2 ) );

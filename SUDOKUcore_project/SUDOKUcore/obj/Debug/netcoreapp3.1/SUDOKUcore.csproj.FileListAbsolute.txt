@@ -1061,7 +1061,6 @@ E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20210529 
 E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20210529 SUDOKUcore2_project\SUDOKUcore\obj\Debug\netcoreapp3.1\SUDOKUcore.dll
 E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20210529 SUDOKUcore2_project\SUDOKUcore\obj\Debug\netcoreapp3.1\SUDOKUcore.pdb
 E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\20210529 SUDOKUcore2_project\SUDOKUcore\obj\Debug\netcoreapp3.1\SUDOKUcore.genruntimeconfig.cache
-E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\obj\Debug\netcoreapp3.1\SUDOKUcore.csprojAssemblyReference.cache
 E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\obj\Debug\netcoreapp3.1\00 ApplicationMain\014 SDK_PuzzlePrinter.baml
 E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\obj\Debug\netcoreapp3.1\00 ApplicationMain\015 ToGNPXHP.baml
 E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\obj\Debug\netcoreapp3.1\00 ApplicationMain\017 ExtendResult.baml
@@ -1103,3 +1102,4 @@ E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUco
 E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\obj\Debug\netcoreapp3.1\SUDOKUcore.dll
 E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\obj\Debug\netcoreapp3.1\SUDOKUcore.pdb
 E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\obj\Debug\netcoreapp3.1\SUDOKUcore.genruntimeconfig.cache
+E:\◆◆数独集合体\Git\Sudoku_Solver_Generator\SUDOKUcore_project\SUDOKUcore\obj\Debug\netcoreapp3.1\SUDOKUcore.csproj.AssemblyReference.cache

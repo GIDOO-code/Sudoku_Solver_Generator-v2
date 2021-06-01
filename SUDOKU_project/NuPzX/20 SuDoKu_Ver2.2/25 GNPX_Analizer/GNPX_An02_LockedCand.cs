@@ -10,7 +10,7 @@ namespace GNPZ_sdk{
 
         //http://csdenpe.web.fc2.com/page32.html
 
-        public bool LockedCandidate( ){     //***** new version *****
+        public bool LockedCandidate2( ){     //***** new version ***** on develop 2021/june
             int b1, b2, hs0;
 
             // Change the search order. Search type1 for all digits.
@@ -84,7 +84,7 @@ namespace GNPZ_sdk{
             return false;
         }
 
-        public bool LockedCandidate_old( ){
+        public bool LockedCandidate( ){
             
             //==== Type-1 =====
             for(int no=0; no<9; no++ ){  //#no
