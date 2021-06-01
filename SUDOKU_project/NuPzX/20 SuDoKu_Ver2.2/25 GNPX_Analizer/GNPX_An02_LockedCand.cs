@@ -10,7 +10,9 @@ namespace GNPZ_sdk{
 
         //http://csdenpe.web.fc2.com/page32.html
 
-        public bool LockedCandidate2( ){     //***** new version ***** on develop 2021/june
+        // Premises that cannot be solved by the "Single" algorithm!
+
+        public bool LockedCandidate( ){     //***** new version *****
             int b1, b2, hs0;
 
             // Change the search order. Search type1 for all digits.
@@ -24,13 +26,16 @@ namespace GNPZ_sdk{
                 foreach(var P in pBDL.Where(Q=>(Q.FreeB&noB)>0)){ BRCs[P.b] |= (1<<P.r)|(1<<(P.c+9)); }
 
                 for(int b0=0; b0<9; b0++ ){
-                    for( int hs=0; hs<10; hs+=9 ){                              //0:row 9:collumn
-                        int RCH = (BRCs[b0]>>hs)&0x1FF;
+                    for( int RCdir=0; RCdir<10; RCdir+=9 ){                     //0:row 9:collumn
+                        int RCH=BRCs[b0]&(0x1FF<<RCdir);
+
                         if( RCH.BitCount()!=1 ) continue;                       //only one row(column) has #no
+                      //if( (RCH&0x1ff).BitCount()+(RCH>>9).BitCount() !=1 ) continue;  //(faster than the code above, but prioritizes clarity)
+                      
                         hs0=RCH.BitToNum(18);                                   //hs0:house number
                         if( pBDL.IEGetCellInHouse(hs0,noB).All(Q=>Q.b==b0) )  continue;
-                        //in house hs0, blocks other than b0 have #no
 
+                        //in house hs0, blocks other than b0 have #no
                         SolCode = 2; //----- found -----
                         foreach( var P in pBDL.IEGetCellInHouse(hs0,noB) ){ 
                             if(P.b!=b0) P.CancelB=noB;
@@ -46,7 +51,8 @@ namespace GNPZ_sdk{
                 }
             }
 
-            //==== Type-2 =====
+            //==== Type-2 =====		cmbG	error CS0103: 現在のコンテキストに 'cmbG' という名前は存在しません	
+
             for(int no=0; no<9; no++ ){  //#no
                 int noB=(1<<no);
                 int[] BRCs2 = new int[18];
@@ -84,7 +90,7 @@ namespace GNPZ_sdk{
             return false;
         }
 
-        public bool LockedCandidate( ){
+        public bool LockedCandidate_old( ){
             
             //==== Type-1 =====
             for(int no=0; no<9; no++ ){  //#no
@@ -152,5 +158,6 @@ namespace GNPZ_sdk{
             }
             return false;
         }
+
     }
 }

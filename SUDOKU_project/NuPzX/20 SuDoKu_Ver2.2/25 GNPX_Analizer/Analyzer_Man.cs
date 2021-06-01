@@ -72,7 +72,7 @@ namespace GNPZ_sdk{
             SolverLst0.Add( new UAlgMethod( 4, " GeneralLogic",  2, GLTech.GeneralLogicExnm, true) );
 
             var LockedCand=new LockedCandidateGen(this);
-            SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate2 ) );
+            SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate ) );
                 
             var LockedSet=new LockedSetGen(this);
             SolverLst0.Add( new UAlgMethod( 10, "LockedSet(2D)",        3, LockedSet.LockedSet2 ) );
