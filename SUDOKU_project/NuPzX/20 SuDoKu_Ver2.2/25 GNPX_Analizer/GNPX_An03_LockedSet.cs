@@ -49,6 +49,7 @@ namespace GNPZ_sdk{
                     if(!HiddenFlag){
                         if(noBSel.BitCount()==sz){                                  //Number of selected cell's dijits is sz
                             if(tfx<18 && selBlk.BitCount()==1){
+                                // in searching row or column, there are elements that can be excluded in block.
                                 int tfx2=selBlk.BitToNum()+18;                                //bit(1-256) -> House_No(18-26)
                                 List<UCell> PLst = pBDL.IEGetCellInHouse(tfx2,noBSel).ToList();
                                 BDLstF.ForEach(P=> {if(P.Selected) PLst.Remove(P); });

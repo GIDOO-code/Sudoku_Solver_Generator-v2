@@ -95,7 +95,7 @@ namespace GIDOO_space{
         }
  
         static public int BitCount( this int nF ){      //by Hacker's Delight
-            if( (nF&0x7FFFFE00)==0 )  return __BC[nF]; 
+            if( (nF&0x7FFFFE00)==0 )  return __BC[nF];  //for 9 bits or less, refer to the table. fast.
             int x = nF;
             x = (x&0x55555555) + ((x>>1)&0x55555555);
             x = (x&0x33333333) + ((x>>2)&0x33333333);
@@ -104,7 +104,8 @@ namespace GIDOO_space{
             x = (x&0x0000FFFF) + ((x>>16)&0x0000FFFF);
             return x;
         }
-        static public int BitCount( this uint nF ){     //by Hacker's Delight         
+        static public int BitCount( this uint nF ){     //by Hacker's Delight
+            if( (nF&0x7FFFFE00)==0 )  return __BC[nF];  //for 9 bits or less, refer to the table. fast.
             uint x = nF;
             x = (x&0x55555555) + ((x>>1)&0x55555555);
             x = (x&0x33333333) + ((x>>2)&0x33333333);

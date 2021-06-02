@@ -27,12 +27,13 @@ namespace GNPXcore{
 
                 for(int b0=0; b0<9; b0++ ){
                     for( int RCdir=0; RCdir<10; RCdir+=9 ){                     //0:row 9:collumn
-                        int RCH=BRCs[b0]&(0x1FF<<RCdir);
+                      //int RCH = BRCs[b0]&(0x1FF<<RCdir);
+                        int RCH = (BRCs[b0]>>RCdir)&0x1FF;
 
                         if( RCH.BitCount()!=1 ) continue;                       //only one row(column) has #no
-                      //if( (RCH&0x1ff).BitCount()+(RCH>>9).BitCount() !=1 ) continue;  //(faster than the code above, but prioritizes clarity)
                       
-                        hs0=RCH.BitToNum(18);                                   //hs0:house number
+                      //hs0 = RCH.BitToNum(18);                                 //hs0:house number
+                        hs0 = RCH.BitToNum(9)+RCdir;                            //hs0:house number
                         if( pBDL.IEGetCellInHouse(hs0,noB).All(Q=>Q.b==b0) )  continue;
 
                         //in house hs0, blocks other than b0 have #no
