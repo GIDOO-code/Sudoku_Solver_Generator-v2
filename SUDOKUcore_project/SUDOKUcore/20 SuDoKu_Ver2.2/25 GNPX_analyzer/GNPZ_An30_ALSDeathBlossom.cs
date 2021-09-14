@@ -72,7 +72,7 @@ namespace GNPXcore{
                         Array.ForEach(cmb.Index,nx=> LKCAsol.Add(LinkCeAlsLst[nx]) );
                         _DeathBlossom_SolResult(LKCAsol,SC,no,stmLinked);
 
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
                         if(!pAnMan.SnapSaveGP(true))  return true;
 
                     }
@@ -96,7 +96,7 @@ namespace GNPXcore{
                             Array.ForEach(cmb.Index,nx=> LKCAsol.Add(LinkCeAlsLst[nx]) );
                             _DeathBlossom_SolResult(LKCAsol,SC,no,stmLinked);
 
-                            if(__SimpleAnalizerB__)  return true;
+                            if(__SimpleAnalyzerB__)  return true;
                             if(!pAnMan.SnapSaveGP(true))  return true;
                         }
                     }

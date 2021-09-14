@@ -60,7 +60,7 @@ namespace GNPXcore{
                                    + $"\r Eliminated: #{(no2B.BitToNum()+1)} in {msg2.ToString_SameHouseComp()}";
                     }
 
-                    if(__SimpleAnalizerB__)  return true;
+                    if(__SimpleAnalyzerB__)  return true;
                     if(!pAnMan.SnapSaveGP(true))  return true;
                     Wwing=false;
                 }

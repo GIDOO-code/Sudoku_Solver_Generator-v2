@@ -194,8 +194,10 @@ namespace GNPXcore{
 
                 while( (LRecord=SDKfile.ReadLine()) !=null ){
                     if( LRecord=="" ) continue;
+                    
+                 // string[] eLst = LRecord.Split(sep,StringSplitOptions.RemoveEmptyEntries);
                     string[] eLst = LRecord.SplitEx(sep);
-                   
+
                     if( LRecord[0]=='#' ){ pName=LRecord.Substring(1); continue; }
                     
                     int nc = eLst.Length;
@@ -206,11 +208,15 @@ namespace GNPXcore{
                     string TimeStamp="";
                     if( eLst[0].Length>=81 ){
                         try{
-                            if(nc>=4 && eLst[3]!=""){
+                            if(nc>=4 && eLst[2].IsNumeric() ){
                                 difLvl=eLst[2].ToInt();
                                 name=eLst[3];
                             }
-                            else if(nc>=3){ difLvl=1; name=eLst[2]; }
+                            if(nc>=3 && !eLst[2].IsNumeric() ){
+                                difLvl=1;
+                                name=eLst[2];
+                            }
+                            else{ difLvl=1; name=""; }
 
                             string st = eLst[0].Replace(".", "0").Replace("-", "0").Replace(" ", "");
                             List<UCell> BDLa=_stringToBDL(st);
@@ -231,6 +237,7 @@ namespace GNPXcore{
                             List<UCell> BDLa = new List<UCell>();
                             for(int r=0; r<9; r++ ){
                                 LRecord = SDKfile.ReadLine();
+                              //string[] eLst = LRecord.Split(sep,StringSplitOptions.RemoveEmptyEntries);
                                 eLst = LRecord.SplitEx(sep);
                                 for(int c=0; c<9; c++ ){
                                     int n = Convert.ToInt32(eLst[c]);

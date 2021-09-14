@@ -63,30 +63,30 @@ namespace GNPXcore{
             bool extFlag = (sz>=3 && ((BaseSel|CoverSel).BitCount()>18));
             if(_Fdef) FMan=new FishMan(this,FMSize,no,sz,extFlag);
 
-            foreach(var Bas in FMan.IEGet_BaseSet(BaseSel,FinnedF:FinnedF)){    //select BaseSet
+            foreach( var Bas in FMan.IEGet_BaseSet(BaseSel,FinnedF:FinnedF )){    //select BaseSet
                 if( pAnMan.CheckTimeOut() ) return false;
 
-                foreach(var Cov in FMan.IEGet_CoverSet(Bas,CoverSel,FinnedF)){  //select CoverSet
+                foreach( var Cov in FMan.IEGet_CoverSet(Bas,CoverSel,FinnedF) ){  //select CoverSet
                     Bit81 FinB81 = Cov.FinB81;
 
-                    Bit81 ELM =null;
+                    Bit81 ELM=null;
                     var FinZeroB = FinB81.IsZero();
-                    if(!FinnedF && FinZeroB){   //===== no Fin =====
-                        if(!FinnedF && (ELM=Cov.CoverB81-Bas.BaseB81).Count>0){                      
+                    if( !FinnedF && FinZeroB ){   //===== no Fin =====
+                        if( !FinnedF && (ELM=Cov.CoverB81-Bas.BaseB81).Count>0 ){                      
                             foreach( var P in ELM.IEGetUCeNoB(pBDL,noB) ){ P.CancelB=noB; SolCode=2; }
-                            if(SolCode>0){      //solved!(
+                            if(SolCode>0){      //solved!
                                 if(SolInfoB){
                                     _Fish_FishResult(no,sz,Bas,Cov,(FMSize==27)); //FMSize 18:regular 27:Franken/Mutant
                                 }
-                                if(__SimpleAnalizerB__)  return true;
+                                if(__SimpleAnalyzerB__)  return true;
                                 if(!pAnMan.SnapSaveGP(true)) return true; 
                             }
                         }
                     }
-                    else if(FinnedF && !FinZeroB){     //===== Finned ===== 
+                    else if( FinnedF && !FinZeroB ){     //===== Finned ===== 
                         Bit81 Ecand=Cov.CoverB81-Bas.BaseB81;
                         ELM=new Bit81();
-                        foreach(var P in Ecand.IEGetUCeNoB(pBDL,noB)){
+                        foreach( var P in Ecand.IEGetUCeNoB(pBDL,noB) ){
                             if( (FinB81-ConnectedCells[P.rc]).Count==0 ) ELM.BPSet(P.rc);
                         }
                         if(ELM.Count>0){    //there are cells/digits can be excluded                        
@@ -95,7 +95,7 @@ namespace GNPXcore{
                                 if(SolInfoB){
                                     _Fish_FishResult(no,sz,Bas,Cov,(FMSize==27)); //FMSize 18:regular 27:Franken/Mutant
                                 }
-                                if(__SimpleAnalizerB__)  return true;
+                                if(__SimpleAnalyzerB__)  return true;
                                 if(!pAnMan.SnapSaveGP(true)) return true;
                             }
                         }
@@ -115,10 +115,10 @@ namespace GNPXcore{
             PFin-=EndoFin;
             try{
                 int noB=(1<<no);                 
-                foreach(var P in PB.IEGet_rc().Select(p=>pBDL[p]))      P.SetNoBBgColor(noB,AttCr,SolBkCr);
-                foreach(var P in PFin.IEGet_rc().Select(p=>pBDL[p]))    P.SetNoBBgColor(noB,AttCr,SolBkCr2);
-                foreach(var P in EndoFin.IEGet_rc().Select(p=>pBDL[p])) P.SetNoBBgColor(noB,AttCr,SolBkCr3);
-                foreach(var P in CnaaFin.IEGet_rc().Select(p=>pBDL[p])) P.SetNoBBgColor(noB,AttCr,SolBkCr3);
+                foreach( var P in PB.IEGet_rc().Select(p=>pBDL[p]) )      P.SetNoBBgColor(noB,AttCr,SolBkCr);
+                foreach( var P in PFin.IEGet_rc().Select(p=>pBDL[p]) )    P.SetNoBBgColor(noB,AttCr,SolBkCr2);
+                foreach( var P in EndoFin.IEGet_rc().Select(p=>pBDL[p]) ) P.SetNoBBgColor(noB,AttCr,SolBkCr3);
+                foreach( var P in CnaaFin.IEGet_rc().Select(p=>pBDL[p]) ) P.SetNoBBgColor(noB,AttCr,SolBkCr3);
 
                 string msg = "\r     Digit: " + (no+1);                 
                 msg += "\r   BaseSet: " + HB.HouseToString();  //+"#"+(no+1);
@@ -149,14 +149,13 @@ namespace GNPXcore{
                 }
 
                 string Fsh = FishNames[sz-2];
-                if( FraMut) Fsh = "Franken/Mutant "+Fsh;
+                if(FraMut) Fsh = "Franken/Mutant "+Fsh;
                 Fsh = FinmsgH+Fsh+FinmsgT;
                 ResultLong = Fsh+msg;  
                 Result=Fsh.Replace("Franken/Mutant","F/M")+msg2;
             }
             catch( Exception ex ){
-                WriteLine(ex.Message);
-                WriteLine(ex.StackTrace);
+                WriteLine(ex.Message+"\r"+ex.StackTrace);
             }
         }
     }  

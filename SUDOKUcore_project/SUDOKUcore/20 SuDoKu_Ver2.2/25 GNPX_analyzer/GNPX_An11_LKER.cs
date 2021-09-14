@@ -37,7 +37,7 @@ namespace GNPXcore{
                                 UCell Elm=pBDL[r1*9+LK.UCe2.c];
                                 if(Elm.b!=bx && (Elm.FreeB&noB)>0){                 //There is a Digit that can be excluded
                                     EmptyRectangle_SolResult( no, bx, LK, Elm );    //solution found
-                                    if(__SimpleAnalizerB__)  return true;
+                                    if(__SimpleAnalyzerB__)  return true;
                                     if(!pAnMan.SnapSaveGP(true))  return true;
                                 }
                             }
@@ -49,7 +49,7 @@ namespace GNPXcore{
                                 UCell Elm=pBDL[LK.UCe2.r*9+c1];
                                 if(Elm.b!=bx && (Elm.FreeB&noB)>0){                 //There is a Digit that can be excluded
                                     EmptyRectangle_SolResult( no, bx, LK, Elm );    //solution found
-                                    if(__SimpleAnalizerB__)  return true;
+                                    if(__SimpleAnalyzerB__)  return true;
                                     if(!pAnMan.SnapSaveGP(true))  return true;
                                 }
                             }

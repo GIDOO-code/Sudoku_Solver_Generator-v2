@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Console;
 using GIDOO_space;
 
 namespace GNPXcore{
@@ -37,23 +36,24 @@ namespace GNPXcore{
                         if( pBDL.IEGetCellInHouse(hs0,noB).All(Q=>Q.b==b0) )  continue;
 
                         //in house hs0, blocks other than b0 have #no
-                        SolCode = 2; //----- found -----
-                        foreach( var P in pBDL.IEGetCellInHouse(hs0,noB) ){ 
-                            if(P.b!=b0) P.CancelB=noB;
-                            else        P.SetNoBBgColor(noB,AttCr3,SolBkCr);
+                        { //----- found ----- 
+                            SolCode = 2; //----- found -----
+                            foreach( var P in pBDL.IEGetCellInHouse(hs0,noB) ){ 
+                                if(P.b!=b0) P.CancelB=noB;
+                                else        P.SetNoBBgColor(noB,AttCr3,SolBkCr);
+                            }
+                            string SolMsg= "Locked Candidate B"+(b0+1)+" #"+(no+1);
+                            Result=SolMsg;
+                            if(__SimpleAnalyzerB__) return true;
+                            if(SolInfoB) ResultLong=SolMsg;
+                            if(!pAnMan.SnapSaveGP())  return true;
+                            return true;
                         }
-                        string SolMsg= "Locked Candidate B"+(b0+1)+" #"+(no+1);
-                        Result=SolMsg;
-                        if(__SimpleAnalizerB__) return true;
-                        if(SolInfoB) ResultLong=SolMsg;
-                        if(!pAnMan.SnapSaveGP())  return true;
-                        return true;
                     }
                 }
             }
 
-            //==== Type-2 =====		cmbG	error CS0103: 現在のコンテキストに 'cmbG' という名前は存在しません	
-
+            //==== Type-2 =====
             for(int no=0; no<9; no++ ){  //#no
                 int noB=(1<<no);
                 int[] BRCs2 = new int[18];
@@ -64,35 +64,40 @@ namespace GNPXcore{
                 for( int hs=0; hs<18; hs++ ){   //   0-8:row 9-17:column
                     int HRC = BRCs2[hs];
                     if( HRC.BitCount() != 1 )  continue;
-                    int b0 = HRC.BitToNum();
+
+                    int b0 = HRC.BitToNum();    //b0:target block
                     if( hs<9 ){ //row house
                         if( pBDL.IEGetCellInHouse(b0+18,noB).All(Q=>Q.r==hs) )  continue;
-                        b1=b0/3*3+(b0+1)%3; b2=b0/3*3+(b0+2)%3;     // b1,b2:block(row direction)
+                        //Conditions with a solution: Block b0 has number(#no) other than row #hs.
+                        b1=b0/3*3+(b0+1)%3; b2=b0/3*3+(b0+2)%3;    // b1,b2:block(row direction)
                     }
                     else{       //column house
                         if( pBDL.IEGetCellInHouse(b0+18,noB).All(Q=>Q.c==(hs-9)) )  continue;
+                        //Conditions with a solution: Block b0 has number(#no) other than Colimn #(hs-9).
                         b1=(b0+3)%9;        b2=(b0+6)%9;           // b1,b2:block(collumn direction)  
                     }
 
-                    SolCode=2; //----- found -----
-                    foreach( var P in pBDL.IEGetCellInHouse(18+b0,noB) ){
-                        if(!HouseCells[hs].IsHit(P.rc))   P.CancelB=noB;
-                        else                              P.SetNoBBgColor(noB,AttCr3,SolBkCr);
+                    { //----- found -----
+                        SolCode=2; 
+                        foreach( var P in pBDL.IEGetCellInHouse(18+b0,noB) ){
+                            if(!HouseCells[hs].IsHit(P.rc))   P.CancelB=noB;
+                            else                              P.SetNoBBgColor(noB,AttCr3,SolBkCr);
+                        }
+                        string SolMsg= "Locked Candidate B"+(b0+1)+" #"+(no+1);
+                        Result=SolMsg; 
+                        if(__SimpleAnalyzerB__)  return true;
+                        foreach(var P in pBDL.IEGetCellInHouse(18+b1,noB)) P.SetNoBBgColor(noB,AttCr3,SolBkCr);
+                        foreach(var P in pBDL.IEGetCellInHouse(18+b2,noB)) P.SetNoBBgColor(noB,AttCr3,SolBkCr);
+                        if(SolInfoB) ResultLong=SolMsg;
+                        if(!pAnMan.SnapSaveGP())  return true;
                     }
-                    string SolMsg= "Locked Candidate B"+(b0+1)+" #"+(no+1);
-                    Result=SolMsg; 
-                    if(__SimpleAnalizerB__)  return true;
-                    foreach(var P in pBDL.IEGetCellInHouse(18+b1,noB)) P.SetNoBBgColor(noB,AttCr3,SolBkCr);
-                    foreach(var P in pBDL.IEGetCellInHouse(18+b2,noB)) P.SetNoBBgColor(noB,AttCr3,SolBkCr);
-                    if(SolInfoB) ResultLong=SolMsg;
-                    if(!pAnMan.SnapSaveGP())  return true;
                 }
             }
             return false;
         }
 
         public bool LockedCandidate_old( ){
-            
+           
             //==== Type-1 =====
             for(int no=0; no<9; no++ ){  //#no
                 int noB=(1<<no);
@@ -115,7 +120,7 @@ namespace GNPXcore{
                         }
                         string SolMsg= "Locked Candidate B"+(b0+1)+" #"+(no+1);
                         Result=SolMsg;
-                        if(__SimpleAnalizerB__) return true;
+                        if(__SimpleAnalyzerB__) return true;
                         if(SolInfoB) ResultLong=SolMsg;
                         if(!pAnMan.SnapSaveGP())  return true;
                         return true;
@@ -147,7 +152,7 @@ namespace GNPXcore{
                         }
                         string SolMsg= "Locked Candidate B"+(b0+1)+" #"+(no+1);
                         Result=SolMsg; 
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
                         foreach(var P in pBDL.IEGetCellInHouse(18+b1,noB)) P.SetNoBBgColor(noB,AttCr3,SolBkCr);
                         foreach(var P in pBDL.IEGetCellInHouse(18+b2,noB)) P.SetNoBBgColor(noB,AttCr3,SolBkCr);
                         if(SolInfoB) ResultLong=SolMsg;

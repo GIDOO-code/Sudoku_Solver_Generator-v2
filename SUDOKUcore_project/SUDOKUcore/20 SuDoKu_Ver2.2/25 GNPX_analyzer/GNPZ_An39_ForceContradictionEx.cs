@@ -54,7 +54,7 @@ namespace GNPXcore{
                                     st2 = st2.Trim();
 							        extRes = st2;
 							        if(dspOpt=="ForceL0"){
-                                        if(__SimpleAnalizerB__)  return true;
+                                        if(__SimpleAnalyzerB__)  return true;
 								        if(!pAnMan.SnapSaveGP(false))  return true;
 								        st2="";
 							        }
@@ -68,7 +68,7 @@ namespace GNPXcore{
 				    if(SolInfoB && dspOpt=="ForceL1" && st2!=""){	
 					    Result = ResultLong = $"ForceChain_Contradiction {P0.rc.ToRCString()}";
 					    extRes = st2;
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
 					    if(!pAnMan.SnapSaveGP(false))  return true;
 					    st2="";
 
@@ -78,7 +78,7 @@ namespace GNPXcore{
 			if( SolInfoB && dspOpt=="ForceL2" && st2!="" ){	
 				Result = ResultLong = "ForceChain_Contradiction";
 				extRes = st2;
-                if(__SimpleAnalizerB__)  return true;
+                if(__SimpleAnalyzerB__)  return true;
 				if(!pAnMan.SnapSaveGP(false))  return true;
 			}
 			_developDisp2Ex( GLC );						//37		

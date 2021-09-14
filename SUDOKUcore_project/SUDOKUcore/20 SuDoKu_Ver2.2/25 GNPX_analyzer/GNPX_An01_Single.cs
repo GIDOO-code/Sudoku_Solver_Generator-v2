@@ -27,7 +27,7 @@ namespace GNPXcore{
             if(SolFound){
                 SolCode=1;
                 Result="Last Digit";
-                if(__SimpleAnalizerB__)  return true;
+                if(__SimpleAnalyzerB__)  return true;
                 if(SolInfoB) ResultLong="Last Digit";
                 pAnMan.SnapSaveGP();
                 return true;
@@ -48,7 +48,7 @@ namespace GNPXcore{
             if(SolFound){
                 SolCode=1;
                 Result="Naked Single";
-                if(__SimpleAnalizerB__)  return true;
+                if(__SimpleAnalyzerB__)  return true;
                 if(SolInfoB) ResultLong="Naked Single";
                 pAnMan.SnapSaveGP();
                 return true;
@@ -80,7 +80,7 @@ namespace GNPXcore{
             if(SolFound){
                 SolCode=1;
                 Result="Hidden Single";
-                if(__SimpleAnalizerB__)  return true;
+                if(__SimpleAnalyzerB__)  return true;
                 if(SolInfoB) ResultLong="Hidden Single";
                 pAnMan.SnapSaveGP();
                 return true;

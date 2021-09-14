@@ -84,7 +84,7 @@ namespace GNPXcore{
                         st=_generalLogicResult(UBCc);
                     }
 
-                    if(__SimpleAnalizerB__)  return true;
+                    if(__SimpleAnalyzerB__)  return true;
                     if(!pAnMan.SnapSaveGP(false)) return true;                 
                 }
 

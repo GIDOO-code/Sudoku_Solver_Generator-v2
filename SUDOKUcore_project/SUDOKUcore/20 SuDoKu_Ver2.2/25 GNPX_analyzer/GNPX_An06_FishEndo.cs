@@ -49,7 +49,7 @@ namespace GNPXcore{
                                 _Fish_FishResult(no,sz,Bas,Cov,(FMSize==27)); //27:Franken/Mutant
                             }
                             //WriteLine(ResultLong);
-                            if(__SimpleAnalizerB__)  return true;
+                            if(__SimpleAnalyzerB__)  return true;
                             if(!pAnMan.SnapSaveGP(true)) return true;
                         }
                     }

@@ -73,7 +73,7 @@ namespace GNPXcore{
             string dspOpt = GNPXApp000.GMthdOption["ForceLx"];
             if(hs0<0){//  dspOpt:ForceL2"
                 Result = ResultLong = "ForceChain_House";
-                if(__SimpleAnalizerB__)  return true;
+                if(__SimpleAnalyzerB__)  return true;
 				pAnMan.SnapSaveGP(true);
                 return (SolCode>0);
             }
@@ -112,7 +112,7 @@ namespace GNPXcore{
 
 						    if(dspOpt=="ForceL0"){
                                 Result = ResultLong = st0;
-                                if(__SimpleAnalizerB__)  return true;
+                                if(__SimpleAnalyzerB__)  return true;
 							    if(!pAnMan.SnapSaveGP(false))  return true;
                                 extRes=""; st2="";
                                 if(!SDK_Ctrl.MltAnsSearch)  return true;
@@ -124,7 +124,7 @@ namespace GNPXcore{
                 if(SolInfoB && dspOpt=="ForceL1" && st2!=""){
                     st0 = $"ForceChain_House({_HouseToString(hs0)}/#{(no0+1)})";
                     Result = ResultLong = st0;
-                    if(__SimpleAnalizerB__)  return true;
+                    if(__SimpleAnalyzerB__)  return true;
 				    if(!pAnMan.SnapSaveGP(false))  return true;			    
                     extRes=""; st2="";
                     if(!SDK_Ctrl.MltAnsSearch)  return true;

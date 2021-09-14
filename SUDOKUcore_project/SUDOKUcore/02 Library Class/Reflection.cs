@@ -79,7 +79,7 @@ using System;
  
      // Display a formatted string indented by the specified amount.
      public static void Display(Int32 indent, string format, params object[] param){
-         Console.Write(new string(' ', indent*2));
+         Debug.Write(new string(' ', indent*2));
          WriteLine(format, param);
      }
  }

@@ -85,7 +85,7 @@ namespace GNPXcore{
 /* @@ */   //                 WriteLine("\r#################### "+st);
 /* @@ */   //                 UGLMan.Board_Check();       //for Research & Debug.
 
-                    if(__SimpleAnalizerB__)  return true;
+                    if(__SimpleAnalyzerB__)  return true;
                     if(!pAnMan.SnapSaveGP(false)) return true;                 
                     }
                 

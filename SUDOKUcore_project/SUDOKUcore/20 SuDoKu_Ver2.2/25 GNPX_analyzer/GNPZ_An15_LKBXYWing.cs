@@ -56,7 +56,7 @@ namespace GNPXcore{
                             ResultLong=$"XY Wing\r     {msg0}\r       {msg1}\r Eliminated:{msg2}";
                         }
 
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
                         if(!pAnMan.SnapSaveGP()) return true;
                         XYwing=false;
                     }

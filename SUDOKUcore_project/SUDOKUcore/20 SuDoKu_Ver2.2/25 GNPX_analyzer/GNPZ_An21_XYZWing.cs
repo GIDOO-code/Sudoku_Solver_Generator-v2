@@ -75,7 +75,7 @@ namespace GNPXcore{
                             ResultLong = SolMsg+"\r"+msg0+ "\r   "+msg1+ "\r  "+msg2+ "\r Eliminated: "+msg3.ToString_SameHouseComp();
                             Result = SolMsg+msg0+msg1+msg2;      
                         }
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
                         if(!pAnMan.SnapSaveGP(true))  return true;
                         wingF=false;
                     }

@@ -53,7 +53,7 @@ namespace GNPXcore{
                 if(SolInfoB)  ResultLong = SolMsg;
                 pBDL[rcS].SetNoBBgColor(noB,AttCr,SolBkCr);           
                     
-                if(__SimpleAnalizerB__)  return true;
+                if(__SimpleAnalyzerB__)  return true;
                 if(!pAnMan.SnapSaveGP(true))  return true;
                 XYChainF=false;
             }

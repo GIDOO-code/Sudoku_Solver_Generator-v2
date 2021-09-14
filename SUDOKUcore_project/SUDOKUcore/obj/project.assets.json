@@ -561,11 +561,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\◆◆数独集合体\\Git\\Sudoku_Solver_Generator\\SUDOKUcore_project\\SUDOKUcore\\SUDOKUcore.csproj",
+      "projectUniqueName": "E:\\◆◆数独集合体\\■■SuDoKu21 EnglishCore\\SUDOKUcore_project\\20210806 SUDOKUcore2_project\\SUDOKUcore\\SUDOKUcore.csproj",
       "projectName": "SUDOKUcore",
-      "projectPath": "E:\\◆◆数独集合体\\Git\\Sudoku_Solver_Generator\\SUDOKUcore_project\\SUDOKUcore\\SUDOKUcore.csproj",
+      "projectPath": "E:\\◆◆数独集合体\\■■SuDoKu21 EnglishCore\\SUDOKUcore_project\\20210806 SUDOKUcore2_project\\SUDOKUcore\\SUDOKUcore.csproj",
       "packagesPath": "C:\\Users\\jk\\.nuget\\packages\\",
-      "outputPath": "E:\\◆◆数独集合体\\Git\\Sudoku_Solver_Generator\\SUDOKUcore_project\\SUDOKUcore\\obj\\",
+      "outputPath": "E:\\◆◆数独集合体\\■■SuDoKu21 EnglishCore\\SUDOKUcore_project\\20210806 SUDOKUcore2_project\\SUDOKUcore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -650,7 +650,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

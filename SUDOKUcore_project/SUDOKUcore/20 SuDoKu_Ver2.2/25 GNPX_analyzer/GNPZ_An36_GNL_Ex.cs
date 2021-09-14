@@ -30,7 +30,7 @@ namespace GNPXcore{
                             string st=_chainToStringGNL(GNL_Result,ref st3);
                             if(DevelopB)  WriteLine($"***** solved:{st}");
                                                                
-                            if(__SimpleAnalizerB__)  return true;
+                            if(__SimpleAnalyzerB__)  return true;
                             if(!pAnMan.SnapSaveGP(true))  return true;
                             
                             //return true;

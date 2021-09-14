@@ -5,14 +5,27 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <RootNamespace>GNPXcore</RootNamespace>
+    <Platforms>AnyCPU;x64</Platforms>
+    <BaseOutputPath>E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKUcore_project\SUDOKU_App</BaseOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>E:\◆◆数独集合体\◆◆◆投稿\投稿用問題作成 2020 Feb\</OutputPath>
-    <DefineConstants></DefineConstants>
+    <OutputPath>E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKU_App\</OutputPath>
+    <DefineConstants>xNKLdef</DefineConstants>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutputPath>E:\◆◆数独集合体\■■SuDoKu21 EnglishCore\SUDOKU_App\</OutputPath>
+    <DefineConstants>xNKLdef</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\SUDOKU_App\netcoreapp3.1</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutputPath>..\..\SUDOKU_App\netcoreapp3.1</OutputPath>
   </PropertyGroup>
 

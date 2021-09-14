@@ -39,7 +39,7 @@ namespace GNPXcore{
                         SolCode = 2;
                         ALSXZ_SolResult(RCC,UA,UB );
 
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
                         if(!pAnMan.SnapSaveGP(true))  return true;
                     }
                 }
@@ -48,7 +48,7 @@ namespace GNPXcore{
                         SolCode=2;
                         ALSXZ_SolResult(RCC,UA,UB);
 
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
                         if(!pAnMan.SnapSaveGP(true))  return true;
                     }
                 }

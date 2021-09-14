@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using static System.Diagnostics.Debug;
 
+using GIDOO_space;
+
 namespace GNPXcore{
     /*  for test    
     for(int k=0; k<5; k++ ){
@@ -20,6 +22,7 @@ namespace GNPXcore{
         protected readonly int R;
         private bool First=false;
         public int[] Index=null;
+
         public Combination( int N, int R ){
             this.N=N;
             this.R=R;

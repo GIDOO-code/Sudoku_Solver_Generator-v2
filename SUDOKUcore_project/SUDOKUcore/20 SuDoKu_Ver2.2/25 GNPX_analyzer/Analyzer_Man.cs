@@ -63,6 +63,10 @@ namespace GNPXcore{
 
 			SprLKsMan=new SuperLinkMan(this);
 
+          //================================================================================================
+          //  UAlgMethod( int pid, string MethodName, int DifLevel, dSolver Method, bool GenLogB=false )
+          //================================================================================================
+
             var SSingle=new SimpleSingleGen(this);
             SolverLst0.Add( new UAlgMethod( 1, "LastDigit",    1, SSingle.LastDigit ) );
             SolverLst0.Add( new UAlgMethod( 2, "NakedSingle",  1, SSingle.NakedSingle ) );
@@ -74,8 +78,8 @@ namespace GNPXcore{
             SolverLst0.Add( new UAlgMethod( 4, " GeneralLogicEx",  2, GLTech2.GeneralLogic2, true) );
 
             var LockedCand=new LockedCandidateGen(this);
-            SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate ) );   // on develop 2021/june
-          //SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate_old", 2, LockedCand.LockedCandidate_old ) );
+            SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate", 2, LockedCand.LockedCandidate ) );
+        //  SolverLst0.Add( new UAlgMethod( 5, "LockedCandidate_old", 2, LockedCand.LockedCandidate_old ) );
             
             var LockedSet=new LockedSetGen(this);
             SolverLst0.Add( new UAlgMethod( 10, "LockedSet(2D)",        3, LockedSet.LockedSet2 ) );

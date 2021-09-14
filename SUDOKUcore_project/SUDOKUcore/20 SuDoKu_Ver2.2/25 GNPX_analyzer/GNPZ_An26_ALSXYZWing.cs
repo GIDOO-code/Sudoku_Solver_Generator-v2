@@ -100,7 +100,7 @@ namespace GNPXcore{
                                         ResultLong = SolMsg+"\r"+msg0+ "\r   "+msg1+ "\r  "+msg2+ "\r Eliminated: "+msg3.ToString_SameHouseComp();    
                                     }
 
-                                    if(__SimpleAnalizerB__)  return true;
+                                    if(__SimpleAnalyzerB__)  return true;
                                     if(!pAnMan.SnapSaveGP(true))  return true;
                                     foreach( var E in pBDL.Where(p=>(p.FreeB&noB)>0) ) E.CancelB=0;
                                     SolFound=false;

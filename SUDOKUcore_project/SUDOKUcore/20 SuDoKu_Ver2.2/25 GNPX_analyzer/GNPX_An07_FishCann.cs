@@ -43,7 +43,7 @@ namespace GNPXcore{
                                 _Fish_FishResult(no,sz,Bas,Cov,(FMSize==27)); //FMSize 27:Franken/Mutant
                             }
                             //WriteLine(ResultLong); //___Debug_CannFish("Cannibalistic");
-                            if(__SimpleAnalizerB__)  return true;
+                            if(__SimpleAnalyzerB__)  return true;
                             if(!pAnMan.SnapSaveGP(true)) return true; 
                         }
                     }
@@ -60,7 +60,7 @@ namespace GNPXcore{
                             if( SolCode>0 ){
                                 if(SolInfoB)_Fish_FishResult(no,sz,Bas,Cov,(FMSize==27));
                                 //WriteLine(ResultLong); //___Debug_CannFish("Finned Cannibalistic");
-                                if(__SimpleAnalizerB__)  return true;
+                                if(__SimpleAnalyzerB__)  return true;
                                 if(!pAnMan.SnapSaveGP(true)) return true;
                             }
                         }

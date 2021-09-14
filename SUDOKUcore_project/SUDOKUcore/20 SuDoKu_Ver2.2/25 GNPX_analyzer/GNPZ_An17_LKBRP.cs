@@ -36,7 +36,7 @@ namespace GNPXcore{
                     foreach(var P in CRL[0].IEGet_rc().Select(p=>pBDL[p])) P.SetNoBBgColor(FreeB,AttCr,Cr1);
                     foreach(var P in CRL[1].IEGet_rc().Select(p=>pBDL[p])) P.SetNoBBgColor(FreeB,AttCr,Cr2);
 
-                    if(__SimpleAnalizerB__)  return true;
+                    if(__SimpleAnalyzerB__)  return true;
                     if(!pAnMan.SnapSaveGP(true))  return true;
                     RPFound=false;
                 }

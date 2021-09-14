@@ -22,7 +22,7 @@ namespace GNPXcore{
       //# puzzle
         public UPuzzle          pGP=null;
 
-      //# analizer(methods) 
+      //# analyzer(methods) 
         public  GNPX_AnalyzerMan AnMan;
         private List<UMthdChked> pGMthdLst{ get{ return pGNP00.SolverLst2; } }
         public  List<UAlgMethod> MethodLst_Run=new List<UAlgMethod>();

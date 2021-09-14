@@ -77,7 +77,7 @@ namespace GNPXcore{
             if(SolCode>0){
                 _SolResult_ALSChain(SolStack);
 
-                if(__SimpleAnalizerB__)  return true;
+                if(__SimpleAnalyzerB__)  return true;
                 if(!pAnMan.SnapSaveGP(true))  return true;
             }
             return false;

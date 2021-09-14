@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -11,6 +11,25 @@ using GIDOO_space;
 
 namespace GNPXcore{
     public partial class GroupedLinkGen: AnalyzerBaseV2{
+
+/*
+    All Force-based algorithms use the current links.
+    The chain is assembled using this links, and the truth or false of the cell candidate is logically derived.
+
+    The Force algorithm is based on the following logic.
+
+     (1) Set X has one element true and the rest false. Which is true is undecided.
+     (2) In a chain starting with true element, the value of the derived element is determined to be true or false.
+     (3) In a chain starting with false element, the value of the derived element is uncertain (it can be true or false).
+     (4) For each chain that starts assuming each element of set Ⅹ as true, 
+         the authenticity of element A is determined when the true/false values ​​of element A leading by all chains match.
+     (5) In the chain that starts assuming that one element B of set X is true, 
+         when the true/false values ​​of the element C guided by multiple routes do not match,
+         the starting element B is determined to be false. 
+
+     https://gidoo-code.github.io/Sudoku_Solver_Generator/
+     https://github.com/GIDOO-code/Sudoku_Solver_Generator/tree/master/docs/page56.html
+ */ 
         public bool ForceChain_CellEx( ){
             if(GNPXApp000.GMthdOption["ForceChainCellHouseOn"]!="1")  return false;
 
@@ -61,7 +80,7 @@ namespace GNPXcore{
             string dspOpt = GNPXApp000.GMthdOption["ForceLx"];
             if(rc0<0){   //dspOpt:"ForceL2" 
                 Result = ResultLong = "ForceChain_Cell";
-                if(__SimpleAnalizerB__)  return true;
+                if(__SimpleAnalyzerB__)  return true;
 				pAnMan.SnapSaveGP(true);
                 return (SolCode>0);
             }
@@ -99,7 +118,7 @@ namespace GNPXcore{
                         extRes = extRes.TrimStart();
 
 						if(dspOpt=="ForceL0"){
-                            if(__SimpleAnalizerB__)  return true;
+                            if(__SimpleAnalyzerB__)  return true;
 							if(!pAnMan.SnapSaveGP(false))  return true;
                             extRes=""; st2="";
 						}
@@ -108,7 +127,7 @@ namespace GNPXcore{
 				if(SolInfoB && dspOpt=="ForceL1" && st2!=""){
                     Result = ResultLong = $"ForceChain_Cell (#{nox+1})";
 
-                    if(__SimpleAnalizerB__)  return true;
+                    if(__SimpleAnalyzerB__)  return true;
 					if(!pAnMan.SnapSaveGP(false))  return true;
 					st2="";
                     extRes="";

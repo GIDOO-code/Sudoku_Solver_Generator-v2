@@ -6,7 +6,7 @@ using GIDOO_space;
 
 namespace GNPXcore {
     public partial class AnalyzerBaseV2{
-        static public bool   __SimpleAnalizerB__;
+        static public bool   __SimpleAnalyzerB__;
         static public int    __DebugBreak;
         private const int    S=1, W=2;
 
@@ -29,7 +29,7 @@ namespace GNPXcore {
 
         static  AnalyzerBaseV2( ){
             Create_ConnectedCells();
-            __SimpleAnalizerB__=false;
+            __SimpleAnalyzerB__=false;
         }
         public  AnalyzerBaseV2( ){}
         public  AnalyzerBaseV2( GNPX_AnalyzerMan pAnMan ){ 

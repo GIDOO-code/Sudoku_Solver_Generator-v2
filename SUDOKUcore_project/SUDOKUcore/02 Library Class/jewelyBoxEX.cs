@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Windows.Input;
 
 using System.Resources;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace GIDOO_space{
     static public class GNPZExtender{
@@ -81,7 +83,7 @@ namespace GIDOO_space{
         static public string ToBitString( this int noB, int ncc ){
             string st="";
             for(int n=0; n<ncc; n++ ){
-                st += (((noB>>n)&1)!=0)? (n+1).ToString(): ".";
+                st += (((noB>>n)&1)!=0)? (n+1).ToString(): "."; 
             }
             return st;
         } 
@@ -150,67 +152,12 @@ namespace GIDOO_space{
             if( stL[0]!=st) return "\"" + st + "\"";
             else return st;
         }
+
         static private char[] sepDef=new Char[]{ ' ', ',', '\t' };
         static public string[] SplitEx( this string st, char[] sep=null ){
-            if( sep==null ) sep=sepDef;
-            int[] sPoint=new int[1024];
-            int kk, kkCC, m, n;
-
-            int ndlLL;
-            do{
-                ndlLL=st.Length;
-                st=st.Replace(",,", ",@#,");
-                st=st.Replace(", ,", ",@#,");
-                st=st.Replace(",  ,", ",@#,");
-                st=st.Replace(",   ,", ",@#,");
-                st=st.Replace(",    ,", ",@#,");
-                st=st.Replace(",     ,", ",@#,");
-            }while (ndlLL!=st.Length);
-
-            sPoint[0]=-1;
-            for(kk=1, m=0; kk<sPoint.Length; kk++){
-                n=st.IndexOf( "\"", m);
-               if(n<=0) break;
-               sPoint[kk]=n;
-                 m=n+1;
-                if( kk==sPoint.Length-1 ){
-                    WriteLine($"** system error SplitEx sPoint#={sPoint.Length}");
-                    return null;
-                }
-            }
-            kkCC=kk;
-            sPoint[kk]=st.Length;
-
-            int     na=0, nb, ix=0;
-            string  stw;
-            string[]  splitW;
-            string[]  split=new string[512];
-            for(kk=0;kk<kkCC;kk++){
-                if(ix==split.Length-1){
-                    WriteLine($"** system error elementSeparator2 split#={split.Length}");
-                    return null;
-                }
-                na=sPoint[kk]+1;
-                nb=sPoint[kk+1];     
-                stw=st.Substring(na,nb-na);      
-                if( kk%2==0 ){   
-                    splitW=stw.Split(sep);
-                    foreach( string s in splitW ){
-                        if( s.Length<=0 ) continue;
-                        split[ix++]=s.Trim();
-                    }
-                }
-                else{
-                    split[ix++]=stw;
-                }
-            }
-            string[] split2=new string[ix];
-            for(kk=0; kk<ix; kk++){
-                stw=split[kk];
-                if( stw=="@#") stw="0";
-                split2[kk] = stw.Replace("\"", "");
-            }
-            return split2;
+            string[] eLst = st.Split(sep,StringSplitOptions.RemoveEmptyEntries);
+            for( int k=0; k<eLst.Length; k++ )  eLst[k] = eLst[k].Replace("\"","");
+            return eLst;
         }
 
 /*
@@ -262,5 +209,27 @@ namespace GIDOO_space{
             return ( new PointF(X,Y) );
         }
 */
+
+        static public void ProcessExe( string url ){
+            // Process.Start for URLs on .NET Core
+            // https://brockallen.com/2016/09/24/process-start-for-urls-on-net-core/
+            try{  
+                Process.Start(url);  
+            }  
+            catch{  
+                if( RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ){      //for Windows  
+                    url = url.Replace("&", "^&");  
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow=true });  
+                }  
+                else if( RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ){   //for Linux  
+                    Process.Start("xdg-open", url);  
+                }  
+                else if( RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ){     //for Mac  
+                    Process.Start("open", url);  
+                }  
+                else{ throw; }  
+            }  
+
+        }
     }
 }

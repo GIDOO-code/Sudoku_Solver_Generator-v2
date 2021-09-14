@@ -41,7 +41,7 @@ namespace GNPXcore{
                     Bit81 ConA1 =ConnectedCells[UCLa.rc1];              //ConA1:cell group related to cell rc1
                     if(!ConA1.IsHit(UCLb.rc1) || ConA1.IsHit(UCLb.rc2)) continue;
 
-                    Bit81 ConA2=ConnectedCells[UCLa.rc2];               //ConA2:cell group related to cell rc1
+                    Bit81 ConA2=ConnectedCells[UCLa.rc2];               //ConA2:cell group related to cell rc2
                     if(ConA2.IsHit(UCLb.rc1) || ConA2.IsHit(UCLb.rc2)) continue;
                     //Only UCLa.rc1 and UCLb.rc1 belong to the same house.
 
@@ -71,7 +71,7 @@ namespace GNPXcore{
                     }
                     else Result = $"Skyscraper #{(no+1)}";
                 #endregion Result
-                    if(__SimpleAnalizerB__)  return true;
+                    if(__SimpleAnalyzerB__)  return true;
                     if(!pAnMan.SnapSaveGP(true))  return true;
                 }
             }

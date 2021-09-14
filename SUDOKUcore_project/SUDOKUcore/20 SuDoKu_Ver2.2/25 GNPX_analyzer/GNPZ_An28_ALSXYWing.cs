@@ -62,7 +62,7 @@ namespace GNPXcore{
                     
                         if(SolCode>0){ //===== ALS XY-Wing found =====
                             ALSXYWing_SolResult(UA,UB,UC, RccAC, RccBC);
-                            if(__SimpleAnalizerB__)  return true;
+                            if(__SimpleAnalyzerB__)  return true;
                             if(!pAnMan.SnapSaveGP(true))  return true;
                         }
                     }

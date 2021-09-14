@@ -104,7 +104,7 @@ namespace GNPXcore{
             return (HB81-Colored).IsZero();
         }
         private void Debug_PattenPrint( UFish UF ){
-            WriteLine("no="+no+ " sz="+sz +"  BaseSet: " + UF.HouseB.HouseToString() );
+            WriteLine( $"no={no} sz={sz}  BaseSet:{UF.HouseB.HouseToString()}" );
             Bit81 BPnoB=new Bit81(pBDL,1<<no);
             string noST=" "+no.ToString();
             for(int r=0; r<9; r++ ){
@@ -122,9 +122,13 @@ namespace GNPXcore{
             if(HBLst==null)  yield break;
 
             List<Bit81> HCLst=new List<Bit81>();
-            foreach( var P in HBLst.Where(q=>(BSet.HouseB&(1<<q.ID))==0) ){
-                if( ((1<<P.ID)&CoverSel)==0 )  continue;
-                if( BSet.BaseB81.IsHit(P) )  HCLst.Add(P);
+            {   // Select only the elements related to the BaseSet as candidates for the CoverSet.
+                // This process is extremely effective.
+                // Clearly considering the relationship between BaseSet and CoverSet.
+                foreach( var P in HBLst.Where(q=>(BSet.HouseB&(1<<q.ID))==0) ){
+                    if( ((1<<P.ID)&CoverSel)==0 )  continue;
+                    if( BSet.BaseB81.IsHit(P) )  HCLst.Add(P);
+                }
             }
             if(HCLst.Count<sz) yield break;
 
@@ -144,14 +148,16 @@ namespace GNPXcore{
                         if(!CannFlg)  goto nxtCmb;
                         OHC81 |= Q;
                     }
-                    usedLK |= 1<<HCLst[nx].ID;  //house Number
+                    usedLK |= 1<<HCLst[nx].ID;  //house number
                     HC81   |= HCLst[nx];        //Bit81
                 }
 
-                Bit81 FinB81=BSet.BaseB81-HC81;
+                // case no Fin, BaseSet is covered with CcoverSet.
+                // case with Fin, the part not covered by CoverSet of BaseSet is Fin.
+                Bit81 FinB81=BSet.BaseB81-HC81;     //(oprator- : difference set)
                 if( Finned!=(FinB81.Count>0) ) continue;
                 UFish UF = new UFish(BSet,usedLK,HC81,FinB81,OHC81);
-                //if(sz>=3 && CoverSel==0x7FFFFFF)  WriteLine("  CoverSet: " + UF.HouseC.HouseToString() ); //**********
+                //if(sz>=3 && CoverSel==0x7FFFFFF)  WriteLine( $"  CoverSet:{UF.HouseC.HouseToString()}" ); //**********
                 yield return UF;
                 
               nxtCmb:

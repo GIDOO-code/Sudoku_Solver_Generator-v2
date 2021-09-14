@@ -243,7 +243,7 @@ namespace GNPXcore{
                 AnalyzerLap.Start();
 
             //============================================================================================== 20181031
-                AnalyzerBaseV2.__SimpleAnalizerB__ = true;//(bool)chbCreateProblemEx2.IsChecked;
+                AnalyzerBaseV2.__SimpleAnalyzerB__ = true;//(bool)chbCreateProblemEx2.IsChecked;
                 tokSrc  = new CancellationTokenSource();　//procedures for suspension 
                 taskSDK = new Task( ()=> GNP00.SDKCntrl.SDK_ProblemMakerReal(tokSrc.Token), tokSrc.Token );
                 taskSDK.ContinueWith( t=> btnP13Start2Complated() ); //Completion process
@@ -252,7 +252,7 @@ namespace GNPXcore{
             }
             else{   //"Suspend"
                 try{
-                    AnalyzerBaseV2.__SimpleAnalizerB__=false;
+                    AnalyzerBaseV2.__SimpleAnalyzerB__=false;
                     chbCreateProblemEx2.IsEnabled=true;
                     shortMessage("cancellation accepted",new sysWin.Point(120,188),Colors.Red,2000);
                     tokSrc.Cancel();
@@ -282,7 +282,7 @@ namespace GNPXcore{
         //Done
         private void btnP13Start2Complated( ){
             __DispMode="Complated"; 
-            AnalyzerBaseV2.__SimpleAnalizerB__=false;
+            AnalyzerBaseV2.__SimpleAnalyzerB__=false;
             this.Dispatcher.Invoke(() => { chbCreateProblemEx2.IsEnabled=true; } );
             taskSDK=null;
         }

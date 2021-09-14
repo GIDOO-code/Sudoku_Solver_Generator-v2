@@ -41,7 +41,7 @@ namespace GNPXcore{
                         pBDL[rcS].SetNoBBgColor(noB,AttCr,SolBkCr);
                         ResultLong=SolMsg;;
                     }
-                    if(__SimpleAnalizerB__)  return true;
+                    if(__SimpleAnalyzerB__)  return true;
                     if(!pAnMan.SnapSaveGP(true))  return true;
                 }
             }

@@ -79,7 +79,7 @@ namespace GNPXcore{
                         SuDoQueEx_SolResult( ISPB, ISPR );
                         if( ISPB.Level>=3 || ISPB.Level>=3 ) WriteLine("Level-3");
 
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
                         if(!pAnMan.SnapSaveGP(true))  return true;
                     }
                 }

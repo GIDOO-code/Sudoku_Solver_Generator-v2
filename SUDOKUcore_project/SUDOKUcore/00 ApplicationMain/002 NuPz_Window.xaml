@@ -51,7 +51,7 @@
                 <GradientStop Color="#BE232136" Offset="0.43"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label x:Name="GNPXGNPX" Content="GNPXcore 2014" FontFamily="MS Mincho" FontSize="36" Foreground="#FFFEFFFF" HorizontalAlignment="Left" 
+        <Label x:Name="GNPXGNPX" Content="GNPX 2021" FontFamily="MS Mincho" FontSize="36" Foreground="#FFFEFFFF" HorizontalAlignment="Left" 
                Margin="18,10,0,0" VerticalAlignment="Top" Height="41" FontWeight="Bold" MouseDoubleClick="GNPXGNPX_MouseDoubleClick" />
         <Button Content="Exit" FontFamily="MS Gothic" FontSize="12" Foreground="White" Height="29" HorizontalAlignment="Left" Margin="841,474,0,0" x:Name="appExit" VerticalAlignment="Top" Width="56" Click="appExit_Click" Style="{Binding}">
             <Button.Background>
@@ -62,7 +62,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Label Content="LbShortMes" HorizontalAlignment="Center" x:Name="LbShortMes" VerticalAlignment="Top" Foreground="Red" Visibility="Visible" Panel.ZIndex="6" Margin="578,58,0,0" FontFamily="MS Gothic" Background="{x:Null}" />
+        <Label Content="lblShortMessage" HorizontalAlignment="Left" x:Name="lblShortMessage" VerticalAlignment="Top" Foreground="Red" Visibility="Visible" Panel.ZIndex="6" Margin="800,10,0,0" FontFamily="MS Gothic" Background="{x:Null}" />
         <RepeatButton  x:Name="btnProbPre"
                        Content="{Binding Resources.btnProbPre, Mode=OneWay, Source={x:Static app:ResourceService.Current}}"
                        Height="23" HorizontalAlignment="Left" Margin="281,30,0,0"
@@ -100,7 +100,7 @@
         <!-- DataContext="{Binding}" -->
         <Image x:Name="PB_GBoard" Width="338" Height="338" Margin="18,108,0,0" Stretch="Fill" VerticalAlignment="Top"
                  HorizontalAlignment="Left" 
-               Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/LockedCandidate.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
+               Source="/00 ApplicationMain/LockedCandidate.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
 
         <!--
                Source="/GNPXEx;component/10 Graphics/11 WPFColorPickerLib/Images/ColorSwatchCircle.png" MouseEnter="PB_GBoard_MouseEnter" MouseLeave="PB_GBoard_MouseLeave" ToolTip="copy / paste is possible" />
@@ -1534,10 +1534,8 @@
                             </LinearGradientBrush>
                         </Button.Background>
                     </Button>
-                    <Label x:Name="lblPuzzle_Copy" 
-            Content="or"
-            FontFamily="MS Gothic" FontSize="12" Foreground="#FFFEFFFF" HorizontalAlignment="Right" Margin="0,31,355,0" 
-            VerticalAlignment="Top"  />
+                    <Label x:Name="lblPuzzle_Copy" Content="or" Margin="0,31,355,0"  FontSize="12"
+                           FontFamily="MS Gothic" Foreground="#FFFEFFFF" HorizontalAlignment="Right" VerticalAlignment="Top" />
                     <Button x:Name="btnHomePageGitHub"
                         Content="GitHub HomePage"
                         FontSize="12" Height="28" HorizontalAlignment="Left" 
@@ -1550,9 +1548,14 @@
                             </LinearGradientBrush>
                         </Button.Background>
                     </Button>
-                    <TextBlock x:Name="txtCopyrightDisclaimer" HorizontalAlignment="Left" Margin="10,67,0,0" TextWrapping="Wrap" 
-                               Text="TextBlock" VerticalAlignment="Top" Height="327" Width="505" Foreground="#FFF7FCFD" 
+                    <TextBox x:Name="txtCopyrightDisclaimer" HorizontalAlignment="Left" Margin="10,94,0,0" TextWrapping="Wrap" 
+                               Text="TextBlock" VerticalAlignment="Top" Height="300" Width="505" Foreground="#FFF7FCFD" 
                                Background="#FF080808" FontFamily="MS Gothic" FontSize="12"/>
+                    <TextBlock x:Name="HP_address" HorizontalAlignment="Left" Margin="27,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF8EBAB9" Text="HP address"/>
+                    <TextBlock x:Name="CopiedHP" HorizontalAlignment="Left" Margin="284,35,0,0" Text="copied hp to the clipboard" TextWrapping="Wrap" VerticalAlignment="Top" Width="191" Background="{x:Null}" Foreground="#FF93DBDA" />
+                    <Label BorderBrush="#FF5C62A0" 
+                        Content="Under test." 
+                        FontFamily="MS Mincho" FontSize="10" Foreground="#FFEC1818" HorizontalAlignment="Left" Margin="338,24,0,0" VerticalAlignment="Top" Background="{x:Null}" />
                 </Grid>
             </TabItem>
 

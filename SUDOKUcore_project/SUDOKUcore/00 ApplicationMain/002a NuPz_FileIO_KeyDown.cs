@@ -117,7 +117,7 @@ namespace GNPXcore{
                 if( UP==null) return;
                 GNP00.CurrentPrbNo=999999999;//GNP00.SDKProbLst.Count-1
                 _SetScreenProblem();
-                _ResetAnalizer(false); //Clear analysis result
+                _ResetAnalyzer(false); //Clear analysis result
 
             }
         }

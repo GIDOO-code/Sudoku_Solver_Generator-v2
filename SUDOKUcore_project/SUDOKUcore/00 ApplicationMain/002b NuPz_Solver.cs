@@ -190,7 +190,7 @@ namespace GNPXcore{
                 int mc=GNP00.GNPX_Eng.Set_MethodLst_Run( );
                 if( mc<=0 ) GNP00.ResetMethodList(); 
                 
-                _ResetAnalizer(true); //Clear Analysis Result
+                _ResetAnalyzer(true); //Clear Analysis Result
                 GNP00.GNPX_Eng.AnalyzerCounterReset(); 
 
                 GNPZ_Engin.SolInfoB = false;
@@ -216,16 +216,14 @@ namespace GNPXcore{
             }
         }
         private void btnAnalyzerResetAll_Click( object sender, RoutedEventArgs e ){
-            Thickness X=PB_GBoard.Margin;   //◆
-            PB_GBoard.Margin=new Thickness(X.Left+2,X.Top+2,X.Right,X.Bottom);
-            _ResetAnalizer(true);
-            bruMoveTimer.Start();
+             __bruMoveSub();
+            _ResetAnalyzer(true);
             UPP.Clear();
             GNP00.GNPX_Eng.MethodLst_Run.ForEach(P=>P.UsedCC=0);
             //q            SDK_Ctrl.UGPMan.MltUProbLst=new List<UPuzzle>();
             MAnalizeBtnSet();
         }
-        private void _ResetAnalizer( bool AllF=true ){
+        private void _ResetAnalyzer( bool AllF=true ){
             if(OnWork>0) return;
             AnalyzerCC = 0;
 
@@ -332,7 +330,7 @@ namespace GNPXcore{
             if(SDK_Ctrl.UGPMan==null){ MAnalizeBtnSet(); return; }
 
             SDK_Ctrl.MovePre(); 
-            if( SDK_Ctrl.UGPMan==null ){ _ResetAnalizer(true); return; }
+            if( SDK_Ctrl.UGPMan==null ){ _ResetAnalyzer(true); return; }
 
             List<UPuzzle> pMltUProbLst=SDK_Ctrl.UGPMan.MltUProbLst;
             if( !GNPXApp000.chbConfirmMultipleCells || pMltUProbLst==null ) return;

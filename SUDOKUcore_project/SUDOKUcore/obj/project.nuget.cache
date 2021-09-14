@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9DQZbggKfd/j7UG/xy1RTd/nOquwG2P4b1hizF0BaLfU3MldWPI0bfY7xVTC71p25j6/6b5r28PpSmxFVX6Rhw==",
+  "dgSpecHash": "M/SiNvOMOm2vv754SawBinKVpliVsAPil1byKRVVh5O5u4N6e8GODUfYjqysH4VDmiK74pzlLw9yr37/qkETYg==",
   "success": true,
-  "projectFilePath": "E:\\◆◆数独集合体\\Git\\Sudoku_Solver_Generator\\SUDOKUcore_project\\SUDOKUcore\\SUDOKUcore.csproj",
+  "projectFilePath": "E:\\◆◆数独集合体\\■■SuDoKu21 EnglishCore\\SUDOKUcore_project\\20210806 SUDOKUcore2_project\\SUDOKUcore\\SUDOKUcore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jk\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.0.0\\microsoft.codeanalysis.analyzers.3.0.0.nupkg.sha512",
     "C:\\Users\\jk\\.nuget\\packages\\microsoft.codeanalysis.fxcopanalyzers\\3.0.0\\microsoft.codeanalysis.fxcopanalyzers.3.0.0.nupkg.sha512",

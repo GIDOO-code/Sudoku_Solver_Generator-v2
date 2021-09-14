@@ -99,7 +99,7 @@ namespace GNPXcore{
 
                 InitializeComponent();
 
-                LbShortMes.Visibility = Visibility.Hidden;
+                lblShortMessage.Visibility = Visibility.Hidden;
                 cmbLanguageLst.ItemsSource = GNP00.LanguageLst;  
                 lblCurrentnDifficultyLevel.Visibility=Visibility.Hidden;
 
@@ -272,20 +272,22 @@ namespace GNPXcore{
             ResourceService.Current.ChangeCulture("ja-JP");
             txtCopyrightDisclaimer.Text = CopyrightJP;
             _MethodSelectionMan();
-            bruMoveTimer.Start();
+            __bruMoveSub();
         }
         private void  btnMultiLangage_Click(object sender, RoutedEventArgs e){
             ResourceService.Current.ChangeCulture("en");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             txtCopyrightDisclaimer.Text = CopyrightEN;
             _MethodSelectionMan();
-            bruMoveTimer.Start();
+            __bruMoveSub();
         }
         private void  cmbLanguageLst_SelectionChanged(Object sender,SelectionChangedEventArgs e){
             string lng=(string)cmbLanguageLst.SelectedValue;
             ResourceService.Current.ChangeCulture(lng);
-            bruMoveTimer.Start();
+            __bruMoveSub();
         }
+
+
         public object Culture{ get{ return pRes.Culture; } }
 
         private void  GNPXGNPX_MouseDoubleClick( object sender, MouseButtonEventArgs e ){
@@ -293,6 +295,7 @@ namespace GNPXcore{
             devWin.Show();
             devWin.Set_dev_GBoard(GNP00.pGP.BDL);
         }
+
 
     #region Start/end Timer    
         private void appExit_Click( object sender, RoutedEventArgs e ){
@@ -312,6 +315,12 @@ namespace GNPXcore{
             if( (++WOpacityCC)>10 )  Environment.Exit(0);   //Application.Exit();
             double dt = 1.0-WOpacityCC/12.0;
             this.Opacity = dt*dt;
+        }
+        
+        private void __bruMoveSub(){ 
+            Thickness X=PB_GBoard.Margin;
+            PB_GBoard.Margin=new Thickness(X.Left+2,X.Top+2,X.Right,X.Bottom);
+            bruMoveTimer.Start();
         }      
         private void bruMoveTimer_Tick( object sender, EventArgs e){
             Thickness X=PB_GBoard.Margin;   //◆
@@ -340,31 +349,43 @@ namespace GNPXcore{
         }
         private void btnHomePage_Click( object sender, RoutedEventArgs e ){
             string cul=Thread.CurrentThread.CurrentCulture.Name;
-            Console.WriteLine("The current culture is {0}", cul);
-            if(cul=="ja-JP") Process.Start("http://csdenp.web.fc2.com");
-            else             Process.Start("http://csdenpe.web.fc2.com"); 
+            Debug.WriteLine("The current culture is {0}", cul);
+            string urlHP="";
+            if(cul=="ja-JP") urlHP = "http://csdenp.web.fc2.com";
+            else             urlHP = "http://csdenpe.web.fc2.com"; 
+          //Process.Start(urlHP);        //? in development
+            HP_address.Text = urlHP;
+            Clipboard.SetData(DataFormats.Text, urlHP);
+            CopiedHP.Visibility = Visibility.Visible;
+            GNPZExtender.ProcessExe(urlHP);
         }  
         
         private void btnHomePageGitHub_Click( object sender, RoutedEventArgs e ){
             string cul=Thread.CurrentThread.CurrentCulture.Name;
-            Console.WriteLine("The current culture is {0}", cul);
-            if(cul=="ja-JP") Process.Start("https://gidoo-code.github.io/Sudoku_Solver_Generator_jp");
-            else             Process.Start("https://gidoo-code.github.io/Sudoku_Solver_Generator"); 
+            Debug.WriteLine("The current culture is {0}", cul);
+            string urlHP="";
+            if(cul=="ja-JP") urlHP = "https://gidoo-code.github.io/Sudoku_Solver_Generator_jp/";
+            else             urlHP = "https://gidoo-code.github.io/Sudoku_Solver_Generator/"; 
+          //Process.Start(urlHP);        //? in development
+            HP_address.Text = urlHP;
+            Clipboard.SetData(DataFormats.Text, urlHP);
+            CopiedHP.Visibility = Visibility.Visible;
+            GNPZExtender.ProcessExe(urlHP);
         }  
    
     #region ShortMessage
         public void shortMessage(string st, sysWin.Point pt, Color cr, int tm ){
-            LbShortMes.Content = st;
-            LbShortMes.Foreground = new SolidColorBrush(cr);
-            LbShortMes.Margin = new Thickness(pt.X,pt.Y,0,0);
+            lblShortMessage.Content = st;
+            lblShortMessage.Foreground = new SolidColorBrush(cr);
+            lblShortMessage.Margin = new Thickness(pt.X,pt.Y,0,0);
 
             if( tm==9999 ) timerShortMessage.Interval = TimeSpan.FromSeconds(5);
             else           timerShortMessage.Interval = TimeSpan.FromMilliseconds(tm);            
             timerShortMessage.Start();
-            LbShortMes.Visibility = Visibility.Visible;
+            lblShortMessage.Visibility = Visibility.Visible;
         }
         private void timerShortMessage_Tick( object sender, EventArgs e ){
-            LbShortMes.Visibility = Visibility.Hidden;
+            lblShortMessage.Visibility = Visibility.Hidden;
             timerShortMessage.Stop();
         }
     #endregion ShortMessage
@@ -372,6 +393,9 @@ namespace GNPXcore{
     #region　operation mode
         private void tabCtrlMode_SelectionChanged( object sender, SelectionChangedEventArgs e ){
             if( (TabControl)sender!=tabCtrlMode ) return;
+            CopiedHP.Visibility = Visibility.Hidden;
+            Clipboard.Clear();
+            HP_address.Text = "";
             TabItem tb=tabCtrlMode.SelectedItem as TabItem;
             if(tb==null)  return;
             if( tb.Name.Substring(0,4)!="tabA" )  return;
@@ -428,5 +452,8 @@ namespace GNPXcore{
             if( tabItm!=null ) SDK_Ctrl.MltAnsSearch = (tabItm.Name=="tabBMultiSolve");  
         }
         #endregion operation mode
+
+
+
     }
 }

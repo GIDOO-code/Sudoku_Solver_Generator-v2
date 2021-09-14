@@ -36,7 +36,7 @@ namespace GNPXcore{
                         string SolMsg="Coloring Trap #"+(no+1);
                         Result=SolMsg;
                         if(SolInfoB)  ResultLong=SolMsg;
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
                         if(!pAnMan.SnapSaveGP(true))  return true;
                         HitB=new Bit81();
                     }
@@ -71,7 +71,7 @@ namespace GNPXcore{
                             string SolMsg="Coloring Wrap #"+(no+1);
                             Result=SolMsg;
                             if(SolInfoB)  ResultLong=SolMsg;
-                            if(__SimpleAnalizerB__)  return true;
+                            if(__SimpleAnalyzerB__)  return true;
                             if(!pAnMan.SnapSaveGP(true))  return true;
                         }
                     }
@@ -156,7 +156,7 @@ namespace GNPXcore{
                                 string SolMsg="MultiColoring Type1 #"+(no+1);
                                 Result=SolMsg;
                                 if(SolInfoB)  ResultLong=SolMsg;
-                                if(__SimpleAnalizerB__)  return true;
+                                if(__SimpleAnalyzerB__)  return true;
                                 if(!pAnMan.SnapSaveGP(true))  return true;
                                 solF=false;
                             }
@@ -205,7 +205,7 @@ namespace GNPXcore{
                         string SolMsg="MultiColoring Type2 #"+(no+1);
                         Result=SolMsg;
                         if(SolInfoB)  ResultLong=SolMsg;
-                        if(__SimpleAnalizerB__)  return true;
+                        if(__SimpleAnalyzerB__)  return true;
                         if(!pAnMan.SnapSaveGP(true))  return true;
                     }
                 }

@@ -48,7 +48,7 @@ namespace GNPXcore{
 
         static SDK_Ctrl(){
             MltAnsOption=new Dictionary<string,object>();
-            MltAnsOption["MaxLevel"]     = 10;
+            MltAnsOption["MaxLevel"]     = 12;
             MltAnsOption["OneMethod"]    = 5;
             MltAnsOption["AllMethod"]    = 50;
             MltAnsOption["MaxTime"]      = 15;

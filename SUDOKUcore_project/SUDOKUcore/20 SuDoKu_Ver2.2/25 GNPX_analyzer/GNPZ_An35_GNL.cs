@@ -22,7 +22,7 @@ namespace GNPXcore{
         public GroupedLinkGen( GNPX_AnalyzerMan pAnMan ): base(pAnMan){ }
 
 		private void Prepare(){
-			if(pAnMan.GStage!=GStageMemo){
+			if( pAnMan.GStage!=GStageMemo ){
 				GStageMemo=pAnMan.GStage;
 				pSprLKsMan.Initialize();
 				pSprLKsMan.PrepareSuperLinkMan( AllF:true );
@@ -36,7 +36,7 @@ namespace GNPXcore{
                 Prepare();
                 
                 SolLimBrk=0; __SolGL=-1;
-                for(int szCtrl=3; szCtrl<=NiceLoopMax; szCtrl++ ){
+                for( int szCtrl=3; szCtrl<=NiceLoopMax; szCtrl++ ){
 
                     foreach( var P0a in pBDL.Where(p=>(p.No==0)) ){      //Origin Cell
                         var P0=pBDL[P0a.rc];
@@ -44,7 +44,7 @@ namespace GNPXcore{
                         foreach( var no in P0.FreeB.IEGet_BtoNo() ){    //Origin Number
 
                             foreach( var GLKH in pSprLKsMan.IEGet_SuperLinkFirst(P0,no) ){   //First Link
-                               if(pAnMan.CheckTimeOut()) return false;
+                               if( pAnMan.CheckTimeOut() ) return false;
 
                                 var SolStack=new Stack<GroupedLink>();
                                 SolStack.Push(GLKH);  //##Push
@@ -85,7 +85,7 @@ namespace GNPXcore{
                     ___Debug_Print_GNLChain(SolStack);
                 
                     //Loop was formed (the next cell matches the Origin Cell)
-                    if(_GroupedNL_LoopCheck(GLK0,GLKnxt)){
+                    if( _GroupedNL_LoopCheck(GLK0,GLKnxt) ){
                         if( szCtrl==0 && SolStack.Count>3 ){
                             int SolType=_GroupedNL_CheckSolution(GLK0,GLKnxt,SolStack,UsedCs);
                             if( SolType>0 ){ 
@@ -97,7 +97,7 @@ namespace GNPXcore{
 
                                 __SolGL=SolCode;
 
-                                if(__SimpleAnalizerB__)  return true;
+                                if(__SimpleAnalyzerB__)  return true;
                                 if(!pAnMan.SnapSaveGP(false))  return false;
                                 Thread.Sleep(10);
                                 if((++SolLimBrk)>(int)SDK_Ctrl.MltAnsOption["OneMethod"]){
@@ -107,7 +107,7 @@ namespace GNPXcore{
                             }
                         }
                     }
-                    else if(!CheckUsed( (UsedCs|GLK0.UsedCs), GLKnxt)){
+                    else if(!CheckUsed( (UsedCs|GLK0.UsedCs), GLKnxt) ){
                         Bit81 UsedCsNxt = new Bit81(UsedCs);   //Create a new bit expression of used cell
                         SetUsed( ref UsedCsNxt, GLKnxt);
 
@@ -138,8 +138,7 @@ namespace GNPXcore{
             return  (Qdst[0].rc==Qorg[0].rc);
         }
 
-        private int _GroupedNL_CheckSolution( GroupedLink GLK0, GroupedLink GLKnxt, 
-                                              Stack<GroupedLink> SolStack, Bit81 UsedCs ){ 
+        private int _GroupedNL_CheckSolution( GroupedLink GLK0, GroupedLink GLKnxt, Stack<GroupedLink> SolStack, Bit81 UsedCs ){ 
             bool SolFound=false;
             int SolType = pSprLKsMan.Check_SuperLinkSequence(GLKnxt,GLK0)? 1: 2; //1:Continuous 2:DisContinuous
 
@@ -151,14 +150,14 @@ namespace GNPXcore{
                 SolLst.Add(GLK0); 
 
                 Bit81 UsedCsTmp = new Bit81(UsedCs);
-                SetUsed( ref UsedCsTmp, GLKnxt);
+                SetUsed( ref UsedCsTmp, GLKnxt );
 
                 foreach( var LK in SolLst.Where(P=>(P.type==W))){
                     int   noB=1<<LK.no;        
                     Bit81 SolBP=new Bit81();      
                     
-                    LK.UGCellsA.ForEach(P=>{ if((P.FreeB&noB)>0) SolBP.BPSet(P.rc); });
-                    LK.UGCellsB.ForEach(P=>{ if((P.FreeB&noB)>0) SolBP.BPSet(P.rc); });
+                    LK.UGCellsA.ForEach( P=>{ if((P.FreeB&noB)>0) SolBP.BPSet(P.rc); });
+                    LK.UGCellsB.ForEach( P=>{ if((P.FreeB&noB)>0) SolBP.BPSet(P.rc); });
                     if( SolBP.BitCount()<=1 ) continue;
                     foreach( var P in pBDL.Where(p=>(p.FreeB&noB)>0) ){
                         if( UsedCsTmp.IsHit(P.rc) ) continue;
@@ -181,7 +180,7 @@ namespace GNPXcore{
                 if(SolFound) SolCode=1;
             }
             else{           　//<>discontinuous
-                int dcTyp= GLK0.type*10+GLKnxt.type;
+                int dcTyp= GLK0.type*10+GLKnxt.type; //11:SS 12:SW 21:WS 22:WW
                 UCell P=pBDL[GLK0.UGCellsA[0].rc];   //(for MultiAns code)
                 switch(dcTyp){
                     case 11: 
@@ -213,12 +212,12 @@ namespace GNPXcore{
                 int type = (LK is ALSLink)? S: LK.type;//ALSLink, in ALS, is S
                 foreach( var P1 in LK.UGCellsA.Select(p=>pBDL[p.rc])){
                     int noB=(1<<LK.no);
-                    if( !bALK )  P1.SetCellBgColor(SolBkCr);
+                    if( !bALK )    P1.SetCellBgColor(SolBkCr);
                     if( type==S ){ P1.SetNoBColor(noB,AttCr);  }
                     else{          P1.SetNoBColor(noB,AttCr3); }
                 }
 
-                if(type==W){
+                if( type==W ){
                     foreach( var P2 in LK.UGCellsB.Select(p=>pBDL[p.rc])){
                         int noB2=(1<<LK.no);
                         if( !bALK )  P2.SetCellBgColor(SolBkCr);
@@ -238,8 +237,8 @@ namespace GNPXcore{
             }
 
             string st3="";
-            if(SolType==1) st = "Nice Loop(Cont.)";  //<>continuous
-            else{                                              //<>discontinuous
+            if( SolType==1 ) st = "Nice Loop(Cont.)";  //<>continuous
+            else{                                    //<>discontinuous
                 int rc=LK0.UGCellsA[0].rc;
                 var P=pBDL[rc];
                 st = "Nice Loop(Discont.) r"+(rc/9+1)+"c"+(rc%9+1);
@@ -258,7 +257,7 @@ namespace GNPXcore{
             ResultLong = st+"\r"+st2;
         }
         private string _ToGroupedRCSequenceString( Stack<GroupedLink> SolStack, ref string st3 ){    
-            if(SolStack.Count==0) return ("[rc]:-");
+            if( SolStack.Count==0 ) return ("[rc]:-");
             List<GroupedLink> SolLst=SolStack.ToList();
             SolLst.Reverse();
 
@@ -266,7 +265,7 @@ namespace GNPXcore{
             foreach( var LK in SolLst ){
                 string ST_LinkNo="";
                 ALSLink ALK=LK as ALSLink;
-                if(ALK!=null){
+                if( ALK!=null ){
                     ST_LinkNo = $"-#{(ALK.no+1)}ALS<{ALK.ALSbase.ToStringRC()}>#{(ALK.no2+1)}-";
                 }
                 else{
@@ -276,13 +275,13 @@ namespace GNPXcore{
                 po += $"{ST_LinkNo}[{LK.UGCellsB}]";
             }
             
-            if(po.Contains("ALS") || po.Contains("[<")) st3="Grouped ";
+            if( po.Contains("ALS") || po.Contains("[<") ) st3="Grouped ";
             return po;
         }
 
         private int ___GNLCC=0;
         private void ___Debug_Print_GNLChain( Stack<GroupedLink> SolStack, string msg="" ){
-            if(msg!=""){ 
+            if( msg!="" ){ 
                 string st3="";
                 WriteLine( $"{msg}<{___GNLCC}> {_ToGroupedRCSequenceString(SolStack,ref st3)}" );
             }

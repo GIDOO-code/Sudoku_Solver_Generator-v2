@@ -80,7 +80,7 @@ namespace GNPXcore{
 					//	LSolFound:
 							if(SolCode>0){
 								if(SolInfoB) extRes = krfSolMsg;
-                                if(__SimpleAnalizerB__)  return true;
+                                if(__SimpleAnalyzerB__)  return true;
 								if(!pAnMan.SnapSaveGP(false)) return true; 
 							}
 						}
