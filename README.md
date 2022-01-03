@@ -1,4 +1,4 @@
-# Just a small fix. No need to re-download. 
+# Updated. See Sudoku_Solver_Generator_2022.
 
 # new!  brief Manual 
 
