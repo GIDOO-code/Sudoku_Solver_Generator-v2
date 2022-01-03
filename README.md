@@ -1,4 +1,4 @@
-# Updated. See Sudoku_Solver_Generator_2022.
+# Updated to ”Sudoku_Solver_Generator_2022”
 
 # new!  brief Manual 
 
